@@ -181,9 +181,8 @@ public class WhatsAppLikeVideoPicker extends AppCompatActivity {
                 // Debug: Log the number of videos found
                 android.util.Log.d("VideoPicker", "Found " + videoUris.size() + " videos");
                 
-                if (videoUris.isEmpty()) {
-                    Toast.makeText(this, "No videos found. Please check permissions.", Toast.LENGTH_LONG).show();
-                }
+                // Remove the permission error toast - handle empty results gracefully like image picker
+                // The permission check is already handled by GlobalPermissionPopup before opening this activity
                 
                 adapter = new VideoGridAdapter(this, videoUris, selectedVideos, maxSelection);
                 
