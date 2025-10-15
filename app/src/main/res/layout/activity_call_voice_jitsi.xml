@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/jitsi_container"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".activities.CallActivityVoiceJitsi">
+
+    <!-- Back arrow button -->
+    <LinearLayout
+        android:id="@+id/backarrow"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:visibility="visible"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/custome_ripple_circle"
+        android:gravity="center"
+        app:cardCornerRadius="20dp">
+
+        <LinearLayout
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:gravity="center"
+            app:cardCornerRadius="20dp">
+
+            <ImageView
+                style="@style/icontintGlobal"
+                android:layout_width="25dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center_vertical"
+                android:padding="2dp"
+                android:src="@drawable/leftvector"
+                app:tint="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="4dp"
+        android:indeterminateTint="@color/white"
+        android:layout_centerInParent="true"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminate="true"
+        android:visibility="visible" />
+
+
+
+</RelativeLayout>

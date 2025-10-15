@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_ripple"
+    android:gravity="center_vertical">
+
+    <RelativeLayout
+        android:id="@+id/relativelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/lyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/dxForward"
+                    android:elevation="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="22dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="22dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@android:color/transparent"
+                            app:cardCornerRadius="360dp"
+                            app:cardElevation="0dp">
+
+                            <!-- Add your content inside the CardView -->
+                            <ImageView
+                                android:id="@+id/img"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:scaleType="centerCrop"
+
+                                />
+
+
+                        </androidx.cardview.widget.CardView>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="24dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/name"
+                                    style="@style/TextColor"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/inter_bold"
+                                    android:lineHeight="18dp"
+                                    android:text="Joey Banks"
+                                    android:textSize="16sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginTop="4dp"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:id="@+id/calling_flag"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="15dp"
+                                        android:layout_weight="4" />
+
+
+                                    <TextView
+                                        android:id="@+id/endTime"
+                                        style="@style/TextColor"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/inter_medium"
+                                        android:lineHeight="18dp"
+                                        android:text="7:09"
+                                        android:textFontWeight="600"
+                                        android:textSize="13sp" />
+
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:id="@+id/call1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center|end"
+                                android:layout_weight="5"
+                                android:gravity="center|end"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:id="@+id/pollyy"
+                                    android:layout_width="26dp"
+                                    android:layout_height="16dp"
+                                    android:layout_gravity="end"
+                                    android:layout_marginStart="2dp"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:background="@drawable/videosvgnew2"
+                                    android:backgroundTint="@color/blue"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+
+                                    <LinearLayout
+
+                                        android:layout_width="5dp"
+                                        android:layout_height="5dp"
+                                        android:layout_gravity="center"
+                                        android:layout_marginStart="1.9dp"
+                                        android:background="@drawable/polysvg"
+                                        android:backgroundTint="@color/white"
+                                        android:gravity="center"
+                                        android:orientation="vertical" />
+
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/clickView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginVertical="11dp"
+                        android:layout_weight="4"
+                        android:background="@drawable/curve_left_bg"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/text"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_bold"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="Call"
+                            android:textColor="@color/white"
+                            android:textFontWeight="600"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lyt"
+                    android:layout_marginHorizontal="15dp"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/deletecardview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="25dp"
+                            android:elevation="10dp"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:padding="15dp"
+                            app:cardBackgroundColor="@color/dxForward"
+                            app:cardCornerRadius="20dp"
+                            app:cardElevation="10dp">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/custom_ripple"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:id="@+id/delete"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="48dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+
+                                    android:orientation="horizontal">
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1.33"
+                                        android:orientation="vertical">
+
+                                        <ImageView
+                                            android:layout_width="26.5dp"
+                                            android:layout_height="24dp"
+                                            android:layout_gravity="end"
+                                            android:layout_marginEnd="2dp"
+                                            android:src="@drawable/baseline_delete_forever_24"
+                                            app:tint="@color/gray3" />
+
+                                    </LinearLayout>
+
+                                    <TextView
+                                        style="@style/TextColor"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/san_pro"
+                                        android:gravity="start"
+                                        android:text="Delete"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:background="@color/gray2"
+
+                                    android:visibility="gone" />
+
+                                <LinearLayout
+                                    android:id="@+id/cancel"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="48dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"
+
+                                    android:visibility="gone">
+
+
+                                    <TextView
+                                        style="@style/TextColor"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/inter_bold"
+                                        android:gravity="center"
+                                        android:text="Cancel"
+                                        android:textSize="16sp" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+
+                        </androidx.cardview.widget.CardView>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+</RelativeLayout>

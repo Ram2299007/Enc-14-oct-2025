@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/callnewmodernbg"
+    tools:context=".Screens.voiceCallingThree">
+
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="22dp"
+        android:src="@drawable/adduser" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="23dp"
+            android:background="@drawable/elipse_outer"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="88.23dp"
+                android:layout_height="88.23dp"
+                android:layout_gravity="center"
+                android:background="@drawable/elipse_outer_two"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="70.26dp"
+                    android:layout_height="70.26dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/elipse_outer_three"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="52.83dp"
+                        android:layout_height="52.83dp"
+                        android:src="@drawable/user" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="63.58dp"
+            android:gravity="end"
+            android:orientation="vertical">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="52.83dp"
+                android:layout_height="52.83dp"
+
+                android:src="@drawable/conferenceimagetwo" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="160dp"
+        android:layout_marginStart="64dp"
+        android:gravity="center"
+
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="52.83dp"
+            android:layout_height="52.83dp"
+            android:src="@drawable/conferenceimg4" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+
+            android:gravity="end"
+            android:layout_marginEnd="23dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="112dp"
+
+                android:layout_height="112dp"
+
+                android:background="@drawable/elipse_outer"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="88.23dp"
+                    android:layout_height="88.23dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/elipse_outer_two"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="70.26dp"
+                        android:layout_height="70.26dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/elipse_outer_three"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="52.83dp"
+                            android:layout_height="52.83dp"
+                            android:src="@drawable/conferenceimg5" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="80dp"
+        android:background="#015986" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="#015986" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <View
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="65dp"
+            android:background="@drawable/speaker" />
+
+        <View
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="65dp"
+            android:background="@drawable/cancel" />
+
+        <View
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/mute" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

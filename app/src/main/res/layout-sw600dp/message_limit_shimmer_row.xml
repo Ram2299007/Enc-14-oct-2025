@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/hori1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+
+            android:orientation="horizontal">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="360dp"
+                app:cardElevation="0dp">
+
+                <!-- Add your content inside the CardView -->
+                <ImageView
+                    android:id="@+id/imageview"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:src="@drawable/inviteimg"
+                    android:scaleType="centerCrop"
+
+                    />
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/inter_bold"
+                    android:inputType="textMultiLine"
+                    android:lineHeight="24dp"
+                    android:layout_weight="1"
+
+                    android:maxWidth="200dp"
+                    android:text="Joey Banks"
+                    android:background="@color/shimmer_coloe"
+                    android:textColor="@color/shimmer_coloe"
+                    android:textSize="14.5sp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="3"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/l1"
+                        android:layout_width="51dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="end"
+
+                        android:background="@drawable/infiback"
+                        android:backgroundTint="@color/shimmer_coloe"
+
+
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/txt1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_medium"
+                            android:gravity="center"
+                            android:lineHeight="14dp"
+
+                            android:text="&#x221E;"
+                            android:textColor="@color/white"
+                            android:textFontWeight="500"
+                            android:textSize="12sp"
+
+                            />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_marginStart="210dp"
+
+            android:layout_marginTop="45dp"
+            android:layout_marginBottom="5dp"
+
+            android:elevation="10dp"
+            android:visibility="gone"
+            app:cardCornerRadius="4dp">
+
+            <LinearLayout
+                android:layout_width="141dp"
+
+                android:layout_height="54dp"
+                android:gravity="center"
+
+                android:orientation="vertical">
+
+                <EditText android:textCursorDrawable="@drawable/cursor_draw"
+               android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+                    android:id="@+id/et1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:hint="Enter number here to set\n message limit"
+                    android:inputType="number"
+                    android:lineHeight="15dp"
+                    android:maxLength="3"
+                    android:textFontWeight="500"
+                    android:textSize="10sp" />
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
+</RelativeLayout>

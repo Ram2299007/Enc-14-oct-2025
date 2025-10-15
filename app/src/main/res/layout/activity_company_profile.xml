@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Screens.companyProfile">
+
+
+    <LinearLayout
+        android:id="@+id/blueline"
+        android:layout_width="match_parent"
+        android:layout_height="217dp"
+        android:background="@drawable/bluetop"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+
+            android:layout_marginTop="61dp"
+
+            android:layout_marginEnd="18.5dp"
+            android:gravity="end|center_vertical"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/pluswhite" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/inter_medium"
+                android:lineHeight="24dp"
+                android:text="Edit profile"
+                android:textColor="@color/white"
+                android:textFontWeight="500"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/whiteeclipse"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="105dp"
+                android:layout_height="105dp"
+                android:layout_gravity="center"
+                android:src="@drawable/componydp" />
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/blueline">
+
+
+        <LinearLayout
+            android:id="@+id/mainLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginHorizontal="24dp"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_bold"
+                android:lineHeight="14.52dp"
+                android:text="Appzia Technologies"
+                style="@style/TextColor"
+                android:textFontWeight="700"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="25dp"
+
+                android:fontFamily="@font/poppins_medium"
+                android:lineHeight="18dp"
+                android:text="About Us"
+
+                android:textColor="#011224"
+                android:textFontWeight="500"
+                android:textSize="12sp" />
+
+
+            <EditText android:textCursorDrawable="@drawable/cursor_draw"
+  android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edittext_new_bg"
+                android:fontFamily="@font/poppins_medium"
+                android:lineHeight="18dp"
+                android:paddingStart="8dp"
+                android:text="Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Nunc vulputate libero et velit\ninterdum, ac aliquet odio mattis. Class aptent\ntaciti."
+
+                android:textColor="#171717"
+                android:textFontWeight="400"
+                android:textSize="12sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="25dp"
+
+                android:fontFamily="@font/poppins_medium"
+                android:lineHeight="18dp"
+                android:text="Email"
+
+                android:textColor="#011224"
+                android:textFontWeight="500"
+                android:textSize="12sp" />
+
+
+            <EditText android:textCursorDrawable="@drawable/cursor_draw"
+  android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edittext_new_bg"
+                android:fontFamily="@font/poppins_medium"
+                android:inputType="textVisiblePassword|textNoSuggestions"
+                android:lineHeight="18dp"
+                android:paddingStart="19dp"
+                android:text="info@appziatech.com"
+
+                android:textColor="#171717"
+                android:textFontWeight="400"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="25dp"
+
+                android:fontFamily="@font/poppins_medium"
+                android:lineHeight="18dp"
+                android:text="Mobile No."
+
+                android:textColor="#011224"
+                android:textFontWeight="500"
+                android:textSize="12sp" />
+
+
+            <EditText android:textCursorDrawable="@drawable/cursor_draw"
+  android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/edittext_new_bg"
+                android:drawableEnd="@drawable/flagnewtwo"
+                android:fontFamily="@font/inter_medium"
+                android:hint="+ 91 7979797979"
+                android:inputType="textVisiblePassword|textNoSuggestions"
+                android:lineHeight="18dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="20dp"
+
+                android:textColor="#9EA6B9"
+                android:textFontWeight="400"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="25dp"
+
+                android:fontFamily="@font/poppins_medium"
+                android:lineHeight="18dp"
+                android:text="Website"
+
+                android:textColor="#011224"
+                android:textFontWeight="500"
+                android:textSize="12sp" />
+
+
+            <EditText android:textCursorDrawable="@drawable/cursor_draw"
+  android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edittext_new_bg"
+                android:fontFamily="@font/poppins_medium"
+                android:inputType="textVisiblePassword|textNoSuggestions"
+                android:lineHeight="18dp"
+                android:paddingStart="19dp"
+                android:text="appziatech.com"
+
+                android:textColor="#171717"
+                android:textFontWeight="400"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="25dp"
+
+                android:fontFamily="@font/poppins_medium"
+                android:lineHeight="18dp"
+                android:text="Location"
+                android:textColor="#011224"
+                android:textFontWeight="500"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

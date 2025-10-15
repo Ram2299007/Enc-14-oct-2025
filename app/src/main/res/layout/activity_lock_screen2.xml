@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    style="@style/BackgroundColor"
+    android:layout_height="match_parent"
+    tools:context=".Screens.lockScreen2">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/circle"
+                    android:layout_width="190dp"
+                    android:layout_height="190dp"
+                    android:layout_marginStart="0.5dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="37.5dp"
+                    android:background="@drawable/elipse"
+                    android:gravity="center">
+
+
+                    <TextView
+                        android:id="@+id/bigDegree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/inter_bold"
+                        android:gravity="center"
+                        android:lineHeight="67.5dp"
+                        android:text="0&#xb0;"
+                        android:textColor="@color/bluetohovertext2"
+                        android:textSize="45sp" />
+
+                </LinearLayout>
+
+
+
+                <TextView
+                    android:id="@+id/turn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="67dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="center"
+                    android:lineHeight="31dp"
+                    android:text="Turn into Enclosure"
+                    android:textColor="#00A3E9"
+                    android:textFontWeight="500"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <me.tankery.lib.circularseekbar.CircularSeekBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="233dp"
+                    android:layout_height="233dp"
+                    android:layout_marginTop="12.5dp"
+                    app:cs_circle_color="@color/cs_circle_color"
+                    app:cs_circle_stroke_width="18dp"
+                    app:cs_disable_progress_glow="true"
+                    app:cs_pointer_alpha_ontouch="5"
+
+                    app:cs_pointer_color="@color/white"
+                    app:cs_pointer_halo_color_ontouch="@color/white"
+                    app:cs_pointer_stroke_width="24dp"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="90dp"
+
+        android:orientation="vertical">
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/buttonhoverfordone"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Unlock"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/forgetPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:lineHeight="24dp"
+            android:text="@string/forget_lock_key"
+            android:textColor="@color/bluetohovertext"
+            android:textFontWeight="600"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <include
+        layout="@layout/view_custom_toast"
+        />
+
+</RelativeLayout>

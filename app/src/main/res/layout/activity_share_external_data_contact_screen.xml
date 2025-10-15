@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    style="@style/BackgroundColor"
+    tools:context=".Screens.shareExternalDataCONTACTScreen">
+
+
+    <LinearLayout
+        android:id="@+id/searchlyt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+
+
+            android:gravity="end|center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/searchLytNew"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/viewnewnn"
+                            android:layout_width="1dp"
+                            android:layout_height="19.24dp"
+                            android:layout_marginStart="23dp"
+                            android:background="@color/blue" />
+
+                        <AutoCompleteTextView android:textCursorDrawable="@drawable/cursor_draw"
+               android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+                            android:id="@+id/searchview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="13dp"
+                            android:background="#00000000"
+                            android:fontFamily="@font/inter"
+                            android:hint="Search Name"
+                            android:inputType="text"
+                            android:lineHeight="22.5dp"
+                            style="@style/TextColor"
+                            android:textColorHint="@color/gray3"
+                            android:textFontWeight="500"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+
+                android:layout_weight="3.9"
+
+                android:gravity="end|center_vertical"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/searchIcon"
+
+                    android:layout_width="20dp"
+                    android:layout_gravity="center"
+                    android:layout_height="20dp"
+                    android:src="@drawable/search" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/networkLoader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:indeterminate="true"
+            android:layout_marginTop="5dp"
+            android:visibility="gone" />
+
+
+
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/dx"
+        android:layout_below="@+id/searchlyt"
+        android:visibility="visible"
+
+        android:layout_marginTop="15dp" />
+
+
+    <LinearLayout
+        android:id="@+id/dx"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rect"
+        android:gravity="center_vertical"
+        android:backgroundTint="@color/dxForward"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/namerecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+
+            android:layout_marginStart="5dp"
+            android:layout_gravity="center_vertical"
+
+            android:layout_weight="1" />
+
+
+        <LinearLayout
+            android:id="@+id/forward"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="11dp"
+            android:layout_weight="2.5"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/forbg"
+            >
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Share"
+                android:gravity="center"
+                android:layout_marginStart="15dp"
+                android:textStyle="bold"
+                android:textColor="@color/whitetogray"
+                android:fontFamily="@font/calibri"
+                android:textSize="16sp"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

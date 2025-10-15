@@ -1,0 +1,5 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/cancel_new" android:state_pressed="false"/>
+    <item android:drawable="@drawable/cancel_hover_new" android:state_pressed="true"/>
+</selector>

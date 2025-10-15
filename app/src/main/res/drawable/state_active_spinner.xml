@@ -1,0 +1,10 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <!--    <item android:drawable="@drawable/radius_btn_hover_blue" android:state_pressed="true" />-->
+
+    <!--    <item android:drawable="@drawable/radius_btn_hover_blue" android:state_focused="true" />-->
+
+    <item android:drawable="@drawable/spinner_edittext_2" android:state_active="true" />
+    <item android:drawable="@drawable/spinner_edittext_2" />
+</selector>

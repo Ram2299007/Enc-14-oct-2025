@@ -1,0 +1,35 @@
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="90"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:toDegrees="90">
+    <vector
+        android:width="68dp"
+        android:height="68dp"
+        android:viewportWidth="68"
+        android:viewportHeight="68">
+        <path
+            android:pathData="M34,30m-25,0a25,25 0,1 1,50 0a25,25 0,1 1,-50 0"
+            android:fillColor="#8ED587"/>
+        <path
+            android:pathData="M34,30m-25,0a25,25 0,1 1,50 0a25,25 0,1 1,-50 0"
+            android:strokeWidth="2"
+            android:fillColor="#00000000"
+            android:strokeColor="#8ED587"/>
+        <group>
+            <clip-path
+                android:pathData="M22,18h24v24h-24z"/>
+            <path
+                android:pathData="M36.418,23.49C35.942,23.402 35.505,23.706 35.414,24.17C35.324,24.635 35.629,25.089 36.092,25.18C37.486,25.451 38.562,26.531 38.835,27.93C38.913,28.333 39.268,28.626 39.676,28.626C39.731,28.626 39.785,28.621 39.841,28.611C40.304,28.518 40.609,28.066 40.518,27.6C40.111,25.51 38.503,23.897 36.418,23.49Z"
+                android:fillColor="@color/white"/>
+            <path
+                android:pathData="M36.356,20.008C36.133,19.976 35.909,20.042 35.731,20.184C35.547,20.328 35.433,20.536 35.408,20.768C35.355,21.239 35.695,21.665 36.165,21.718C39.407,22.08 41.926,24.605 42.291,27.857C42.34,28.292 42.705,28.621 43.141,28.621C43.174,28.621 43.206,28.619 43.239,28.615C43.467,28.59 43.67,28.477 43.813,28.297C43.956,28.117 44.021,27.893 43.995,27.665C43.541,23.608 40.401,20.459 36.356,20.008Z"
+                android:fillColor="@color/white"/>
+            <path
+                android:pathData="M33.032,30.972C37.021,34.96 37.926,30.347 40.466,32.885C42.914,35.333 44.322,35.823 41.219,38.925C40.831,39.237 38.362,42.994 29.685,34.32C21.007,25.644 24.762,23.172 25.074,22.784C28.184,19.674 28.666,21.089 31.115,23.537C33.654,26.076 29.043,26.984 33.032,30.972Z"
+                android:fillColor="@color/white"
+                android:fillType="evenOdd"/>
+        </group>
+    </vector>
+
+</rotate>

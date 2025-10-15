@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.msgLimitFragment">
+    <RelativeLayout
+        android:id="@+id/localBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/msgLimitRecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/label" />
+
+    <LinearLayout
+
+        android:id="@+id/backlyt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:visibility="gone"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/backarrow"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/custome_ripple_circle"
+            android:gravity="center"
+            app:cardCornerRadius="20dp">
+
+            <LinearLayout
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:gravity="center"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    style="@style/icontintGlobal"
+                    android:layout_width="25dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="2dp"
+                    android:src="@drawable/leftvector" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/seeprofile"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/TextColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="21dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_medium"
+
+                android:textFontWeight="500"
+                android:textSize="16sp"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/searchlyt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/searchEt"
+                    style="@style/TextColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/inter_medium"
+                    android:hint="Search..."
+                    android:lineHeight="24dp"
+                    android:paddingStart="5dp"
+                    android:singleLine="true"
+                    android:textColorHint="#9EA6B9"
+                    android:textCursorDrawable="@drawable/cursor_draw"
+
+                    android:textFontWeight="500"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:layout_marginTop="-2dp"
+                    android:background="@color/gray3"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_weight="2.5"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <ImageView
+
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:visibility="gone"
+                    android:layout_gravity="end|center"
+
+                    android:layout_marginEnd="15dp"
+
+                    android:src="@drawable/ec_modern" />
+
+                <LinearLayout
+                    android:id="@+id/menunew"
+                    android:layout_width="40dp"
+                    android:visibility="gone"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/custome_ripple_circle"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    app:cardCornerRadius="20dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center"
+                        android:src="@color/menuPointColor" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="3dp"
+                        android:src="#00A3E9" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="3dp"
+                        android:scaleType="centerCrop"
+                        android:src="#9EA6B9" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/backlyt"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/extratext"
+            style="@style/TextColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:lineHeight="18dp"
+            android:text="Set message limit per day \nUser can send message upto limit you set."
+            android:textFontWeight="500"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/searchData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/create"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical|end"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/searchLytNew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+
+            android:visibility="gone">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="1dp"
+                    android:layout_height="19.24dp"
+                    android:layout_marginStart="23dp"
+                    android:background="@color/blue" />
+
+
+                <AutoCompleteTextView
+                    android:id="@+id/search"
+                    style="@style/TextColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:background="#00000000"
+                    android:fontFamily="@font/inter"
+                    android:hint="Search Name or Number"
+                    android:inputType="text"
+                    android:lineHeight="22.5dp"
+                    android:textColorHint="@color/gray3"
+                    android:textCursorDrawable="@drawable/cursor_draw"
+                    android:textFontWeight="500"
+
+                      android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="16dp"
+                android:background="#e4e4ec"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/searchIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/custome_ripple_circle"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/search" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchData"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/contact"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/radius_black_6dp"
+                android:fontFamily="@font/inter_medium"
+                android:gravity="center"
+                android:lineHeight="18dp"
+                android:padding="5dp"
+                android:text="A - Z"
+                android:textColor="@color/white"
+                android:textFontWeight="700"
+                android:textSize="12sp" />
+
+
+            <ImageView
+                android:id="@+id/down1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/black_vector"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/allmsglmt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custome_ripple_circle"
+                android:layout_gravity="end"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="51dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+
+                    android:background="@drawable/radius_black_6dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/txt1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/inter_medium"
+                        android:gravity="center"
+                        android:lineHeight="14dp"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textFontWeight="500"
+                        android:textSize="12sp"
+
+                        />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="9dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/arrow_svg"
+                    android:visibility="gone"
+                    app:tint="@color/black" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label"
+
+
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                android:padding="10dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="4dp">
+
+                <LinearLayout
+                    android:layout_width="141dp"
+                    android:layout_height="54dp"
+
+                    android:gravity="center"
+
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/et1"
+                        style="@style/TextColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:hint="Set limit"
+                        android:inputType="number"
+                        android:lineHeight="15dp"
+                        android:maxLength="3"
+                        android:textColorHint="@color/black"
+                        android:textCursorDrawable="@drawable/cursor_draw"
+                        android:textFontWeight="500"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
+                android:id="@+id/contactLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="4dp"
+        android:indeterminateTint="@color/TextColor"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminate="true"
+        android:layout_centerInParent="true"
+         />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/noData"
+        style="@style/cardBackgroundColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/microsoft_phagspa"
+                android:gravity="center"
+                android:text="Call On Enclosure"
+                android:textColor="#646464"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/microsoft_phagspa"
+                    android:gravity="center"
+                    android:text="No contacts available"
+                    android:textColor="@color/black_white_cross"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <include
+        layout="@layout/view_custom_toast"
+        />
+
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

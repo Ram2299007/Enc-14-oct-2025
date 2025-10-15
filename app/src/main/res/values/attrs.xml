@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Theme">
+        <attr name="themeColorBackground" format="color" />
+        <attr name="appBgColor" format="color" />
+        <attr name="expanderBg" format="color" />
+        <attr name="buttonFill" format="color" />
+        <attr name="buttonInner" format="color" />
+        <attr name="sendGrpLyt" format="color" />
+        <attr name="senderLyt" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="WaveformView">
+        <attr name="playedWaveColor" format="color" />
+        <attr name="unplayedWaveColor" format="color" />
+        <attr name="barCornerRadius" format="dimension" />
+        <attr name="barWidth" format="dimension" />
+        <attr name="barSpacing" format="dimension" />
+    </declare-styleable>
+</resources>
+

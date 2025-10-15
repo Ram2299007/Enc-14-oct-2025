@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.SplashFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="167dp"
+                android:layout_height="41dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="61dp"
+
+                android:fontFamily="@font/inter_bold"
+                android:lineHeight="41.5dp"
+                android:text="Enclosure"
+                style="@style/TextColor"
+                android:textFontWeight="700"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="40dp"
+                android:src="@drawable/ec_modern"
+                android:visibility="invisible" />
+
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="95dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
+                    android:layout_marginEnd="40dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/personal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/inter_medium"
+                        android:lineHeight="19.36dp"
+                        android:text="Personal"
+                        style="@style/TextColor"
+                        android:textFontWeight="600"
+                        android:textSize="16sp"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/professional"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:lineHeight="21.78dp"
+
+                        android:text="Professional"
+                        style="@style/TextColor"
+                        android:textFontWeight="600"
+                        android:textSize="18sp"
+                        android:visibility="invisible" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/dot3"
+                        android:layout_width="9dp"
+                        android:layout_height="9dp"
+                        android:layout_marginTop="26dp"
+                        android:src="#2FB4ED"
+                        android:visibility="invisible" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/dot2"
+                        android:layout_width="9dp"
+                        android:layout_height="9dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:src="#146D94"
+                        android:visibility="invisible" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/dot1"
+                        android:layout_width="9dp"
+                        android:layout_height="9dp"
+                        android:layout_marginTop="12dp"
+                        android:src="#07386B"
+                        android:visibility="invisible" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/mail"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="26dp"
+                        android:src="@drawable/mail"
+                        android:visibility="invisible" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/sofar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+
+                        android:fontFamily="@font/inter_medium"
+                        android:gravity="start"
+                        android:lineHeight="19.36dp"
+                        android:text="Valuable for"
+                        style="@style/TextColor"
+                        android:textFontWeight="600"
+                        android:textSize="16sp"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/billionPeople"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/inter_bold"
+                        android:lineHeight="21.78dp"
+                        android:text="Billion People"
+                        style="@style/TextColor"
+                        android:textFontWeight="600"
+                        android:textSize="18sp"
+                        android:visibility="invisible" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/dot4"
+                        android:layout_width="9dp"
+                        android:layout_height="9dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="26dp"
+                        android:src="#2FB4ED"
+
+                        android:visibility="invisible" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/dot5"
+                        android:layout_width="9dp"
+                        android:layout_height="9dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="12dp"
+                        android:src="#146D94"
+                        android:visibility="invisible" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/dot6"
+                        android:layout_width="9dp"
+                        android:layout_height="9dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="12dp"
+                        android:src="#07386B"
+
+                        android:visibility="invisible" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/q"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+
+                        android:layout_gravity="center"
+                        android:layout_marginTop="26dp"
+
+                        android:src="@drawable/q"
+
+
+                        android:visibility="invisible" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/blueTemplate"
+            android:layout_width="match_parent"
+            android:layout_height="143dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="42dp"
+
+            android:layout_marginRight="30dp"
+            android:background="@drawable/blue_banner"
+
+
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+
+            <ViewFlipper
+                android:id="@+id/viewpager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:flipInterval="3000"
+                android:inAnimation="@android:anim/slide_in_left"
+                android:outAnimation="@android:anim/slide_out_right"
+                android:visibility="invisible">
+
+                <TextView
+                    android:id="@+id/tempTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/inter_bold"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:lineHeight="21.78dp"
+                    android:text="Your message will become\n more valuable here."
+                    android:textColor="@color/white"
+                    android:textFontWeight="600"
+                    android:textSize="19sp"
+                    android:visibility="invisible" />
+
+
+
+
+            </ViewFlipper>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/main_logo"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="9.5dp"
+            android:src="@drawable/ec_modern"
+            android:visibility="invisible" />
+
+
+        <LinearLayout
+            android:id="@+id/main_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@id/main_logo"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/inter_bold"
+                android:lineHeight="29.05dp"
+                android:text="Enclosure"
+                style="@style/TextColor"
+                android:textFontWeight="700"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:fontFamily="@font/inter_bold"
+
+                android:gravity="end"
+                android:lineHeight="21.78dp"
+                android:text="Messaging App"
+                style="@style/TextColor"
+                android:textFontWeight="700"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="28.07dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/nextTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_bold"
+            android:lineHeight="24dp"
+            android:text="Next"
+            style="@style/TextColor"
+            android:textSize="18sp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/nextImg"
+            android:layout_width="21.62dp"
+            android:layout_height="21.62dp"
+            android:layout_marginStart="8.31dp"
+            android:src="@drawable/next"
+            android:visibility="invisible"
+            app:tint="@color/icon_tints" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

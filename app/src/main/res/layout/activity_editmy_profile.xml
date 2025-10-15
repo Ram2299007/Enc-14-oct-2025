@@ -1,0 +1,1009 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BackgroundColor"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    tools:context=".Screens.editmyProfile">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+
+            android:background="@drawable/rectelelavation"
+            android:backgroundTint="@color/edittextBg"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:id="@+id/backarrow"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/custome_ripple_circle"
+                    android:gravity="center"
+                    app:cardCornerRadius="20dp">
+
+                    <LinearLayout
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:gravity="center"
+                        app:cardCornerRadius="20dp">
+
+                        <ImageView
+                            style="@style/icontintGlobal"
+                            android:layout_width="25dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center_vertical"
+                            android:padding="2dp"
+                            android:src="@drawable/leftvector" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/seeprofile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+
+                        style="@style/TextColor"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="15dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:gravity="top"
+                        android:text="for visible"
+                        android:textFontWeight="500"
+                        android:textSize="16sp"
+                        android:visibility="visible" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:gravity="end"
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:id="@+id/menu"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="end"
+                            android:gravity="end"
+                            android:orientation="vertical"
+                            android:visibility="gone"
+                            app:cardCornerRadius="20dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="4dp"
+                                android:layout_height="4dp"
+                                android:layout_gravity="center"
+                                android:src="#011224" />
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/menuPoint"
+                                android:layout_width="4dp"
+                                android:layout_height="4dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="3dp"
+                                android:src="#00A3E9" />
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="4dp"
+                                android:layout_height="4dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="3dp"
+                                android:scaleType="centerCrop"
+                                android:src="#9EA6B9" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/networkLoader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:trackThickness="2dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="23dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/card_border">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="360dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@android:color/transparent">
+
+                        <ImageView
+                            android:id="@+id/profile"
+                            android:layout_width="107dp"
+                            android:layout_height="107dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/inviteimg" />
+                    </androidx.cardview.widget.CardView>
+                </FrameLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="end|center_vertical"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:id="@+id/delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/custome_ripple_circle"
+                        android:orientation="horizontal"
+                        android:padding="3dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginEnd="2dp"
+                            android:fontFamily="@font/inter_medium"
+                            android:lineHeight="24dp"
+                            android:text="Delete"
+                            android:textColor="@color/red"
+
+                            android:textFontWeight="500"
+                            android:textSize="16sp" />
+
+
+                        <LinearLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+
+                            android:background="@drawable/custome_ripple_circle"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/minus" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/setProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="30dp"
+                        android:gravity="center"
+                        android:background="@drawable/custome_ripple_circle"
+                        android:orientation="horizontal"
+                        android:padding="3dp">
+
+                        <TextView
+                            style="@style/TextColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginEnd="2dp"
+                            android:fontFamily="@font/inter_medium"
+                            android:lineHeight="24dp"
+                            android:text="Add"
+                            android:textFontWeight="500"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+
+                            android:background="@drawable/custome_ripple_circle"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/plus" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/topper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="34dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="end|center_vertical"
+                    android:minHeight="65dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:id="@+id/mulitidemo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center"
+                        android:gravity="end"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/one"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/card_border">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:cardBackgroundColor="@android:color/transparent"
+                                    app:cardCornerRadius="360dp"
+                                    app:cardElevation="0dp">
+
+                                    <ImageView
+                                        android:id="@+id/photo"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/inviteimg" />
+
+                                    <TextView
+                                        android:id="@+id/id"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:visibility="gone" />
+                                </androidx.cardview.widget.CardView>
+
+                            </FrameLayout>
+
+
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardview"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                app:cardCornerRadius="20dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+
+                                    android:orientation="vertical"
+                                    android:padding="10dp">
+
+
+                                    <TextView
+                                        style="@style/TextColor"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:layout_gravity="center"
+                                        android:fontFamily="@font/inter_medium"
+                                        android:lineHeight="24dp"
+                                        android:text="Delete Status"
+                                        android:textFontWeight="700"
+                                        android:textSize="12sp" />
+
+
+                                    <TextView
+                                        style="@style/TextColor"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="18dp"
+                                        android:fontFamily="@font/inter"
+                                        android:lineHeight="18dp"
+                                        android:text="Are you want to delete status ?"
+                                        android:textFontWeight="500"
+                                        android:textSize="9sp" />
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="18dp"
+
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+
+                                        <androidx.appcompat.widget.AppCompatButton
+                                            android:id="@+id/cancel"
+                                            android:layout_width="45dp"
+                                            android:layout_height="33dp"
+                                            android:layout_gravity="center"
+                                            android:layout_marginEnd="10dp"
+                                            android:background="@drawable/button_hover4"
+                                            android:gravity="center"
+                                            android:text="Cancel"
+                                            android:textAllCaps="false"
+                                            android:textColor="@color/white"
+                                            android:textSize="9sp" />
+
+                                        <androidx.appcompat.widget.AppCompatButton
+                                            android:id="@+id/ok"
+                                            android:layout_width="45dp"
+                                            android:layout_height="33dp"
+                                            android:layout_gravity="center"
+                                            android:background="@drawable/button_hover4"
+                                            android:gravity="center"
+                                            android:text="Ok"
+                                            android:textAllCaps="false"
+                                            android:textColor="@color/white"
+                                            android:textSize="9sp" />
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+
+                            </androidx.cardview.widget.CardView>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/two"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/card_border">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:cardBackgroundColor="@android:color/transparent"
+                                    app:cardCornerRadius="360dp"
+                                    app:cardElevation="0dp">
+
+                                    <ImageView
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/inviteimg" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:visibility="gone" />
+                                </androidx.cardview.widget.CardView>
+
+                            </FrameLayout>
+
+
+
+                            <androidx.cardview.widget.CardView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                app:cardCornerRadius="20dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+
+                                    android:orientation="vertical"
+                                    android:padding="10dp">
+
+
+                                    <TextView
+                                        style="@style/TextColor"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:layout_gravity="center"
+                                        android:fontFamily="@font/inter_medium"
+                                        android:lineHeight="24dp"
+                                        android:text="Delete Status"
+                                        android:textFontWeight="700"
+                                        android:textSize="12sp" />
+
+
+                                    <TextView
+                                        style="@style/TextColor"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="18dp"
+                                        android:fontFamily="@font/inter"
+                                        android:lineHeight="18dp"
+                                        android:text="Are you want to delete status ?"
+                                        android:textFontWeight="500"
+                                        android:textSize="9sp" />
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="18dp"
+
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+
+                                        <androidx.appcompat.widget.AppCompatButton
+
+                                            android:layout_width="45dp"
+                                            android:layout_height="33dp"
+                                            android:layout_gravity="center"
+                                            android:layout_marginEnd="10dp"
+                                            android:background="@drawable/button_hover4"
+                                            android:gravity="center"
+                                            android:text="Cancel"
+                                            android:textAllCaps="false"
+                                            android:textColor="@color/white"
+                                            android:textSize="9sp" />
+
+                                        <androidx.appcompat.widget.AppCompatButton
+
+                                            android:layout_width="45dp"
+                                            android:layout_height="33dp"
+                                            android:layout_gravity="center"
+                                            android:background="@drawable/button_hover4"
+                                            android:gravity="center"
+                                            android:text="Ok"
+                                            android:textAllCaps="false"
+                                            android:textColor="@color/white"
+                                            android:textSize="9sp" />
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+
+                            </androidx.cardview.widget.CardView>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/three"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/card_border">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:cardBackgroundColor="@android:color/transparent"
+                                    app:cardCornerRadius="360dp"
+                                    app:cardElevation="0dp">
+
+                                    <ImageView
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/inviteimg" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:visibility="gone" />
+                                </androidx.cardview.widget.CardView>
+
+                            </FrameLayout>
+
+
+
+                            <androidx.cardview.widget.CardView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                app:cardCornerRadius="20dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+
+                                    android:orientation="vertical"
+                                    android:padding="10dp">
+
+
+                                    <TextView
+                                        style="@style/TextColor"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:layout_gravity="center"
+                                        android:fontFamily="@font/inter_medium"
+                                        android:lineHeight="24dp"
+                                        android:text="Delete Status"
+                                        android:textFontWeight="700"
+                                        android:textSize="12sp" />
+
+
+                                    <TextView
+                                        style="@style/TextColor"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="18dp"
+                                        android:fontFamily="@font/inter"
+                                        android:lineHeight="18dp"
+                                        android:text="Are you want to delete status ?"
+                                        android:textFontWeight="500"
+                                        android:textSize="9sp" />
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="18dp"
+
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+
+                                        <androidx.appcompat.widget.AppCompatButton
+
+                                            android:layout_width="45dp"
+                                            android:layout_height="33dp"
+                                            android:layout_gravity="center"
+                                            android:layout_marginEnd="10dp"
+                                            android:background="@drawable/button_hover4"
+                                            android:gravity="center"
+                                            android:text="Cancel"
+                                            android:textAllCaps="false"
+                                            android:textColor="@color/white"
+                                            android:textSize="9sp" />
+
+                                        <androidx.appcompat.widget.AppCompatButton
+
+                                            android:layout_width="45dp"
+                                            android:layout_height="33dp"
+                                            android:layout_gravity="center"
+                                            android:background="@drawable/button_hover4"
+                                            android:gravity="center"
+                                            android:text="Ok"
+                                            android:textAllCaps="false"
+                                            android:textColor="@color/white"
+                                            android:textSize="9sp" />
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+
+                            </androidx.cardview.widget.CardView>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/four"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/card_border">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:cardBackgroundColor="@android:color/transparent"
+                                    app:cardCornerRadius="360dp"
+                                    app:cardElevation="0dp">
+
+                                    <ImageView
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/inviteimg" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:visibility="gone" />
+                                </androidx.cardview.widget.CardView>
+
+                            </FrameLayout>
+
+
+
+                            <androidx.cardview.widget.CardView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                app:cardCornerRadius="20dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+
+                                    android:orientation="vertical"
+                                    android:padding="10dp">
+
+
+                                    <TextView
+                                        style="@style/TextColor"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+
+                                        android:layout_gravity="center"
+                                        android:fontFamily="@font/inter_medium"
+                                        android:lineHeight="24dp"
+                                        android:text="Delete Status"
+                                        android:textFontWeight="700"
+                                        android:textSize="12sp" />
+
+
+                                    <TextView
+                                        style="@style/TextColor"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="18dp"
+                                        android:fontFamily="@font/inter"
+                                        android:lineHeight="18dp"
+                                        android:text="Are you want to delete status ?"
+                                        android:textFontWeight="500"
+                                        android:textSize="9sp" />
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="18dp"
+
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+
+                                        <androidx.appcompat.widget.AppCompatButton
+
+                                            android:layout_width="45dp"
+                                            android:layout_height="33dp"
+                                            android:layout_gravity="center"
+                                            android:layout_marginEnd="10dp"
+                                            android:background="@drawable/button_hover4"
+                                            android:gravity="center"
+                                            android:text="Cancel"
+                                            android:textAllCaps="false"
+                                            android:textColor="@color/white"
+                                            android:textSize="9sp" />
+
+                                        <androidx.appcompat.widget.AppCompatButton
+
+                                            android:layout_width="45dp"
+                                            android:layout_height="33dp"
+                                            android:layout_gravity="center"
+                                            android:background="@drawable/button_hover4"
+                                            android:gravity="center"
+                                            android:text="Ok"
+                                            android:textAllCaps="false"
+                                            android:textColor="@color/white"
+                                            android:textSize="9sp" />
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+
+                            </androidx.cardview.widget.CardView>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/multiimageRecyclerview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+
+                    <LinearLayout
+                        android:id="@+id/pickup"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+
+                        android:background="@drawable/custome_ripple_circle"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/plus" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="34dp"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:fontFamily="@font/inter_medium"
+                            android:lineHeight="14.52dp"
+                            android:text="Name"
+                            android:textColor="#9EA6B9"
+                            android:textFontWeight="500"
+                            android:textSize="12sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/name"
+                        style="@style/TextColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="49dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/edittext_bgtwo"
+                        android:fontFamily="@font/inter_medium"
+                        android:hint="Enter your name"
+                        android:lineHeight="21dp"
+                        android:paddingStart="13.39dp"
+                        android:paddingEnd="13.39dp"
+                        android:textCursorDrawable="@drawable/cursor_draw"
+                        android:textFontWeight="500"
+                        android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="34dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:fontFamily="@font/inter_medium"
+                            android:lineHeight="14.52dp"
+                            android:text="Caption"
+                            android:textColor="#9EA6B9"
+                            android:textFontWeight="500"
+                            android:textSize="12sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="8dp"
+                        android:background="@drawable/border"
+                        android:paddingBottom="5dp"
+                        app:boxBackgroundMode="none"
+                        app:boxStrokeColor="@color/boxcolor"
+                        app:boxStrokeWidth="0.5dp"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="300"
+                        app:counterTextColor="@color/gray3"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/caption"
+                            textCursorDrawable="@drawable/cursor_draw"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:fontFamily="@font/inter_medium"
+                            android:inputType="textMultiLine"
+                            android:lineHeight="30dp"
+                            android:text="First Begin to believe, then believe
+to begin, life goes on that way!"
+                            android:textColor="@color/black_white_cross"
+                            android:textCursorDrawable="@drawable/cursor_draw"
+                            android:textFontWeight="500"
+                            android:textSelectHandle="@drawable/custom_handle"
+                            android:textSelectHandleLeft="@drawable/custom_handle_left"
+                            android:textSelectHandleRight="@drawable/custom_handle_right"
+                            tools:ignore="SpeakableTextPresentCheck" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <ImageView
+                        android:id="@+id/submit"
+                        style="@style/icontintGlobal"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/custome_ripple_circle"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/tick_new_dvg" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="4dp"
+        android:indeterminateTint="@color/TextColor"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminate="true"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+       />
+
+
+    <include
+        layout="@layout/view_custom_toast"
+        />
+
+</RelativeLayout>

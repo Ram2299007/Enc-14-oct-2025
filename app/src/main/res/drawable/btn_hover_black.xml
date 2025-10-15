@@ -1,0 +1,10 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:drawable="@drawable/radius_btn_hover_black" android:state_pressed="true" />
+
+    <item android:drawable="@drawable/radius_btn_hover_black" android:state_focused="true" />
+
+    <item android:drawable="@drawable/radius_black" android:state_active="true" />
+    <item android:drawable="@drawable/radius_black" />
+</selector>

@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Screens.payActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:layout_marginTop="10dp"
+
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/rectelelavation"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/backarrow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="26dp"
+                            android:background="@drawable/backarowhover_for_all"
+                            android:layout_height="26dp"
+
+                            android:gravity="center"
+                            app:cardCornerRadius="20dp">
+                            <ImageView
+                                android:background="@drawable/backarowhover_for_all"
+                                android:layout_width="25dp"
+                                android:layout_height="18dp"
+                                android:padding="2dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/leftvector" />
+                        </LinearLayout>
+
+
+
+
+                        <TextView
+                            android:id="@+id/pay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="21dp"
+                            android:fontFamily="@font/inter_medium"
+                            android:text="Pay"
+                            style="@style/TextColor"
+                            android:textFontWeight="500"
+                            android:textSize="16dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="25dp"
+                        android:layout_marginTop="25dp"
+
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/last"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/inter_medium"
+                            android:lineHeight="21dp"
+                            android:text="Last paid for : "
+                            android:textColor="#9EA6B9"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/oct"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="2dp"
+                            android:fontFamily="@font/inter_bold"
+                            android:lineHeight="21dp"
+                            android:text="October"
+                            style="@style/TextColor"
+                            android:textFontWeight="600"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginHorizontal="25dp"
+                        android:layout_marginTop="35dp"
+                        android:gravity="end"
+
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/payForMonth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/inter_medium"
+                            android:lineHeight="24dp"
+                            android:text="Pay for a month"
+                            android:textColor="#9EA6B9"
+                            android:textFontWeight="500"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/spinner"
+                            android:layout_width="15dp"
+                            android:layout_height="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="4dp"
+                            android:background="@drawable/downvector" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginHorizontal="25dp"
+                        android:layout_marginTop="37dp"
+
+
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:layout_width="223dp"
+                            android:layout_height="141dp"
+                            android:background="@drawable/payrect"
+
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:id="@+id/msg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="25dp"
+                                android:layout_marginTop="23dp"
+                                android:fontFamily="@font/inter_medium"
+                                android:lineHeight="21dp"
+                                android:text="Messaging"
+                                android:textColor="@color/white"
+                                android:textFontWeight="500"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/prof"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="25dp"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/inter_medium"
+                                android:lineHeight="21dp"
+                                android:text="Profile Status"
+                                android:textColor="@color/white"
+                                android:textFontWeight="500"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/msglmt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="25dp"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/inter_medium"
+                                android:lineHeight="21dp"
+                                android:text="Message Limit"
+                                android:textColor="@color/white"
+                                android:textFontWeight="500"
+                                android:textSize="14sp" />
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/inter_bold"
+                                    android:gravity="center"
+                                    android:lineHeight="21dp"
+                                    android:text="1st"
+                                    android:textColor="#011224"
+                                    android:textFontWeight="600"
+                                    android:textSize="16sp" />
+                                <TextView
+                                    android:id="@+id/free1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/inter_medium"
+                                    android:gravity="center"
+                                    android:lineHeight="21dp"
+                                    android:text="Free"
+                                    android:textColor="#011224"
+                                    android:textFontWeight="600"
+                                    android:textSize="16sp" />
+                            </LinearLayout>
+
+
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/checkbox"
+                                android:layout_width="48dp"
+                                android:clickable="false"
+                                android:layout_marginStart="14dp"
+                                android:layout_height="48dp"
+                                android:focusable="false"
+
+                                android:button="@drawable/checkbox_bg"
+                                android:checked="true" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginHorizontal="25dp"
+                        android:layout_marginTop="16dp"
+
+
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:layout_width="223dp"
+                            android:layout_height="141dp"
+                            android:background="@drawable/transparent"
+
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:id="@+id/call"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="25dp"
+                                android:layout_marginTop="23dp"
+                                android:fontFamily="@font/inter_medium"
+                                android:lineHeight="21dp"
+                                android:text="Call"
+                                style="@style/TextColor"
+                                android:textFontWeight="500"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/videocall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="25dp"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/inter_medium"
+                                android:lineHeight="21dp"
+                                android:text="Video Call"
+                                style="@style/TextColor"
+                                android:textFontWeight="500"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/grpcall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="25dp"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/inter_medium"
+                                android:lineHeight="21dp"
+                                android:text="Group of Message"
+                                style="@style/TextColor"
+                                android:textFontWeight="500"
+                                android:textSize="14sp" />
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/inter_bold"
+                                    android:gravity="center"
+                                    android:lineHeight="21dp"
+                                    android:text="2nd"
+                                    android:textColor="#011224"
+                                    android:textFontWeight="600"
+                                    android:textSize="16sp" />
+                                <TextView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/inter_medium"
+                                    android:gravity="center"
+                                    android:lineHeight="21dp"
+                                    android:text="paid"
+                                    android:textColor="#011224"
+                                    android:textFontWeight="600"
+                                    android:textSize="16sp" />
+                            </LinearLayout>
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/checkbox2"
+                                android:layout_width="48dp"
+                                android:layout_marginStart="14dp"
+                                android:layout_height="48dp"
+                                android:button="@drawable/checkbox_bg"
+                                android:checked="false" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginHorizontal="25dp"
+                        android:layout_marginTop="16dp"
+
+
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:layout_width="223dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/transparent"
+
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:id="@+id/theme"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="25dp"
+                                android:layout_marginTop="23dp"
+                                android:fontFamily="@font/inter_medium"
+                                android:lineHeight="21dp"
+                                android:text="Theme"
+                                style="@style/TextColor"
+                                android:textFontWeight="500"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/lockscreen"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="25dp"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/inter_medium"
+                                android:lineHeight="21dp"
+                                android:text="Lock screen"
+                                style="@style/TextColor"
+                                android:textFontWeight="500"
+                                android:textSize="14sp" />
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/inter_bold"
+                                    android:gravity="center"
+                                    android:lineHeight="21dp"
+                                    android:text="3rd"
+                                    android:textColor="#011224"
+                                    android:textFontWeight="600"
+                                    android:textSize="16sp" />
+                                <TextView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/inter_medium"
+                                    android:gravity="center"
+                                    android:lineHeight="21dp"
+                                    android:text="paid"
+                                    android:textColor="#011224"
+                                    android:textFontWeight="600"
+                                    android:textSize="16sp" />
+                            </LinearLayout>
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/checkbox3"
+                                android:layout_width="48dp"
+                                android:layout_marginStart="14dp"
+                                android:layout_height="48dp"
+                                android:button="@drawable/checkbox_bg"
+                                android:checked="false" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:visibility="gone"
+                        android:layout_marginHorizontal="25dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginBottom="50dp"
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:layout_width="223dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/paynow"
+                                android:layout_width="223dp"
+                                android:layout_height="45dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/buttonhoverfordone"
+                                android:fontFamily="@font/inter_medium"
+                                android:gravity="center"
+                                android:lineHeight="27dp"
+                                android:text="Pay Now"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textFontWeight="700"
+                                android:textSize="18sp"
+                                tools:ignore="TouchTargetSizeCheck" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="180dp"
+                android:layout_marginEnd="10dp">
+
+                <LinearLayout
+                    android:id="@+id/spindata"
+
+                    android:layout_width="223dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="141dp"
+
+
+                    android:background="@drawable/payrect"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <TextView
+                        android:id="@+id/oneM"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="23dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:lineHeight="21dp"
+                        android:text="1 Month"
+                        android:textColor="@color/white"
+                        android:textFontWeight="500"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/threeM"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:lineHeight="21dp"
+                        android:text="3 Month"
+                        android:textColor="@color/white"
+                        android:textFontWeight="500"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/sixY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:lineHeight="21dp"
+                        android:text="6 Month"
+                        android:textColor="@color/white"
+                        android:textFontWeight="500"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/Year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:lineHeight="21dp"
+                        android:text="1 Year"
+                        android:textColor="@color/white"
+                        android:textFontWeight="500"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="80dp"
+        android:gravity="center"
+        android:background="@drawable/pnglabel"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="4dp"
+            android:textSize="17sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_medium"
+            android:text="2 months free trial "/>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

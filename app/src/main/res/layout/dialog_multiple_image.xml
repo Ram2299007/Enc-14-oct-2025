@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/modetheme2">
+
+    <!-- RecyclerView for Images -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:nestedScrollingEnabled="true"
+        android:overScrollMode="never"
+        android:paddingTop="0dp"
+        android:paddingBottom="20dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:scrollbars="none"
+        android:fadeScrollbars="false" />
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:background="@drawable/header_gradient_background"
+        android:elevation="4dp"></LinearLayout>
+
+    <!-- Header with back button and title -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:background="@drawable/header_gradient_background"
+        android:paddingTop="24dp"
+        android:elevation="4dp">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- Back Button -->
+            <LinearLayout
+                android:id="@+id/backButton"
+                android:layout_width="35dp"
+                android:layout_height="36dp"
+
+                android:alpha="0.9"
+                android:background="@drawable/black_background_hover"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="2dp"
+                    android:src="@drawable/leftvector"
+                    app:tint="@color/white" />
+            </LinearLayout>
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="21dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="Image Preview"
+                android:visibility="gone"
+                android:textColor="@color/white"
+                android:textFontWeight="500"
+                android:textSize="16sp" />
+
+            <!-- Menu Button (Optional) -->
+            <LinearLayout
+                android:id="@+id/menuButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:background="@drawable/custome_ripple_circle"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    app:cardCornerRadius="20dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop"
+                        android:src="@color/menuPointColor" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/menuPoint"
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="3dp"
+                        android:scaleType="centerCrop"
+                        android:src="#00A3E9" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="4dp"
+                        android:layout_height="4dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="3dp"
+                        android:scaleType="centerCrop"
+                        android:src="#9EA6B9" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:scaleY="-1"
+        android:background="@drawable/header_gradient_background"
+        android:paddingTop="24dp"
+        android:elevation="4dp">
+
+    </LinearLayout>
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:scaleY="-1"
+        android:background="@drawable/header_gradient_background"
+        android:paddingTop="24dp"
+        android:elevation="4dp">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:scaleY="-1"
+        android:visibility="gone"
+        android:background="@drawable/header_gradient_background"
+        android:paddingTop="24dp"
+        android:elevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:lottie_rawRes="@raw/downarrow"
+        android:elevation="10dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:layout_gravity="center" />
+
+
+
+</RelativeLayout>

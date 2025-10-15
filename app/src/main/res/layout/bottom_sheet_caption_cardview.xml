@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bottom_sheet_background"
+    android:padding="16dp">
+
+    <!-- Caption Layout -->
+    <LinearLayout
+        android:id="@+id/captionlyt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/editLyt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|bottom"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/message_box_bg"
+            android:backgroundTint="@color/circlebtnhover"
+            android:gravity="center_vertical|bottom"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/gallary"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/custome_ripple_circle"
+                android:gravity="center"
+                android:visibility="gone"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/attachsvg"
+                    app:tint="@color/chtbtncolor" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/messageBoxMy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:fontFamily="@font/san_pro"
+                android:hint="Add Caption"
+                android:inputType="textMultiLine|textCapSentences"
+                android:lineHeight="21dp"
+                android:maxWidth="180dp"
+                android:maxLines="4"
+                android:minHeight="45dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/black_white_crossEmoji"
+                android:textColorHint="#9EA6B9"
+                android:textCursorDrawable="@drawable/cursor_draw"
+                android:textFontWeight="500"
+                android:textSelectHandle="@drawable/custom_handle"
+                android:textSelectHandleLeft="@drawable/custom_handle_left"
+                android:textSelectHandleRight="@drawable/custom_handle_right"
+                android:textSize="17sp" />
+
+            <LinearLayout
+                android:id="@+id/emoji"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/custome_ripple_circle"
+                android:gravity="center"
+                android:visibility="gone"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:id="@+id/bitemoji"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/emojisvg" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/multiSelectSendGrpLyt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginHorizontal="10dp"
+            android:elevation="10dp"
+            android:gravity="center_vertical|bottom"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <!-- Small rounded count display -->
+            <TextView
+                android:id="@+id/multiSelectSmallCounterText"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/circular_count_background"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/multiSelectDoneButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/callbg"
+                android:elevation="8dp"
+                android:enabled="false"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/multiSelectSend"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/baseline_keyboard_double_arrow_right_24"
+                    app:tint="@color/white" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

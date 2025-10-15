@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="40dp"
+                android:layout_height="5dp"
+                android:layout_marginTop="5dp"
+                app:cardBackgroundColor="@color/black_white_cross"
+
+                android:elevation="0dp"
+                android:layout_gravity="center"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="3dp"
+                        android:layout_height="3dp"
+                        app:cardBackgroundColor="@color/edittextBg"
+                        android:elevation="0dp"
+                        android:layout_gravity="center"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="20dp"/>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="3dp"
+                        android:layout_height="3dp"
+                        android:layout_marginStart="5dp"
+                        app:cardBackgroundColor="@color/edittextBg"
+                        android:elevation="0dp"
+                        android:layout_gravity="center"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="20dp"/>
+                </LinearLayout>
+
+
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/cameraLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_ripple"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+
+                <ImageView
+                    android:id="@+id/camerapic"
+                    style="@style/icontintGlobal"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/camera" />
+
+                <TextView
+                    style="@style/TextColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="start"
+                    android:text="Camera"
+                    android:textSize="16dp" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/galleryLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_ripple"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+
+                <ImageView
+                    android:id="@+id/grallarypic"
+                    style="@style/icontintGlobal"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/gallery" />
+
+                <TextView
+                    style="@style/TextColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="start"
+                    android:text="Photo"
+                    android:textSize="16dp" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/videoLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_ripple"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+
+                <ImageView
+                    android:id="@+id/videopic"
+                    style="@style/icontintGlobal"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+
+                    android:layout_gravity="center"
+                    android:layout_marginStart="19dp"
+                    android:src="@drawable/videopng" />
+
+                <TextView
+                    style="@style/TextColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="start"
+                    android:text="Video"
+                    android:textSize="16dp" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/documentLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_ripple"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+
+                <ImageView
+                    android:id="@+id/docPic"
+                    style="@style/icontintGlobal"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/documentsvg" />
+
+                <TextView
+                    style="@style/TextColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="start"
+                    android:text="Document"
+                    android:textSize="16dp" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/contactLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_ripple"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+
+                <ImageView
+                    android:id="@+id/contactPic"
+                    style="@style/icontintGlobal"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/contact" />
+
+                <TextView
+                    style="@style/TextColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="start"
+                    android:text="Contact"
+                    android:textSize="16dp" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

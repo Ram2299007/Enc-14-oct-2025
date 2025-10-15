@@ -1,0 +1,10 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:drawable="@drawable/radius_button_hover_blue_2" android:state_pressed="true" />
+
+    <item android:drawable="@drawable/radius_button_hover_blue_2" android:state_focused="true" />
+
+    <item android:drawable="@drawable/radius_button" android:state_active="true" />
+    <item android:drawable="@drawable/radius_button" />
+</selector>

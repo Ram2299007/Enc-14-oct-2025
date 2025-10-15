@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#000000</color>
+    <color name="purple_500">#000000</color>
+    <color name="purple_700">#000000</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#000000</color>
+    <color name="gray2">#EBEBEB</color>
+    <color name="gray3">#808080</color>
+    <color name="white">#ffffff</color>
+    <color name="chatting">#E6E7E7</color>
+    <color name="gray">#9EA6B9</color>
+    <color name="light_gray">#F3F3F3</color>
+    <color name="grayOriginal">#B8B6B6</color>
+    <color name="graynewReceiver">#C1C1C3</color>
+    <color name="graynewSender">#6A6A6B</color>
+    <color name="appThemeColor">#011224</color>
+    <color name="testcolor">#ffffff</color>
+    <color name="blue">#00A3E9</color>
+    <color name="pink">#ff0080</color>
+    <color name="popati">#7adf2a</color>
+    <color name="red">#ec0001</color>
+    <color name="light_blue">#16f3ff</color>
+    <color name="orange">#FF8A00</color>
+    <color name="graytheme">#7F7F7F</color>
+    <color name="yellow">#D9B845</color>
+    <color name="rich_green">#346667</color>
+    <color name="voilet">#9846D9</color>
+    <color name="red2">#A81010</color>
+    <color name="calling">#011224</color>
+    <color name="black_faint">#1B1C1C</color>
+    <color name="edittextremoveline">#9EA6B9</color>
+    <color name="shimmer_coloe">#9EA6B9</color>
+    <color name="menuPointColor">#383838</color>
+    <color name="green_call">#0FA430</color>
+    <color name="red_call">#EC0000</color>
+    <color name="dark_ripple">#33000000</color> <!-- Semi-transparent black -->
+    <color name="acceptcall">#4CAF50</color> <!-- Semi-transparent black -->
+    <color name="endcall">#F44336</color> <!-- Semi-transparent black -->
+    <color name="indicator_color">#F8F7F7</color>
+    
+    <!-- Multi-selection highlight color (full width gray) -->
+    <color name="selection_highlight_gray">#E0E0E0</color>
+
+    <color name="appBgColor">?attr/appBgColor</color>
+
+    <color name="senderdownload">@color/black</color>
+    
+    <!-- Document picker colors -->
+    <color name="primary_color">#00A3E9</color>
+    <color name="document_light_blue">#E3F2FD</color>
+    
+    <!-- Checkbox colors for better visibility -->
+    <color name="checkbox_color">#00A3E9</color>
+    
+    <!-- Modern Music Player - Light Mode Colors -->
+    <color name="glow_start_color">#20000000</color>
+    <color name="glow_center_color">#10000000</color>
+    <color name="glow_end_color">#00000000</color>
+    <color name="glow_stroke_color">#30000000</color>
+    
+    <color name="wave_container_start">#15000000</color>
+    <color name="wave_container_center">#08000000</color>
+    <color name="wave_container_end">#00000000</color>
+    <color name="wave_container_stroke">#20000000</color>
+    
+    <color name="control_button_start">#20000000</color>
+    <color name="control_button_center">#10000000</color>
+    <color name="control_button_end">#00000000</color>
+    <color name="control_button_stroke">#30000000</color>
+    
+    <color name="play_button_start">#40000000</color>
+    <color name="play_button_center">#20000000</color>
+    <color name="play_button_end">#10000000</color>
+</resources>

@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">Enclosure</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="forget_lock_key"><u>Forget lock key ?</u> </string>
+    <string name="read_more">Read more ... </string>
+    <string name="service_name">MyNotificationListenerService</string>
+    <string name="contact_us"><u>Contact us ,</u></string>
+    <string name="privacy_policy"><u>Privacy policy</u></string>
+
+    <string name="file_provider_authority">com.Appzia.enclosure</string>
+
+    <string-array name="degree">
+        <item>0</item>
+        <item>90</item>
+        <item>180</item>
+        <item>360</item>
+
+
+    </string-array>
+
+    <string-array name="language">
+        <item>English</item>
+        <item>Russian</item>
+        <item>German</item>
+        <item>French</item>
+        <item>Turkish</item>
+        <item>Spanish</item>
+        <item>Italian</item>
+        <item>Ukrainian</item>
+        <item>Polish</item>
+        <item>Romanian</item>
+
+
+    </string-array>
+
+
+    <string name="invalid_call_data">Invalid call data</string>
+    <string name="no_data_found">No data found</string>
+    <string name="webview_error">WebView error</string>
+    <string name="firebase_error">Firebase error</string>
+    <string name="connection_failed">Connection failed. Please try again.</string>
+    <string name="permissions_required">Camera and microphone permissions are required</string>
+    <string name="call_end_error">Error ending call</string>
+    <string name="video_call_invitation">Join video call from %s</string>
+    <string name="invited_user">Invited %s</string>
+    <string name="failed_to_invite">Failed to invite %s</string>
+    <string name="user_already_in_call">%s is already in the call</string>
+
+
+    <!-- get_voice_calling_adapter2 -->
+    <string name="contact_image">Contact image</string>
+    <string name="call_icon">Call icon</string>
+    <string name="invite">Invite</string>
+    <string name="sending_invitation">Sending invitation...</string>
+
+    <!-- FcmNotificationsSender and FcmNotificationSenderMisscall -->
+
+    <string name="missed_call_notification">Missed call from %s</string>
+
+    <!-- UI Elements (assumed for layouts) -->
+    <string name="call_timer">Call duration: %s</string>
+    <string name="search_contacts">Search contacts</string>
+    <string name="add_participant">Add participant</string>
+    <string name="end_call">End call</string>
+    <string name="mute_audio">Mute audio</string>
+    <string name="toggle_video">Toggle video</string>
+    <string name="back">Back</string>
+
+
+    <item type="id" name="chatting_room_utils_tag" />
+
+</resources>

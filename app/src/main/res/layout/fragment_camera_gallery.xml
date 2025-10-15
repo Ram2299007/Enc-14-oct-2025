@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/camera_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible" />
+
+
+    <LinearLayout
+        android:id="@+id/backarrow"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custome_ripple_circle"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            style="@style/icontintGlobal"
+            android:layout_width="25dp"
+            android:layout_height="18dp"
+            android:padding="2dp"
+            android:src="@drawable/leftvector"
+            app:tint="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="620dp"
+        android:background="@drawable/bottom_sheet_background"
+        android:orientation="vertical"
+        app:behavior_peekHeight="200dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="4dp"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/flash_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custome_ripple_circle2"
+                android:gravity="center"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/flash_icon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/flash_onn"
+                    app:tint="@color/TextColor" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/capture_button"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/capture_button_background"
+                android:gravity="center"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/capture_icon"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:visibility="gone"
+                    android:src="@drawable/camera"
+                    />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/switch_camera_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custome_ripple_circle2"
+                android:gravity="center"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/switch_camera_icon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/flipcamera"
+                    app:tint="@color/TextColor" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </LinearLayout>
+
+        <!-- Modern segmented control design below capture button -->
+        <LinearLayout
+            android:id="@+id/mode_switch_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/tab_background"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/tab_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/tab_selected_background"
+                android:gravity="center"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:fontFamily="@font/inter"
+                android:text="Photo"
+                android:textColor="@color/edittextBg" />
+
+            <TextView
+                android:id="@+id/tab_video"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/tab_unselected_background"
+                android:gravity="center"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:fontFamily="@font/inter"
+                android:text="Video"
+                android:textColor="@color/TextColor" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/timer_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+
+            android:background="@android:color/transparent"
+            android:text="00:00"
+            android:textColor="@color/TextColor"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/managePermissionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:fontFamily="@font/inter_medium"
+
+
+            android:gravity="start"
+            android:padding="10dp"
+            android:lineSpacingExtra="2dp"
+            android:text="You've given Enclosure permission to access only a select number of photos. Manage"
+            android:textColor="@color/chtbtncolor"
+            android:textSize="13sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/gallery_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:minHeight="360dp"
+            android:padding="4dp" />
+
+
+        <!-- Caption bar + Done button (WhatsApp-like) -->
+        <LinearLayout
+            android:id="@+id/captionlyt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/editLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|bottom"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/message_box_bg"
+                android:backgroundTint="@color/circlebtnhover"
+                android:gravity="center_vertical|bottom"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/gallary"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/custome_ripple_circle"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    app:cardCornerRadius="20dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/attachsvg"
+                        app:tint="@color/chtbtncolor" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/messageBoxMy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:background="#00000000"
+                    android:fontFamily="@font/san_pro"
+                    android:hint="Add Caption"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:lineHeight="21dp"
+                    android:maxWidth="180dp"
+                    android:maxLines="4"
+                    android:minHeight="45dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/TextColor"
+                    android:textColorHighlight="@color/black_white_crossEmoji"
+                    android:textColorHint="#9EA6B9"
+                    android:textCursorDrawable="@drawable/cursor_draw"
+                    android:textFontWeight="500"
+                    android:textSelectHandle="@drawable/custom_handle"
+                    android:textSelectHandleLeft="@drawable/custom_handle_left"
+                    android:textSelectHandleRight="@drawable/custom_handle_right"
+                    android:textSize="17sp" />
+
+                <LinearLayout
+                    android:id="@+id/emoji"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/custome_ripple_circle"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    app:cardCornerRadius="20dp">
+
+                    <ImageView
+                        android:id="@+id/bitemoji"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/emojisvg" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/multiSelectSendGrpLyt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_marginHorizontal="10dp"
+                android:elevation="10dp"
+                android:gravity="center_vertical|bottom"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/multiSelectSmallCounterText"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/circular_count_background"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/multiSelectDoneButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/callbg"
+                    android:elevation="8dp"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/multiSelectSend"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/baseline_keyboard_double_arrow_right_24"
+                        app:tint="@color/white" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <include
+        android:id="@+id/includedToast"
+        layout="@layout/view_custom_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

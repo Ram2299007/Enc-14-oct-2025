@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/BackgroundColor"
+    tools:context=".Screens.forgetScreenOtp">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginRight="20dp"
+
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/backarrow"
+                android:layout_width="40dp"
+                android:visibility="visible"
+                android:layout_height="40dp"
+
+                android:gravity="center"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:layout_width="37dp"
+                    style="@style/icontintGlobal"
+                    android:layout_height="30dp"
+                    android:src="@drawable/arrow" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35.19dp"
+                android:fontFamily="@font/inter_bold"
+                android:lineHeight="60dp"
+                android:text="Verify\nYour number ?"
+               style="@style/TextColor"
+                android:textFontWeight="600"
+                android:textSize="40dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:fontFamily="@font/inter_medium"
+                android:lineHeight="24dp"
+                android:text="Enter code we’ve sent to"
+                android:textColor="#9EA6B9"
+                android:textFontWeight="400"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/mob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_bold"
+                android:lineHeight="24dp"
+                android:text="+7856431288"
+                style="@style/TextColor"
+                android:textFontWeight="400"
+                android:textSize="16dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="35dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <EditText android:textCursorDrawable="@drawable/cursor_draw"
+               android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+                    android:id="@+id/one"
+                    android:layout_width="45dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_color_hover_for_all"
+                    android:fontFamily="@font/inter"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    style="@style/TextColor"
+                    android:textColorHint="#5A5E61"
+                    android:textSize="14sp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <EditText android:textCursorDrawable="@drawable/cursor_draw"
+               android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+                    android:id="@+id/two"
+                    android:layout_width="45dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_color_hover_for_all"
+                    android:fontFamily="@font/inter"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    style="@style/TextColor"
+                    android:textColorHint="#5A5E61"
+                    android:textSize="14sp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <EditText android:textCursorDrawable="@drawable/cursor_draw"
+               android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+                    android:id="@+id/three"
+                    android:layout_width="45dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_color_hover_for_all"
+                    android:fontFamily="@font/inter"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    style="@style/TextColor"
+                    android:textColorHint="#5A5E61"
+                    android:textSize="14sp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <EditText android:textCursorDrawable="@drawable/cursor_draw"
+               android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+                    android:id="@+id/four"
+                    android:layout_width="45dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_color_hover_for_all"
+                    android:fontFamily="@font/inter"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    style="@style/TextColor"
+                    android:textColorHint="#5A5E61"
+                    android:textSize="14sp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <EditText android:textCursorDrawable="@drawable/cursor_draw"
+               android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+                    android:id="@+id/five"
+                    android:layout_width="45dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_color_hover_for_all"
+                    android:fontFamily="@font/inter"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    style="@style/TextColor"
+                    android:textColorHint="#5A5E61"
+                    android:textSize="14sp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <EditText android:textCursorDrawable="@drawable/cursor_draw"
+               android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+                    android:id="@+id/six"
+                    android:layout_width="45dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_color_hover_for_all"
+                    android:fontFamily="@font/inter"
+                    android:gravity="center"
+
+                    android:inputType="number"
+                    android:maxLength="1"
+                    style="@style/TextColor"
+                    android:textColorHint="#5A5E61"
+                    android:textSize="14sp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/inter_medium"
+                    android:lineHeight="24dp"
+                    android:text="Didn't receive code ?"
+                    android:textColor="#9EA6B9"
+                    android:textFontWeight="400"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/send_again"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+
+                    android:fontFamily="@font/inter_medium"
+                    android:lineHeight="24dp"
+                    android:text="Send again"
+                    style="@style/TextColor"
+                    android:textFontWeight="400"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/seconds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+
+                    android:fontFamily="@font/inter_medium"
+                    android:lineHeight="24dp"
+
+                    style="@style/TextColor"
+                    android:textFontWeight="400"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="100dp"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/verify"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="#032F60"
+            android:fontFamily="@font/inter_medium"
+            android:lineHeight="24dp"
+            android:text="Verify"
+            android:textAllCaps="false"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textFontWeight="600"
+            android:textSize="16dp" />
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>

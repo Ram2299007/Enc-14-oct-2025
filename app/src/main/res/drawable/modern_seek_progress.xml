@@ -1,0 +1,25 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background line -->
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <size android:height="4dp" />
+            <solid android:color="#33FFFFFF" />
+            <corners android:radius="10dp" />
+        </shape>
+    </item>
+
+    <!-- Progress heartbeat wave -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <size android:height="4dp" />
+                <bitmap
+                    android:src="@drawable/wave"
+                    android:tileMode="repeat"
+                    android:gravity="fill_horizontal" />
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

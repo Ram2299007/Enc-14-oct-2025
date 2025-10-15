@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background circle -->
+    <item>
+        <shape
+            android:shape="oval">
+            <solid android:color="#E0E0E0"/> <!-- Gray background -->
+        </shape>
+    </item>
+    <!-- Progress circle -->
+    <item>
+        <clip>
+            <shape
+                android:shape="oval">
+                <gradient
+                    android:startColor="#E0E0E0"
+                    android:endColor="#E0E0E0"
+                    android:angle="0"/>
+            </shape>
+        </clip>
+    </item>
+</layer-list>

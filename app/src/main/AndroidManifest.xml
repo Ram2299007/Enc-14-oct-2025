@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.flash"
+        android:required="false" />
+    <uses-feature
+        android:name="android.permission.MODIFY_AUDIO_SETTINGS"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.PROXIMITY" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera.front" />
+
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
+    <application
+        android:name="util.MyApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/blue"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/blue_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Enclosure"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        tools:targetApi="35">
+        
+        <!-- 16 KB page size support -->
+        <meta-data
+            android:name="android.app.lib_name"
+            android:value="" />
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4" />
+        
+        <!-- 16KB page size compatibility -->
+        <meta-data
+            android:name="android.app.page_size_agnostic"
+            android:value="true" />
+        <meta-data
+            android:name="android.app.supports_16kb_pages"
+            android:value="true" />
+        
+        <!-- Force 16KB page size support -->
+        <meta-data
+            android:name="android.app.force_16kb_alignment"
+            android:value="true" />
+        <meta-data
+            android:name="android.app.native_lib_alignment"
+            android:value="16384" />
+        <activity
+            android:name=".Utils.WhatsAppLikeImagePicker"
+            android:theme="@style/Theme.Enclosure"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
+        
+        <activity
+            android:name=".Utils.WhatsAppLikeVideoPicker"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.Enclosure"
+            android:exported="false" />
+        
+        <activity
+            android:name=".Utils.WhatsAppLikeDocumentPicker"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.Enclosure"
+            android:exported="false" />
+        
+        <activity
+            android:name=".Utils.WhatsAppLikeContactPicker"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.Enclosure"
+            android:exported="false" />
+        
+        <activity
+            android:name=".Screens.block_contact_activity"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.voiceGroupCallList"
+            android:exported="false" />
+        <activity
+            android:name=".activities.MainActivityVideoCall"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activities.MainActivityVoiceCall"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Screens.videoGroupCallList"
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".activities.CustomJitsiMeetActivity" -->
+        <!-- android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation" -->
+        <!-- android:exported="false" -->
+        <!-- android:supportsPictureInPicture="true" /> -->
+        <activity
+            android:name=".Screens.NativeNotification"
+            android:exported="true" />
+        <activity
+            android:name=".Screens.SplashScreenMy"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Enclosure.Smooth">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity-alias
+            android:name=".SplashScreenMyAliasDefault"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/blue"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/blue_round"
+            android:targetActivity=".Screens.SplashScreenMy">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".SplashScreenMyAliasPink"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/pink"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/pink_round"
+            android:targetActivity=".Screens.SplashScreenMy">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".SplashScreenMyAliasPopati"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/popati"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/popati_round"
+            android:targetActivity=".Screens.SplashScreenMy">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".SplashScreenMyAliasRed"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/red"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/red_round"
+            android:targetActivity=".Screens.SplashScreenMy">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".SplashScreenMyAliasLightBlue"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/lightblue"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/lightblue_round"
+            android:targetActivity=".Screens.SplashScreenMy">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".SplashScreenMyAliasOrange"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/orange"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/orange_round"
+            android:targetActivity=".Screens.SplashScreenMy">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".SplashScreenMyAliasgray"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/gray"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/gray_round"
+            android:targetActivity=".Screens.SplashScreenMy">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".SplashScreenMyAliasyellow"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/yellow"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/yellow_round"
+            android:targetActivity=".Screens.SplashScreenMy">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".SplashScreenMyAliasrichgreen"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/green"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/green_round"
+            android:targetActivity=".Screens.SplashScreenMy">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".SplashScreenMyAliasVoilet"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/voilet"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/voilet_round"
+            android:targetActivity=".Screens.SplashScreenMy">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias
+            android:name=".SplashScreenMyAliasred2"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/red2"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/red2_round"
+            android:targetActivity=".Screens.SplashScreenMy">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity
+            android:name=".Screens.forGroupVisible"
+            android:exported="false" />
+        <activity
+            android:name=".Utils.FullScreenVideoIncoming"
+            android:exported="false" />
+        <activity
+            android:name=".Utils.FullScreenVoiceIncoming"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.SplashScreen2"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Enclosure.Smooth" />
+        <activity
+            android:name=".activities.CallActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true" />
+        <activity
+            android:name=".activities.ConnectingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.CallVoiceActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ConnectingVoiceActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
+
+        <activity
+            android:name=".Screens.notificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.cameraActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:exported="true"
+            android:resizeableActivity="true"
+            android:supportsPictureInPicture="true"
+            android:theme="@style/Theme.Enclosure.Smooth" />
+        <activity
+            android:name=".Screens.forgetScreenOtp"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Screens.otpverifyScreen"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Screens.shareExternalDataScreen"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.shareExternalDataCONTACTScreen"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <!-- Single image/video/document sharing -->
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+            
+            <!-- Multi-image sharing support -->
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+            
+            <!-- Multi-video sharing support -->
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="video/*" />
+            </intent-filter>
+            
+            <!-- Multi-media sharing support -->
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Screens.show_document_screen"
+            android:exported="false"
+            android:theme="@style/Theme.Enclosure.SharedElement.Media" />
+        <activity
+            android:name=".Screens.show_video_playerScreen"
+            android:exported="false"
+            android:theme="@style/Theme.Enclosure.SharedElement.Media" />
+        <activity
+            android:name=".Screens.selectImageScreen"
+            android:exported="false" />
+        <activity
+            android:name=".Screens.dummyChattingScreen"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Screens.test3"
+            android:exported="true" />
+        <activity
+            android:name=".Screens.grpChattingScreen"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.Enclosure.SharedElement.Chat" />
+        <activity
+            android:name=".Screens.show_image_Screen"
+            android:exported="false"
+            android:theme="@style/Theme.Enclosure.SharedElement.Media" />
+        <activity
+            android:name=".Screens.multiple_show_image_screen"
+            android:exported="false"
+            android:theme="@style/Theme.Enclosure.SharedElement.Media" />
+        <activity
+            android:name=".Screens.userInfoScreen"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Enclosure.SharedElement.Profile" />
+        <activity
+            android:name=".Screens.showLiveScreen"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Screens.nearbyScreen"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Screens.inviteScreen"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Enclosure.Smooth" />
+        <activity
+            android:name=".Screens.ViewProfile"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Screens.groupInfo"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Enclosure.Smooth" />
+        <activity
+            android:name=".Screens.lockScreen3"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Screens.contact_us"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Enclosure.Smooth" />
+        <activity
+            android:name=".Screens.privacy_policy"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Enclosure.Smooth" />
+        <activity
+            android:name=".Screens.notinew"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Screens.policy"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Screens.deleteMyAccount"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Enclosure.Smooth" />
+        <activity
+            android:name=".Screens.changeNumber"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/Theme.Enclosure.Smooth" />
+        <activity
+            android:name=".Screens.Acount"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/Theme.Enclosure.Smooth" />
+        <activity
+            android:name=".Screens.lockScreen2"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Screens.flagScreen"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Enclosure.Smooth" />
+        <activity
+            android:name=".Screens.companyProfile"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Screens.testSctreen"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Screens.chattingScreen"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.Enclosure.Smooth">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Screens.settingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Enclosure.Smooth">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Screens.paymentActivity"
+            android:exported="false"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Screens.payActivity"
+            android:exported="false"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Screens.sizeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Screens.themeScreen"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Enclosure.Smooth">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Screens.lockscreen"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Screens.sponsred"
+            android:exported="false"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Screens.newGroupActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/Theme.Enclosure.Smooth">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Screens.editmyProfile"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Enclosure.Smooth">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Screens.MainActivityOld"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Screens.otpverifyScreenDelete"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Screens.whatsTheCode"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/Theme.Enclosure.Smooth">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Screens.whatsYourNumber"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/Theme.Enclosure.Smooth">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Screens.selectLanguage"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/Theme.Enclosure.Smooth">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <receiver
+            android:name=".Component.MyAdmin"
+            android:exported="true"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/policies" />
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".Utils.FirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".Utils.MyNotificationReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.NOTIFICATION_ACTION" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".Utils.MyNotificationReceiver" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_sound"
+            android:resource="@raw/noticustome" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.Appzia.enclosure"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <receiver android:name=".Utils.NotificationActionReceiver" />
+        <receiver
+            android:name=".Utils.BroadcastReiciver.replyBroadCastReciver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+
+        <receiver android:name=".Utils.removeNotificationReceiver.NotificationActionReceiver" />
+
+        <service
+            android:name=".Utils.CallServiceVideoCall"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="microphone|phoneCall|camera" />
+        <service
+            android:name=".Utils.CallServiceVoiceCall"
+            android:enabled="true"
+            android:exported="true"
+            android:foregroundServiceType="microphone|phoneCall" />
+
+        <property
+            android:name=".android:allowBackgroundActivityStarts"
+            android:value="true" />
+
+        <receiver
+            android:name=".Utils.EndCallReceiverVoice"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.Appzia.enclosure.END_CALL_BROADCAST" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".Utils.EndCallReceiverVideo"
+            android:exported="true" />
+
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="smart_reply" />
+
+        <receiver
+            android:name=".Utils.BroadcastReiciver.DeclineCallReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.Appzia.enclosure.DECLINE_CALL" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".Utils.BroadcastReiciver.DeclineVideoCallReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.Appzia.enclosure.DECLINE_VIDEO_CALL" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="android.webkit.WebView.EnableSafeBrowsing"
+            android:value="true" />
+
+        <service
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+        <service
+            android:name=".Utils.BroadcastReiciver.GroupMessageUploadService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+        <service
+            android:name=".Utils.BroadcastReiciver.MessageUploadService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+        <service
+            android:name=".Utils.BroadcastReiciver.MessageUploadServiceForward"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+        <service
+            android:name=".Utils.CustomJitsiService"
+            android:exported="false" />
+        <service
+            android:name=".Utils.BroadcastReiciver.AudioPlaybackService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+
+
+    </application>
+
+</manifest>

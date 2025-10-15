@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Screens.Acount">
+
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rectelelavation"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/backarrow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:background="@drawable/backarowhover_for_all"
+
+                android:gravity="center"
+                app:cardCornerRadius="20dp">
+
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/backarowhover_for_all"
+                    android:padding="2dp"
+                    android:src="@drawable/leftvector" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/dlt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="21dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="Delete my account"
+                style="@style/TextColor"
+                android:textFontWeight="500"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+
+                        android:layout_marginTop="23dp"
+                        android:orientation="horizontal">
+
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="25dp"
+                            android:layout_height="19dp"
+                            android:layout_marginTop="3dp"
+                            android:src="@drawable/redwarning" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/deleting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/inter_medium"
+                            android:lineHeight="21dp"
+                            android:text="Deleting your account will:"
+                            android:textColor="#D31111"
+                            android:textFontWeight="600"
+                            android:textSize="15dp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center"
+
+                        android:layout_marginTop="15dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <View
+                            android:layout_width="7dp"
+                            android:layout_height="7dp"
+                            android:background="@drawable/grayview" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/d1"
+                            android:layout_width="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="@font/inter_medium"
+                            android:lineHeight="18dp"
+                            android:text="Delete your account from Enclosure"
+                            android:textColor="#4E4E52"
+                            android:textFontWeight="500"
+                            android:textSize="14sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center"
+
+                        android:layout_marginTop="2dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <View
+                            android:layout_width="7dp"
+                            android:layout_height="7dp"
+                            android:background="@drawable/grayview" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/d2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="@font/inter_medium"
+                            android:lineHeight="18dp"
+                            android:text="Erase your message history"
+                            android:textColor="#4E4E52"
+                            android:textFontWeight="500"
+                            android:textSize="14sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center"
+
+                        android:layout_marginTop="2dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <View
+                            android:layout_width="7dp"
+
+                            android:layout_height="7dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="8.5dp"
+                            android:background="@drawable/grayview" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/d3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/inter_medium"
+                            android:lineHeight="18dp"
+                            android:text="Delete you from all of your Enclosure\ngroups"
+                            android:textColor="#4E4E52"
+                            android:textFontWeight="500"
+                            android:textSize="14sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center"
+
+                        android:layout_marginTop="2dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <View
+                            android:layout_width="7dp"
+                            android:layout_height="7dp"
+                            android:background="@drawable/grayview" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/d4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/inter_medium"
+                            android:lineHeight="18dp"
+                            android:text="Delete you payment info"
+                            android:textColor="#4E4E52"
+                            android:textFontWeight="500"
+                            android:textSize="14sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center"
+
+                        android:layout_marginTop="39dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="11dp"
+                            android:background="@drawable/rightarrownew" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/changeno"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/inter_bold"
+                            android:lineHeight="21dp"
+                            android:text="Change number instead?"
+                            style="@style/TextColor"
+                            android:textFontWeight="500"
+                            android:textSize="14sp" />
+
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/linear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="42dp"
+                        android:background="@drawable/buttonhoverfordone"
+                        android:fontFamily="@font/inter_medium"
+                        android:lineHeight="24dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:text="Change number"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textFontWeight="500"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+
+                        android:layout_marginTop="21dp"
+
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/todlete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+
+                            android:fontFamily="@font/inter_medium"
+                            android:lineHeight="18dp"
+                            android:text="To delete your account, confirm your country code \nand enter your phone number."
+                            style="@style/TextColor"
+                            android:textFontWeight="500"
+                            android:textSize="14sp" />
+
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/ctr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="11dp"
+                        android:fontFamily="@font/inter_medium"
+
+                        android:lineHeight="18dp"
+                        android:text="Country"
+                        style="@style/TextColor"
+
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:orientation="vertical">
+
+                        <EditText android:textCursorDrawable="@drawable/cursor_draw"
+               android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+                            android:id="@+id/ind"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:background="#00000000"
+                            android:fontFamily="@font/inter_medium"
+                            android:text="India"
+                            style="@style/TextColor"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="18dp"
+                            android:background="#4E4E52" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/pn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+
+                        android:layout_marginTop="27dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:lineHeight="18dp"
+                        android:text="Phone"
+                        android:textColor="#4E4E52"
+                        android:textFontWeight="500"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="11dp"
+                        android:layout_marginEnd="18dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="60dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/inter_medium"
+                                    android:lineHeight="21dp"
+                                    android:text="+"
+                                    android:textColor="#9EA6B9"
+                                    android:textFontWeight="600" />
+
+                                <EditText android:textCursorDrawable="@drawable/cursor_draw"
+               android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+                                    android:id="@+id/ninty1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:background="#00000000"
+                                    android:enabled="false"
+                                    android:fontFamily="@font/inter_medium"
+                                    android:inputType="phone"
+                                    android:lineHeight="18dp"
+                                    android:maxLength="3"
+                                    android:minWidth="30dp"
+                                    android:text="91"
+                                    style="@style/TextColor"
+
+                                    android:textFontWeight="600"
+                                    android:textSize="14sp" />
+
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="4.5dp"
+                                android:background="#9EA6B9" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+
+                                <EditText android:textCursorDrawable="@drawable/cursor_draw"
+               android:textSelectHandle="@drawable/custom_handle"
+                        android:textSelectHandleLeft="@drawable/custom_handle_left"
+                        android:textSelectHandleRight="@drawable/custom_handle_right"
+                                    android:id="@+id/pn2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="#00000000"
+                                    android:enabled="false"
+                                    android:fontFamily="@font/inter"
+                                    android:hint="Phone Number"
+                                    android:inputType="phone"
+                                    android:lineHeight="18dp"
+                                    android:maxLength="10"
+                                    style="@style/TextColor"
+                                    android:textColorHint="#9EA6B9"
+                                    android:textFontWeight="500"
+                                    android:textSize="14sp" />
+
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="4.5dp"
+                                android:background="#9EA6B9" />.
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="181dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="43dp"
+                        android:background="@drawable/delete_btn_bg"
+                        android:fontFamily="@font/inter_medium"
+                        android:lineHeight="24dp"
+                        android:text="Delete my account"
+                        android:textAllCaps="false"
+
+                        android:textColor="@color/white"
+                        android:textFontWeight="500"
+                        android:textSize="16dp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
+</RelativeLayout>

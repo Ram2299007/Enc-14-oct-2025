@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:fitsSystemWindows="true"
+    tools:context=".Screens.inviteScreen">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="17dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:id="@+id/backarrow"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/custome_ripple_circle"
+                        android:gravity="center"
+                        app:cardCornerRadius="20dp">
+
+                        <LinearLayout
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:gravity="center"
+                            app:cardCornerRadius="20dp">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="18dp"
+                                android:layout_gravity="center_vertical"
+                                android:padding="2dp"
+
+                                android:src="@drawable/leftvector"
+                                app:tint="@color/white" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/theme"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="21dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:text="Contacts"
+                        android:textFontWeight="500"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|end"
+                        android:layout_marginEnd="24dp"
+                        android:gravity="end|center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+
+
+                            android:orientation="vertical"
+                            android:visibility="invisible"
+                            app:cardCornerRadius="20dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="3dp"
+                                android:layout_height="3dp"
+                                android:layout_gravity="center"
+                                android:src="#011224" />
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+
+                                android:layout_width="3dp"
+                                android:layout_height="3dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="3dp"
+                                android:src="#00A3E9" />
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="3dp"
+                                android:layout_height="3dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="3dp"
+                                android:scaleType="centerCrop"
+                                android:src="#9EA6B9" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/networkLoader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:indeterminate="true"
+                    android:visibility="gone"
+                    app:trackThickness="2dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="end|center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/searchLytNew"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <View
+                                    android:id="@+id/view"
+                                    android:layout_width="1dp"
+                                    android:layout_height="19.24dp"
+                                    android:layout_marginStart="23dp"
+                                    android:background="@color/blue" />
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/search"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="13dp"
+                                    android:background="#00000000"
+                                    android:fontFamily="@font/inter"
+                                    android:hint="Search Name"
+                                    android:inputType="text"
+
+                                    android:lineHeight="22.5dp"
+                                    android:textColorHint="@color/gray3"
+                                    android:textCursorDrawable="@drawable/cursor_draw"
+                                    android:textFontWeight="500"
+                                    android:textSelectHandle="@drawable/custom_handle"
+                                    android:textSelectHandleLeft="@drawable/custom_handle_left"
+                                    android:textSelectHandleRight="@drawable/custom_handle_right"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:layout_gravity="center_vertical"
+
+                        android:layout_weight="3"
+
+                        android:gravity="end|center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:id="@+id/searchIcon"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/custome_ripple_circle"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/search" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/menu"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/custome_ripple_circle"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <LinearLayout
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                app:cardCornerRadius="20dp">
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:layout_width="4dp"
+                                    android:layout_height="4dp"
+                                    android:layout_gravity="center"
+                                    android:scaleType="centerCrop"
+                                    android:src="@color/menuPointColor" />
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/menuPoint"
+                                    android:layout_width="4dp"
+                                    android:layout_height="4dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="3dp"
+                                    android:scaleType="centerCrop"
+                                    android:src="#00A3E9" />
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:layout_width="4dp"
+                                    android:layout_height="4dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="3dp"
+                                    android:scaleType="centerCrop"
+                                    android:src="#9EA6B9" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:id="@+id/clearcalllog"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginEnd="5dp"
+
+                android:background="@drawable/menurect"
+
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+
+                        android:fontFamily="@font/microsoft_phagspa"
+                        android:gravity="center"
+                        android:lineHeight="24dp"
+                        android:text="Refresh"
+                        android:textSize="16sp"
+
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/valuable"
+            style="@style/cardBackgroundColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/microsoft_phagspa"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="No Contacts available"
+                    android:textColor="@color/black_white_cross"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/limit_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/microsoft_phagspa"
+                    android:gravity="center"
+                    android:padding="7dp"
+                    android:text="0"
+                    android:textColor="#535252"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/total_msg_limit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/microsoft_phagspa"
+                    android:gravity="center"
+                    android:padding="7dp"
+                    android:text="0"
+                    android:textColor="#535252"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/progressbar"
+            android:layout_below="@+id/linear" />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/TextColor"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progressBarMain"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="wrap_content"
+
+        android:layout_height="4dp"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/TextColor"
+        android:visibility="gone" />
+    <include
+        layout="@layout/view_custom_toast" />
+
+</RelativeLayout>

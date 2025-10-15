@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+
+        android:gravity="center_vertical|center"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="30dp"
+                android:visibility="gone"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/flagCode"
+                    style="@style/TextColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+
+
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/inter_bold"
+                    android:gravity="center"
+                    android:text="IND"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/flagTxt"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="+91"
+                style="@style/TextColor"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/cname"
+                style="@style/TextColor"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+
+                android:fontFamily="@font/inter_medium"
+                android:text="name"
+                android:textSize="15sp" />
+
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

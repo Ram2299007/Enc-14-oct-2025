@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BackgroundColor"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Screens.selectLanguage">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/backarowhover_for_all"
+                android:gravity="center"
+                android:visibility="invisible"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+
+                    android:layout_width="37dp"
+                    android:layout_height="30dp"
+
+                    android:src="@drawable/arrow"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35.19dp"
+                android:fontFamily="@font/inter_bold"
+                android:lineHeight="60dp"
+                android:text="Select\nLanguage"
+                style="@style/TextColor"
+                android:textFontWeight="600"
+                android:textSize="40dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="53dp"
+                android:background="@drawable/spinner_bg"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/language"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:entries="@array/language"
+                    android:gravity="center"
+                    android:paddingStart="5dp"
+                    android:popupBackground="@color/white"
+                    android:spinnerMode="dropdown"
+                    android:theme="@style/ThemeOverlay.AppCompat.Light" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="100dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="20dp">
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:backgroundTint="#032F60"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:lineHeight="24dp"
+            android:text="Submit"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textFontWeight="600"
+            android:textSize="16dp" />
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

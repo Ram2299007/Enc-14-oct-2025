@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="268dp"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    app:cardBackgroundColor="@color/cardBackgroundColornew"
+    app:cardCornerRadius="20dp">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+
+
+            android:gravity="end"
+            android:orientation="vertical">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/dismiss"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+
+                android:scaleType="centerCrop"
+                android:src="@drawable/crossbtn" />
+
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/TextColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/inter"
+            android:gravity="center"
+            android:lineHeight="18dp"
+            android:text="Delete All Messages ?"
+            android:textFontWeight="500"
+            android:textSize="17sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/ok"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+
+                android:background="@drawable/button_hover4"
+                android:text="Ok"
+                android:textSize="15sp"
+                android:textColor="@color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/button_hover4"
+                android:text="Cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

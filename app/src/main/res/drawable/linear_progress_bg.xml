@@ -1,0 +1,19 @@
+<!-- custom_progress_indicator.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background track -->
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <corners android:radius="8dp" /> <!-- Adjust the corner radius as needed -->
+        </shape>
+    </item>
+    <!-- Progress track -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <solid android:color="@color/blue" /> <!-- Adjust the color as needed -->
+                <corners android:radius="8dp" /> <!-- Adjust the corner radius as needed -->
+            </shape>
+        </clip>
+    </item>
+</layer-list>

@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contentRelative"
+    style="@style/BackgroundColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Screens.MainActivityOld">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--            // this is a main container layout-->
+
+            <LinearLayout
+                android:id="@+id/bacMenu"
+                android:layout_width="match_parent"
+
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/logoandsearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/logoandmenu"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/custome_ripple_circle"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/logoBtn"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/ec_modern" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+
+
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:id="@+id/searchLyt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:layout_marginEnd="10dp"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:visibility="gone">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <View
+                                            android:id="@+id/view"
+                                            android:layout_width="1dp"
+                                            android:layout_height="19.24dp"
+                                            android:layout_marginStart="13dp"
+                                            android:background="@color/blue" />
+
+                                        <AutoCompleteTextView
+                                            android:id="@+id/searchview"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginStart="13dp"
+                                            android:background="#00000000"
+                                            android:fontFamily="@font/inter"
+                                            android:hint="Search Name"
+                                            android:inputType="text"
+                                            android:lineHeight="22.5dp"
+                                            android:textColor="@color/black_white_cross"
+                                            android:textColorHint="@color/gray3"
+                                            android:textCursorDrawable="@drawable/cursor_draw"
+                                            android:textFontWeight="500"
+                                            android:textSelectHandle="@drawable/custom_handle"
+                                            android:textSelectHandleLeft="@drawable/custom_handle_left"
+                                            android:textSelectHandleRight="@drawable/custom_handle_right"
+                                            android:textSize="15sp" />
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/searchIcon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="5dp"
+                                android:background="@drawable/custome_ripple_circle"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/search" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/menu"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center"
+                                android:layout_marginEnd="7dp"
+                                android:background="@drawable/custome_ripple_circle"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    app:cardCornerRadius="20dp">
+
+                                    <de.hdodenhof.circleimageview.CircleImageView
+                                        android:layout_width="4dp"
+                                        android:layout_height="4dp"
+                                        android:layout_gravity="center"
+                                        android:scaleType="centerCrop"
+                                        android:src="@color/menuPointColor" />
+
+                                    <de.hdodenhof.circleimageview.CircleImageView
+                                        android:id="@+id/menuPoint"
+                                        android:layout_width="4dp"
+                                        android:layout_height="4dp"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="3dp"
+                                        android:scaleType="centerCrop"
+                                        android:src="#00A3E9" />
+
+                                    <de.hdodenhof.circleimageview.CircleImageView
+                                        android:layout_width="4dp"
+                                        android:layout_height="4dp"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="3dp"
+                                        android:scaleType="centerCrop"
+                                        android:src="#9EA6B9" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/linearMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="390dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/mainvector"
+                    android:backgroundTint="#1B1C1C"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:id="@+id/downArrow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|end|center_vertical"
+                        android:layout_marginTop="39dp"
+                        android:gravity="end|center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:id="@+id/imgArrow"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end"
+                            android:layout_marginEnd="18dp"
+                            android:background="@drawable/down_arrow_ripple"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/imgArrow2"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/downarrowslide" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+
+                            <LinearLayout
+                                android:id="@+id/aduiocalllayout"
+                                android:layout_width="wrap_content"
+
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/audiotext"
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:fontFamily="@font/inter_medium"
+                                    android:lineHeight="21dp"
+                                    android:text="Audio call"
+                                    android:textColor="@color/white"
+                                    android:textFontWeight="500"
+                                    android:textSize="15sp" />
+
+                                <androidx.appcompat.widget.SwitchCompat
+                                    android:id="@+id/switchcall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="20dp"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:checked="true"
+                                    android:enabled="true"
+                                    android:scaleX="1.3"
+                                    android:scaleY="1.3"
+                                    app:thumbTint="@color/white"
+                                    app:track="@drawable/bg_track"
+                                    tools:ignore="TouchTargetSizeCheck" />
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="end"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:id="@+id/CallRect"
+                                    android:layout_width="200dp"
+                                    android:layout_height="40dp"
+                                    android:gravity="end"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/callTxt"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="16dp"
+                                        android:layout_marginEnd="12dp"
+                                        android:fontFamily="@font/inter_medium"
+
+                                        android:text="Call"
+                                        android:textColor="#9EA6B9"
+                                        android:textFontWeight="700"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:id="@+id/sliderealtime"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="16dp"
+                                        android:layout_marginEnd="12dp"
+                                        android:fontFamily="@font/inter_medium"
+                                        android:text="down"
+                                        android:textColor="#9EA6B9"
+                                        android:textFontWeight="700"
+                                        android:textSize="15sp"
+                                        android:visibility="gone" />
+
+                                    <ImageView
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:layout_gravity="center_vertical|end"
+                                        android:layout_marginEnd="24dp"
+
+                                        android:src="@drawable/call" />
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="12dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:id="@+id/videocalllayout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/videocallText"
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:fontFamily="@font/inter_medium"
+                                    android:lineHeight="21dp"
+                                    android:text="Video call"
+                                    android:textColor="@color/white"
+                                    android:textFontWeight="500"
+                                    android:textSize="15sp" />
+
+                                <androidx.appcompat.widget.SwitchCompat
+                                    android:id="@+id/switchVideocall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="20dp"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:checked="true"
+                                    android:enabled="true"
+                                    android:scaleX="1.3"
+                                    android:scaleY="1.3"
+                                    app:thumbTint="@color/white"
+                                    app:track="@drawable/bg_track"
+                                    tools:ignore="TouchTargetSizeCheck" />
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+
+                                android:gravity="end"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:id="@+id/videoCallRect"
+                                    android:layout_width="200dp"
+                                    android:layout_height="40dp"
+                                    android:gravity="end"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/videoTxt"
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="16dp"
+                                        android:layout_marginEnd="15dp"
+                                        android:fontFamily="@font/inter_medium"
+
+                                        android:text="Video Call"
+                                        android:textColor="#9EA6B9"
+                                        android:textFontWeight="700"
+                                        android:textSize="15sp" />
+
+
+                                    <LinearLayout
+                                        android:layout_width="24dp"
+                                        android:layout_height="16dp"
+                                        android:layout_gravity="center_vertical|end"
+                                        android:layout_marginEnd="21dp"
+                                        android:background="@drawable/videosvgnew2"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+
+                                        <LinearLayout
+                                            android:id="@+id/pollyy"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_marginStart="1.9dp"
+                                            android:background="@drawable/polysvg"
+                                            android:gravity="center"
+                                            android:orientation="vertical" />
+
+
+                                    </LinearLayout>
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="12dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+
+                                android:gravity="end"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:id="@+id/grpMsgRect"
+                                    android:layout_width="200dp"
+                                    android:layout_height="40dp"
+                                    android:gravity="end"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/grpmsgTxt"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="16dp"
+                                        android:layout_marginEnd="12dp"
+                                        android:fontFamily="@font/inter_medium"
+                                        android:text="Group Message"
+                                        android:textColor="#9EA6B9"
+                                        android:textFontWeight="700"
+                                        android:textSize="15sp" />
+
+                                    <ImageView
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:layout_gravity="center_vertical|end"
+                                        android:layout_marginEnd="24dp"
+
+                                        android:src="@drawable/group_new_svg" />
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="12dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+
+                                android:gravity="end"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:id="@+id/msgLmtRect"
+                                    android:layout_width="200dp"
+                                    android:layout_height="40dp"
+                                    android:gravity="end"
+                                    android:orientation="horizontal">
+
+
+                                    <TextView
+                                        android:id="@+id/msglmtTxt"
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="16dp"
+                                        android:layout_marginEnd="12dp"
+                                        android:fontFamily="@font/inter_medium"
+
+                                        android:text="Message Limit"
+                                        android:textColor="#9EA6B9"
+                                        android:textFontWeight="700"
+                                        android:textSize="15sp" />
+
+                                    <ImageView
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:layout_gravity="center_vertical|end"
+                                        android:layout_marginEnd="24dp"
+
+                                        android:src="@drawable/limit" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="12dp"
+
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+
+                                android:gravity="end"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:id="@+id/youRect"
+
+                                    android:layout_width="200dp"
+                                    android:layout_height="40dp"
+                                    android:gravity="end"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/youTxt"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="16dp"
+                                        android:layout_marginEnd="12dp"
+                                        android:fontFamily="@font/inter_medium"
+
+                                        android:text="You"
+                                        android:textColor="#9EA6B9"
+                                        android:textFontWeight="700"
+                                        android:textSize="15sp" />
+
+                                    <ImageView
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:layout_gravity="center_vertical|end"
+                                        android:layout_marginEnd="24dp"
+                                        android:src="@drawable/you" />
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/networkLoader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:visibility="gone"
+                    app:trackThickness="2dp" />
+
+            </LinearLayout>
+
+
+            <FrameLayout
+                android:id="@+id/mainLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearMain2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="4dp"
+        android:indeterminateTint="@color/TextColor"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminate="true"
+        android:layout_centerInParent="true"
+
+        android:visibility="gone" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/incomingonoffLyt"
+        style="@style/cardBackgroundColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="146dp"
+
+        android:elevation="10dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
+
+
+        <TextView
+            android:id="@+id/incomingonofftxt"
+            style="@style/TextColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:lineHeight="31.5dp"
+            android:paddingStart="22dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="22dp"
+            android:paddingBottom="8dp"
+            android:text="Incoming Calls : OFF"
+            android:textFontWeight="500"
+            android:textSize="17sp" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/startsherer"
+        android:layout_width="210dp"
+        android:layout_height="52dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="65dp"
+        android:background="@drawable/startmsgbg"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:lineHeight="19.36dp"
+            android:text="Start Message Here"
+            android:textColor="@color/white"
+            android:textFontWeight="500"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/pressstartLytr"
+        android:layout_width="186.73dp"
+        android:layout_height="143dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="209dp"
+        android:layout_marginEnd="4.5dp"
+        android:background="@drawable/curveyarrow"
+        android:visibility="gone">
+
+        <LinearLayout
+
+            android:layout_width="186.73dp"
+            android:layout_height="143dp"
+
+            android:layout_marginTop="2.5dp"
+            android:background="@drawable/pressbg"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="13dp"
+                android:fontFamily="@font/inter_medium"
+                android:lineHeight="24dp"
+                android:text="Press to"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="12dp"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/suggest_arrow" />
+
+                <TextView
+                    style="@style/TextColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8.5dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:lineHeight="24dp"
+                    android:text="Call"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="6dp"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/suggest_arrow" />
+
+                <TextView
+                    style="@style/TextColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8.5dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:lineHeight="24dp"
+                    android:text="Video Call"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="6dp"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/suggest_arrow" />
+
+                <TextView
+                    style="@style/TextColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8.5dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:lineHeight="24dp"
+                    android:text="&amp; More"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+    <include
+        layout="@layout/view_custom_toast"
+        />
+
+
+
+</RelativeLayout>

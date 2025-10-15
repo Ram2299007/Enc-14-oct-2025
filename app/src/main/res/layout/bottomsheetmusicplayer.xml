@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/futuristic_bottom_sheet_background"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="14dp"
+    android:paddingBottom="32dp">
+
+    <!-- Profile Image with Modern Design -->
+    <RelativeLayout
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_gravity="center_horizontal"
+        android:clipChildren="false">
+
+        <!-- Outer Glow Ring -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@drawable/modern_glow_ring"
+            android:alpha="0.3" />
+
+        <!-- Main Profile Image -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_profile_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/inviteimg"
+            android:scaleType="centerCrop"
+            app:civ_border_color="@color/TextColor"
+            app:civ_border_width="1dp" />
+
+        <!-- Inner Glow Effect -->
+        <View
+            android:id="@+id/glow_effect"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:alpha="0.6"
+            android:background="@drawable/image_glow_effect"
+            android:scaleX="1.15"
+            android:scaleY="1.15"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <!-- Song Info with Modern Typography -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/tv_song_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Starlight Symphony"
+            android:textColor="@color/TextColor"
+            android:textSize="20sp"
+            android:fontFamily="@font/inter_medium"
+            android:letterSpacing="0.02"
+            android:lineSpacingExtra="2dp" />
+
+        <TextView
+            android:id="@+id/tv_artist_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cosmic Echoes"
+            android:visibility="gone"
+            android:layout_marginTop="4dp"
+            android:textSize="15sp"
+            android:textColor="@color/gray"
+            android:fontFamily="@font/inter_medium"
+            android:alpha="0.8" />
+    </LinearLayout>
+
+    <!-- Modern Wave Design Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:orientation="vertical">
+
+        <!-- AudioWave View with Modern Styling -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/modern_wave_container"
+            android:padding="10dp">
+
+            <rm.com.audiowave.AudioWaveView
+                android:id="@+id/audio_wave_progress"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:animateExpansion="false"
+                app:chunkWidth="4dp"
+                app:chunkHeight="28dp"
+                app:minChunkHeight="3dp"
+                app:chunkSpacing="2dp"
+                app:chunkRadius="2dp"
+                app:touchable="true"
+                app:waveColor="@color/TextColor" />
+
+        </FrameLayout>
+
+        <!-- Time Display with Modern Layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_current_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00"
+                android:textColor="@color/TextColor"
+                android:textSize="13sp"
+                android:fontFamily="@font/inter_medium"
+                android:alpha="0.9" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_total_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="03:45"
+                android:textColor="@color/TextColor"
+                android:textSize="13sp"
+                android:fontFamily="@font/inter_medium"
+                android:alpha="0.9" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Modern Play Controls -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <!-- Previous Button -->
+        <FrameLayout
+            android:id="@+id/btn_previous"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/modern_control_button"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/pressbg"
+                app:tint="@color/TextColor" />
+        </FrameLayout>
+
+        <!-- Main Play/Pause Button -->
+        <FrameLayout
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginHorizontal="28dp"
+            android:background="@drawable/modern_play_button_bg"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:elevation="8dp">
+
+            <ImageView
+                android:id="@+id/btn_play_pause"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:src="@drawable/play"
+                app:tint="@color/TextColor" />
+        </FrameLayout>
+
+        <!-- Next Button -->
+        <FrameLayout
+            android:id="@+id/btn_next"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/modern_control_button"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/next"
+                app:tint="@color/TextColor" />
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>

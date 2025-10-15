@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <gradient
+        android:type="radial"
+        android:gradientRadius="38dp"
+        android:startColor="@color/play_button_start"
+        android:centerColor="@color/play_button_center"
+        android:endColor="@color/play_button_end" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/TextColor" />
+    <size
+        android:width="76dp"
+        android:height="76dp" />
+</shape>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:layout_margin="4dp"
+    android:background="@drawable/black_background_hover"
+    android:padding="8dp">
+
+    <!-- Document Icon -->
+    <ImageView
+        android:id="@+id/documentIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/documentsvg"
+        app:tint="@color/white" />
+
+    <!-- Document Name -->
+    <TextView
+        android:id="@+id/documentName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/documentIcon"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="Doc.pdf"
+        android:textColor="@color/white"
+        android:textSize="10sp" />
+
+    <!-- Selection Indicator -->
+    <View
+        android:id="@+id/selectionIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/primary_color"
+        android:visibility="gone" />
+
+</RelativeLayout>

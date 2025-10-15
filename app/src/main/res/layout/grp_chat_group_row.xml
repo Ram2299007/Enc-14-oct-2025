@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_ripple"
+
+    android:gravity="center_vertical"
+
+    >
+
+
+
+
+    <LinearLayout
+        android:id="@+id/contact1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/card_border"
+            android:padding="2dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="360dp"
+                app:cardElevation="0dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/grp_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/inviteimg"
+                    android:scaleType="centerCrop" />
+            </androidx.cardview.widget.CardView>
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/grpName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:lineHeight="18dp"
+                    android:text="Joey Banks"
+                    style="@style/TextColor"
+                    android:textFontWeight="600"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="end"
+
+                    android:lineHeight="18dp"
+                    android:text="11:00 am"
+                    android:textColor="#9EA6B9"
+                    android:textFontWeight="600"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="2dp"
+                    android:singleLine="true"
+                    android:layout_weight="0.2"
+                    android:drawablePadding="3dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="center_vertical"
+                    android:lineHeight="18dp"
+                    android:text="caption"
+                    android:textColor="@color/gray3"
+                    android:textFontWeight="500"
+                    android:textSize="13sp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:id="@+id/notiBack"
+                        android:layout_width="32dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/notiiconsvg"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+
+                        <TextView
+                            android:id="@+id/notiCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:layout_marginStart="1dp"
+                            android:layout_weight="500"
+                            android:fontFamily="@font/inter"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:lineHeight="14.52dp"
+                            android:text="111"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/contact1"
+        android:layout_marginHorizontal="7dp"
+        android:visibility="invisible"
+        android:layout_marginTop="16dp"
+        android:background="#e6e7e9" />
+
+
+</RelativeLayout>

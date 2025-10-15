@@ -1,0 +1,280 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Enclosure" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">@color/black</item>
+
+        <!-- Optional: customize the splash screen icon color -->
+
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/black_faint</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/black_faint</item>
+        <item name="colorSecondaryVariant">@color/black_faint</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+
+        // for Theme mode
+        <item name="themeColorBackground">@color/black</item>
+        <item name="expanderBg">#2B2B2C</item>
+        <item name="appBgColor">@color/black_faint</item> <!-- White for day mode -->
+        <item name="buttonFill">@color/black</item>
+        <!-- Status bar color. -->
+
+        <!-- Customize your theme here. -->
+
+    </style>
+
+
+
+    <style name="PauseDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/fadeinflag</item>
+        <item name="android:windowExitAnimation">@anim/fadeoutflag</item>
+    </style>
+    <style name="PauseDialogAnimation2">
+        <item name="android:windowEnterAnimation">@anim/fadeinflag</item>
+        <item name="android:windowExitAnimation">@anim/fadeoutflag</item>
+    </style>
+
+    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
+
+
+    </style>
+
+    <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="behavior_peekHeight">355dp</item>
+        <item name="android:background">@drawable/bottom_sheet_radius</item>
+
+    </style>
+
+    <style name="ShapeAppearance.App.BottomSheetCorners" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">40dp</item>
+        <item name="cornerSizeTopRight">40dp</item>
+        <!-- Set bottom corners to 0dp if you only want top corners rounded -->
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="BottomSheetDialog2" parent="Theme.Design.Light.BottomSheetDialog">
+        <!-- This is crucial: makes the dialog's default window background transparent -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper2</item>
+    </style>
+
+    <style name="bottomSheetStyleWrapper2" parent="Widget.Design.BottomSheet.Modal">
+        <item name="behavior_peekHeight">1000dp</item>
+        <!-- Apply your custom drawable as the background -->
+        <item name="android:background">@drawable/bottom_sheet_radius</item>
+        <!-- IMPORTANT: Override the default Material Design shape with your custom shape appearance -->
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.App.BottomSheetCorners</item>
+    </style>
+
+
+    <style name="Default_Text_Size">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <style name="spinnerTheme">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="notificationcolor">
+        <item name="android:textColor">@color/gray3</item>
+    </style>
+
+    <style name="SpinnerTheme" parent="android:Widget.Spinner">
+        <item name="android:background">@drawable/bg_spinner</item>
+    </style>
+
+
+
+
+    <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+    </style>
+
+    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <!-- Transparent Bottom Sheet Dialog for Data CardView - Dark Mode -->
+    <style name="TransparentBottomSheetDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:backgroundDimAmount">0.0</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowTitleBackgroundStyle">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="bottomSheetStyle">@style/TransparentBottomSheetStyle</item>
+    </style>
+
+    <style name="TransparentBottomSheetStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="behavior_peekHeight">350dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:backgroundDimAmount">0.0</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:backgroundTint">@null</item>
+        <item name="android:backgroundTintMode">@null</item>
+    </style>
+
+    <color name="textviewcolor">#000000</color>
+
+    <style name="CustomOutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- Default state -->
+        <item name="boxStrokeColor">@color/gray3</item>
+        <item name="android:textColorHint">@color/gray3</item>
+
+    </style>
+
+    <style name="CustomOutlinedBox.Pressed" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- Pressed (focused) state -->
+        <item name="boxStrokeColor">@color/black</item>
+        <item name="android:textColorHint">@color/black</item>
+
+    </style>
+
+    <color name="counterTextColor">@color/gray3</color>
+
+
+    <style name="CustomDialogThemeForFullDialogue" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowSoftInputMode">adjustNothing</item>
+    </style>
+
+
+
+
+
+
+    <style name="BottomSheetDialogContact" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapperContact</item>
+
+
+    </style>
+
+    <style name="bottomSheetStyleWrapperContact" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_sheet_radius</item>
+
+    </style>
+
+    <style name="DialogSlideAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <style name="TextColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+    <style name="BackgroundColor">
+        <item name="android:background">@color/black</item>
+    </style>
+
+
+    <style name="linearmain">
+        <item name="android:backgroundTint">#2B2B2C</item>
+    </style>
+
+    <style name="icontintGlobal">
+        <item name="android:tint">@color/white</item>
+    </style>
+
+    <style name="cardBackgroundColor">
+        <item name="cardBackgroundColor">#1B1C1C</item>
+    </style>
+    <style name="appThemeColrBackground">
+        <item name="android:backgroundTint">@color/black_faint</item>
+    </style>
+
+
+    <color name="buttonColorTheme">#1B1C1C</color>
+
+
+    <color name="specialVideoIcon">@color/white</color>
+    <color name="ecModernDot">#3A3A3A</color>
+
+
+    <color name="edittextBg">@color/black</color>
+
+    <color name="cs_circle_color">@color/gray3</color>
+
+    <color name="black_white_cross">@color/white</color>
+    <color name="black_white_crossMic">@color/gray3</color>
+
+    <color name="theme_screen">#1B1C1C</color>
+
+    <color name="chattingMessageBox">#1B1C1C</color>
+    <color name="chattingMessageBox5555">#353535</color>
+
+
+
+    <color name="receiverChatBox">#242527</color>
+
+
+    <color name="halfReplyColor">@color/gray3</color>
+    <color name="line">@color/gray3</color>
+
+
+    // we can use for hover
+    <color name="replyLyt">#1B1C1C</color>
+
+
+
+    <color name="ripple">#1B1C1C</color>
+    <color name="dxForward">#1B1C1C</color>
+    <color name="menuRect">#1B1C1C</color>
+    <color name="dxPatti">#1B1C1C</color>
+    <color name="progressbar">@color/gray3</color>
+    <color name="sleepBox">@color/black_faint</color>
+    <color name="sleepBoxBorder">@color/black_faint</color>
+    <color name="cardBackgroundColornew">#1B1C1C</color>
+
+    <color name="chtbtncolor">#9EA6B9</color>
+
+    <color name="highlightcolor">#1B1C1C</color>
+
+
+    <color name="circlebtnhover">#282828</color>
+    <color name="circlebtnhove55">#81000000</color>
+
+    <color name="circlebtnhover2">@color/gray2</color>
+    <color name="downarrowcolor">#373636</color>
+
+    <color name="atoz">#959494</color>
+
+
+    <color name="emojiOuter">@color/gray3</color>
+    <color name="emojiInline">@color/cardBackgroundColornew</color>
+    <color name="black_white_crossEmoji">#595959</color>
+
+    <color name="progress">@color/white</color>
+    <color name="grayProgress">@color/ecModernDot</color>
+    <color name="TextColor">@color/white</color>
+
+
+    <color name="modetheme">@color/white</color>
+    <color name="modetheme2">@color/black</color>
+    
+    <!-- Checkbox color for dark mode - bright blue for better visibility -->
+    <color name="checkbox_color">#4FC3F7</color>
+
+
+
+
+</resources>

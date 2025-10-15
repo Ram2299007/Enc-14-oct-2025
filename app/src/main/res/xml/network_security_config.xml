@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Allow cleartext traffic for TURN servers only -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">127.0.0.1</domain>
+        <domain includeSubdomains="true">10.0.2.2</domain>
+        <!-- STUN and TURN servers for WebRTC -->
+        <domain includeSubdomains="true">stun.l.google.com</domain>
+        <domain includeSubdomains="true">stun1.l.google.com</domain>
+        <domain includeSubdomains="true">stun2.l.google.com</domain>
+        <domain includeSubdomains="true">stun3.l.google.com</domain>
+        <domain includeSubdomains="true">stun4.l.google.com</domain>
+        <domain includeSubdomains="true">stun.stunprotocol.org</domain>
+        <domain includeSubdomains="true">stun.voiparound.com</domain>
+        <domain includeSubdomains="true">stun.voipbuster.com</domain>
+        <domain includeSubdomains="true">stun.voipstunt.com</domain>
+        <domain includeSubdomains="true">stun.voxgratia.org</domain>
+        <domain includeSubdomains="true">openrelay.metered.ca</domain>
+        <domain includeSubdomains="true">freeturn.tel</domain>
+        <domain includeSubdomains="true">turn.bistri.com</domain>
+        <domain includeSubdomains="true">global.xirsys.com</domain>
+        <domain includeSubdomains="true">global.turn.twilio.com</domain>
+    </domain-config>
+    
+    <!-- Allow WebView to access local assets without security restrictions -->
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system"/>
+            <certificates src="user"/>
+        </trust-anchors>
+    </base-config>
+    
+    <!-- Prevent WebView from accessing native camera characteristics -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">file://</domain>
+        <domain includeSubdomains="true">content://</domain>
+    </domain-config>
+    
+    <!-- Enhanced configuration for corporate/ISP networks -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">*.google.com</domain>
+        <domain includeSubdomains="true">*.googleapis.com</domain>
+        <domain includeSubdomains="true">*.firebase.com</domain>
+        <domain includeSubdomains="true">*.firebaseio.com</domain>
+        <domain includeSubdomains="true">*.googleusercontent.com</domain>
+    </domain-config>
+</network-security-config>

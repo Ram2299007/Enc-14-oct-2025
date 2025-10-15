@@ -1,0 +1,274 @@
+<!-- custom_exoplayer_layout.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/lyt"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="17dp"
+            android:gravity="start|center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/backarrow"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:background="@drawable/custome_ripple_circle"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/backarrow_svg" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/nameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:lineHeight="18dp"
+                android:text="nameTitle"
+                android:textColor="@color/appThemeColor"
+
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center|end"
+                android:visibility="visible"
+                android:gravity="center|end"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/rsizeLyt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/resizeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center"
+                        android:layout_marginEnd="15dp"
+                        android:gravity="center"
+                        android:fontFamily="@font/inter"
+                        android:text="fit mode"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/resizeImg"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/aspect_ratio_svg" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <SeekBar
+                    android:id="@+id/brightness"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:progress="100"
+                    android:progressDrawable="@color/appThemeColor"
+                    android:rotation="270"
+                    android:thumb="@drawable/brightness_svg" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/reply"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:visibility="invisible"
+                    android:layout_marginEnd="35dp"
+                    android:src="@drawable/reply"
+                    app:tint="@color/icon_white_to_pink" />
+
+
+                <ImageView
+                    android:id="@+id/play"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="35dp"
+                    android:src="@drawable/play"
+                    android:visibility="visible"
+                    app:tint="@color/icon_white_to_pink" />
+
+
+                <ImageView
+                    android:id="@+id/pause"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="35dp"
+                    android:visibility="gone"
+                    android:src="@drawable/pause"
+                    app:tint="@color/icon_white_to_pink" />
+
+
+                <ImageView
+                    android:id="@+id/forward"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:visibility="invisible"
+                    android:src="@drawable/forward"
+                    app:tint="@color/icon_white_to_pink" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="30dp"
+                android:visibility="gone"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:orientation="vertical">
+
+                <SeekBar
+                    android:id="@+id/volume"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+
+                    android:progress="100"
+                    android:progressDrawable="@color/appThemeColor"
+                    android:rotation="270"
+                    android:thumb="@drawable/sound_svg" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="90dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/startTime"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:fontFamily="@font/inter"
+                android:lineHeight="18dp"
+                android:text="00:00"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:visibility="visible" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:fontFamily="@font/poppins"
+                android:lineHeight="18dp"
+                android:text="/"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:visibility="visible" />
+
+
+            <TextView
+                android:id="@+id/totalTime"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/inter"
+                android:lineHeight="18dp"
+                android:text="00:00"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+
+        <androidx.media3.ui.DefaultTimeBar
+            android:id="@+id/exoProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:buffered_color="@color/gray"
+            app:played_color="@color/white"
+            app:unplayed_color="#646464" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

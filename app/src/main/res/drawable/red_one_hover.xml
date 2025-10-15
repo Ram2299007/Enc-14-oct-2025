@@ -1,0 +1,10 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:drawable="@drawable/radius4hoverdone" android:state_pressed="true" />
+
+    <item android:drawable="@drawable/radius4hoverdone" android:state_focused="true" />
+
+    <item android:drawable="@drawable/redonecolor" android:state_active="true" />
+    <item android:drawable="@drawable/redonecolor" />
+</selector>

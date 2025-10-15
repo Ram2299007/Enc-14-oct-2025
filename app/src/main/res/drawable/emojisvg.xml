@@ -1,0 +1,16 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="26dp"
+    android:height="24dp"
+    android:viewportWidth="26"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M0.478,12a12.522,12 0,1 0,25.043 0a12.522,12 0,1 0,-25.043 0z"
+      android:fillColor="@color/chtbtncolor"
+      android:fillAlpha="0.81"/>
+  <path
+      android:pathData="M16.634,12.757m-2.757,0a2.757,2.757 0,1 1,5.514 0a2.757,2.757 0,1 1,-5.514 0"
+      android:fillColor="@color/chattingMessageBox"/>
+  <path
+      android:pathData="M8.757,12.757m-2.757,0a2.757,2.757 0,1 1,5.514 0a2.757,2.757 0,1 1,-5.514 0"
+      android:fillColor="@color/chattingMessageBox"/>
+</vector>

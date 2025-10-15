@@ -1,0 +1,17 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <FrameLayout
+        android:layout_width="140dp"
+        android:layout_height="180dp"
+        android:background="@drawable/rounded_bg"
+        android:clipChildren="true"
+        android:clipToOutline="true">
+
+
+
+    </FrameLayout>
+
+</RelativeLayout>

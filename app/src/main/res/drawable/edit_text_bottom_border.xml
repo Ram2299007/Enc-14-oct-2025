@@ -1,0 +1,13 @@
+<!-- res/drawable/edit_text_bottom_border.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:right="1dp" android:left="1dp" android:bottom="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent"/>
+        </shape>
+    </item>
+    <item android:bottom="0.5dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/gray3" />
+        </shape>
+    </item>
+</layer-list>

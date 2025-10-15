@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="17dp"
+    android:gravity="end">
+
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="80dp"
+        android:layout_height="4dp"
+
+        android:layout_gravity="center"
+
+
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/bluevector"
+
+        app:layout_constraintBottom_toTopOf="@+id/bluelayout"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/bluelayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view"
+
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+
+        android:background="@drawable/message_bg_blue"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/sendMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="17dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/inter_medium"
+            android:lineHeight="24dp"
+            android:text="fsxssxcxcxcdc\nfddcdsccscssdsdc\nccscdc\ngsdf\s\bfbssfs"
+
+            android:textColor="@color/white"
+            android:textFontWeight="400"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/sendTime"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom|end"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="5dp"
+
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="bottom"
+            android:text="1:00 am"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewBlue"
+        android:layout_width="194dp"
+        android:layout_height="45dp"
+
+        android:layout_marginTop="5dp"
+        android:elevation="20dp"
+        android:visibility="gone"
+        app:cardCornerRadius="4dp"
+
+        app:layout_constraintEnd_toStartOf="@+id/view"
+
+        app:layout_constraintStart_toStartOf="@id/bluelayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginStart="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/kotta_one"
+                android:lineHeight="24dp"
+                android:text="Delete this message"
+                style="@style/TextColor"
+                android:textFontWeight="400"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="24dp"
+                android:src="@drawable/deleteicon" />
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

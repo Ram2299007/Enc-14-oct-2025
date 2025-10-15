@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Fragments.voiceCallLogFragment">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/contactlayor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/inter_bold"
+                android:lineHeight="18dp"
+                android:text="Today"
+                style="@style/TextColor"
+                android:textFontWeight="700"
+                android:textSize="12sp" />
+
+
+            <LinearLayout
+                android:id="@+id/row1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/img1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+
+                    android:src="@drawable/i" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+
+                            android:id="@+id/name1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+
+                            android:fontFamily="@font/inter_bold"
+                            android:lineHeight="18dp"
+                            android:text="Joey Banks"
+                            android:textColor="#011224"
+                            android:textFontWeight="600"
+                            android:textSize="12sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="8dp"
+                                android:layout_weight="2.9"
+
+                                android:src="@drawable/miss_call_svg" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="2.4"
+                                android:fontFamily="@font/inter_medium"
+                                android:gravity="center"
+                                android:lineHeight="18dp"
+                                android:text="Mobile"
+                                style="@style/TextColor"
+                                android:textFontWeight="600"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+
+                                android:fontFamily="@font/inter_medium"
+                                android:lineHeight="18dp"
+                                android:text="7:09"
+                                style="@style/TextColor"
+                                android:textFontWeight="600"
+                                android:textSize="12sp" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <ImageView
+                        android:id="@+id/call1"
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:layout_marginEnd="22dp"
+                        android:layout_weight="5"
+                        android:src="@drawable/callicon" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+
+                    android:src="@drawable/i" />
+
+                <LinearLayout
+                    android:id="@+id/row2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/name2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+
+                                android:fontFamily="@font/inter_bold"
+                                android:lineHeight="18dp"
+                                android:text="Jorge cooks"
+                                android:textColor="#011224"
+                                android:textFontWeight="600"
+                                android:textSize="12sp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="4dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="8dp"
+                                    android:layout_weight="2.9"
+
+                                    android:src="@drawable/miss_call_svg" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="2.4"
+                                    android:fontFamily="@font/inter_medium"
+                                    android:gravity="center"
+                                    android:lineHeight="18dp"
+                                    android:text="Mobile"
+                                    style="@style/TextColor"
+                                    android:textFontWeight="600"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+
+                                    android:fontFamily="@font/inter_medium"
+                                    android:lineHeight="18dp"
+                                    android:text="6:35"
+                                    style="@style/TextColor"
+                                    android:textFontWeight="600"
+                                    android:textSize="12sp" />
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                        <ImageView
+
+                            android:id="@+id/call2"
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="22dp"
+                            android:layout_weight="5"
+                            android:src="@drawable/callicon" />
+
+                    </LinearLayout>
+
+
+                    <ImageView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:layout_marginEnd="22dp"
+                        android:layout_weight="5"
+                        android:src="@drawable/callicon" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/inter_bold"
+                android:lineHeight="18dp"
+                android:text="Yesterday"
+                style="@style/TextColor"
+                android:textFontWeight="700"
+                android:textSize="12sp" />
+
+
+            <LinearLayout
+                android:id="@+id/row3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+
+                android:orientation="horizontal">
+
+
+                <ImageView
+
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+
+                    android:src="@drawable/i" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/name3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+
+                            android:fontFamily="@font/inter_bold"
+                            android:lineHeight="18dp"
+                            android:text="Jenny wilson"
+                            android:textColor="#011224"
+                            android:textFontWeight="600"
+                            android:textSize="12sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="14dp"
+                                android:layout_weight="2.9"
+
+
+                                android:src="@drawable/receivedcall" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="2.4"
+                                android:fontFamily="@font/inter_medium"
+                                android:gravity="center"
+                                android:lineHeight="18dp"
+                                android:text="Mobile"
+                                style="@style/TextColor"
+                                android:textFontWeight="600"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+
+                                android:fontFamily="@font/inter_medium"
+                                android:lineHeight="18dp"
+                                android:text="Wed"
+                                style="@style/TextColor"
+                                android:textFontWeight="600"
+                                android:textSize="12sp" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <ImageView
+                        android:id="@+id/call3"
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:layout_marginEnd="22dp"
+                        android:layout_weight="5"
+                        android:src="@drawable/callicon" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:layout_marginBottom="80dp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/img2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+
+                    android:src="@drawable/img1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/name4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+
+                                android:fontFamily="@font/inter_bold"
+                                android:lineHeight="18dp"
+                                android:text="Joey Banks"
+                                android:textColor="#011224"
+                                android:textFontWeight="600"
+                                android:textSize="12sp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="4dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="14dp"
+                                    android:layout_weight="2.9"
+
+                                    android:src="@drawable/outgoing" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="2.4"
+                                    android:fontFamily="@font/inter_medium"
+                                    android:gravity="center"
+                                    android:lineHeight="18dp"
+                                    android:text="Mobile"
+                                    style="@style/TextColor"
+                                    android:textFontWeight="600"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+
+                                    android:fontFamily="@font/inter_medium"
+                                    android:lineHeight="18dp"
+                                    android:text="Wed"
+                                    style="@style/TextColor"
+                                    android:textFontWeight="600"
+                                    android:textSize="12sp" />
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                        <ImageView
+
+                            android:id="@+id/call4"
+                            android:layout_width="match_parent"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="22dp"
+                            android:layout_weight="5"
+                            android:src="@drawable/callicon" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:id="@+id/bottomcaller"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:background="@drawable/rect"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imageview"
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:src="@drawable/callicon"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1.6"
+
+                android:fontFamily="@font/inter_medium"
+
+                android:gravity="start"
+                android:text="Voice call"
+                style="@style/TextColor"
+                android:textFontWeight="500" />
+
+            <TextView
+                android:id="@+id/mainname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter_bold"
+
+                android:gravity="center"
+                android:lineHeight="21dp"
+                android:text="Jenny Wilson"
+                style="@style/TextColor"
+                android:textFontWeight="700"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1.6"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:id="@+id/call"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/callbg"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/phonepng" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

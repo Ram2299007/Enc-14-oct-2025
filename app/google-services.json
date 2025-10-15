@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "991229033071",
+    "project_id": "enclosure-30573",
+    "storage_bucket": "enclosure-30573.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991229033071:android:d382a18a132bfac7b76b9a",
+        "android_client_info": {
+          "package_name": "com.Appzia.enclosure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "991229033071-47ci2818bio79484m843n7rsbc5agjv9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Appzia.enclosure",
+            "certificate_hash": "b7d272236147b4dbcb4ff2c59cd8c44c63d6f85d"
+          }
+        },
+        {
+          "client_id": "991229033071-do20fmsoef27foudhstvlk4i0jo3aqe5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMMyrBqG_7ZPbvscl6RcNAb895SBu4VvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "991229033071-do20fmsoef27foudhstvlk4i0jo3aqe5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

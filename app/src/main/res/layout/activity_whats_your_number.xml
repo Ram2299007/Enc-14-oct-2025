@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    style="@style/BackgroundColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Screens.whatsYourNumber">
+
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/backarrow"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/backarowhover_for_all"
+                    android:gravity="center"
+                    android:visibility="invisible"
+                    app:cardCornerRadius="20dp">
+
+                    <ImageView
+
+                        android:layout_width="37dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/arrow" />
+                </LinearLayout>
+
+
+                <TextView
+                    style="@style/TextColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35.19dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:lineHeight="60dp"
+                    android:text="What’s your\nnumber?"
+                    android:textFontWeight="600"
+                    android:textSize="40sp" />
+
+                <TextView
+                    style="@style/TextColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:lineHeight="24dp"
+                    android:text="We’ll send you a code to verify your number"
+                    android:textSize="16dp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="39dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/editLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/state_active_spinner"
+
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/countrycode"
+                            style="@style/TextColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/inter"
+                            android:gravity="center"
+                            android:text="+1"
+                            android:textFontWeight="400"
+                            android:textSize="18sp" />
+
+
+                        <!-- it is a us code - c_id-->
+                        <TextView
+                            android:id="@+id/c_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="@font/inter"
+                            android:gravity="center"
+                            android:text="502"
+                            android:textColor="@color/black_faint"
+                            android:textFontWeight="400"
+                            android:textSize="18sp"
+                            android:visibility="gone" />
+
+                        <EditText
+                            android:id="@+id/mobileEdit"
+                            style="@style/TextColor"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="5dp"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:fontFamily="@font/inter"
+                            android:gravity="start|fill_vertical"
+                            android:hint="Enter mobile"
+                            android:inputType="phone"
+                            android:textColorHint="#9EA6B9"
+                            android:textCursorDrawable="@drawable/cursor_draw"
+                            android:textFontWeight="400"
+                            android:textSize="18sp" />
+
+
+                        <LinearLayout
+                            android:id="@+id/spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1.7"
+                            android:orientation="vertical">
+
+                            <ImageView
+
+                                android:layout_width="10dp"
+                                android:layout_height="0dp"
+                                android:layout_gravity="end"
+
+                                android:layout_weight="1"
+                                android:src="@drawable/downvector"
+
+                                />
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:id="@+id/flagFinal"
+                            style="@style/TextColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="20dp"
+                            android:fontFamily="@font/inter_bold"
+
+                            android:gravity="center"
+                            android:text="IND"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="100dp"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I have read and agree to the "
+                    android:textColor="@color/black_white_cross"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/policy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Privacy Policy"
+                    android:textColor="@color/bluetohovertext"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" and "
+                    android:textColor="@color/black_white_cross"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/term"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Terms of Service."
+                    android:textColor="@color/bluetohovertext"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="20dp">
+
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="#032F60"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="center"
+                    android:lineHeight="24dp"
+                    android:text="Send code"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textFontWeight="600"
+                    android:textSize="16dp" />
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="4dp"
+        android:indeterminateTint="@color/TextColor"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminate="true"
+        android:layout_centerInParent="true"
+
+        android:visibility="gone">
+
+    </ProgressBar>
+
+    <include layout="@layout/view_custom_toast" />
+
+
+</RelativeLayout>

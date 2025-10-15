@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Shared Element Transition Themes -->
+    
+    <!-- Main shared element theme -->
+    <style name="Theme.Enclosure.SharedElement" parent="Theme.Enclosure">
+        <!-- Enable activity transitions -->
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        
+        <!-- Shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition">@transition/shared_element_enter</item>
+        <item name="android:windowSharedElementExitTransition">@transition/shared_element_exit</item>
+        <item name="android:windowSharedElementReenterTransition">@transition/shared_element_reenter</item>
+        <item name="android:windowSharedElementReturnTransition">@transition/shared_element_return</item>
+        
+        <!-- Content transitions -->
+        <item name="android:windowEnterTransition">@transition/explode_enter</item>
+        <item name="android:windowExitTransition">@transition/explode_exit</item>
+        <item name="android:windowReenterTransition">@transition/explode_reenter</item>
+        <item name="android:windowReturnTransition">@transition/explode_return</item>
+        
+        <!-- Allow transitions to overlap -->
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+    </style>
+    
+    <!-- Shared element theme with fade content transitions -->
+    <style name="Theme.Enclosure.SharedElement.Fade" parent="Theme.Enclosure.SharedElement">
+        <item name="android:windowEnterTransition">@transition/fade_enter</item>
+        <item name="android:windowExitTransition">@transition/fade_exit</item>
+        <item name="android:windowReenterTransition">@transition/fade_reenter</item>
+        <item name="android:windowReturnTransition">@transition/fade_return</item>
+    </style>
+    
+    <!-- Shared element theme with slide content transitions -->
+    <style name="Theme.Enclosure.SharedElement.Slide" parent="Theme.Enclosure.SharedElement">
+        <item name="android:windowEnterTransition">@transition/slide_enter</item>
+        <item name="android:windowExitTransition">@transition/slide_exit</item>
+        <item name="android:windowReenterTransition">@transition/slide_reenter</item>
+        <item name="android:windowReturnTransition">@transition/slide_return</item>
+    </style>
+    
+    <!-- Shared element theme with combined transitions -->
+    <style name="Theme.Enclosure.SharedElement.Combined" parent="Theme.Enclosure.SharedElement">
+        <item name="android:windowEnterTransition">@transition/combined_enter</item>
+        <item name="android:windowExitTransition">@transition/combined_exit</item>
+        <item name="android:windowReenterTransition">@transition/combined_reenter</item>
+        <item name="android:windowReturnTransition">@transition/combined_return</item>
+    </style>
+    
+    <!-- Fast shared element theme for quick transitions -->
+    <style name="Theme.Enclosure.SharedElement.Fast" parent="Theme.Enclosure.SharedElement">
+        <item name="android:windowSharedElementEnterTransition">@transition/shared_element_enter_fast</item>
+        <item name="android:windowSharedElementExitTransition">@transition/shared_element_exit_fast</item>
+        <item name="android:windowSharedElementReenterTransition">@transition/shared_element_reenter_fast</item>
+        <item name="android:windowSharedElementReturnTransition">@transition/shared_element_return_fast</item>
+        
+        <item name="android:windowEnterTransition">@transition/explode_enter_fast</item>
+        <item name="android:windowExitTransition">@transition/explode_exit_fast</item>
+        <item name="android:windowReenterTransition">@transition/explode_reenter_fast</item>
+        <item name="android:windowReturnTransition">@transition/explode_return_fast</item>
+    </style>
+    
+    <!-- Slow shared element theme for dramatic transitions -->
+    <style name="Theme.Enclosure.SharedElement.Slow" parent="Theme.Enclosure.SharedElement">
+        <item name="android:windowSharedElementEnterTransition">@transition/shared_element_enter_slow</item>
+        <item name="android:windowSharedElementExitTransition">@transition/shared_element_exit_slow</item>
+        <item name="android:windowSharedElementReenterTransition">@transition/shared_element_reenter_slow</item>
+        <item name="android:windowSharedElementReturnTransition">@transition/shared_element_return_slow</item>
+        
+        <item name="android:windowEnterTransition">@transition/explode_enter_slow</item>
+        <item name="android:windowExitTransition">@transition/explode_exit_slow</item>
+        <item name="android:windowReenterTransition">@transition/explode_reenter_slow</item>
+        <item name="android:windowReturnTransition">@transition/explode_return_slow</item>
+    </style>
+    
+    <!-- Chat specific shared element theme -->
+    <style name="Theme.Enclosure.SharedElement.Chat" parent="Theme.Enclosure.SharedElement">
+        <item name="android:windowEnterTransition">@transition/chat_enter</item>
+        <item name="android:windowExitTransition">@transition/chat_exit</item>
+        <item name="android:windowReenterTransition">@transition/chat_reenter</item>
+        <item name="android:windowReturnTransition">@transition/chat_return</item>
+    </style>
+    
+    <!-- Media viewer shared element theme -->
+    <style name="Theme.Enclosure.SharedElement.Media" parent="Theme.Enclosure.SharedElement">
+        <item name="android:windowEnterTransition">@transition/media_enter</item>
+        <item name="android:windowExitTransition">@transition/media_exit</item>
+        <item name="android:windowReenterTransition">@transition/media_reenter</item>
+        <item name="android:windowReturnTransition">@transition/media_return</item>
+    </style>
+    
+    <!-- Profile shared element theme -->
+    <style name="Theme.Enclosure.SharedElement.Profile" parent="Theme.Enclosure.SharedElement">
+        <item name="android:windowEnterTransition">@transition/profile_enter</item>
+        <item name="android:windowExitTransition">@transition/profile_exit</item>
+        <item name="android:windowReenterTransition">@transition/profile_reenter</item>
+        <item name="android:windowReturnTransition">@transition/profile_return</item>
+    </style>
+    
+    <!-- Settings shared element theme -->
+    <style name="Theme.Enclosure.SharedElement.Settings" parent="Theme.Enclosure.SharedElement">
+        <item name="android:windowEnterTransition">@transition/settings_enter</item>
+        <item name="android:windowExitTransition">@transition/settings_exit</item>
+        <item name="android:windowReenterTransition">@transition/settings_reenter</item>
+        <item name="android:windowReturnTransition">@transition/settings_return</item>
+    </style>
+    
+</resources>

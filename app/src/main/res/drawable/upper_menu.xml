@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="291dp"
+    android:height="354dp"
+    android:viewportWidth="291"
+    android:viewportHeight="354">
+  <path
+      android:strokeWidth="1"
+      android:pathData="M10,0.5L281,0.5A9.5,9.5 0,0 1,290.5 10L290.5,344A9.5,9.5 0,0 1,281 353.5L10,353.5A9.5,9.5 0,0 1,0.5 344L0.5,10A9.5,9.5 0,0 1,10 0.5z"
+      android:fillColor="@color/sleepBox"
+      android:strokeColor="@color/sleepBoxBorder"/>
+</vector>

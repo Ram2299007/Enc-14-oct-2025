@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Modern Music Player - Dark Mode Colors -->
+    <color name="glow_start_color">#40FFFFFF</color>
+    <color name="glow_center_color">#20FFFFFF</color>
+    <color name="glow_end_color">#00FFFFFF</color>
+    <color name="glow_stroke_color">#30FFFFFF</color>
+    
+    <color name="wave_container_start">#15FFFFFF</color>
+    <color name="wave_container_center">#08FFFFFF</color>
+    <color name="wave_container_end">#00FFFFFF</color>
+    <color name="wave_container_stroke">#20FFFFFF</color>
+    
+    <color name="control_button_start">#20FFFFFF</color>
+    <color name="control_button_center">#10FFFFFF</color>
+    <color name="control_button_end">#00FFFFFF</color>
+    <color name="control_button_stroke">#30FFFFFF</color>
+    
+    <color name="play_button_start">#40FFFFFF</color>
+    <color name="play_button_center">#20FFFFFF</color>
+    <color name="play_button_end">#10FFFFFF</color>
+</resources>

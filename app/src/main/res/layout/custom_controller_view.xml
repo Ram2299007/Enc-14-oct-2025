@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/exo_controller"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="#80000000"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <!-- Progress Bar -->
+    <androidx.media3.ui.DefaultTimeBar
+        android:id="@+id/exo_progress"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="8dp"
+        app:buffered_color="#80FFFFFF"
+        app:played_color="#FF4081"
+        app:scrubber_color="#FF4081"
+        app:unplayed_color="#33FFFFFF" />
+
+    <!-- Control Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
+
+        <ImageButton
+            android:id="@+id/exo_rew"
+            style="@style/ExoMediaButton.Rewind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:tint="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/exo_play"
+            style="@style/ExoMediaButton.Play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:tint="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/exo_pause"
+            style="@style/ExoMediaButton.Pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:tint="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/exo_ffwd"
+            style="@style/ExoMediaButton.FastForward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:tint="@android:color/white" />
+    </LinearLayout>
+</LinearLayout>

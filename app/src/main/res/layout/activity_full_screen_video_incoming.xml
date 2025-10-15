@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/callnewmodernbg"
+    tools:context=".Utils.FullScreenVoiceIncoming">
+
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="colorAccent" />
+
+    <LinearLayout
+        android:id="@+id/callerIdAndName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="118dp"
+        android:orientation="vertical">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/user" />
+
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="17dp"
+            android:fontFamily="@font/inter_medium"
+            android:lineHeight="18dp"
+            android:text="Name"
+            android:textColor="@color/white"
+            android:textFontWeight="700"
+            android:textSize="15sp" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="17dp"
+            android:fontFamily="@font/inter_medium"
+            android:lineHeight="18dp"
+            android:text="Video call"
+            android:textColor="@color/gray"
+            android:textFontWeight="700"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/connected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="17dp"
+            android:fontFamily="@font/inter_medium"
+            android:lineHeight="18dp"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textFontWeight="700"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="join"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="17dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/voiceCalling"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:fontFamily="@font/inter_medium"
+            android:lineHeight="30dp"
+            android:text="Connecting"
+            android:textColor="@color/white"
+            android:textFontWeight="500"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/name2"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_medium"
+            android:lineHeight="30dp"
+            android:textColor="@color/white"
+            android:textFontWeight="500"
+            android:textSize="20sp"
+            android:visibility="visible" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/callLyt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="50dp"
+        android:gravity="center">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/endCall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="Accept Call"
+                app:backgroundTint="@color/endcall"
+                app:srcCompat="@drawable/endcall"
+                app:tint="@color/modetheme"
+                app:rippleColor="#1AFFFFFF"
+                android:elevation="6dp"
+                app:fabSize="normal"
+                app:fabCustomSize="65dp"
+                app:pressedTranslationZ="12dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/acceptCall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="Accept Call"
+                app:backgroundTint="@color/acceptcall"
+                app:srcCompat="@drawable/videoaccept"
+                app:tint="@color/modetheme"
+                app:rippleColor="#1AFFFFFF"
+                android:elevation="6dp"
+                app:fabCustomSize="65dp"
+                app:pressedTranslationZ="12dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

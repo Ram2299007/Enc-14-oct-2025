@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/includedToast"
+    style="@style/cardBackgroundColor"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="40dp"
+    android:elevation="10dp"
+    android:gravity="center_vertical"
+    android:layout_alignParentBottom="true"
+    android:layout_centerInParent="true"
+    android:orientation="vertical"
+    android:visibility="gone"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp">
+
+    <TextView
+        android:id="@+id/toastText"
+        style="@style/TextColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:fontFamily="@font/inter_medium"
+        android:gravity="center"
+        android:lineHeight="31.5dp"
+        android:paddingStart="22dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="22dp"
+        android:paddingBottom="8dp"
+        android:text="Incoming Calls : OFF"
+        android:textFontWeight="500"
+        android:textSize="17sp" />
+</androidx.cardview.widget.CardView>

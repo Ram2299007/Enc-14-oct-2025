@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:gravity="center"
+    android:padding="20dp">
+
+    <!-- Contact Avatar Icon -->
+    <LinearLayout
+        android:id="@+id/contactAvatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/contact_avatar_background"
+        android:gravity="center"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/contactInitial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A"
+            android:textColor="@color/black"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/inter" />
+
+    </LinearLayout>
+
+    <!-- Contact Name -->
+    <TextView
+        android:id="@+id/contactName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contactAvatar"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="40dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="2"
+        android:text="Contact Name"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:fontFamily="@font/inter_medium" />
+
+    <!-- Contact Phone -->
+    <TextView
+        android:id="@+id/contactPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contactName"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="40dp"
+        android:gravity="center"
+        android:text="+1234567890"
+        android:textColor="@color/gray3"
+        android:textSize="18sp"
+        android:fontFamily="@font/inter_medium" />
+
+    <!-- Contact Email -->
+    <TextView
+        android:id="@+id/contactEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contactPhone"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="40dp"
+        android:gravity="center"
+        android:text="contact@example.com"
+        android:textColor="@color/gray3"
+        android:textSize="16sp"
+        android:fontFamily="@font/inter_medium" />
+
+</RelativeLayout>

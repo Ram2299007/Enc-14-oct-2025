@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Screens.nearbyScreen">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="20dp"
+
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/rectelelavation"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/backarrow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="26dp"
+                        android:background="@drawable/backarowhover_for_all"
+                        android:layout_height="26dp"
+
+                        android:gravity="center"
+                        app:cardCornerRadius="20dp">
+
+
+                        <ImageView
+                            android:background="@drawable/backarowhover_for_all"
+                            android:layout_width="25dp"
+                            android:layout_height="18dp"
+                            android:padding="2dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/leftvector" />
+
+                    </LinearLayout>
+
+
+
+
+                    <TextView
+                        android:id="@+id/mainTiktke"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="21dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:text="Nearby"
+                        style="@style/TextColor"
+                        android:textFontWeight="500"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="16dp"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/live"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Live"
+
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/inter_medium"
+                        android:textFontWeight="500"
+                        android:textSize="14sp"
+                        android:lineHeight="21dp"
+                        android:textColor="#9EA6B9"/>
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="24dp"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/nearby"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nearby"
+
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/inter_medium"
+                        android:textFontWeight="500"
+                        android:textSize="14sp"
+                        android:lineHeight="21dp"
+                        style="@style/TextColor"/>
+
+                    <View
+                        android:layout_width="47dp"
+                        android:layout_gravity="center"
+
+                        android:layout_height="1dp"
+                        android:background="#000000"/>
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="16dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/a1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Amazon.com"
+                        android:textFontWeight="600"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/inter_bold"
+                        android:textColor="#011224"
+                        android:lineHeight="21dp"/>
+
+                    <TextView
+                        android:id="@+id/t1"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit. Nunc\nvulputate libero et velit interdum, ac\naliquet odio mattis."
+                        android:textFontWeight="400"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/inter_medium"
+                        android:textColor="#9EA6B9"
+                        android:lineHeight="18dp"/>
+
+
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/rectangkle"
+                        android:layout_gravity="end"/>
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="16dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/a2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Amazon.com"
+                        android:textFontWeight="600"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/inter_bold"
+                        android:textColor="#011224"
+                        android:lineHeight="21dp"/>
+
+                    <TextView
+                        android:id="@+id/t2"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit. Nunc\nvulputate libero et velit interdum, ac\naliquet odio mattis."
+                        android:textFontWeight="400"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/inter_medium"
+                        android:textColor="#9EA6B9"
+                        android:lineHeight="18dp"/>
+
+
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/rectangkle"
+                        android:layout_gravity="end"/>
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="16dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/a3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Amazon.com"
+                        android:textFontWeight="600"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/inter_bold"
+                        android:textColor="#011224"
+                        android:lineHeight="21dp"/>
+
+                    <TextView
+                        android:id="@+id/t3"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit. Nunc\nvulputate libero et velit interdum, ac\naliquet odio mattis."
+                        android:textFontWeight="400"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/inter_medium"
+                        android:textColor="#9EA6B9"
+                        android:lineHeight="18dp"/>
+
+
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/rectangkle"
+                        android:layout_gravity="end"/>
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="16dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/a4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Amazon.com"
+                        android:textFontWeight="600"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/inter_bold"
+                        android:textColor="#011224"
+                        android:lineHeight="21dp"/>
+
+                    <TextView
+                        android:id="@+id/t4"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit. Nunc\nvulputate libero et velit interdum, ac\naliquet odio mattis."
+                        android:textFontWeight="400"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/inter_medium"
+                        android:textColor="#9EA6B9"
+                        android:lineHeight="18dp"/>
+
+
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/rectangkle"
+                        android:layout_gravity="end"/>
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="16dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/a5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Amazon.com"
+                        android:textFontWeight="600"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/inter_bold"
+                        android:textColor="#011224"
+                        android:lineHeight="21dp"/>
+
+                    <TextView
+                        android:id="@+id/t6"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit. Nunc\nvulputate libero et velit interdum, ac\naliquet odio mattis."
+                        android:textFontWeight="400"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/inter_medium"
+                        android:textColor="#9EA6B9"
+                        android:lineHeight="18dp"/>
+
+
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/rectangkle"
+                        android:layout_gravity="end"/>
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="16dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/a6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Amazon.com"
+                        android:textFontWeight="600"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/inter_bold"
+                        android:textColor="#011224"
+                        android:lineHeight="21dp"/>
+
+                    <TextView
+                        android:id="@+id/t5"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit. Nunc\nvulputate libero et velit interdum, ac\naliquet odio mattis."
+                        android:textFontWeight="400"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/inter_medium"
+                        android:textColor="#9EA6B9"
+                        android:lineHeight="18dp"/>
+
+
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/rectangkle"
+                        android:layout_gravity="end"/>
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</RelativeLayout>

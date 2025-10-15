@@ -1,0 +1,21 @@
+# macOS system files
+.DS_Store
+
+# Android build files
+*.apk
+*.aab
+
+# IntelliJ / Android Studio
+.idea/
+*.iml
+
+# Build output
+/build/
+app/build/
+release/
+
+# Android build files
+*.apk
+*.aab
+release/
+app/release/

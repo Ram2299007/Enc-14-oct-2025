@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/callnewmodernbg"
+    tools:context=".Screens.videoIncomingCallingFirst">
+
+
+    <LinearLayout
+        android:id="@+id/callerIdAndName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="118dp"
+        android:orientation="vertical">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/user" />
+
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="17dp"
+            android:fontFamily="@font/inter_medium"
+            android:lineHeight="18dp"
+            android:text="Joey Banks"
+            android:textColor="@color/white"
+            android:textFontWeight="700"
+            android:textSize="12sp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="17dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:fontFamily="@font/inter_medium"
+                android:lineHeight="30dp"
+                android:text="In calling"
+                android:textColor="@color/white"
+                android:textFontWeight="500"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/name2"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:lineHeight="30dp"
+                android:text="..."
+                android:textColor="@color/white"
+                android:textFontWeight="500"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/dismissgif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/callgif"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="140dp"
+        android:layout_marginStart="28dp"
+        android:layout_alignParentBottom="true"/>
+
+    <SeekBar
+        android:id="@+id/dismissCall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="180dp"
+        android:layout_marginBottom="130dp"
+        android:progressDrawable="@android:color/transparent"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:rotation="270"
+        android:thumb="@drawable/calling_button_hover_new" />
+
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/acceptgif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/callgif"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="140dp"
+        android:layout_marginEnd="28dp"
+        android:layout_alignParentBottom="true"/>
+    <SeekBar
+        android:id="@+id/acceptCall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="180dp"
+        android:layout_marginBottom="130dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:rotation="270"
+        android:progressDrawable="@android:color/transparent"
+        android:thumb="@drawable/accept_hover_btn_new" />
+
+
+
+
+</RelativeLayout>

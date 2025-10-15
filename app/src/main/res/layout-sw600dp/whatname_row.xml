@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="307dp"
+    android:layout_height="356dp"
+    android:background="@drawable/popupname"
+    android:gravity="top"
+
+
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/inter_bold"
+            android:lineHeight="60dp"
+            android:text="What’s your\nname?"
+            android:textColor="#252C46"
+            android:textFontWeight="600"
+            android:textSize="35sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/inter"
+            android:lineHeight="24dp"
+            android:text="Enter your name here"
+            android:textColor="#9EA6B9"
+            android:textFontWeight="400"
+            android:textSize="16sp" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/CustomOutlinedBox"
+            android:stateListAnimator="@null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+
+            android:layout_marginTop="23dp"
+
+            android:layout_marginEnd="14dp"
+
+            android:hint="Name"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp">
+
+
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/nameEdit"
+                android:layout_width="match_parent"
+                android:textColorHint="@color/gray3"
+                android:textColor="@color/textviewcolor"
+
+                android:layout_height="55dp"
+                android:fontFamily="@font/inter"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="42dp"
+            android:layout_marginRight="25dp"
+            android:layout_gravity="center"
+        >
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:backgroundTint="#032F60"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:fontFamily="@font/inter_medium"
+                android:lineHeight="24dp"
+                android:text="Submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textFontWeight="600"
+                android:textSize="16sp" />
+
+        </androidx.cardview.widget.CardView>
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

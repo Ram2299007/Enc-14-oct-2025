@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Outer circle (28dp) -->
+    <item>
+        <shape android:shape="oval">
+            <size android:width="28dp" android:height="28dp" />
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+
+    <!-- Inner small circle (16dp), centered via padding -->
+    <item android:left="6dp" android:top="6dp" android:right="6dp" android:bottom="6dp">
+        <shape android:shape="oval">
+            <size android:width="16dp" android:height="16dp" />
+            <solid android:color="@color/TextColor" />
+        </shape>
+    </item>
+
+</layer-list>

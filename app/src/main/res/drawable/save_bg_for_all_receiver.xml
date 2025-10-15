@@ -1,0 +1,10 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:drawable="@drawable/sve_scale_b_2_receiver" android:state_pressed="true" />
+
+    <item android:drawable="@drawable/sve_scale_b_2_receiver" android:state_focused="true" />
+
+    <item android:drawable="@drawable/save_scale_b_receiver" android:state_active="true" />
+    <item android:drawable="@drawable/save_scale_b_receiver" />
+</selector>

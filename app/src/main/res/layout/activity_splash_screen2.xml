@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BackgroundColor"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    tools:context=".Screens.SplashScreen2">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginHorizontal="20sp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="23dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TextColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="Enclosure"
+                    android:textSize="20sp"
+                    android:visibility="visible" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Messaging app"
+                    android:textColor="@color/gray3"
+                    android:textSize="16sp"
+                    android:visibility="visible" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+
+                    android:src="@drawable/ec_modern"
+                    android:visibility="visible" />
+
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+
+                        android:layout_marginEnd="50dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/personal"
+                            style="@style/TextColor"
+                            android:layout_width="wrap_content"
+
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_medium"
+                            android:lineHeight="19.36dp"
+                            android:text="Personal"
+                            android:textFontWeight="600"
+                            android:textSize="16sp"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/professional"
+                            style="@style/TextColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:lineHeight="21.78dp"
+                            android:text="Professional"
+                            android:textFontWeight="600"
+                            android:textSize="18sp"
+                            android:visibility="visible" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/dot3"
+                            android:layout_width="9dp"
+                            android:layout_height="9dp"
+                            android:layout_marginTop="26dp"
+                            android:src="#2FB4ED"
+                            android:visibility="visible" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/dot2"
+                            android:layout_width="9dp"
+                            android:layout_height="9dp"
+                            android:layout_marginTop="26dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="#146D94"
+                            android:visibility="visible" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/dot1"
+                            android:layout_width="9dp"
+                            android:layout_height="9dp"
+                            android:layout_marginTop="26dp"
+                            android:src="#07386B"
+                            android:visibility="visible" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/mail"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="26dp"
+                            android:src="@drawable/mail"
+                            android:visibility="visible" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/sofar"
+                            style="@style/TextColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_medium"
+                            android:gravity="start"
+                            android:lineHeight="19.36dp"
+                            android:text="Valuable for"
+
+                            android:textFontWeight="600"
+                            android:textSize="16sp"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/billionPeople"
+                            style="@style/TextColor"
+                            android:layout_width="wrap_content"
+
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:lineHeight="21.78dp"
+                            android:text="Billion People"
+                            android:textFontWeight="600"
+                            android:textSize="18sp"
+                            android:visibility="visible" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/dot4"
+                            android:layout_width="9dp"
+                            android:layout_height="9dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="26dp"
+                            android:src="#2FB4ED"
+
+                            android:visibility="visible" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/dot5"
+                            android:layout_width="9dp"
+                            android:layout_height="9dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="26dp"
+                            android:src="#146D94"
+                            android:visibility="visible" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/dot6"
+                            android:layout_width="9dp"
+                            android:layout_height="9dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="26dp"
+                            android:src="#07386B"
+
+                            android:visibility="visible" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/q"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+
+                            android:layout_gravity="center"
+                            android:layout_marginTop="26dp"
+
+                            android:src="@drawable/q"
+
+
+                            android:visibility="visible" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/blueTemplate"
+                android:layout_width="match_parent"
+                android:layout_height="143dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/blue_banner"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+
+                <ViewFlipper
+                    android:id="@+id/viewpager"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:flipInterval="3000"
+                    android:inAnimation="@android:anim/slide_in_left"
+                    android:outAnimation="@android:anim/slide_out_right"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/tempTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/inter_bold"
+                        android:gravity="center"
+                        android:text="Your message will become\n more valuable here."
+                        android:textColor="@color/white"
+                        android:textFontWeight="600"
+                        android:textSize="18sp"
+                        android:visibility="visible" />
+
+
+                </ViewFlipper>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:background="@drawable/custome_ripple_circle"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="3dp">
+
+
+        <TextView
+            android:id="@+id/nextTxt"
+            style="@style/TextColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:fontFamily="@font/inter_bold"
+            android:lineHeight="24dp"
+            android:text="Next"
+            android:textSize="20sp"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/nextImg"
+            style="@style/icontintGlobal"
+            android:layout_width="21.62dp"
+            android:layout_height="21.62dp"
+            android:layout_marginStart="8.31dp"
+            android:layout_marginEnd="3dp"
+            android:src="@drawable/next"
+            android:visibility="visible" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

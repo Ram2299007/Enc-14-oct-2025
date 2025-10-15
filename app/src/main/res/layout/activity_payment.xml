@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Screens.payActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rectelelavation"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/backarrow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="26dp"
+                            android:background="@drawable/backarowhover_for_all"
+                            android:layout_height="26dp"
+
+                            android:gravity="center"
+                            app:cardCornerRadius="20dp">
+
+
+                            <ImageView
+                                android:background="@drawable/backarowhover_for_all"
+                                android:layout_width="25dp"
+                                android:layout_height="18dp"
+                                android:padding="2dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/leftvector" />
+
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:id="@+id/payment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="21dp"
+                            android:fontFamily="@font/inter_medium"
+                            android:text="Payment"
+                            style="@style/TextColor"
+                            android:textFontWeight="500"
+                            android:textSize="16dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/whiterect"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="58dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="15dp"
+
+
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:id="@+id/pa"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="16dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:lineHeight="21dp"
+                                android:text="Payable Amount"
+                                android:textColor="#171717"
+                                android:textFontWeight="500"
+                                android:textSize="14sp" />
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical|end"
+                                android:layout_marginEnd="41dp"
+                                android:gravity="end"
+                                android:orientation="horizontal">
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end|center_vertical"
+                                    android:gravity="end"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="10dp"
+                                        android:layout_height="11dp"
+                                        android:src="@drawable/rupee" />
+
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/one"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    android:layout_marginTop="2dp"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:gravity="center_vertical"
+                                    android:lineHeight="21dp"
+                                    android:text="1"
+                                    style="@style/TextColor"
+                                    android:textSize="12sp" />
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="281dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/whitebigrect"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_marginTop="15dp"
+
+
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/selcte"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:lineHeight="21dp"
+                            android:text="Select Payment Method"
+                            android:textColor="#171717"
+                            android:textFontWeight="500"
+                            android:textSize="14sp" />
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginHorizontal="17dp"
+                        android:layout_marginTop="12dp"
+                        android:background="#A5A5A5" />
+
+
+                    <TextView
+                        android:id="@+id/upi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:lineHeight="16.5dp"
+                        android:text="UPI"
+                        style="@style/TextColor"
+                        android:textFontWeight="500"
+                        android:textSize="11sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="19dp"
+                            android:layout_height="19dp"
+                            android:layout_gravity="center_vertical"
+
+                            android:layout_marginStart="25dp"
+                            android:src="@drawable/phonepay" />
+
+                        <TextView
+                            android:id="@+id/phonepay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="21dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:lineHeight="16.5dp"
+                            android:text="Phonepe"
+                            style="@style/TextColor"
+                            android:textFontWeight="400"
+                            android:textSize="11sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="39.2dp"
+                            android:gravity="end"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+
+
+                                android:src="@drawable/rightarrow"
+                                app:tint="@color/black" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center_vertical"
+
+                            android:layout_marginStart="25dp"
+                            android:src="@drawable/gpay" />
+
+                        <TextView
+                            android:id="@+id/gpay"
+                            android:layout_width="49dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="21dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:lineHeight="16.5dp"
+                            android:text="Gpay"
+                            style="@style/TextColor"
+                            android:textFontWeight="400"
+                            android:textSize="11sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="39.2dp"
+                            android:gravity="end"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+
+
+                                android:src="@drawable/rightarrow"
+                                app:tint="@color/black" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="9dp"
+                            android:layout_gravity="center_vertical"
+
+                            android:layout_marginStart="25dp"
+                            android:src="@drawable/paytm" />
+
+                        <TextView
+                            android:id="@+id/paytm"
+                            android:layout_width="49dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="21dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:lineHeight="16.5dp"
+                            android:text="Paytm"
+                            style="@style/TextColor"
+                            android:textFontWeight="400"
+                            android:textSize="11sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="39.2dp"
+                            android:gravity="end"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+
+
+                                android:src="@drawable/rightarrow"
+                                app:tint="@color/black" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginHorizontal="17dp"
+                        android:layout_marginTop="15dp"
+                        android:background="#A5A5A5" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_marginTop="15dp"
+
+
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/debit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="16dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:lineHeight="16.5dp"
+                            android:text="Debit or Credit card "
+                            android:textColor='@color/black'
+                            android:textFontWeight="500"
+                            android:textSize="11sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14.83dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="19dp"
+                            android:layout_height="19dp"
+                            android:layout_gravity="center_vertical"
+
+                            android:layout_marginStart="25dp"
+                            android:src="@drawable/addcard" />
+
+                        <TextView
+                            android:id="@+id/addcard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="21dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:lineHeight="16.5dp"
+                            android:text="Add Card"
+                            style="@style/TextColor"
+                            android:textFontWeight="400"
+                            android:textSize="11sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="39.2dp"
+                            android:gravity="end"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+
+
+                                android:src="@drawable/rightarrow"
+                                app:tint="@color/black" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:id="@+id/paynow"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/buttonhoverfordone"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:lineHeight="21dp"
+                    android:text="Pay"
+                    android:textColor="@color/white"
+
+                    android:textFontWeight="500"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="11dp"
+                    android:layout_marginStart="3dp"
+                    android:src="@drawable/rupee"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:lineHeight="21dp"
+                    android:text="1"
+                    android:textColor="@color/white"
+
+                    android:textFontWeight="500"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

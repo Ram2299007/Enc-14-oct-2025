@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/docName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:text="Document.pdf"
+        android:textColor="@color/gray3"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:text="size"
+        android:textColor="@color/gray3"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:text="2.5 MB"
+        android:textColor="@color/gray3"
+        android:textSize="17sp" />
+
+    <ImageView
+        android:id="@+id/documentIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/document_24" />
+
+</LinearLayout>
