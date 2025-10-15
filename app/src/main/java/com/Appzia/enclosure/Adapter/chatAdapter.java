@@ -2,6 +2,7 @@ package com.Appzia.enclosure.Adapter;
 
 import android.Manifest;
 import android.animation.ObjectAnimator;
+import android.animation.TimeInterpolator;
 import android.media.MediaScannerConnection;
 
 import android.animation.Animator;
@@ -5721,7 +5722,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 //                                // Load video thumbnail
 //                                ViewGroup parentLayout = (ViewGroup) senderVideo.getParent();
 //                                RequestOptions requestOptions = new RequestOptions()
-//                                        
+//
 //                                        .error(R.drawable.inviteimg)
 //                                        .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL);
 //
@@ -12516,8 +12517,34 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                 }
             } else {
 
-               
+                if (position == messageList.size() - 1) {
+                    Log.d("LastMessage", "LastMessage: " + model.getMessage());
 
+                    if (model.getReceiverLoader() == 0) {
+
+                        // Make sure progress is visible and animated
+                        ((receiverViewHolder) holder).viewnew.setVisibility(View.VISIBLE);
+
+                        // Slight delay ensures view is attached to window before animating
+                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                            ((receiverViewHolder) holder).viewnew.setIndeterminate(true);
+
+                            // Stop animation after 1 second
+                            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                                ((receiverViewHolder) holder).viewnew.setIndeterminate(false);
+                                 // optional
+                            }, 1000);
+
+                        }, 50);
+
+                    } else {
+                        ((receiverViewHolder) holder).viewnew.setIndeterminate(false);
+
+                    }
+                } else {
+                    ((receiverViewHolder) holder).viewnew.setIndeterminate(false);
+
+                }
 
 
 
@@ -15691,7 +15718,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 // Load video thumbnail
                                 ViewGroup parentLayout = (ViewGroup) videoicon.getParent();
                                 RequestOptions requestOptions = new RequestOptions()
-                                        
+
                                         .error(R.drawable.inviteimg)
                                         .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL);
 
@@ -22436,7 +22463,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
             messageRecView.post(() -> {
                 // First instant scroll to prevent flickering
                 messageRecView.scrollToPosition(getItemCount() - 1);
-                
+
 //                // Then smooth scroll for better visual effect
 //                new Handler(Looper.getMainLooper()).postDelayed(() -> {
 //                    messageRecView.smoothScrollToPosition(getItemCount() - 1);
@@ -22452,10 +22479,10 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         if (messageRecView != null && getItemCount() > 0) {
             messageRecView.post(() -> {
                 int lastPosition = getItemCount() - 1;
-                
+
                 // First attempt: instant scroll
                 messageRecView.scrollToPosition(lastPosition);
-                
+
                 // Second attempt: ensure with layout manager
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
                     LinearLayoutManager layoutManager = (LinearLayoutManager) messageRecView.getLayoutManager();
@@ -22463,7 +22490,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         layoutManager.scrollToPositionWithOffset(lastPosition, 0);
                     }
                 }, 100);
-                
+
 //                // Third attempt: smooth scroll for final positioning
 //                new Handler(Looper.getMainLooper()).postDelayed(() -> {
 //                    messageRecView.smoothScrollToPosition(lastPosition);
@@ -22494,11 +22521,11 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                     messageRecView.post(() -> {
                         // Use instant scroll to prevent flickering, then smooth scroll for better UX
                         messageRecView.scrollToPosition(foundIndex);
-                        
+
                         // Add a small delay then smooth scroll for better visual effect
                         new Handler(Looper.getMainLooper()).postDelayed(() -> {
                           //  messageRecView.smoothScrollToPosition(foundIndex);
-                            
+
                             // Add another delay to ensure the view is bound and laid out
                             new Handler(Looper.getMainLooper()).postDelayed(() -> {
                                 RecyclerView.ViewHolder viewHolder = messageRecView.findViewHolderForAdapterPosition(foundIndex);
@@ -26898,11 +26925,11 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                     } else {
                         customFolder = new File(mContext.getExternalFilesDir(null), "Enclosure/Media/Images");
                     }
-                    
+
                     // Try original filename first
                     String localPath = customFolder.getAbsolutePath() + "/" + originalFileName;
                     boolean fileExists = doesFileExist(localPath);
-                    
+
                     // If not found with original name, try cleaned name
                     if (!fileExists && !originalFileName.equals(cleanFileName)) {
                         localPath = customFolder.getAbsolutePath() + "/" + cleanFileName;
@@ -27399,5 +27426,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         void onSuccess();
         void onError(String error);
     }
-    
+    private int dpToPx(int dp) {
+        return (int) (dp * mContext.getResources().getDisplayMetrics().density);
+    }
 }

@@ -25,11 +25,12 @@ public class messageModel implements Serializable {
 
     private String selectionCount;
     private ArrayList<selectionBunchModel> selectionBunch;
+    private int receiverLoader = 0;
 
     public messageModel() {
     }
 
-    // Overloaded constructor for backward compatibility
+    // Overloaded constructor for backward compatibility (without selectionBunch and receiverLoader)
     public messageModel(String uid, String message, String time, String document, String dataType,
                         String extension, String name, String phone, String micPhoto, String miceTiming,
                         String userName, String replytextData, String replyKey, String replyType, String replyOldData,
@@ -40,7 +41,21 @@ public class messageModel implements Serializable {
         this(uid, message, time, document, dataType, extension, name, phone, micPhoto, miceTiming,
                 userName, replytextData, replyKey, replyType, replyOldData, replyCrtPostion, modelId, receiverUid,
                 forwaredKey, groupName, docSize, fileName, thumbnail, fileNameThumbnail, caption, notification,
-                currentDate, emojiModel, emojiCount, timestamp, imageWidth, imageHeight, aspectRatio, selectionCount, null);
+                currentDate, emojiModel, emojiCount, timestamp, imageWidth, imageHeight, aspectRatio, selectionCount, null, 0);
+    }
+
+    // Overloaded constructor for backward compatibility (with selectionBunch but without receiverLoader)
+    public messageModel(String uid, String message, String time, String document, String dataType,
+                        String extension, String name, String phone, String micPhoto, String miceTiming,
+                        String userName, String replytextData, String replyKey, String replyType, String replyOldData,
+                        String replyCrtPostion, String modelId, String receiverUid, String forwaredKey, String groupName,
+                        String docSize, String fileName, String thumbnail, String fileNameThumbnail, String caption,
+                        int notification, String currentDate, ArrayList<emojiModel> emojiModel, String emojiCount,
+                        long timestamp, String imageWidth, String imageHeight, String aspectRatio, String selectionCount, ArrayList<selectionBunchModel> selectionBunch) {
+        this(uid, message, time, document, dataType, extension, name, phone, micPhoto, miceTiming,
+                userName, replytextData, replyKey, replyType, replyOldData, replyCrtPostion, modelId, receiverUid,
+                forwaredKey, groupName, docSize, fileName, thumbnail, fileNameThumbnail, caption, notification,
+                currentDate, emojiModel, emojiCount, timestamp, imageWidth, imageHeight, aspectRatio, selectionCount, selectionBunch, 0);
     }
 
     public messageModel(String uid, String message, String time, String document, String dataType,
@@ -49,7 +64,7 @@ public class messageModel implements Serializable {
                         String replyCrtPostion, String modelId, String receiverUid, String forwaredKey, String groupName,
                         String docSize, String fileName, String thumbnail, String fileNameThumbnail, String caption,
                         int notification, String currentDate, ArrayList<emojiModel> emojiModel, String emojiCount,
-                        long timestamp, String imageWidth, String imageHeight, String aspectRatio, String selectionCount, ArrayList<selectionBunchModel> selectionBunch) {
+                        long timestamp, String imageWidth, String imageHeight, String aspectRatio, String selectionCount, ArrayList<selectionBunchModel> selectionBunch, int receiverLoader) {
 
         this.uid = uid;
         this.message = message;
@@ -86,6 +101,7 @@ public class messageModel implements Serializable {
         this.aspectRatio = aspectRatio;
         this.selectionCount = selectionCount;
         this.selectionBunch = selectionBunch;
+        this.receiverLoader = receiverLoader;
     }
 
     // ✅ Firebase साठी Map मध्ये convert करणारा method
@@ -128,7 +144,8 @@ public class messageModel implements Serializable {
         // पण Server time हवा असेल तर Firebase लिहिताना override कर
         map.put("timestamp", timestamp);
         map.put("selectionCount", selectionCount);
-        
+        map.put("receiverLoader", receiverLoader);
+
         // Convert selectionBunch to Map format for Firebase
         if (selectionBunch != null && !selectionBunch.isEmpty()) {
             ArrayList<Map<String, Object>> selectionBunchMap = new ArrayList<>();
@@ -141,7 +158,7 @@ public class messageModel implements Serializable {
             map.put("selectionBunch", null);
             Log.d("SelectionBunch", "messageModel.toMap(): selectionBunch is null or empty");
         }
-        
+
         Log.d("SelectionCount", "messageModel.toMap(): selectionCount=" + selectionCount);
         Log.d("ImageDimensions", "messageModel.toMap(): imageWidth=" + imageWidth + ", imageHeight=" + imageHeight + ", aspectRatio=" + aspectRatio);
 
@@ -188,7 +205,8 @@ public class messageModel implements Serializable {
                 notification == other.notification &&
                 Objects.equals(emojiModel, other.emojiModel) &&
                 Objects.equals(selectionCount, other.selectionCount) &&
-                Objects.equals(selectionBunch, other.selectionBunch);
+                Objects.equals(selectionBunch, other.selectionBunch) &&
+                receiverLoader == other.receiverLoader;
     }
 
     @Override
@@ -197,7 +215,7 @@ public class messageModel implements Serializable {
                 miceTiming, micPhoto, userName, replytextData, replyKey, replyType, replyOldData,
                 replyCrtPostion, modelId, receiverUid, forwaredKey, groupName, docSize, fileName,
                 thumbnail, fileNameThumbnail, caption, currentDate, emojiCount, timestamp,
-                imageWidth, imageHeight, aspectRatio, notification, emojiModel, selectionCount,selectionBunch);
+                imageWidth, imageHeight, aspectRatio, notification, emojiModel, selectionCount, selectionBunch, receiverLoader);
     }
 
 
@@ -482,6 +500,14 @@ public class messageModel implements Serializable {
         this.selectionBunch = selectionBunch;
     }
 
+    public int getReceiverLoader() {
+        return receiverLoader;
+    }
+
+    public void setReceiverLoader(int receiverLoader) {
+        this.receiverLoader = receiverLoader;
+    }
+
     // ✅ Custom method to parse selectionBunch from Firebase DataSnapshot
     public static void parseSelectionBunchFromSnapshot(DataSnapshot snapshot, messageModel model) {
         try {
@@ -489,13 +515,13 @@ public class messageModel implements Serializable {
             DataSnapshot selectionBunchSnapshot = snapshot.child("selectionBunch");
             Log.d("SelectionBunch", "selectionBunchSnapshot exists: " + selectionBunchSnapshot.exists());
             Log.d("SelectionBunch", "selectionBunchSnapshot children count: " + selectionBunchSnapshot.getChildrenCount());
-            
+
             if (selectionBunchSnapshot.exists()) {
                 ArrayList<selectionBunchModel> selectionBunch = new ArrayList<>();
                 for (DataSnapshot bunchSnapshot : selectionBunchSnapshot.getChildren()) {
                     Log.d("SelectionBunch", "Processing bunchSnapshot: " + bunchSnapshot.getKey());
                     Log.d("SelectionBunch", "bunchSnapshot value: " + bunchSnapshot.getValue());
-                    
+
                     selectionBunchModel bunch = bunchSnapshot.getValue(selectionBunchModel.class);
                     Log.d("SelectionBunch", "Parsed bunch: " + (bunch != null ? "not null" : "null"));
                     if (bunch != null) {

@@ -1754,7 +1754,7 @@
                 android:id="@+id/viewnew"
                 android:layout_width="20dp"
                 android:layout_height="1dp"
-                android:indeterminate="false"
+                android:indeterminate="true"
                 app:indicatorColor="@color/black"
                 app:trackColor="@color/line"
                 app:trackCornerRadius="10dp"
