@@ -22,3 +22,9 @@ app/release/
 
 # Project exclude paths
 /.gradle/
+
+# Security files - NEVER commit these
+app/service-account.json
+service-account.json
+*.json
+!google-services.json
