@@ -219,6 +219,8 @@ public class senderViewHolder extends RecyclerView.ViewHolder {
         selectionCheckbox = itemView.findViewById(R.id.selectionCheckbox);
         // Initialize sendLinear for multi-selection
         sendLinear = itemView.findViewById(R.id.sendLinear);
+        
+        // Visual indicators removed - system is working correctly
         senderImgBunchLyt = itemView.findViewById(R.id.senderImgBunchLyt);
         img1 = itemView.findViewById(R.id.img1);
         img2 = itemView.findViewById(R.id.img2);

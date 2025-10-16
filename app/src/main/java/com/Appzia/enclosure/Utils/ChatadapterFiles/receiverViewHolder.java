@@ -33,6 +33,13 @@ public class receiverViewHolder extends RecyclerView.ViewHolder {
     public ConstraintLayout menu2;
     public RelativeLayout receivervideoLyt;
     public ImageView selectionCheckbox;
+    
+    // Additional UI elements from sample_receiver.xml
+    public TextView startData;
+    public ImageView camerapic, replysvg;
+    public LinearLayout lyt;
+    public CardView date;
+    public View cancel;
 
     public LinearLayout miceContainer, replydatalyt, llnew, cnamenamelyt, progresslyt, delete;
     public ImageView miceUImage;
@@ -111,6 +118,9 @@ public class receiverViewHolder extends RecyclerView.ViewHolder {
     public TextView overlayTextImg;
     public FloatingActionButton downlaodImgBunch;
     public TextView downloadPercentageImageSenderBunch;
+    public ImageButton pauseButtonImageSenderBunch;
+    public ProgressBar progressBarImgBunch;
+    public com.Appzia.enclosure.Utils.MediaBunchLayout mediaBunchLayout;
 
     public receiverViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -225,6 +235,32 @@ public class receiverViewHolder extends RecyclerView.ViewHolder {
         overlayTextImg = itemView.findViewById(R.id.overlayTextImg);
         downlaodImgBunch = itemView.findViewById(R.id.downlaodImgBunch);
         downloadPercentageImageSenderBunch = itemView.findViewById(R.id.downloadPercentageImageSenderBunch);
+        pauseButtonImageSenderBunch = itemView.findViewById(R.id.pauseButtonImageSenderBunch);
+        progressBarImgBunch = itemView.findViewById(R.id.progressBarImgBunch);
+        mediaBunchLayout = itemView.findViewById(R.id.mediaBunchLayout);
 
+        // Additional UI elements from sample_receiver.xml
+        startData = itemView.findViewById(R.id.startData);
+        camerapic = itemView.findViewById(R.id.camerapic);
+        replysvg = itemView.findViewById(R.id.replysvg);
+        lyt = itemView.findViewById(R.id.lyt);
+        date = itemView.findViewById(R.id.date);
+        cancel = itemView.findViewById(R.id.cancel);
+        
+        // Ensure MainReceiverBox has the correct background
+        if (MainReceiverBox != null) {
+            MainReceiverBox.setBackgroundResource(com.Appzia.enclosure.R.drawable.message_bg_gray);
+        }
     }
+    
+    /**
+     * Ensure MainReceiverBox has the correct background
+     * This method should be called after any styling changes
+     */
+    public void ensureCorrectBackground() {
+        if (MainReceiverBox != null) {
+            MainReceiverBox.setBackgroundResource(com.Appzia.enclosure.R.drawable.message_bg_gray);
+        }
+    }
+
 }

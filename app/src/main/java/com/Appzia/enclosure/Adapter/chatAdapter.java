@@ -300,16 +300,17 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d("onCreateViewHolder", "Creating ViewHolder for viewType: " + (viewType == SENDER_VIEW_TYPE ? "SENDER" : "RECEIVER"));
+        // Debug logs removed - system is working correctly
 
         if (viewType == SENDER_VIEW_TYPE) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.sample_sender, parent, false);
-            Log.d("onCreateViewHolder", "Created senderViewHolder");
+            // Debug logs removed - system is working correctly
             return new senderViewHolder(view);
         } else {
             View view = LayoutInflater.from(mContext).inflate(R.layout.sample_receiver, parent, false);
-            Log.d("onCreateViewHolder", "Created receiverViewHolder");
-            return new receiverViewHolder(view);
+            // Debug logs removed - system is working correctly
+            receiverViewHolder holder = new receiverViewHolder(view);
+            return holder;
         }
     }
 
@@ -331,10 +332,14 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
             Log.d("getItemViewType", "Position: " + position +
                     ", ModelId: " + m.getModelId() +
-                    ", Message UID: " + m.getUid() +
-                    ", Current UID: " + me +
+                    ", Message UID: '" + m.getUid() + "'" +
+                    ", Current UID: '" + me + "'" +
                     ", IsSender: " + isSender +
                     ", ViewType: " + (viewType == SENDER_VIEW_TYPE ? "SENDER" : "RECEIVER"));
+            
+            // Additional debug logging
+            Log.d("getItemViewType", "UID Comparison: '" + me + "' == '" + m.getUid() + "' = " + (me != null && !me.isEmpty() && me.equals(m.getUid())));
+            Log.d("getItemViewType", "String lengths - Current: " + (me != null ? me.length() : "null") + ", Message: " + (m.getUid() != null ? m.getUid().length() : "null"));
 
             return viewType;
         } catch (Exception e) {
@@ -829,6 +834,15 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                 
                 // ==================== STEP 5: THEME & STYLING ====================
                 setupSenderThemeAndStyling((senderViewHolder) holder, model);
+                
+                // ==================== STEP 6: MESSAGE CONTENT ====================
+                String messageType = detectMessageType(model);
+                setupMessageContent(holder, model, messageType);
+                
+                // ==================== STEP 7: ENSURE CORRECT BACKGROUND ====================
+                if (holder instanceof receiverViewHolder) {
+                    ((receiverViewHolder) holder).ensureCorrectBackground();
+                }
 
                 if (model.getDataType().equals(Constant.img)) {
 
@@ -12531,6 +12545,15 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                 
                 // ==================== STEP 5: THEME & STYLING ====================
                 setupReceiverThemeAndStyling((receiverViewHolder) holder, model);
+                
+                // ==================== STEP 6: MESSAGE CONTENT ====================
+                String messageType = detectMessageType(model);
+                setupMessageContent(holder, model, messageType);
+                
+                // ==================== STEP 7: ENSURE CORRECT BACKGROUND ====================
+                if (holder instanceof receiverViewHolder) {
+                    ((receiverViewHolder) holder).ensureCorrectBackground();
+                }
 
                 if (model.getForwaredKey().equals(Constant.forwordKey)) {
                     ((receiverViewHolder) holder).forwarded.setVisibility(View.VISIBLE);
@@ -22064,7 +22087,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     /**
      * Format message text with proper styling
      */
-    private void formatMessageText(TextView messageView, String message) {
+    private void formatMessageText(TextView messageView, String message, boolean isReceiverMessage) {
         if (message != null && !message.isEmpty()) {
             messageView.setText(message);
             messageView.setVisibility(View.VISIBLE);
@@ -22305,8 +22328,10 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                     senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                     return;
                 }
-                
-                Constant.Vibrator(mContext);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    Constant.Vibrator(mContext);
+                }
                 Constant.bottomsheetEmoji(mContext, R.layout.bottom_emoji_lyt);
                 Constant.bottomSheetDialog.show();
                 
@@ -22345,9 +22370,9 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                 }
                 progressBar.setVisibility(View.GONE);
                 emojiPeopleAdapter.notifyDataSetChanged();
-            }
-            
-            @Override
+        }
+
+        @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Handle database error
             }
@@ -22413,10 +22438,10 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     private void setupTextMessage(RecyclerView.ViewHolder holder, messageModel model) {
         if (holder instanceof senderViewHolder) {
             senderViewHolder senderHolder = (senderViewHolder) holder;
-            formatMessageText(senderHolder.sendMessage, model.getMessage());
+            formatMessageText(senderHolder.sendMessage, model.getMessage(), false); // false = sender
         } else if (holder instanceof receiverViewHolder) {
             receiverViewHolder receiverHolder = (receiverViewHolder) holder;
-            formatMessageText(receiverHolder.recMessage, model.getMessage());
+            formatMessageText(receiverHolder.recMessage, model.getMessage(), true); // true = receiver
         }
     }
     
@@ -22751,7 +22776,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
             if (!model.getCaption().equals("")) {
                 senderHolder.captionText.setVisibility(View.VISIBLE);
                 senderHolder.captionText.setText(model.getCaption());
-            } else {
+                } else {
                 senderHolder.captionText.setVisibility(View.GONE);
             }
             
@@ -22835,7 +22860,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                     String imageSource = exactPath + "/" + model.getFileName();
                     ViewGroup parentLayout = (ViewGroup) senderHolder.senderImg.getParent();
                     Constant.loadImageIntoView(mContext, imageSource, requestOptions, senderHolder.senderImg, parentLayout, 0, true, model, senderHolder.videoicon);
-                } else {
+                    } else {
                     // Image doesn't exist, show download button
                     senderHolder.downlaod.setVisibility(View.VISIBLE);
                     senderHolder.progressBarImageview.setVisibility(View.VISIBLE);
@@ -22929,6 +22954,11 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
             TypedValue.COMPLEX_UNIT_DIP, 5, 
             mContext.getResources().getDisplayMetrics()
         ));
+        
+        // Set replyYou text content and color with theme color
+        senderHolder.replyYou.setText("You");
+        String themColor = getThemeColor();
+        senderHolder.replyYou.setTextColor(Color.parseColor(themColor));
     }
     
     /**
@@ -22967,6 +22997,11 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
             TypedValue.COMPLEX_UNIT_DIP, 5, 
             mContext.getResources().getDisplayMetrics()
         ));
+        
+        // Set replyYou text content and color with theme color
+        receiverHolder.replyYou.setText("You");
+        String themColor = getThemeColor();
+        receiverHolder.replyYou.setTextColor(Color.parseColor(themColor));
     }
     
     // ==================== THEME & STYLING HELPER METHODS ====================
@@ -22982,7 +23017,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         try {
             holder.MainSenderBox.setBackgroundTintList(tintList);
             holder.richBox.setBackgroundTintList(tintList);
-        } catch (Exception e) {
+                    } catch (Exception e) {
             // Fallback to default dark theme
             ColorStateList defaultTint = ColorStateList.valueOf(Color.parseColor("#01253B"));
             holder.MainSenderBox.setBackgroundTintList(defaultTint);
@@ -22999,11 +23034,11 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         ColorStateList tintList = getDarkModeTintList(themColor);
         
         try {
-            holder.MainReceiverBox.setBackgroundTintList(tintList);
+            // Keep the original message_bg_gray background instead of applying theme colors
+            holder.MainReceiverBox.setBackgroundResource(R.drawable.message_bg_gray);
         } catch (Exception e) {
-            // Fallback to default dark theme
-            ColorStateList defaultTint = ColorStateList.valueOf(Color.parseColor("#01253B"));
-            holder.MainReceiverBox.setBackgroundTintList(defaultTint);
+            // Fallback to message_bg_gray
+            holder.MainReceiverBox.setBackgroundResource(R.drawable.message_bg_gray);
         }
     }
     
@@ -23067,8 +23102,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
      * Apply light mode theme to receiver message
      */
     private void applyLightModeThemeReceiver(receiverViewHolder holder) {
-        ColorStateList tintList = ColorStateList.valueOf(Color.parseColor("#011224"));
-        holder.MainReceiverBox.setBackgroundTintList(tintList);
+        // Keep the original message_bg_gray background instead of applying theme colors
+        holder.MainReceiverBox.setBackgroundResource(R.drawable.message_bg_gray);
     }
     
     /**
@@ -23103,10 +23138,10 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         String themColor = getThemeColor();
         ColorStateList tintList = ColorStateList.valueOf(Color.parseColor(themColor));
         
-        // Apply theme to progress indicators
-        if (holder.viewnew != null) {
-            holder.viewnew.setTrackColor(Color.parseColor(themColor));
-        }
+        // Keep receiver viewnew with original colors (don't apply theme colors)
+        // if (holder.viewnew != null) {
+        //     holder.viewnew.setTrackColor(Color.parseColor(themColor));
+        // }
         
         if (holder.readMore != null) {
             holder.readMore.setTextColor(Color.parseColor(themColor));
@@ -23186,8 +23221,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         // Setup message spacing
         setupMessageSpacing(holder, 0); // Position will be passed from onBindViewHolder
         
-        // Set transparent background
-        holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+        // Keep the original background instead of setting transparent
+        // holder.itemView.setBackgroundColor(Color.TRANSPARENT); // REMOVED - this was overriding MainReceiverBox
     }
     
     /**
