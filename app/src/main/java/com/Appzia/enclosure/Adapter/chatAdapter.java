@@ -823,45 +823,9 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                 //       ", Has same timestamp: " + hasSameTimestamp +
                 //       ", Setting timing visibility: " + (hasSameTimestamp ? "GONE" : "VISIBLE"));
 
-                // Always show timing
-                ((senderViewHolder) holder).sendTime.setVisibility(View.VISIBLE);
-                ((senderViewHolder) holder).sendTime.setText(model.getTime());
-
-                try {
-                    if (model.getCurrentDate().equals(Constant.getCurrentDate())) {
-                        ((senderViewHolder) holder).dateTxt.setText("Today");
-                    } else if (model.getCurrentDate().equals(Constant.getYesterdayDate())) {
-                        ((senderViewHolder) holder).dateTxt.setText("Yesterday");
-                    } else {
-                        ((senderViewHolder) holder).dateTxt.setText(model.getCurrentDate());
-                    }
-
-
-                    if (((senderViewHolder) holder).dateTxt.getText().toString().contains(":")) {
-                        ((senderViewHolder) holder).datelyt.setVisibility(View.GONE);
-                    } else {
-                        ((senderViewHolder) holder).datelyt.setVisibility(View.GONE);
-                    }
-
-                } catch (Exception e) {
-                }
-                if (model.getForwaredKey().equals(Constant.forwordKey)) {
-                    ((senderViewHolder) holder).forwarded.setVisibility(View.VISIBLE);
-                    ((senderViewHolder) holder).grpMsgName.setVisibility(View.GONE);
-                    ((senderViewHolder) holder).forwarded.setCompoundDrawableTintList(tintList);
-
-                    LayerDrawable layerDrawable = (LayerDrawable) ((senderViewHolder) holder).forwarded.getBackground();
-                    GradientDrawable borderDrawable = (GradientDrawable) layerDrawable.findDrawableByLayerId(R.id.border);
-                    borderDrawable.setStroke(5, Color.parseColor(themColor));
-                    ((senderViewHolder) holder).forwarded.invalidate();
-
-
-                } else if (model.getForwaredKey().equals(Constant.groupKey)) {
-                    ((senderViewHolder) holder).forwarded.setVisibility(View.GONE);
-
-                } else {
-                    ((senderViewHolder) holder).forwarded.setVisibility(View.GONE);
-                }
+                // ==================== STEP 3: DATA PROCESSING ====================
+                setupSenderTimeAndDate((senderViewHolder) holder, model);
+                setupForwardedMessage(holder, model);
 
                 if (model.getDataType().equals(Constant.img)) {
 
@@ -12559,28 +12523,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                 //       ", Has same timestamp: " + hasSameTimestamp +
                 //       ", Setting receiver timing visibility: " + (hasSameTimestamp ? "GONE" : "VISIBLE"));
 
-                // Always show timing
-                ((receiverViewHolder) holder).recTime.setVisibility(View.VISIBLE);
-                ((receiverViewHolder) holder).recTime.setText(model.getTime());
-
-                try {
-                    if (model.getCurrentDate().equals(Constant.getCurrentDate())) {
-                        ((receiverViewHolder) holder).dateTxt.setText("Today");
-                    } else if (model.getCurrentDate().equals(Constant.getYesterdayDate())) {
-                        ((receiverViewHolder) holder).dateTxt.setText("Yesterday");
-                    } else {
-                        ((receiverViewHolder) holder).dateTxt.setText(model.getCurrentDate());
-                    }
-
-
-                    if (((receiverViewHolder) holder).dateTxt.getText().toString().contains(":")) {
-                        ((receiverViewHolder) holder).datelyt.setVisibility(View.GONE);
-                    } else {
-                        ((receiverViewHolder) holder).datelyt.setVisibility(View.GONE);
-                    }
-
-                } catch (Exception e) {
-                }
+                // ==================== STEP 3: DATA PROCESSING ====================
+                setupReceiverTimeAndDate((receiverViewHolder) holder, model);
 
                 if (model.getForwaredKey().equals(Constant.forwordKey)) {
                     ((receiverViewHolder) holder).forwarded.setVisibility(View.VISIBLE);
@@ -22004,6 +21948,144 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
             View innerContainer = rootView.getChildAt(0);
             if (innerContainer instanceof ViewGroup) {
                 ((ViewGroup) innerContainer).setBackgroundColor(Color.TRANSPARENT);
+            }
+        }
+    }
+
+    // ==================== DATA PROCESSING HELPER METHODS ====================
+    
+    /**
+     * Setup time and date display for sender messages
+     */
+    private void setupSenderTimeAndDate(senderViewHolder holder, messageModel model) {
+        // Always show timing
+        holder.sendTime.setVisibility(View.VISIBLE);
+        holder.sendTime.setText(model.getTime());
+
+        try {
+            if (model.getCurrentDate().equals(Constant.getCurrentDate())) {
+                holder.dateTxt.setText("Today");
+            } else if (model.getCurrentDate().equals(Constant.getYesterdayDate())) {
+                holder.dateTxt.setText("Yesterday");
+            } else {
+                holder.dateTxt.setText(model.getCurrentDate());
+            }
+
+            // Hide date layout if time contains ":"
+            if (holder.dateTxt.getText().toString().contains(":")) {
+                holder.datelyt.setVisibility(View.GONE);
+            } else {
+                holder.datelyt.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+            // Handle any date formatting errors
+            holder.dateTxt.setText(model.getCurrentDate());
+        }
+    }
+    
+    /**
+     * Setup time and date display for receiver messages
+     */
+    private void setupReceiverTimeAndDate(receiverViewHolder holder, messageModel model) {
+        // Always show timing
+        holder.recTime.setVisibility(View.VISIBLE);
+        holder.recTime.setText(model.getTime());
+
+        try {
+            if (model.getCurrentDate().equals(Constant.getCurrentDate())) {
+                holder.dateTxt.setText("Today");
+            } else if (model.getCurrentDate().equals(Constant.getYesterdayDate())) {
+                holder.dateTxt.setText("Yesterday");
+            } else {
+                holder.dateTxt.setText(model.getCurrentDate());
+            }
+
+            // Hide date layout if time contains ":"
+            if (holder.dateTxt.getText().toString().contains(":")) {
+                holder.datelyt.setVisibility(View.GONE);
+            } else {
+                holder.datelyt.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+            // Handle any date formatting errors
+            holder.dateTxt.setText(model.getCurrentDate());
+        }
+    }
+    
+    /**
+     * Setup forwarded message display
+     */
+    private void setupForwardedMessage(RecyclerView.ViewHolder holder, messageModel model) {
+        if (holder instanceof senderViewHolder) {
+            senderViewHolder senderHolder = (senderViewHolder) holder;
+            if (model.getForwaredKey().equals(Constant.forwordKey)) {
+                senderHolder.forwarded.setVisibility(View.VISIBLE);
+                senderHolder.grpMsgName.setVisibility(View.GONE);
+                senderHolder.forwarded.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor(Constant.getSF.getString(Constant.ThemeColorKey, "#00A3E9"))));
+                
+                // Apply theme color to forwarded background
+                LayerDrawable layerDrawable = (LayerDrawable) senderHolder.forwarded.getBackground();
+                if (layerDrawable != null) {
+                    layerDrawable.setDrawableByLayerId(android.R.id.background, new GradientDrawable());
+                }
+                senderHolder.forwarded.invalidate();
+            } else if (model.getForwaredKey().equals(Constant.groupKey)) {
+                senderHolder.forwarded.setVisibility(View.GONE);
+            } else {
+                senderHolder.forwarded.setVisibility(View.GONE);
+            }
+        } else if (holder instanceof receiverViewHolder) {
+            receiverViewHolder receiverHolder = (receiverViewHolder) holder;
+            if (model.getForwaredKey().equals(Constant.forwordKey)) {
+                receiverHolder.forwarded.setVisibility(View.VISIBLE);
+                receiverHolder.grpMsgName.setVisibility(View.GONE);
+                receiverHolder.forwarded.setCompoundDrawableTintList(ColorStateList.valueOf(Color.parseColor(Constant.getSF.getString(Constant.ThemeColorKey, "#00A3E9"))));
+                
+                // Apply theme color to forwarded background
+                LayerDrawable layerDrawable = (LayerDrawable) receiverHolder.forwarded.getBackground();
+                if (layerDrawable != null) {
+                    layerDrawable.setDrawableByLayerId(android.R.id.background, new GradientDrawable());
+                }
+                receiverHolder.forwarded.invalidate();
+            } else if (model.getForwaredKey().equals(Constant.groupKey)) {
+                receiverHolder.forwarded.setVisibility(View.GONE);
+            } else {
+                receiverHolder.forwarded.setVisibility(View.GONE);
+            }
+        }
+    }
+    
+    /**
+     * Format message text with proper styling
+     */
+    private void formatMessageText(TextView messageView, String message) {
+        if (message != null && !message.isEmpty()) {
+            messageView.setText(message);
+            messageView.setVisibility(View.VISIBLE);
+        } else {
+            messageView.setVisibility(View.GONE);
+        }
+    }
+    
+    /**
+     * Setup group message name display
+     */
+    private void setupGroupMessageName(RecyclerView.ViewHolder holder, messageModel model) {
+        if (holder instanceof senderViewHolder) {
+            senderViewHolder senderHolder = (senderViewHolder) holder;
+            if (model.getGroupName() != null && !model.getGroupName().isEmpty()) {
+                senderHolder.grpMsgName.setText(model.getGroupName());
+                senderHolder.grpMsgName.setVisibility(View.VISIBLE);
+            } else {
+                senderHolder.grpMsgName.setVisibility(View.GONE);
+            }
+        } else if (holder instanceof receiverViewHolder) {
+            receiverViewHolder receiverHolder = (receiverViewHolder) holder;
+            if (model.getGroupName() != null && !model.getGroupName().isEmpty()) {
+                receiverHolder.grpMsgName.setText(model.getGroupName());
+                receiverHolder.grpMsgName.setVisibility(View.VISIBLE);
+            } else {
+                receiverHolder.grpMsgName.setVisibility(View.GONE);
             }
         }
     }
