@@ -37,6 +37,7 @@ import com.Appzia.enclosure.Model.messageModel;
 import com.Appzia.enclosure.Model.messagemodel2;
 import com.Appzia.enclosure.R;
 import com.Appzia.enclosure.Utils.ChatadapterFiles.otherFunctions;
+import com.Appzia.enclosure.Utils.ChatadapterFiles.senderReceiverDownload;
 import com.Appzia.enclosure.Utils.BroadcastReiciver.UploadChatHelper;
 import com.Appzia.enclosure.Utils.Constant;
 import com.bumptech.glide.Glide;
@@ -1018,7 +1019,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             // Update UI
             ((Activity) context).runOnUiThread(() -> {
                 otherFunctions.updateMessageList(new ArrayList<>(messageList), chatAdapter);
-                chatAdapter.setLastItemVisible(true); // Always show progress for pending messages
+                senderReceiverDownload.setLastItemVisible(true, messageList, chatAdapter); // Always show progress for pending messages
                 messageRecView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
             });
 
@@ -1237,7 +1238,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             // Update UI
             ((Activity) context).runOnUiThread(() -> {
                 otherFunctions.updateMessageList(new ArrayList<>(messageList), chatAdapter);
-                chatAdapter.setLastItemVisible(true); // Always show progress for pending messages
+                senderReceiverDownload.setLastItemVisible(true, messageList, chatAdapter); // Always show progress for pending messages
                 messageRecView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
             });
 
@@ -1856,7 +1857,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
                                     ((Activity) context).runOnUiThread(() -> {
                                         otherFunctions.updateMessageList(new ArrayList<>(messageList), chatAdapter);
-                                        chatAdapter.setLastItemVisible(true); // Show progress for pending message
+                                        senderReceiverDownload.setLastItemVisible(true, messageList, chatAdapter); // Show progress for pending message
                                         // Removed redundant notifyItemInserted since updateMessageList handles it
                                         messageRecView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
 
@@ -1973,8 +1974,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                                     //TODO : active : 1 = completed
 
 
-                                    chatAdapter.itemAdd(messageRecView);
-                                    chatAdapter.setLastItemVisible(true); // Show progress for pending message
+                                    senderReceiverDownload.itemAdd(messageRecView, chatAdapter);
+                                    senderReceiverDownload.setLastItemVisible(true, messageList, chatAdapter); // Show progress for pending message
                                     // Removed redundant notifyItemInserted since updateMessageList handles it
 
 

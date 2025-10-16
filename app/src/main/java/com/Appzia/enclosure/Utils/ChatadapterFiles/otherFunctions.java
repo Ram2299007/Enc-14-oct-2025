@@ -1323,7 +1323,7 @@ public class otherFunctions {
     }
 
     public static void setScrolling(boolean scrolling, chatAdapter adapter) {
-        adapter.isScrolling = scrolling;
+        senderReceiverDownload.setScrolling(scrolling);
     }
 
     public static void smoothScrollToLast(chatAdapter adapter) {

@@ -38,6 +38,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.Appzia.enclosure.Adapter.chatAdapter;
+import com.Appzia.enclosure.Utils.ChatadapterFiles.senderReceiverDownload;
 import com.Appzia.enclosure.Adapter.childCallingLogAdapter;
 import com.Appzia.enclosure.Utils.SwipeNavigationHelper;
 import com.Appzia.enclosure.Adapter.childCallingLogAdapterVoice;
@@ -3520,7 +3521,7 @@ public class Webservice {
 
                                                         // todo remove last item
                                                         try {
-                                                            chatAdapters.setLastItemVisible(false);
+                                                            senderReceiverDownload.setLastItemVisible(false, messageList, chatAdapters);
                                                         } catch (Exception e) {
 
                                                         }

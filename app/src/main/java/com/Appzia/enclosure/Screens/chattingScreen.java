@@ -162,6 +162,7 @@ import com.Appzia.enclosure.Adapter.DocumentThumbnailAdapter;
 import com.Appzia.enclosure.Adapter.HorizontalDocumentThumbnailAdapter;
 import com.Appzia.enclosure.Adapter.ImageAdapter;
 import com.Appzia.enclosure.Adapter.chatAdapter;
+import com.Appzia.enclosure.Utils.ChatadapterFiles.senderReceiverDownload;
 import com.Appzia.enclosure.Adapter.emojiAdapter;
 import com.Appzia.enclosure.Adapter.MainDocumentPreviewAdapter;
 import com.Appzia.enclosure.Adapter.MultiImagePreviewAdapter;
@@ -961,7 +962,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
                     // Add the shared messages to the chat after fetchMessages completes
                     runOnUiThread(() -> {
                         //  Toast.makeText(mContext, "sharedMessageModels: " + sharedMessageModels.size(), Toast.LENGTH_LONG).show();
-                        chatAdapter.setMessagesFromShareExternalData(sharedMessageModels);
+                        senderReceiverDownload.setMessagesFromShareExternalData(sharedMessageModels, chatAdapter.messageList, chatAdapter);
                         // Removed scrollToBottomSafely from shared content handling
                         // if (isFirstTimeOnCreate && sharedMessageModels.size() > 0) {
                         //     scrollToBottomSafely();
@@ -1182,7 +1183,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
                 int keypadHeight = screenHeight - r.bottom;
 
                 // Check if we're in multi-selection mode
-                boolean isMultiSelectActive = chatAdapter != null && chatAdapter.isMultiSelectMode();
+                boolean isMultiSelectActive = chatAdapter != null && senderReceiverDownload.isMultiSelectMode(chatAdapter.isMultiSelectMode);
 
                 if (keypadHeight > screenHeight * 0.15) { // Keyboard is visible
                     // Keyboard is open, but respect multi-selection state
@@ -1268,7 +1269,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
                 // Update UI on the main thread
                 runOnUiThread(() -> {
                     // Stop loader for last item once upload completes
-                    chatAdapter.setLastItemVisible(false);
+                    senderReceiverDownload.setLastItemVisible(false, messageList, chatAdapter);
                 });
             }
         };
@@ -2050,8 +2051,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 
 
                             runOnUiThread(() -> {
-                                chatAdapter.itemAdd(binding.messageRecView);
-                                chatAdapter.setLastItemVisible(true); // Show progress for pending message
+                                senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
+                                senderReceiverDownload.setLastItemVisible(true, messageList, chatAdapter); // Show progress for pending message
                                 chatAdapter.notifyItemInserted(messageList.size() - 1);
                                 binding.messageBox.setEnabled(true);
                             });
@@ -2855,12 +2856,12 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 
                     case RecyclerView.SCROLL_STATE_SETTLING:
                         // Fling or fast scroll - load low quality for smooth momentum
-                        chatAdapter.setHighQualityLoading(false);
+                        senderReceiverDownload.setHighQualityLoading(false, chatAdapter, chatAdapter.recyclerViewReference);
                         break;
 
                     case RecyclerView.SCROLL_STATE_IDLE:
                         // Scrolling stopped - load high quality
-                        chatAdapter.setHighQualityLoading(true);
+                        senderReceiverDownload.setHighQualityLoading(true, chatAdapter, chatAdapter.recyclerViewReference);
                         handler.postDelayed(hideDateRunnable, 1500);
                         break;
                 }
@@ -5318,7 +5319,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
             messageList.add(model);
             runOnUiThread(() -> {
                 otherFunctions.updateMessageList(new ArrayList<>(messageList), chatAdapter);
-                chatAdapter.setLastItemVisible(true); // Show progress for pending message
+                senderReceiverDownload.setLastItemVisible(true, messageList, chatAdapter); // Show progress for pending message
                 binding.messageRecView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
 
                 // UI updated for selectionBunch message
@@ -5571,8 +5572,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
             }
 
             messageList.add(model);
-            chatAdapter.itemAdd(binding.messageRecView);
-            chatAdapter.setLastItemVisible(true); // Show progress for pending message
+            senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
+            senderReceiverDownload.setLastItemVisible(true, messageList, chatAdapter); // Show progress for pending message
             chatAdapter.notifyItemInserted(messageList.size() - 1);
             binding.messageRecView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
 
@@ -5940,8 +5941,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
                                                 0, model.getImageWidth(), model.getImageHeight(), model.getAspectRatio(), model.getSelectionCount()
                                         );
 
-                                        chatAdapter.itemAdd(binding.messageRecView);
-                                        chatAdapter.setLastItemVisible(isLastItemVisible);
+                                        senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
+                                        senderReceiverDownload.setLastItemVisible(isLastItemVisible, messageList, chatAdapter);
                                         chatAdapter.notifyItemInserted(messageList.size() - 1);
 
                                         Log.d("TAG", "actualName: " + globalFile.getName());
@@ -6016,8 +6017,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
                                                 0, model.getImageWidth(), model.getImageHeight(), model.getAspectRatio(), model.getSelectionCount()
                                         );
 
-                                        chatAdapter.itemAdd(binding.messageRecView);
-                                        chatAdapter.setLastItemVisible(isLastItemVisible);
+                                        senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
+                                        senderReceiverDownload.setLastItemVisible(isLastItemVisible, messageList, chatAdapter);
                                         chatAdapter.notifyItemInserted(messageList.size() - 1);
 
                                         Constant.dialogLayoutFullScreen.dismiss();
@@ -6371,8 +6372,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 //                                                Log.e("DATABASE_HELPER", "Failed to insert message into SQLite: " + e.getMessage(), e);
 //                                            }
 
-                                            chatAdapter.itemAdd(binding.messageRecView);
-                                            chatAdapter.setLastItemVisible(isLastItemVisible);
+                                            senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
+                                            senderReceiverDownload.setLastItemVisible(isLastItemVisible, messageList, chatAdapter);
                                             chatAdapter.notifyItemInserted(messageList.size() - 1);
 
                                             UploadChatHelper uploadHelper = new UploadChatHelper(mContext, globalFile, FullImageFile, senderId, userFTokenKey);
@@ -6466,8 +6467,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
                                             //TODO : active : 1 = completed
 
 
-                                            chatAdapter.itemAdd(binding.messageRecView);
-                                            chatAdapter.setLastItemVisible(isLastItemVisible);
+                                            senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
+                                            senderReceiverDownload.setLastItemVisible(isLastItemVisible, messageList, chatAdapter);
                                             chatAdapter.notifyItemInserted(messageList.size() - 1);
 
 
@@ -6787,8 +6788,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 //                                            Log.e("DATABASE_HELPER", "Failed to insert message into SQLite: " + e.getMessage(), e);
 //                                        }
 
-                                        chatAdapter.itemAdd(binding.messageRecView);
-                                        chatAdapter.setLastItemVisible(isLastItemVisible);
+                                        senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
+                                        senderReceiverDownload.setLastItemVisible(isLastItemVisible, messageList, chatAdapter);
                                         UploadChatHelper uploadHelper = new UploadChatHelper(mContext, globalFile, FullImageFile, senderId, userFTokenKey);
 
                                         uploadHelper.uploadContent(
@@ -6883,8 +6884,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 //                                            Log.e("DATABASE_HELPER", "Failed to insert message into SQLite: " + e.getMessage(), e);
 //                                        }
 
-                                        chatAdapter.itemAdd(binding.messageRecView);
-                                        chatAdapter.setLastItemVisible(isLastItemVisible);
+                                        senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
+                                        senderReceiverDownload.setLastItemVisible(isLastItemVisible, messageList, chatAdapter);
 
                                         Constant.dialogLayoutFullScreen.dismiss();
 
@@ -7116,8 +7117,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 //                        } catch (Exception e) {
 //                            Log.e("DATABASE_HELPER", "Failed to insert message into SQLite: " + e.getMessage(), e);
 //                        }
-                        chatAdapter.itemAdd(binding.messageRecView);
-                        chatAdapter.setLastItemVisible(isLastItemVisible);
+                        senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
+                        senderReceiverDownload.setLastItemVisible(isLastItemVisible, messageList, chatAdapter);
                         chatAdapter.notifyItemInserted(messageList.size() - 1);
 
                         UploadChatHelper uploadHelper = new UploadChatHelper(mContext, globalFile, FullImageFile, senderId, userFTokenKey);
@@ -7213,8 +7214,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 //                        } catch (Exception e) {
 //                            Log.e("DATABASE_HELPER", "Failed to insert message into SQLite: " + e.getMessage(), e);
 //                        }
-                        chatAdapter.itemAdd(binding.messageRecView);
-                        chatAdapter.setLastItemVisible(isLastItemVisible);
+                        senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
+                        senderReceiverDownload.setLastItemVisible(isLastItemVisible, messageList, chatAdapter);
                         chatAdapter.notifyItemInserted(messageList.size() - 1);
 
                         UploadChatHelper uploadHelper = new UploadChatHelper(mContext, globalFile, FullImageFile, senderId, userFTokenKey);
@@ -7282,8 +7283,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 
                 // Update UI after contact upload
                 runOnUiThread(() -> {
-                    chatAdapter.setLastItemVisible(true); // Ensure the last item is visible
-                    chatAdapter.itemAdd(binding.messageRecView);
+                    senderReceiverDownload.setLastItemVisible(true, messageList, chatAdapter); // Ensure the last item is visible
+                    senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
                     binding.messageBox.setEnabled(true);
                 });
             }
@@ -7327,8 +7328,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 
                 // Update UI after contact upload
                 runOnUiThread(() -> {
-                    chatAdapter.setLastItemVisible(true); // Ensure the last item is visible
-                    chatAdapter.itemAdd(binding.messageRecView);
+                    senderReceiverDownload.setLastItemVisible(true, messageList, chatAdapter); // Ensure the last item is visible
+                    senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
                     binding.messageBox.setEnabled(true);
                 });
 
@@ -8148,8 +8149,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 
             // Update UI
             runOnUiThread(() -> {
-                chatAdapter.setLastItemVisible(true); // Ensure the last item is visible
-                chatAdapter.itemAdd(binding.messageRecView);
+                senderReceiverDownload.setLastItemVisible(true, messageList, chatAdapter); // Ensure the last item is visible
+                senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
                 binding.messageBox.setEnabled(true);
             });
 
@@ -8727,8 +8728,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 
             // Update UI
             runOnUiThread(() -> {
-                chatAdapter.setLastItemVisible(true);
-                chatAdapter.itemAdd(binding.messageRecView);
+                senderReceiverDownload.setLastItemVisible(true, messageList, chatAdapter);
+                senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
                 binding.messageBox.setEnabled(true);
             });
 
@@ -9106,8 +9107,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
             );
 
             messageList.add(model);
-            chatAdapter.itemAdd(binding.messageRecView);
-            chatAdapter.setLastItemVisible(isLastItemVisible);
+            senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
+            senderReceiverDownload.setLastItemVisible(isLastItemVisible, messageList, chatAdapter);
 
             messagemodel2 model2 = new messagemodel2(
                     model.getUid(),
@@ -9358,8 +9359,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 
             // Update UI
             messageList.add(model);
-            chatAdapter.itemAdd(binding.messageRecView);
-            chatAdapter.setLastItemVisible(true); // Show progress for pending message
+            senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
+            senderReceiverDownload.setLastItemVisible(true, messageList, chatAdapter); // Show progress for pending message
 
             // Upload audio file
             globalFile = mFilePath; // Explicitly set globalFile
@@ -9906,7 +9907,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
         chatAdapter = new chatAdapter(mContext, binding.messageRecView, messageList, chattingScreen.this, mActivity, phone2Contact, new Handler(), binding.valuable, receiverUid, userFTokenKey, binding.name.getText().toString(), captionKey, binding.originalName, binding.name, binding.blockUser, binding.blockContainer, binding.messageboxContainer);
 
         // Set up multi-selection listener
-        chatAdapter.setMultiSelectListener(new chatAdapter.OnMultiSelectListener() {
+        chatAdapter.multiSelectListener = new chatAdapter.OnMultiSelectListener() {
             @Override
             public void onMultiSelectModeChanged(boolean isMultiSelectMode) {
                 Log.d("MultiSelect", "onMultiSelectModeChanged called with: " + isMultiSelectMode);
@@ -9922,7 +9923,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 
                     // Add delayed check to ensure bottom stays hidden
                     binding.bottom.postDelayed(() -> {
-                        if (chatAdapter.isMultiSelectMode()) {
+                        if (senderReceiverDownload.isMultiSelectMode(chatAdapter.isMultiSelectMode)) {
                             binding.bottom.setVisibility(View.GONE);
                             Log.d("MultiSelect", "Delayed check - ensuring bottom stays GONE");
                         }
@@ -9945,7 +9946,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
                 binding.selectedCounterTxt.setText(count + " selected");
 
                 // Handle bottom layout visibility based on multi-selection state
-                if (chatAdapter.isMultiSelectMode()) {
+                if (senderReceiverDownload.isMultiSelectMode(chatAdapter.isMultiSelectMode)) {
                     // Keep bottom layout hidden during multi-selection
                     binding.bottom.setVisibility(View.GONE);
                     Log.d("MultiSelect", "Selection count changed to: " + count + " - bottom kept GONE (multi-select active)");
@@ -9959,19 +9960,19 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
             @Override
             public void onForwardSelected() {
                 // Handle forward action - this will be called when forwardAll is clicked
-                ArrayList<messageModel> selectedMessages = chatAdapter.getSelectedMessages();
+                ArrayList<messageModel> selectedMessages = senderReceiverDownload.getSelectedMessages(chatAdapter.selectedPositions, chatAdapter.messageList);
                 if (!selectedMessages.isEmpty()) {
                     // Open contact selection page for forwarding
                     openContactSelectionForForward(selectedMessages);
                 }
             }
-        });
+        };
 
         // Set up cross click listener to clear all selections
         binding.cross.setOnClickListener(v -> {
             Log.d("MultiSelect", "Cross button clicked - exiting multi-select mode");
             Log.d("MultiSelect", "Bottom layout visibility before cross click: " + binding.bottom.getVisibility());
-            chatAdapter.exitMultiSelectMode();
+            senderReceiverDownload.exitMultiSelectMode(chatAdapter.selectedPositions, chatAdapter.multiSelectListener, chatAdapter);
             // Show bottom layout when exiting multi-selection
             binding.bottom.setVisibility(View.VISIBLE);
             Log.d("MultiSelect", "Bottom layout visibility after cross click: " + binding.bottom.getVisibility());
@@ -9979,11 +9980,11 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 
         // Set up forwardAll click listener
         binding.forwardAll.setOnClickListener(v -> {
-            chatAdapter.onForwardSelected();
+            senderReceiverDownload.onForwardSelected(chatAdapter.multiSelectListener);
         });
 
         // Always enable stable IDs for proper RecyclerView behavior in both debug and release modes
-        chatAdapter.enableStableIds();
+        senderReceiverDownload.enableStableIds(chatAdapter);
         binding.messageRecView.setAdapter(chatAdapter);
         binding.messageRecView.setItemAnimator(null);
         layoutManager = new LinearLayoutManager(mContext);
@@ -10370,7 +10371,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
                     Toast.makeText(mContext, "Successfully forwarded " + messages.size() + " messages to " + contactName, Toast.LENGTH_SHORT).show();
 
                     // Exit multi-select mode
-                    chatAdapter.exitMultiSelectMode();
+                    senderReceiverDownload.exitMultiSelectMode(chatAdapter.selectedPositions, chatAdapter.multiSelectListener, chatAdapter);
                 });
 
             } catch (Exception e) {
@@ -10404,7 +10405,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
         binding.originalName.setText("");
         chatAdapter = new chatAdapter(mContext, binding.messageRecView, messageList, chattingScreen.this, mActivity, phone2Contact, new Handler(), binding.valuable, receiverUid, userFTokenKey, binding.name.getText().toString(), captionKey, binding.originalName, binding.name, binding.blockUser, binding.blockContainer, binding.messageboxContainer);
         // Always enable stable IDs for proper RecyclerView behavior in both debug and release modes
-        chatAdapter.enableStableIds();
+        senderReceiverDownload.enableStableIds(chatAdapter);
         binding.messageRecView.setAdapter(chatAdapter);
         binding.messageRecView.setItemAnimator(null);
         layoutManager = new LinearLayoutManager(mContext);
@@ -10734,7 +10735,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 
                         Log.d("PendingMessages", "Updating UI with pending messages");
                         otherFunctions.updateMessageList(new ArrayList<>(messageList), chatAdapter);
-                        chatAdapter.setLastItemVisible(true); // Show progress for last message
+                        senderReceiverDownload.setLastItemVisible(true, messageList, chatAdapter); // Show progress for last message
                         // Removed scrollToBottomSafely from loadPendingMessages
                         // if (shouldScrollToLast && binding.messageRecView != null && messageList.size() > 0) {
                         //     Log.d("ScrollText", "loadPendingMessages: shouldScrollToLast=true, calling scrollToBottomSafely()");
@@ -10836,7 +10837,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
                     // 🔹 Directly update adapter once (bulk update)
                     runOnUiThread(() -> {
                         Log.d("ScrollText", "fetchMessages: Updating adapter with " + tempList.size() + " messages");
-                        chatAdapter.setMessages(tempList);  // adapter मध्ये नवीन method ठेव
+                        senderReceiverDownload.setMessages(tempList, chatAdapter.messageList, chatAdapter);  // adapter मध्ये नवीन method ठेव
                         
                         // Check scroll position before scrolling
                         LinearLayoutManager layoutManager = (LinearLayoutManager) binding.messageRecView.getLayoutManager();
@@ -11204,7 +11205,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
                     boolean isReceiverMessage = model.getUid() != null && !model.getUid().equals(currentUid);
 
                     // No animation for receiver messages
-                    chatAdapter.setLastItemVisible(false);
+                    senderReceiverDownload.setLastItemVisible(false, messageList, chatAdapter);
 
                     binding.messageRecView.scrollToPosition(updatedMessageList.size() - 1); // Scroll to the end of the updated list
                     if (binding.progressBar != null) {
@@ -11407,8 +11408,8 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 
         }
         runOnUiThread(() -> {
-            chatAdapter.setLastItemVisible(true); // Ensure the last item is visible
-            chatAdapter.itemAdd(binding.messageRecView);
+            senderReceiverDownload.setLastItemVisible(true, messageList, chatAdapter); // Ensure the last item is visible
+            senderReceiverDownload.itemAdd(binding.messageRecView, chatAdapter);
             binding.messageBox.setEnabled(true);
         });
     }
@@ -12238,7 +12239,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
     public void stopMessageProgress(String modelId) {
         try {
             if (chatAdapter != null) {
-                chatAdapter.stopProgressIndicator(modelId);
+                senderReceiverDownload.stopProgressIndicator(modelId, messageList, chatAdapter);
             }
         } catch (Exception e) {
             Log.e("ProgressIndicator", "Error stopping message progress: " + e.getMessage());

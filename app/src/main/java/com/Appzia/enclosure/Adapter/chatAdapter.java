@@ -191,7 +191,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     int SENDER_VIEW_TYPE = 1;
     emojiAdapterChatAdapter emojiAdapterChatAdapter;
     private int lastReceiverPosition = -1;
-    private WeakReference<RecyclerView> recyclerViewReference;
+    public WeakReference<RecyclerView> recyclerViewReference;
     emoji_adapter_addbtn emoji_adapter_addbtn;
     private SecretKey key;
     private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
@@ -204,13 +204,12 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     RequestOptions requestOptions = new RequestOptions();
     private static boolean loadHighQuality = true;
     private boolean isLastItemVisible;
-    public boolean isScrolling = false; // Prevent multiple simultaneous scrolls
     public static long downloadId;
     int RECEIVER_VIEW_TYPE = 2;
     // Multi-selection functionality
-    private boolean isMultiSelectMode = false;
-    private HashSet<Integer> selectedPositions = new HashSet<>();
-    private OnMultiSelectListener multiSelectListener;
+    public boolean isMultiSelectMode = false;
+    public HashSet<Integer> selectedPositions = new HashSet<>();
+    public OnMultiSelectListener multiSelectListener;
 
     public static int checkBarIsActive = 0;
     public static ArrayList<forwardnameModel> forwardNameList = new ArrayList<>();
@@ -245,58 +244,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
 
-    public void setHighQualityLoading(boolean highQuality) {
-        if (loadHighQuality != highQuality) {
-            loadHighQuality = highQuality;
-            Log.d("ChatAdapter", "High quality loading set to: " + highQuality);
-            Log.d("ImageFlicker", "🔄 Quality change: " + (highQuality ? "HIGH" : "LOW") + " - This may cause image reloading");
 
-            RecyclerView recyclerView = recyclerViewReference.get();
-            if (recyclerView != null && recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
-                RecyclerView.ItemAnimator animator = recyclerView.getItemAnimator();
-                if (animator instanceof DefaultItemAnimator) {
-                    DefaultItemAnimator defaultAnimator = (DefaultItemAnimator) animator;
-                    defaultAnimator.setSupportsChangeAnimations(false);
-                    defaultAnimator.setChangeDuration(0);
-                }
-                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                int first = layoutManager.findFirstVisibleItemPosition();
-                int last = layoutManager.findLastVisibleItemPosition();
-                // Only notify if there are visible items
-                if (first <= last && first != RecyclerView.NO_POSITION) {
-                    Log.d("ImageFlicker", "🔄 Notifying " + (last - first + 1) + " items of quality change (positions " + first + "-" + last + ")");
-                    notifyItemRangeChanged(first, last - first + 1);
-                    Log.d("ChatAdapter", "Notified item range changed: " + first + " to " + last);
-                }
-            }
-        }
-    }
 
-    public void setMessages(List<messageModel> messages) {
-        this.messageList.clear();
-        this.messageList.addAll(messages);
-
-        // Debug logging for selectionBunch
-        Log.d("SelectionBunch", "setMessages: Updated adapter with " + messages.size() + " messages");
-        for (int i = 0; i < Math.min(messages.size(), 3); i++) {
-            messageModel model = messages.get(i);
-            Log.d("SelectionBunch", "setMessages: Message " + i + " - ID: " + model.getModelId() +
-                    ", selectionCount: " + model.getSelectionCount() +
-                    ", selectionBunch size: " + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
-        }
-
-        notifyDataSetChanged();  // bulk update for initial load
-    }
-
-    public void setMessagesFromShareExternalData(ArrayList<messagemodel2> messages) {
-        // Convert messagemodel2 to messageModel and add to the list
-        this.messageList.clear();
-        for (messagemodel2 msg2 : messages) {
-            messageModel msg = new messageModel(msg2.getUid(), msg2.getMessage(), msg2.getTime(), msg2.getDocument(), msg2.getDataType(), msg2.getExtension(), msg2.getName(), msg2.getPhone(), msg2.getMicPhoto(), msg2.getMiceTiming(), msg2.getUserName(), msg2.getReplytextData(), msg2.getReplyKey(), msg2.getReplyType(), msg2.getReplyOldData(), msg2.getReplyCrtPostion(), msg2.getModelId(), msg2.getReceiverUid(), msg2.getForwaredKey(), msg2.getGroupName(), msg2.getDocSize(), msg2.getFileName(), msg2.getThumbnail(), msg2.getFileNameThumbnail(), msg2.getCaption(), msg2.getNotification(), msg2.getCurrentDate(), msg2.getEmojiModel(), msg2.getEmojiCount(), msg2.getTimestamp(), msg2.getImageWidth(), msg2.getImageHeight(), msg2.getAspectRatio(), msg2.getSelectionCount(), null);
-            this.messageList.add(msg);
-        }
-        notifyDataSetChanged();  // bulk update for initial load
-    }
 
 
     public chatAdapter(Context mContext, RecyclerView messageRecView, ArrayList<messageModel> messageList, chattingScreen chattingScreens, Activity mActivity, EditText phone2Contact, Handler handler, CardView valuable, String receiverUid, String userFTokenKey, String name, String captionKey, TextView originalName, TextView TextViewname, TextView blockUser, LinearLayout blockContainer, LinearLayout messageboxContainer) {
@@ -322,84 +271,18 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     }
 
     // Multi-selection methods
-    public void setMultiSelectListener(OnMultiSelectListener listener) {
-        this.multiSelectListener = listener;
-    }
-
-    public void enterMultiSelectMode() {
-        isMultiSelectMode = true;
-        selectedPositions.clear();
-        notifyDataSetChanged();
-        if (multiSelectListener != null) {
-            multiSelectListener.onMultiSelectModeChanged(true);
-            multiSelectListener.onSelectionCountChanged(0);
-        }
-    }
-
-    public void exitMultiSelectMode() {
-        isMultiSelectMode = false;
-        selectedPositions.clear();
-        notifyDataSetChanged();
-        if (multiSelectListener != null) {
-            multiSelectListener.onMultiSelectModeChanged(false);
-            multiSelectListener.onSelectionCountChanged(0);
-        }
-    }
-
-    public boolean isMultiSelectMode() {
-        return isMultiSelectMode;
-    }
-
-    public void toggleSelection(int position) {
-        if (selectedPositions.contains(position)) {
-            selectedPositions.remove(position);
-        } else {
-            selectedPositions.add(position);
-        }
-        notifyItemChanged(position);
-
-        if (multiSelectListener != null) {
-            multiSelectListener.onSelectionCountChanged(selectedPositions.size());
-        }
-    }
-
-    public boolean isSelected(int position) {
-        return selectedPositions.contains(position);
-    }
 
 
 
-    public ArrayList<messageModel> getSelectedMessages() {
-        ArrayList<messageModel> selectedMessages = new ArrayList<>();
-        for (int position : selectedPositions) {
-            if (position >= 0 && position < messageList.size()) {
-                selectedMessages.add(messageList.get(position));
-            }
-        }
-        return selectedMessages;
-    }
 
 
 
-    public void onForwardSelected() {
-        if (multiSelectListener != null) {
-            multiSelectListener.onForwardSelected();
-        }
-    }
 
-    // Helper method to add SelectLyt click listener
-    private void addSelectLytClickListener(int position) {
-        LinearLayout selectLyt = BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt);
-        selectLyt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BlurHelper.dialogLayoutColor.dismiss();
-                enterMultiSelectMode();
-                // Auto-select the current message
-                toggleSelection(position);
-            }
-        });
-    }
+
+
+
+
+
 
     @Override
     public long getItemId(int position) {
@@ -426,37 +309,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     }
 
 
-    public void removeItem(int adapterPosition) {
-
-//        try {
-//            System.out.println(adapterPosition);
-//            messageList.remove(adapterPosition);
-//            notifyItemRemoved(adapterPosition);
-//        } catch (Exception e) {
-//
-//        }
-        //  Toast.makeText(mContext, "removeItem"+String.valueOf(messageList.size()), Toast.LENGTH_SHORT).show();
-
-        if (messageList.size() == 0) {
-
-            if (valuable.getVisibility() == View.GONE) {
-                Animation fadeIn = new AlphaAnimation(0, 1);
-                fadeIn.setDuration(2000);
-                valuable.startAnimation(fadeIn);
-                valuable.setVisibility(View.VISIBLE);
-            }
-
-        } else {
-            if (valuable.getVisibility() == View.VISIBLE) {
-                Animation fadeOut = new AlphaAnimation(1, 0);
-                fadeOut.setDuration(2000);
-                valuable.startAnimation(fadeOut);
-                valuable.setVisibility(View.GONE);
-            }
-        }
-
-
-    }
 
 
     @NonNull
@@ -505,128 +357,16 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         }
     }
 
-    public void enableStableIds() {
-        try {
-            setHasStableIds(true);
-        } catch (Exception ignored) {
-        }
-    }
-
-    public void setLastItemVisible(boolean isVisible) {
-        this.isLastItemVisible = isVisible;
-        try {
-            // Only notify the last item (which is the only one that should show animation)
-            if (messageList.size() > 0) {
-                notifyItemChanged(messageList.size() - 1);
-            }
-        } catch (Exception ignored) {
-            Toast.makeText(mContext, "notifyItemChanged" + ignored.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
 
 
 
 
-    public void stopProgressIndicator(String modelId) {
-        try {
-            // Find the position of the message with this modelId
-            for (int i = 0; i < messageList.size(); i++) {
-                messageModel model = messageList.get(i);
-                if (model != null && model.getModelId() != null && model.getModelId().equals(modelId)) {
-                    // Notify the adapter to update this specific item
-                    // This will trigger a re-bind of the view holder which should hide progress indicators
-                    notifyItemChanged(i);
-                    Log.d("ProgressIndicator", "Progress indicator stopped for message: " + modelId);
-                    break;
-                }
-            }
-        } catch (Exception e) {
-            Log.e("ProgressIndicator", "Error stopping progress indicator: " + e.getMessage());
-        }
-    }
 
 
-    public void itemAdd(RecyclerView messageRecView) {
-        try {
-            // 🚀 ULTRA-FAST SCROLLING OPTIMIZATIONS
-            messageRecView.setItemViewCacheSize(100); // Massive cache for water-like scrolling
-            messageRecView.setDrawingCacheEnabled(true);
-            messageRecView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-            messageRecView.setLayerType(View.LAYER_TYPE_HARDWARE, null); // Hardware acceleration
-
-            // 🚀 SCROLL ACCELERATION SETTINGS
-            messageRecView.setScrollingTouchSlop(RecyclerView.TOUCH_SLOP_PAGING); // Faster touch response
-            messageRecView.setOverScrollMode(View.OVER_SCROLL_NEVER); // Disable overscroll for speed
-            messageRecView.setNestedScrollingEnabled(false); // Disable nested scrolling for maximum speed
-
-            // 🚀 MEMORY OPTIMIZATION
-            messageRecView.getRecycledViewPool().setMaxRecycledViews(0, 25); // More recycled views
-            messageRecView.getRecycledViewPool().setMaxRecycledViews(1, 25);
-
-            // 🚀 FORCE SCROLL TO LAST - Multiple attempts to ensure visibility
-            messageRecView.post(() -> {
-                if (getItemCount() > 0) {
-                    otherFunctions.forceScrollToLast(this);
-                }
-            });
-        } catch (Exception e) {
-            // Toast.makeText(mContext, "scrollToPosition" + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
 
 
-    /**
-     * Force refresh the adapter to apply timestamp-based visibility changes
-     */
-    public void refreshTimestampVisibility() {
-        notifyDataSetChanged();
-    }
 
-    /**
-     * Helper method to check if the current message has the same time display as the next message
-     *
-     * @param position Current message position
-     * @return true if current message has same time display as next message, false otherwise
-     */
-    private boolean hasSameTimestampAsNext(int position) {
-        if (position >= messageList.size() - 1) {
-            return false; // Last message, no next message to compare
-        }
 
-        messageModel currentMessage = messageList.get(position);
-        messageModel nextMessage = messageList.get(position + 1);
-
-        // Add null checks
-        if (currentMessage == null || nextMessage == null) {
-            return false;
-        }
-
-        // Compare the actual time strings that are displayed to users
-        String currentTime = currentMessage.getTime();
-        String nextTime = nextMessage.getTime();
-
-        if (currentTime == null || nextTime == null) {
-            return false;
-        }
-
-        // Also check timestamps within 2 seconds for rapid messages
-        long currentTimestamp = currentMessage.getTimestamp();
-        long nextTimestamp = nextMessage.getTimestamp();
-        boolean timeStringSame = currentTime.equals(nextTime);
-        boolean timestampSimilar = Math.abs(currentTimestamp - nextTimestamp) <= 2000; // 2 seconds
-
-        boolean isSameTime = timeStringSame || timestampSimilar;
-
-        // Debug logging (commented out for production)
-        // Log.d("TimestampDebug", "Position: " + position +
-        //       ", Current time: '" + currentTime + "'" +
-        //       ", Next time: '" + nextTime + "'" +
-        //       ", Time strings same: " + timeStringSame +
-        //       ", Timestamp similar: " + timestampSimilar +
-        //       ", Final result: " + isSameTime);
-
-        return isSameTime;
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
@@ -647,9 +387,9 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         float widthInDp = 125f;
 
         // Handle multi-selection mode for all messages
-        if (isMultiSelectMode) {
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
             // Apply highlight to ALL message types (sender, receiver, and any future types)
-            if (isSelected(position)) {
+            if (senderReceiverDownload.isSelected(position, selectedPositions)) {
                 // Add full width highlight background for selected messages
                 // Apply to the root container to cover full width including margins
                 holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.highlightcolor));
@@ -686,7 +426,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                 String themColor = Constant.getSF.getString(Constant.ThemeColorKey, "#00A3E9");
 
                 // Set checkbox state based on selection
-                if (isSelected(position)) {
+                if (senderReceiverDownload.isSelected(position, selectedPositions)) {
                     senderHolder.selectionCheckbox.setImageResource(R.drawable.multitick);
                     senderHolder.selectionCheckbox.setColorFilter(Color.parseColor(themColor));
                 } else {
@@ -702,7 +442,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                 String themColor = Constant.getSF.getString(Constant.ThemeColorKey, "#00A3E9");
 
                 // Set checkbox state based on selection
-                if (isSelected(position)) {
+                if (senderReceiverDownload.isSelected(position, selectedPositions)) {
                     receiverHolder.selectionCheckbox.setImageResource(R.drawable.multitick);
                     receiverHolder.selectionCheckbox.setColorFilter(Color.parseColor(themColor));
                 } else {
@@ -833,8 +573,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                     @Override
                     public void onClick(View v) {
                         // Handle multi-selection mode first
-                        if (isMultiSelectMode) {
-                            toggleSelection(position);
+                        if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                            senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                             return;
                         }
 
@@ -985,7 +725,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                 ((senderViewHolder) holder).itemView.setBackgroundColor(Color.TRANSPARENT);
 
                 // Reduce spacing between messages with same timestamp
-                boolean hasSameTimestamp = hasSameTimestampAsNext(position);
+                boolean hasSameTimestamp = senderReceiverDownload.hasSameTimestampAsNext(position, messageList);
                 ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) ((senderViewHolder) holder).itemView.getLayoutParams();
                 if (layoutParams != null) {
                     if (hasSameTimestamp) {
@@ -2968,7 +2708,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                         } catch (Exception e) {
                                                             throw new RuntimeException(e);
                                                         }
-                                                        removeItem(holder.getAdapterPosition());
+                                                        senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                         Webservice.delete_chatingindivisual(mContext, model.getModelId(), model.getUid(), model.getReceiverUid());
@@ -2988,7 +2728,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 } catch (Exception e) {
                                                     throw new RuntimeException(e);
                                                 }
-                                                removeItem(holder.getAdapterPosition());
+                                                senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
                                                 Webservice.delete_chatingindivisual(mContext, model.getModelId(), model.getUid(), model.getReceiverUid());
 
@@ -3003,7 +2743,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
                             // Add SelectLyt click listener for multi-selection
-                            addSelectLytClickListener(position);
+                            senderReceiverDownload.addSelectLytClickListener(position, BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt), () -> senderReceiverDownload.enterMultiSelectMode(selectedPositions, multiSelectListener, chatAdapter.this), () -> senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this));
 
                             forward.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -3183,7 +2923,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         @Override
                                         public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                            filteredList(String.valueOf(s));
+                                            senderReceiverDownload.filteredList(String.valueOf(s));
                                         }
 
                                         @Override
@@ -3296,8 +3036,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         @Override
                         public void onClick(View v) {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
 
@@ -4234,7 +3974,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                             throw new RuntimeException(e);
                                                         }
 
-                                                        removeItem(holder.getAdapterPosition());
+                                                        senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                         Webservice.delete_chatingindivisual(mContext, model.getModelId(), model.getUid(), model.getReceiverUid());
@@ -4256,7 +3996,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                     throw new RuntimeException(e);
                                                 }
 
-                                                removeItem(holder.getAdapterPosition());
+                                                senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                 Webservice.delete_chatingindivisual(mContext, model.getModelId(), model.getUid(), model.getReceiverUid());
@@ -4271,7 +4011,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             });
 
                             // Add SelectLyt click listener for multi-selection
-                            addSelectLytClickListener(position);
+                            senderReceiverDownload.addSelectLytClickListener(position, BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt), () -> senderReceiverDownload.enterMultiSelectMode(selectedPositions, multiSelectListener, chatAdapter.this), () -> senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this));
 
                             forward.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -4446,7 +4186,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         @Override
                                         public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                            filteredList(String.valueOf(s));
+                                            senderReceiverDownload.filteredList(String.valueOf(s));
                                         }
 
                                         @Override
@@ -4543,8 +4283,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         @Override
                         public void onClick(View v) {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
 
@@ -4561,8 +4301,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         @Override
                         public void onClick(View v) {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
 
@@ -4664,8 +4404,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         @Override
                         public void onClick(View v) {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
 
@@ -5267,7 +5007,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                             throw new RuntimeException(e);
                                                         }
 
-                                                        removeItem(holder.getAdapterPosition());
+                                                        senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                         Webservice.delete_chatingindivisual(mContext, model.getModelId(), model.getUid(), model.getReceiverUid());
@@ -5289,7 +5029,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                     throw new RuntimeException(e);
                                                 }
 
-                                                removeItem(holder.getAdapterPosition());
+                                                senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                 Webservice.delete_chatingindivisual(mContext, model.getModelId(), model.getUid(), model.getReceiverUid());
@@ -5304,7 +5044,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             });
 
                             // Add SelectLyt click listener for multi-selection
-                            addSelectLytClickListener(position);
+                            senderReceiverDownload.addSelectLytClickListener(position, BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt), () -> senderReceiverDownload.enterMultiSelectMode(selectedPositions, multiSelectListener, chatAdapter.this), () -> senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this));
 
                             forward.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -5479,7 +5219,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         @Override
                                         public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                            filteredList(String.valueOf(s));
+                                            senderReceiverDownload.filteredList(String.valueOf(s));
                                         }
 
                                         @Override
@@ -5577,8 +5317,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 //                        @Override
 //                        public boolean onLongClick(View v) {
 //                            // Handle multi-selection mode first
-//                            if (isMultiSelectMode) {
-//                                toggleSelection(position);
+//                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+//                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
 //                                return true;
 //                            }
 //
@@ -5714,7 +5454,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 //                            emojiLongRec.startAnimation(fadeIn);
 //
 //                            // Add select functionality
-//                            addSelectLytClickListener(position);
+//                            senderReceiverDownload.addSelectLytClickListener(position, BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt), () -> senderReceiverDownload.enterMultiSelectMode(selectedPositions, multiSelectListener, chatAdapter.this), () -> senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this));
 //
 //                            return true;
 //                        }
@@ -6256,8 +5996,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         @Override
                         public void onClick(View v) {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
 
@@ -7074,7 +6814,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                             throw new RuntimeException(e);
                                                         }
 
-                                                        removeItem(holder.getAdapterPosition());
+                                                        senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                         Webservice.delete_chatingindivisual(mContext, model.getModelId(), model.getUid(), model.getReceiverUid());
@@ -7102,7 +6842,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                     throw new RuntimeException(e);
                                                 }
 
-                                                removeItem(holder.getAdapterPosition());
+                                                senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                 Webservice.delete_chatingindivisual(mContext, model.getModelId(), model.getUid(), model.getReceiverUid());
@@ -7117,7 +6857,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             });
 
                             // Add SelectLyt click listener for multi-selection
-                            addSelectLytClickListener(position);
+                            senderReceiverDownload.addSelectLytClickListener(position, BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt), () -> senderReceiverDownload.enterMultiSelectMode(selectedPositions, multiSelectListener, chatAdapter.this), () -> senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this));
 
                             forward.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -7294,7 +7034,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         @Override
                                         public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                            filteredList(String.valueOf(s));
+                                            senderReceiverDownload.filteredList(String.valueOf(s));
                                         }
 
                                         @Override
@@ -7586,8 +7326,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         @Override
                         public void onClick(View v) {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
 
@@ -8188,7 +7928,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             copy.setVisibility(View.GONE);
 
                             // Add SelectLyt click listener for multi-selection
-                            addSelectLytClickListener(position);
+                            senderReceiverDownload.addSelectLytClickListener(position, BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt), () -> senderReceiverDownload.enterMultiSelectMode(selectedPositions, multiSelectListener, chatAdapter.this), () -> senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this));
 
                             forward.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -8363,7 +8103,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         @Override
                                         public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                            filteredList(String.valueOf(s));
+                                            senderReceiverDownload.filteredList(String.valueOf(s));
                                         }
 
                                         @Override
@@ -8549,7 +8289,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                         } catch (Exception e) {
                                                             throw new RuntimeException(e);
                                                         }
-                                                        removeItem(holder.getAdapterPosition());
+                                                        senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                         Webservice.delete_chatingindivisual(mContext, model.getModelId(), model.getUid(), model.getReceiverUid());
@@ -8571,7 +8311,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 } catch (Exception e) {
                                                     throw new RuntimeException(e);
                                                 }
-                                                removeItem(holder.getAdapterPosition());
+                                                senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                 Webservice.delete_chatingindivisual(mContext, model.getModelId(), model.getUid(), model.getReceiverUid());
@@ -8769,8 +8509,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                     ((senderViewHolder) holder).downlaodAudio.setOnClickListener(v -> {
                         // Handle multi-selection mode first
-                        if (isMultiSelectMode) {
-                            toggleSelection(position);
+                        if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                            senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                             return;
                         }
                         senderReceiverDownload.startSenderAudioDownloadWithProgress(holder, model, mContext);
@@ -8950,8 +8690,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         @Override
                         public void onClick(View v) {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
 
@@ -9533,7 +9273,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             copy.setVisibility(View.GONE);
 
                             // Add SelectLyt click listener for multi-selection
-                            addSelectLytClickListener(position);
+                            senderReceiverDownload.addSelectLytClickListener(position, BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt), () -> senderReceiverDownload.enterMultiSelectMode(selectedPositions, multiSelectListener, chatAdapter.this), () -> senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this));
 
                             forward.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -9707,7 +9447,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         @Override
                                         public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                            filteredList(String.valueOf(s));
+                                            senderReceiverDownload.filteredList(String.valueOf(s));
                                         }
 
                                         @Override
@@ -9895,7 +9635,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                         } catch (Exception e) {
                                                             throw new RuntimeException(e);
                                                         }
-                                                        removeItem(holder.getAdapterPosition());
+                                                        senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                         Webservice.delete_chatingindivisual(mContext, model.getModelId(), model.getUid(), model.getReceiverUid());
@@ -9917,7 +9657,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 } catch (Exception e) {
                                                     throw new RuntimeException(e);
                                                 }
-                                                removeItem(holder.getAdapterPosition());
+                                                senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                 Webservice.delete_chatingindivisual(mContext, model.getModelId(), model.getUid(), model.getReceiverUid());
@@ -10895,7 +10635,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             @Override
                                             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                                filteredList(String.valueOf(s));
+                                                senderReceiverDownload.filteredList(String.valueOf(s));
                                             }
 
                                             @Override
@@ -11083,7 +10823,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                             } catch (Exception e) {
                                                                 throw new RuntimeException(e);
                                                             }
-                                                            removeItem(holder.getAdapterPosition());
+                                                            senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                             Webservice.delete_chatingindivisual(mContext, model.getModelId(), model.getUid(), model.getReceiverUid());
@@ -11105,7 +10845,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                     } catch (Exception e) {
                                                         throw new RuntimeException(e);
                                                     }
-                                                    removeItem(holder.getAdapterPosition());
+                                                    senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                     Webservice.delete_chatingindivisual(mContext, model.getModelId(), model.getUid(), model.getReceiverUid());
@@ -11140,8 +10880,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                         ((senderViewHolder) holder).downlaodAudio.setOnClickListener(v -> {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
                             senderReceiverDownload.startSenderDocDownloadWithProgress(holder, model, mContext);
@@ -11179,8 +10919,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                         ((senderViewHolder) holder).downlaodDoc.setOnClickListener(v -> {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
                             senderReceiverDownload.startSenderDocDownloadWithProgress(holder, model, mContext);
@@ -11314,8 +11054,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             @Override
                             public void onClick(View v) {
                                 // Handle multi-selection mode first
-                                if (isMultiSelectMode) {
-                                    toggleSelection(position);
+                                if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                    senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                     return;
                                 }
 
@@ -11532,8 +11272,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             @Override
                             public boolean onLongClick(View v) {
                                 // Handle multi-selection mode first
-                                if (isMultiSelectMode) {
-                                    toggleSelection(position);
+                                if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                    senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                     return true;
                                 }
 
@@ -11626,7 +11366,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 emojiLongRec.startAnimation(fadeIn);
 
                                 // Add select functionality
-                                addSelectLytClickListener(position);
+                                senderReceiverDownload.addSelectLytClickListener(position, BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt), () -> senderReceiverDownload.enterMultiSelectMode(selectedPositions, multiSelectListener, chatAdapter.this), () -> senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this));
 
                                 return true;
                             }
@@ -12234,7 +11974,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             @Override
                                             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                                filteredList(String.valueOf(s));
+                                                senderReceiverDownload.filteredList(String.valueOf(s));
                                             }
 
                                             @Override
@@ -12418,7 +12158,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                                 throw new RuntimeException(e);
                                                             }
 
-                                                            removeItem(holder.getAdapterPosition());
+                                                            senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                             /// Need to store delete key data here
@@ -12442,7 +12182,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                         throw new RuntimeException(e);
                                                     }
 
-                                                    removeItem(holder.getAdapterPosition());
+                                                    senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                     /// Need to store delete key data here
@@ -12771,7 +12511,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                 ((receiverViewHolder) holder).itemView.setBackgroundColor(Color.TRANSPARENT);
 
                 // Reduce spacing between messages with same timestamp
-                boolean hasSameTimestamp = hasSameTimestampAsNext(position);
+                boolean hasSameTimestamp = senderReceiverDownload.hasSameTimestampAsNext(position, messageList);
                 ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) ((receiverViewHolder) holder).itemView.getLayoutParams();
                 if (layoutParams != null) {
                     if (hasSameTimestamp) {
@@ -13675,8 +13415,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         @Override
                         public void onClick(View v) {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
 
@@ -14703,7 +14443,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             LinearLayout forward = BlurHelper.dialogLayoutColor.findViewById(R.id.forward);
 
                             // Add SelectLyt click listener for multi-selection
-                            addSelectLytClickListener(position);
+                            senderReceiverDownload.addSelectLytClickListener(position, BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt), () -> senderReceiverDownload.enterMultiSelectMode(selectedPositions, multiSelectListener, chatAdapter.this), () -> senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this));
 
                             forward.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -14881,7 +14621,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         @Override
                                         public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                            filteredList(String.valueOf(s));
+                                            senderReceiverDownload.filteredList(String.valueOf(s));
                                         }
 
                                         @Override
@@ -15055,7 +14795,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             } catch (Exception e) {
                                                 throw new RuntimeException(e);
                                             }
-                                            removeItem(holder.getAdapterPosition());
+                                            senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                             /// Need to store delete key data here
@@ -15311,8 +15051,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         @Override
                         public void onClick(View v) {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
 
@@ -15327,8 +15067,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         @Override
                         public void onClick(View v) {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
                             if (model.getReplyKey().equals(Constant.ReplyKey)) {
@@ -15454,8 +15194,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         @Override
                         public void onClick(View v) {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
 
@@ -15546,8 +15286,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         @Override
                         public boolean onLongClick(View v) {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return true;
                             }
 
@@ -15982,7 +15722,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             LinearLayout forward = BlurHelper.dialogLayoutColor.findViewById(R.id.forward);
 
                             // Add SelectLyt click listener for multi-selection
-                            addSelectLytClickListener(position);
+                            senderReceiverDownload.addSelectLytClickListener(position, BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt), () -> senderReceiverDownload.enterMultiSelectMode(selectedPositions, multiSelectListener, chatAdapter.this), () -> senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this));
 
                             forward.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -16161,7 +15901,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         @Override
                                         public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                            filteredList(String.valueOf(s));
+                                            senderReceiverDownload.filteredList(String.valueOf(s));
                                         }
 
                                         @Override
@@ -16337,7 +16077,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             } catch (Exception e) {
                                                 throw new RuntimeException(e);
                                             }
-                                            removeItem(holder.getAdapterPosition());
+                                            senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                             Webservice.delete_chatingindivisualReceiver(mContext, model.getModelId(), model.getUid() + model.getReceiverUid(), model.getUid(), model.getReceiverUid());
@@ -16657,7 +16397,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             LinearLayout forward = BlurHelper.dialogLayoutColor.findViewById(R.id.forward);
 
                             // Add SelectLyt click listener for multi-selection
-                            addSelectLytClickListener(position);
+                            senderReceiverDownload.addSelectLytClickListener(position, BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt), () -> senderReceiverDownload.enterMultiSelectMode(selectedPositions, multiSelectListener, chatAdapter.this), () -> senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this));
 
                             forward.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -16836,7 +16576,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         @Override
                                         public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                            filteredList(String.valueOf(s));
+                                            senderReceiverDownload.filteredList(String.valueOf(s));
                                         }
 
                                         @Override
@@ -17008,7 +16748,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             } catch (Exception e) {
                                                 throw new RuntimeException(e);
                                             }
-                                            removeItem(holder.getAdapterPosition());
+                                            senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                             Webservice.delete_chatingindivisual(mContext, model.getModelId(), model.getUid(), model.getReceiverUid());
@@ -17541,8 +17281,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         @Override
                         public void onClick(View v) {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
 
@@ -18059,7 +17799,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             LinearLayout forward = BlurHelper.dialogLayoutColor.findViewById(R.id.forward);
 
                             // Add SelectLyt click listener for multi-selection
-                            addSelectLytClickListener(position);
+                            senderReceiverDownload.addSelectLytClickListener(position, BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt), () -> senderReceiverDownload.enterMultiSelectMode(selectedPositions, multiSelectListener, chatAdapter.this), () -> senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this));
 
                             forward.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -18237,7 +17977,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         @Override
                                         public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                            filteredList(String.valueOf(s));
+                                            senderReceiverDownload.filteredList(String.valueOf(s));
                                         }
 
                                         @Override
@@ -18410,7 +18150,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             System.out.println(position);
-                                            removeItem(holder.getAdapterPosition());
+                                            senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                             Webservice.delete_chatingindivisualReceiver(mContext, model.getModelId(), model.getUid() + model.getReceiverUid(), model.getUid(), model.getReceiverUid());
@@ -18552,8 +18292,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         @Override
                         public void onClick(View v) {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
 
@@ -18997,7 +18737,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             LinearLayout forward = BlurHelper.dialogLayoutColor.findViewById(R.id.forward);
 
                             // Add SelectLyt click listener for multi-selection
-                            addSelectLytClickListener(position);
+                            senderReceiverDownload.addSelectLytClickListener(position, BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt), () -> senderReceiverDownload.enterMultiSelectMode(selectedPositions, multiSelectListener, chatAdapter.this), () -> senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this));
 
                             forward.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -19176,7 +18916,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         @Override
                                         public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                            filteredList(String.valueOf(s));
+                                            senderReceiverDownload.filteredList(String.valueOf(s));
                                         }
 
                                         @Override
@@ -19350,7 +19090,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             } catch (Exception e) {
                                                 throw new RuntimeException(e);
                                             }
-                                            removeItem(holder.getAdapterPosition());
+                                            senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                             Webservice.delete_chatingindivisualReceiver(mContext, model.getModelId(), model.getUid() + model.getReceiverUid(), model.getUid(), model.getReceiverUid());
@@ -19530,8 +19270,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         @Override
                         public void onClick(View v) {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
 
@@ -19885,7 +19625,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             LinearLayout forward = BlurHelper.dialogLayoutColor.findViewById(R.id.forward);
 
                             // Add SelectLyt click listener for multi-selection
-                            addSelectLytClickListener(position);
+                            senderReceiverDownload.addSelectLytClickListener(position, BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt), () -> senderReceiverDownload.enterMultiSelectMode(selectedPositions, multiSelectListener, chatAdapter.this), () -> senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this));
 
                             forward.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -20064,7 +19804,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         @Override
                                         public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                            filteredList(String.valueOf(s));
+                                            senderReceiverDownload.filteredList(String.valueOf(s));
                                         }
 
                                         @Override
@@ -20232,7 +19972,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             } catch (Exception e) {
                                                 throw new RuntimeException(e);
                                             }
-                                            removeItem(holder.getAdapterPosition());
+                                            senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
                                             Webservice.delete_chatingindivisualReceiver(mContext, model.getModelId(), model.getUid() + model.getReceiverUid(), model.getUid(), model.getReceiverUid());
                                         }
                                     });
@@ -20262,8 +20002,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                     ((receiverViewHolder) holder).downlaodAudioReceiver.setVisibility(docExists ? View.GONE : View.VISIBLE);
 
                     ((receiverViewHolder) holder).downlaodAudioReceiver.setOnClickListener(v -> {
-                        if (isMultiSelectMode) {
-                            toggleSelection(position);
+                        if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                            senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                             return;
                         }
                         senderReceiverDownload.startReceiverAudioDownloadWithProgress(holder, model, mContext);
@@ -20798,7 +20538,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 LinearLayout forward = BlurHelper.dialogLayoutColor.findViewById(R.id.forward);
 
                                 // Add SelectLyt click listener for multi-selection
-                                addSelectLytClickListener(position);
+                                senderReceiverDownload.addSelectLytClickListener(position, BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt), () -> senderReceiverDownload.enterMultiSelectMode(selectedPositions, multiSelectListener, chatAdapter.this), () -> senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this));
 
                                 forward.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -20977,7 +20717,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             @Override
                                             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                                filteredList(String.valueOf(s));
+                                                senderReceiverDownload.filteredList(String.valueOf(s));
                                             }
 
                                             @Override
@@ -21148,7 +20888,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 } catch (Exception e) {
                                                     throw new RuntimeException(e);
                                                 }
-                                                removeItem(holder.getAdapterPosition());
+                                                senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                 Webservice.delete_chatingindivisualReceiver(mContext, model.getModelId(), model.getUid() + model.getReceiverUid(), model.getUid(), model.getReceiverUid());
@@ -21178,8 +20918,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         ((receiverViewHolder) holder).downlaodAudioReceiver.setVisibility(docExists ? View.GONE : View.VISIBLE);
 
                         ((receiverViewHolder) holder).downlaodAudioReceiver.setOnClickListener(v -> {
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
                             senderReceiverDownload.startReceiverDocDownloadWithProgress(holder, model, mContext);
@@ -21222,8 +20962,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                         ((receiverViewHolder) holder).downlaodDocReceiver.setOnClickListener(v -> {
                             // Handle multi-selection mode first
-                            if (isMultiSelectMode) {
-                                toggleSelection(position);
+                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                                senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
                                 return;
                             }
                             senderReceiverDownload.startReceiverDocDownloadWithProgress(holder, model, mContext);
@@ -21846,7 +21586,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 LinearLayout forward = BlurHelper.dialogLayoutColor.findViewById(R.id.forward);
 
                                 // Add SelectLyt click listener for multi-selection
-                                addSelectLytClickListener(position);
+                                senderReceiverDownload.addSelectLytClickListener(position, BlurHelper.dialogLayoutColor.findViewById(R.id.SelectLyt), () -> senderReceiverDownload.enterMultiSelectMode(selectedPositions, multiSelectListener, chatAdapter.this), () -> senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this));
 
                                 forward.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -22025,7 +21765,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             @Override
                                             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                                filteredList(String.valueOf(s));
+                                                senderReceiverDownload.filteredList(String.valueOf(s));
                                             }
 
                                             @Override
@@ -22205,7 +21945,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                                 System.out.println("ff" + position);
 
-                                                removeItem(holder.getAdapterPosition());
+                                                senderReceiverDownload.removeItem(holder.getAdapterPosition(), messageList, chatAdapter.this, valuable);
 
 
                                                 Webservice.delete_chatingindivisualReceiver(mContext, model.getModelId(), model.getUid() + model.getReceiverUid(), model.getUid(), model.getReceiverUid());
@@ -22268,41 +22008,9 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     /**
      * Helper to download file from network
      */
-    private void downloadFileFromUrl(String fileUrl, OutputStream out) throws IOException {
-        URL url = new URL(fileUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.connect();
-
-        if (connection.getResponseCode() != HttpURLConnection.HTTP_OK)
-            throw new IOException("Server returned HTTP " + connection.getResponseCode());
-
-        try (InputStream in = connection.getInputStream()) {
-            copyStream(in, out);
-        } finally {
-            connection.disconnect();
-        }
-    }
-
-    /**
-     * Copy data from input to output stream
-     */
-    private void copyStream(InputStream in, OutputStream out) throws IOException {
-        byte[] buffer = new byte[8192];
-        int bytesRead;
-        while ((bytesRead = in.read(buffer)) != -1) {
-            out.write(buffer, 0, bytesRead); // ✅ Correct order: offset=0, length=bytesRead
-        }
-        out.flush();
-    }
 
 
 
-    /**
-     * Check if RecyclerView is currently scrolling
-     */
-    public boolean isScrolling() {
-        return isScrolling;
-    }
 
     /**
      * Set scroll state (for external control)
@@ -22324,22 +22032,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
 
-    public static void filteredList(String newText) {
-        ArrayList<get_user_active_contact_list_Model> filteredList = new ArrayList<>();
-
-        for (get_user_active_contact_list_Model list : get_user_active_contact_forward_list) {
-            if (list.getFull_name().toLowerCase().contains(newText.toLowerCase())) {
-
-                filteredList.add(list);
-            }
-        }
-
-        if (filteredList.isEmpty()) {
-            // Toast.makeText(mContext, "No data found", Toast.LENGTH_SHORT).show();
-        } else {
-            forwardAdapter.searchFilteredData(filteredList);
-        }
-    }
 
 
 
@@ -23004,29 +22696,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // --- Copy private video to public Movies/Enclosure ---
-
-
-
-    /**
-     * Toast helper (adapter-safe)
-     */
 
 
 

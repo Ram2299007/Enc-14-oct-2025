@@ -86,6 +86,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.Appzia.enclosure.Adapter.chatAdapter;
+import com.Appzia.enclosure.Utils.ChatadapterFiles.senderReceiverDownload;
 import com.Appzia.enclosure.Model.emojiModel;
 import com.Appzia.enclosure.Model.messageModel;
 import com.Appzia.enclosure.Model.messagemodel2;
@@ -1646,8 +1647,8 @@ public class CameraGalleryFragment extends Fragment {
 
         ((Activity) getContext()).runOnUiThread(() -> {
             if (chatAdapter != null) {
-                chatAdapter.itemAdd(messageRecView);
-                chatAdapter.setLastItemVisible(isLastItemVisible);
+                senderReceiverDownload.itemAdd(messageRecView, chatAdapter);
+                senderReceiverDownload.setLastItemVisible(isLastItemVisible, messageList, chatAdapter);
                 Log.d("updateChatAdapter", "Updated chatAdapter with itemAdd");
             } else {
                 Log.e("updateChatAdapter", "chatAdapter is null!");
@@ -3701,7 +3702,7 @@ public class CameraGalleryFragment extends Fragment {
             // Update UI
             requireActivity().runOnUiThread(() -> {
                 otherFunctions.updateMessageList(new ArrayList<>(messageList), chatAdapter);
-                chatAdapter.setLastItemVisible(isLastItemVisible);
+                senderReceiverDownload.setLastItemVisible(isLastItemVisible, messageList, chatAdapter);
                 messageRecView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
             });
 
@@ -4030,7 +4031,7 @@ public class CameraGalleryFragment extends Fragment {
             insertMessageToDatabase(model);
             requireActivity().runOnUiThread(() -> {
                 otherFunctions.updateMessageList(new ArrayList<>(messageList), chatAdapter);
-                chatAdapter.setLastItemVisible(isLastItemVisible);
+                senderReceiverDownload.setLastItemVisible(isLastItemVisible, messageList, chatAdapter);
                 messageRecView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
             });
 
