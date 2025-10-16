@@ -120,6 +120,7 @@ import com.Appzia.enclosure.Utils.BroadcastReiciver.AudioPlaybackService;
 import com.Appzia.enclosure.Utils.BroadcastReiciver.UploadChatHelperForward;
 import com.Appzia.enclosure.Utils.Constant;
 import com.Appzia.enclosure.Utils.ChatadapterFiles.senderReceiverDownload;
+import com.Appzia.enclosure.Utils.ChatadapterFiles.otherFunctions;
 
 import com.Appzia.enclosure.Utils.ItemTouchHelperAdapter;
 import com.Appzia.enclosure.Utils.OfflineDatabase.DatabaseHelper;
@@ -203,7 +204,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     RequestOptions requestOptions = new RequestOptions();
     private static boolean loadHighQuality = true;
     private boolean isLastItemVisible;
-    private boolean isScrolling = false; // Prevent multiple simultaneous scrolls
+    public boolean isScrolling = false; // Prevent multiple simultaneous scrolls
     public static long downloadId;
     int RECEIVER_VIEW_TYPE = 2;
     // Multi-selection functionality
@@ -223,17 +224,17 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     public static TextView forwardText;
     public static ArrayList<get_user_active_contact_list_Model> get_user_active_contact_forward_list = new ArrayList<>();
     int temppostion = 0;
-    ArrayList<messageModel> messageList = new ArrayList<>();
+    public ArrayList<messageModel> messageList = new ArrayList<>();
     int temptotalduration = 0;
-    private MediaPlayerCallback mediaPlayerCallback;
-    RecyclerView messageRecView;
+    public MediaPlayerCallback mediaPlayerCallback;
+    public RecyclerView messageRecView;
     chattingScreen chattingScreen;
     EditText phone2Contact;
 
     Activity mActivity;
     Handler handler;
     CardView valuable;
-    String receiverUid;
+    public String receiverUid;
     String userFTokenKey;
     String name;
     String captionKey;
@@ -565,7 +566,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
             // 🚀 FORCE SCROLL TO LAST - Multiple attempts to ensure visibility
             messageRecView.post(() -> {
                 if (getItemCount() > 0) {
-                    forceScrollToLast();
+                    otherFunctions.forceScrollToLast(this);
                 }
             });
         } catch (Exception e) {
@@ -1331,7 +1332,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             }
 
 
-                            if (doesFileExist(exactPath2 + "/" + model.getFileName())) {
+                            if (otherFunctions.doesFileExist(exactPath2 + "/" + model.getFileName())) {
 
                                 ((senderViewHolder) holder).downlaod.setVisibility(View.GONE);
                                 ((senderViewHolder) holder).progressBarImageview.setVisibility(View.GONE);
@@ -1402,7 +1403,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     customFolder2 = new File(mContext.getExternalFilesDir(null), "Enclosure/Media/Images");
                                     exactPath2 = customFolder2.getAbsolutePath();
                                 }
-                                if (doesFileExist(exactPath2 + "/" + model.getFileName())) {
+                                if (otherFunctions.doesFileExist(exactPath2 + "/" + model.getFileName())) {
                                     Log.d("TAG", "statusxascac: " + "existingimage " + exactPath2 + "/" + model.getFileName());
                                     Log.d("loadImageIntoViewTT", "getImageWidth: " + model.getImageWidth());
                                     Log.d("loadImageIntoViewTT", "getImageHeight: " + model.getImageHeight());
@@ -1462,7 +1463,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         + ", selectionCount=" + model.getSelectionCount()
                                         + ", bunchSize=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
 
-                                bindSelectionBunchImages((senderViewHolder) holder, model, requestOptions, position, true);
+                                otherFunctions.bindSelectionBunchImages((senderViewHolder) holder, model, requestOptions, position, true, mContext);
 
 
                                 // ================= For selectionCount=2: Both images 125dp x 251.5dp =================
@@ -1647,7 +1648,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         + ", selectionCount=" + model.getSelectionCount()
                                         + ", bunchSize=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
 
-                                bindSelectionBunchImages((senderViewHolder) holder, model, requestOptions, position, true);
+                                otherFunctions.bindSelectionBunchImages((senderViewHolder) holder, model, requestOptions, position, true, mContext);
 
                             } else
                             if (model.getSelectionCount().equals("4")) {
@@ -1778,7 +1779,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         + ", selectionCount=" + model.getSelectionCount()
                                         + ", bunchSize=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
 
-                                bindSelectionBunchImages((senderViewHolder) holder, model, requestOptions, position, true);
+                                otherFunctions.bindSelectionBunchImages((senderViewHolder) holder, model, requestOptions, position, true, mContext);
 
                             } else {
 
@@ -1914,7 +1915,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         + ", selectionCount=" + model.getSelectionCount()
                                         + ", bunchSize=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
 
-                                bindSelectionBunchImages((senderViewHolder) holder, model, requestOptions, position, true);
+                                otherFunctions.bindSelectionBunchImages((senderViewHolder) holder, model, requestOptions, position, true, mContext);
                             }
                         } else {
                             ((senderViewHolder) holder).senderImgLyt.setVisibility(View.VISIBLE);
@@ -2306,7 +2307,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         exactPath2 = customFolder2.getAbsolutePath();
                                     }
 
-                                    if (doesFileExist(exactPath2 + "/" + model.getFileName())) {
+                                    if (otherFunctions.doesFileExist(exactPath2 + "/" + model.getFileName())) {
                                         downlaod.setVisibility(View.GONE);
                                         progressBarImageview.setVisibility(View.GONE);
                                         try {
@@ -2350,7 +2351,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             customFolder2 = new File(mContext.getExternalFilesDir(null), "Enclosure/Media/Images");
                                             exactPath2 = customFolder2.getAbsolutePath();
                                         }
-                                        if (doesFileExist(exactPath2 + "/" + model.getFileName())) {
+                                        if (otherFunctions.doesFileExist(exactPath2 + "/" + model.getFileName())) {
                                             Log.d("TAG", "statusxascac: " + "existingimage " + exactPath2 + "/" + model.getFileName());
                                             Log.d("loadImageIntoViewTT", "getImageWidth: " + model.getImageWidth());
                                             Log.d("loadImageIntoViewTT", "getImageHeight: " + model.getImageHeight());
@@ -2408,7 +2409,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 + ", selectionCount=" + model.getSelectionCount()
                                                 + ", bunchSize=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
 
-                                        bindSelectionBunchImagesSenderLong( model, requestOptions, position, true,img1,img2,img3,img4,img4Lyt,videoicon,overlayTextImg);
+                                        otherFunctions.bindSelectionBunchImagesSenderLong( model, requestOptions, position, true,img1,img2,img3,img4,img4Lyt,videoicon,overlayTextImg, mContext);
 
 
                                         // ================= For selectionCount=2: Both images 125dp x 251.5dp =================
@@ -2593,7 +2594,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 + ", selectionCount=" + model.getSelectionCount()
                                                 + ", bunchSize=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
 
-                                        bindSelectionBunchImagesSenderLong( model, requestOptions, position, true,img1,img2,img3,img4,img4Lyt,videoicon,overlayTextImg);
+                                        otherFunctions.bindSelectionBunchImagesSenderLong( model, requestOptions, position, true,img1,img2,img3,img4,img4Lyt,videoicon,overlayTextImg, mContext);
 
                                     } else
                                     if (model.getSelectionCount().equals("4")) {
@@ -2724,7 +2725,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 + ", selectionCount=" + model.getSelectionCount()
                                                 + ", bunchSize=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
 
-                                        bindSelectionBunchImagesSenderLong( model, requestOptions, position, true,img1,img2,img3,img4,img4Lyt,videoicon,overlayTextImg);
+                                        otherFunctions.bindSelectionBunchImagesSenderLong( model, requestOptions, position, true,img1,img2,img3,img4,img4Lyt,videoicon,overlayTextImg, mContext);
 
                                     } else {
 
@@ -2860,7 +2861,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 + ", selectionCount=" + model.getSelectionCount()
                                                 + ", bunchSize=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
 
-                                        bindSelectionBunchImagesSenderLong( model, requestOptions, position, true,img1,img2,img3,img4,img4Lyt,videoicon,overlayTextImg);
+                                        otherFunctions.bindSelectionBunchImagesSenderLong( model, requestOptions, position, true,img1,img2,img3,img4,img4Lyt,videoicon,overlayTextImg, mContext);
                                     }
                                 } else {
                                     senderImgLyt.setVisibility(View.VISIBLE);
@@ -2891,7 +2892,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     customFolder2 = new File(mContext.getExternalFilesDir(null), "Enclosure/Media/Images");
                                     exactPath2 = customFolder2.getAbsolutePath();
                                 }
-                                if (doesFileExist(exactPath2 + "/" + model.getFileName())) {
+                                if (otherFunctions.doesFileExist(exactPath2 + "/" + model.getFileName())) {
                                     Log.d("TAG", "statusxascac: " + "existingimage " + exactPath2 + "/" + model.getFileName());
                                     Log.d("loadImageIntoViewTT", "getImageWidth: " + model.getImageWidth());
                                     Log.d("loadImageIntoViewTT", "getImageHeight: " + model.getImageHeight());
@@ -3123,7 +3124,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     } catch (Exception ignored) {
                                         Toast.makeText(mContext, ignored.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
-                                    if (isInternetConnected()) {
+                                    if (otherFunctions.isInternetConnected(mContext)) {
                                         //TODO ONLINE
                                         networkLoader.setVisibility(View.GONE);
                                         try {
@@ -3135,7 +3136,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             if (get_user_active_contact_forward_list.size() > 0) {
                                                 // Toast.makeText(mContext, "not empty", Toast.LENGTH_SHORT).show();
-                                                setAdapter(get_user_active_contact_forward_list);
+                                                otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                 recyclerview.setVisibility(View.VISIBLE);
                                             } else {
@@ -3156,7 +3157,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             get_user_active_contact_forward_list.clear();
                                             DatabaseHelper dbHelper = new DatabaseHelper(mContext);
                                             get_user_active_contact_forward_list = dbHelper.getAllData();
-                                            setAdapter(get_user_active_contact_forward_list);
+                                            otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                             recyclerview.setVisibility(View.VISIBLE);
 
@@ -3321,7 +3322,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -3352,7 +3353,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -3379,7 +3380,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     exactPath = customFolder.getAbsolutePath();
 
                                 }
-                                if (doesFileExist(exactPath + "/" + model.getFileName())) {
+                                if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileName())) {
 
 
                                     if(model.getSelectionBunch().size() > 1){
@@ -3584,7 +3585,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             }
 
 
-                            if (doesFileExist(exactPath2 + "/" + model.getFileNameThumbnail())) {
+                            if (otherFunctions.doesFileExist(exactPath2 + "/" + model.getFileNameThumbnail())) {
 
                                 Log.d("TAG", "getFileNameThumbnail: " + model.getFileNameThumbnail());
 
@@ -3597,7 +3598,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 Constant.loadImageIntoViewReplyImg(mContext, imageSource, requestOptions, targetImageView, parentLayout, position, true, model);
 
                                 // Set image dimensions to maintain aspect ratio
-                                //   setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight());
+                                //   otherFunctions.setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight(), mContext);
 
                             } else {
 
@@ -3609,7 +3610,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     Constant.loadImageIntoViewReplyImg(mContext, imageSource, requestOptions, targetImageView, parentLayout, position, true, model);
 
                                     // Set image dimensions to maintain aspect ratio
-                                    //   setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight());
+                                    //   otherFunctions.setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight(), mContext);
 
                                 } catch (Exception ignored) {
                                     // Hide ImageView if an exception occurs
@@ -3662,12 +3663,12 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         }
 
 
-                        if (doesFileExist(exactPath2 + "/" + model.getFileNameThumbnail())) {
+                        if (otherFunctions.doesFileExist(exactPath2 + "/" + model.getFileNameThumbnail())) {
                             ((senderViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
                             ((senderViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
 
 
-                            if (doesFileExist(exactPath4 + "/" + model.getFileName())) {
+                            if (otherFunctions.doesFileExist(exactPath4 + "/" + model.getFileName())) {
                                 ((senderViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
                                 ((senderViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
                             } else {
@@ -3696,7 +3697,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             }
 
 
-                            if (doesFileExist(exactPath4 + "/" + model.getFileName())) {
+                            if (otherFunctions.doesFileExist(exactPath4 + "/" + model.getFileName())) {
 
                                 ((senderViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
                                 ((senderViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
@@ -4089,7 +4090,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         exactPath2 = customFolder3.getAbsolutePath();
                                     }
 
-                                    if (doesFileExist(exactPath2 + "/" + model.getFileNameThumbnail())) {
+                                    if (otherFunctions.doesFileExist(exactPath2 + "/" + model.getFileNameThumbnail())) {
                                         Log.d("TAG", "getFileNameThumbnail: " + model.getFileNameThumbnail());
                                         File imageFile = new File(exactPath2 + "/" + model.getFileNameThumbnail());
                                         String imageSource = exactPath2 + "/" + model.getFileNameThumbnail();
@@ -4140,11 +4141,11 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     exactPath4 = customFolderVideo.getAbsolutePath();
                                 }
 
-                                if (doesFileExist(exactPath2 + "/" + model.getFileNameThumbnail())) {
+                                if (otherFunctions.doesFileExist(exactPath2 + "/" + model.getFileNameThumbnail())) {
                                     downlaodVideo.setVisibility(View.GONE);
                                     progressBarVideo.setVisibility(View.GONE);
 
-                                    if (doesFileExist(exactPath4 + "/" + model.getFileName())) {
+                                    if (otherFunctions.doesFileExist(exactPath4 + "/" + model.getFileName())) {
                                         downlaodVideo.setVisibility(View.GONE);
                                         progressBarVideo.setVisibility(View.GONE);
                                     } else {
@@ -4165,7 +4166,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         Log.d("VideoThumbnailLoad", "Exception during thumbnail load: " + ignored.getMessage());
                                     }
 
-                                    if (doesFileExist(exactPath4 + "/" + model.getFileName())) {
+                                    if (otherFunctions.doesFileExist(exactPath4 + "/" + model.getFileName())) {
                                         downlaodVideo.setVisibility(View.GONE);
                                         progressBarVideo.setVisibility(View.GONE);
                                     } else {
@@ -4388,7 +4389,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     } catch (Exception ignored) {
                                     }
-                                    if (isInternetConnected()) {
+                                    if (otherFunctions.isInternetConnected(mContext)) {
                                         //TODO ONLINE
                                         networkLoader.setVisibility(View.GONE);
                                         try {
@@ -4400,7 +4401,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             if (get_user_active_contact_forward_list.size() > 0) {
                                                 // Toast.makeText(mContext, "not empty", Toast.LENGTH_SHORT).show();
-                                                setAdapter(get_user_active_contact_forward_list);
+                                                otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                 recyclerview.setVisibility(View.VISIBLE);
                                             } else {
@@ -4421,7 +4422,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             get_user_active_contact_forward_list.clear();
                                             DatabaseHelper dbHelper = new DatabaseHelper(mContext);
                                             get_user_active_contact_forward_list = dbHelper.getAllData();
-                                            setAdapter(get_user_active_contact_forward_list);
+                                            otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
 
                                         } catch (Exception ignored) {
@@ -4584,7 +4585,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -4613,7 +4614,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -4640,7 +4641,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     exactPath = customFolder.getAbsolutePath();
                                 }
 
-                                if (doesFileExist(exactPath + "/" + model.getFileName())) {
+                                if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileName())) {
                                     Intent intent = new Intent(mContext, show_video_playerScreen.class);
                                     intent.putExtra("videoUri", model.getFileName());
                                     intent.putExtra("viewHolderTypeKey", Constant.senderViewHolder);
@@ -4689,7 +4690,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -4720,7 +4721,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -4749,7 +4750,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     exactPath = customFolder.getAbsolutePath();
                                 }
 
-                                if (doesFileExist(exactPath + "/" + model.getFileName())) {
+                                if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileName())) {
                                     Intent intent = new Intent(mContext, show_video_playerScreen.class);
                                     intent.putExtra("videoUri", model.getFileName());
                                     intent.putExtra("viewHolderTypeKey", Constant.senderViewHolder);
@@ -5122,7 +5123,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         exactPath2 = customFolder3.getAbsolutePath();
                                     }
 
-                                    if (doesFileExist(exactPath2 + "/" + model.getFileNameThumbnail())) {
+                                    if (otherFunctions.doesFileExist(exactPath2 + "/" + model.getFileNameThumbnail())) {
                                         Log.d("TAG", "getFileNameThumbnail: " + model.getFileNameThumbnail());
                                         File imageFile = new File(exactPath2 + "/" + model.getFileNameThumbnail());
                                         String imageSource = exactPath2 + "/" + model.getFileNameThumbnail();
@@ -5173,11 +5174,11 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     exactPath4 = customFolderVideo.getAbsolutePath();
                                 }
 
-                                if (doesFileExist(exactPath2 + "/" + model.getFileNameThumbnail())) {
+                                if (otherFunctions.doesFileExist(exactPath2 + "/" + model.getFileNameThumbnail())) {
                                     downlaodVideo.setVisibility(View.GONE);
                                     progressBarVideo.setVisibility(View.GONE);
 
-                                    if (doesFileExist(exactPath4 + "/" + model.getFileName())) {
+                                    if (otherFunctions.doesFileExist(exactPath4 + "/" + model.getFileName())) {
                                         downlaodVideo.setVisibility(View.GONE);
                                         progressBarVideo.setVisibility(View.GONE);
                                     } else {
@@ -5198,7 +5199,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         Log.d("VideoThumbnailLoad", "Exception during thumbnail load: " + ignored.getMessage());
                                     }
 
-                                    if (doesFileExist(exactPath4 + "/" + model.getFileName())) {
+                                    if (otherFunctions.doesFileExist(exactPath4 + "/" + model.getFileName())) {
                                         downlaodVideo.setVisibility(View.GONE);
                                         progressBarVideo.setVisibility(View.GONE);
                                     } else {
@@ -5421,7 +5422,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     } catch (Exception ignored) {
                                     }
-                                    if (isInternetConnected()) {
+                                    if (otherFunctions.isInternetConnected(mContext)) {
                                         //TODO ONLINE
                                         networkLoader.setVisibility(View.GONE);
                                         try {
@@ -5433,7 +5434,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             if (get_user_active_contact_forward_list.size() > 0) {
                                                 // Toast.makeText(mContext, "not empty", Toast.LENGTH_SHORT).show();
-                                                setAdapter(get_user_active_contact_forward_list);
+                                                otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                 recyclerview.setVisibility(View.VISIBLE);
                                             } else {
@@ -5454,7 +5455,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             get_user_active_contact_forward_list.clear();
                                             DatabaseHelper dbHelper = new DatabaseHelper(mContext);
                                             get_user_active_contact_forward_list = dbHelper.getAllData();
-                                            setAdapter(get_user_active_contact_forward_list);
+                                            otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
 
                                         } catch (Exception ignored) {
@@ -5645,7 +5646,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 //                                }
 //
 //                                String imageSource;
-//                                if (doesFileExist(exactPath + "/" + model.getFileNameThumbnail())) {
+//                                if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileNameThumbnail())) {
 //                                    imageSource = exactPath + "/" + model.getFileNameThumbnail();
 //                                } else {
 //                                    imageSource = model.getThumbnail();
@@ -5909,7 +5910,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     // todo here need to store data to sqllite
 
 
-                                    if (isInternetConnected()) {
+                                    if (otherFunctions.isInternetConnected(mContext)) {
                                         try {
                                             new DatabaseHelper(mContext).insert_linkPreviewTable(mContext, model.getModelId(), metaData.getUrl(), metaData.getTitle(), metaData.getDescription(), metaData.getFavicon(), metaData.getImageurl());
 
@@ -6103,7 +6104,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             ((senderViewHolder) holder).replydatalyt.setVisibility(View.VISIBLE);
 
 
-                            String truncatedText = truncateTextToWords(model.getReplyOldData(), 15);
+                            String truncatedText = otherFunctions.truncateTextToWords(model.getReplyOldData(), 15);
 
                             ((senderViewHolder) holder).msgreplyText.setText(truncatedText);
 
@@ -6279,7 +6280,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot :" + targetModelId);
                                             }
@@ -6310,7 +6311,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -6749,7 +6750,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         @Override
                                         public void onData(MetaData metaData) {
                                             // todo here need to store data to sqllite
-                                            if (isInternetConnected()) {
+                                            if (otherFunctions.isInternetConnected(mContext)) {
                                                 try {
                                                     new DatabaseHelper(mContext).insert_linkPreviewTable(mContext, model.getModelId(), metaData.getUrl(), metaData.getTitle(), metaData.getDescription(), metaData.getFavicon(), metaData.getImageurl());
                                                 } catch (Exception e) {
@@ -6897,7 +6898,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     miceContainer.setVisibility(View.GONE);
                                     replydatalyt.setVisibility(View.VISIBLE);
 
-                                    String truncatedText = truncateTextToWords(model.getReplyOldData(), 15);
+                                    String truncatedText = otherFunctions.truncateTextToWords(model.getReplyOldData(), 15);
                                     msgreplyText.setText(truncatedText);
                                     repliedData.setText(model.getReplytextData());
                                     // TODO: 03/09/25 IMP FOR REPLY
@@ -7235,7 +7236,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     } catch (Exception ignored) {
                                     }
-                                    if (isInternetConnected()) {
+                                    if (otherFunctions.isInternetConnected(mContext)) {
                                         //TODO ONLINE
                                         networkLoader.setVisibility(View.GONE);
                                         try {
@@ -7247,7 +7248,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             if (get_user_active_contact_forward_list.size() > 0) {
                                                 // Toast.makeText(mContext, "not empty", Toast.LENGTH_SHORT).show();
-                                                setAdapter(get_user_active_contact_forward_list);
+                                                otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                 recyclerview.setVisibility(View.VISIBLE);
                                             } else {
@@ -7268,7 +7269,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             get_user_active_contact_forward_list.clear();
                                             DatabaseHelper dbHelper = new DatabaseHelper(mContext);
                                             get_user_active_contact_forward_list = dbHelper.getAllData();
-                                            setAdapter(get_user_active_contact_forward_list);
+                                            otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                             recyclerview.setVisibility(View.VISIBLE);
 
@@ -7618,7 +7619,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -7649,7 +7650,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -8304,7 +8305,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     } catch (Exception ignored) {
                                     }
-                                    if (isInternetConnected()) {
+                                    if (otherFunctions.isInternetConnected(mContext)) {
                                         //TODO ONLINE
                                         networkLoader.setVisibility(View.GONE);
                                         try {
@@ -8316,7 +8317,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             if (get_user_active_contact_forward_list.size() > 0) {
                                                 // Toast.makeText(mContext, "not empty", Toast.LENGTH_SHORT).show();
-                                                setAdapter(get_user_active_contact_forward_list);
+                                                otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                 recyclerview.setVisibility(View.VISIBLE);
                                             } else {
@@ -8337,7 +8338,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             get_user_active_contact_forward_list.clear();
                                             DatabaseHelper dbHelper = new DatabaseHelper(mContext);
                                             get_user_active_contact_forward_list = dbHelper.getAllData();
-                                            setAdapter(get_user_active_contact_forward_list);
+                                            otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                             recyclerview.setVisibility(View.VISIBLE);
 
@@ -8801,7 +8802,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -8832,7 +8833,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -8975,7 +8976,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -9006,7 +9007,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -9038,7 +9039,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                 if (audiosDir != null) {
                                     String altPath = new File(audiosDir, model.getFileName()).getAbsolutePath();
-                                    if (doesFileExist(altPath)) {
+                                    if (otherFunctions.doesFileExist(altPath)) {
                                         localFilePath = altPath;
                                         audioUrl = altPath;
                                         Log.e("3456yhjkldxwaxa", "onClick: " + audioUrl);
@@ -9648,7 +9649,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     } catch (Exception ignored) {
                                     }
-                                    if (isInternetConnected()) {
+                                    if (otherFunctions.isInternetConnected(mContext)) {
                                         //TODO ONLINE
                                         networkLoader.setVisibility(View.GONE);
                                         try {
@@ -9660,7 +9661,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             if (get_user_active_contact_forward_list.size() > 0) {
                                                 // Toast.makeText(mContext, "not empty", Toast.LENGTH_SHORT).show();
-                                                setAdapter(get_user_active_contact_forward_list);
+                                                otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                 recyclerview.setVisibility(View.VISIBLE);
                                             } else {
@@ -9681,7 +9682,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             get_user_active_contact_forward_list.clear();
                                             DatabaseHelper dbHelper = new DatabaseHelper(mContext);
                                             get_user_active_contact_forward_list = dbHelper.getAllData();
-                                            setAdapter(get_user_active_contact_forward_list);
+                                            otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                             recyclerview.setVisibility(View.VISIBLE);
 
@@ -10107,7 +10108,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
                                                 }
@@ -10138,7 +10139,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
@@ -10167,7 +10168,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     if (audiosDir != null) {
                                         String altPath = new File(audiosDir, model.getFileName()).getAbsolutePath();
-                                        if (doesFileExist(altPath)) {
+                                        if (otherFunctions.doesFileExist(altPath)) {
                                             localFilePath = altPath;
                                             audioUrl = altPath;
                                             Log.e("3456yhjkldxwaxa", "onClick: " + audioUrl);
@@ -10221,7 +10222,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
                                                 }
@@ -10252,7 +10253,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
@@ -10281,7 +10282,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     if (audiosDir != null) {
                                         String altPath = new File(audiosDir, model.getFileName()).getAbsolutePath();
-                                        if (doesFileExist(altPath)) {
+                                        if (otherFunctions.doesFileExist(altPath)) {
                                             localFilePath = altPath;
                                             audioUrl = altPath;
                                             Log.e("3456yhjkldxwaxa", "onClick: " + audioUrl);
@@ -10836,7 +10837,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         } catch (Exception ignored) {
                                         }
-                                        if (isInternetConnected()) {
+                                        if (otherFunctions.isInternetConnected(mContext)) {
                                             //TODO ONLINE
                                             networkLoader.setVisibility(View.GONE);
                                             try {
@@ -10848,7 +10849,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                                 if (get_user_active_contact_forward_list.size() > 0) {
                                                     // Toast.makeText(mContext, "not empty", Toast.LENGTH_SHORT).show();
-                                                    setAdapter(get_user_active_contact_forward_list);
+                                                    otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                     recyclerview.setVisibility(View.VISIBLE);
                                                 } else {
@@ -10869,7 +10870,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 get_user_active_contact_forward_list.clear();
                                                 DatabaseHelper dbHelper = new DatabaseHelper(mContext);
                                                 get_user_active_contact_forward_list = dbHelper.getAllData();
-                                                setAdapter(get_user_active_contact_forward_list);
+                                                otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                 recyclerview.setVisibility(View.VISIBLE);
 
@@ -11189,14 +11190,14 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             ((senderViewHolder) holder).pdfPreview.setVisibility(View.VISIBLE);
                             ((senderViewHolder) holder).pdfcard.setVisibility(View.VISIBLE);
 
-                            String localPreviewImagePath = getLocalPdfPreviewImagePath(model);
+                            String localPreviewImagePath = otherFunctions.getLocalPdfPreviewImagePath(model, mContext);
                             // Get the remote URL of the actual PDF document
-                            String remotePdfUrl = getRemotePdfUrl(model);
+                            String remotePdfUrl = otherFunctions.getRemotePdfUrl(model);
 
                             // Load the PDF preview, handling caching logic internally
                             ImageView targetImageView = ((senderViewHolder) holder).pdfPreview;
                             ViewGroup parentLayout = (ViewGroup) targetImageView.getParent();
-                            loadPdfPreview(localPreviewImagePath, remotePdfUrl, ((senderViewHolder) holder).pdfPreview, parentLayout, position, model);
+                            otherFunctions.loadPdfPreview(localPreviewImagePath, remotePdfUrl, ((senderViewHolder) holder).pdfPreview, parentLayout, position, model, mContext);
 
                             ((senderViewHolder) holder).docFileIcon.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
 
@@ -11204,7 +11205,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         } else if (model.getExtension().equalsIgnoreCase("xls")) {
                             ((senderViewHolder) holder).pdfPreview.setVisibility(View.GONE);
                             ((senderViewHolder) holder).pdfcard.setVisibility(View.GONE);
-                            String filePath = getFilePath(model);
+                            String filePath = otherFunctions.getFilePath(model, mContext);
                             //  ((senderViewHolder) holder).docFileIcon.setBackgroundTintList(ColorStateList.valueOf(R.color.white));
 
                         } else {
@@ -11337,7 +11338,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
                                                 }
@@ -11366,7 +11367,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
                                                 }
@@ -11393,7 +11394,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         exactPath = customFolder.getAbsolutePath();
                                     }
 
-                                    if (doesFileExist(exactPath + "/" + model.getFileName())) {
+                                    if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileName())) {
                                         Intent intent = new Intent(mContext, show_document_screen.class);
                                         intent.putExtra("documentKey", model.getFileName());
                                         intent.putExtra("nameKey", model.getFileName());
@@ -11441,7 +11442,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
                                                 }
@@ -11472,7 +11473,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
@@ -11502,7 +11503,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     }
 
-                                    if (doesFileExist(exactPath + "/" + model.getFileName())) {
+                                    if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileName())) {
 
                                         Intent intent = new Intent(mContext, show_document_screen.class);
                                         intent.putExtra("documentKey", model.getFileName());
@@ -11967,10 +11968,10 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 if (model.getExtension().equalsIgnoreCase("pdf")) {
                                     pdfPreview.setVisibility(View.VISIBLE);
                                     pdfcard.setVisibility(View.VISIBLE);
-                                    String localPreviewImagePath = getLocalPdfPreviewImagePath(model);
-                                    String remotePdfUrl = getRemotePdfUrl(model);
+                                    String localPreviewImagePath = otherFunctions.getLocalPdfPreviewImagePath(model, mContext);
+                                    String remotePdfUrl = otherFunctions.getRemotePdfUrl(model);
                                     ViewGroup parentLayout = (ViewGroup) pdfPreview.getParent();
-                                    loadPdfPreview(localPreviewImagePath, remotePdfUrl, pdfPreview, parentLayout, position, model);
+                                    otherFunctions.loadPdfPreview(localPreviewImagePath, remotePdfUrl, pdfPreview, parentLayout, position, model, mContext);
                                     docFileIcon.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
                                 } else if (model.getExtension().equalsIgnoreCase("xls")) {
                                     pdfPreview.setVisibility(View.GONE);
@@ -12175,7 +12176,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         } catch (Exception ignored) {
                                         }
-                                        if (isInternetConnected()) {
+                                        if (otherFunctions.isInternetConnected(mContext)) {
                                             //TODO ONLINE
                                             networkLoader.setVisibility(View.GONE);
                                             try {
@@ -12187,7 +12188,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                                 if (get_user_active_contact_forward_list.size() > 0) {
                                                     // Toast.makeText(mContext, "not empty", Toast.LENGTH_SHORT).show();
-                                                    setAdapter(get_user_active_contact_forward_list);
+                                                    otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                     recyclerview.setVisibility(View.VISIBLE);
                                                 } else {
@@ -12208,7 +12209,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 get_user_active_contact_forward_list.clear();
                                                 DatabaseHelper dbHelper = new DatabaseHelper(mContext);
                                                 get_user_active_contact_forward_list = dbHelper.getAllData();
-                                                setAdapter(get_user_active_contact_forward_list);
+                                                otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                 recyclerview.setVisibility(View.VISIBLE);
 
@@ -12499,7 +12500,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                 if (blockUser.getText().toString().equals("false")) {
                     //Toast.makeText(mContext, "false", Toast.LENGTH_SHORT).show();
-                    if (position == 0 && isMobileNumber(TextViewname.getText().toString())) {
+                    if (position == 0 && otherFunctions.isMobileNumber(TextViewname.getText().toString())) {
 
 
                         Constant.getSfFuncion(mContext);
@@ -13072,7 +13073,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             String exactPath = customFolder.getAbsolutePath();
 
 
-                            if (doesFileExist(exactPath + "/" + model.getFileName())) {
+                            if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileName())) {
                                 Log.d("TAG", "statusReceiver: " + "existing");
 
                                 File imageFile = new File(exactPath + "/" + model.getFileName());
@@ -13146,7 +13147,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     customFolder2 = new File(mContext.getExternalFilesDir(null), "Enclosure/Media/Images");
                                     exactPath2 = customFolder2.getAbsolutePath();
                                 }
-                                if (doesFileExist(exactPath2 + "/" + model.getFileName())) {
+                                if (otherFunctions.doesFileExist(exactPath2 + "/" + model.getFileName())) {
                                     Log.d("TAG", "statusxascac: " + "existingimage " + exactPath2 + "/" + model.getFileName());
                                     Log.d("loadImageIntoViewTT", "getImageWidth: " + model.getImageWidth());
                                     Log.d("loadImageIntoViewTT", "getImageHeight: " + model.getImageHeight());
@@ -13203,7 +13204,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         + ", selectionCount=" + model.getSelectionCount()
                                         + ", bunchSize=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
 
-                                bindSelectionBunchImagesReceiver((receiverViewHolder) holder, model, requestOptions, position, true);
+                                otherFunctions.bindSelectionBunchImagesReceiver((receiverViewHolder) holder, model, requestOptions, position, true, mContext);
 
 
                                 // ================= For selectionCount=2: Both images 125dp x 251.5dp =================
@@ -13388,7 +13389,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         + ", selectionCount=" + model.getSelectionCount()
                                         + ", bunchSize=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
 
-                                bindSelectionBunchImagesReceiver((receiverViewHolder) holder, model, requestOptions, position, true);
+                                otherFunctions.bindSelectionBunchImagesReceiver((receiverViewHolder) holder, model, requestOptions, position, true, mContext);
 
                             } else
                             if (model.getSelectionCount().equals("4")) {
@@ -13519,7 +13520,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         + ", selectionCount=" + model.getSelectionCount()
                                         + ", bunchSize=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
 
-                                bindSelectionBunchImagesReceiver((receiverViewHolder) holder, model, requestOptions, position, true);
+                                otherFunctions.bindSelectionBunchImagesReceiver((receiverViewHolder) holder, model, requestOptions, position, true, mContext);
 
                             } else {
 
@@ -13655,7 +13656,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         + ", selectionCount=" + model.getSelectionCount()
                                         + ", bunchSize=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
 
-                                bindSelectionBunchImagesReceiver((receiverViewHolder) holder, model, requestOptions, position, true);
+                                otherFunctions.bindSelectionBunchImagesReceiver((receiverViewHolder) holder, model, requestOptions, position, true, mContext);
                             }
                         } else {
                             ((receiverViewHolder) holder).receiverImgLyt.setVisibility(View.VISIBLE);
@@ -13700,7 +13701,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -13731,7 +13732,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -13779,7 +13780,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             }
 
-                                            if (doesFileExist(exactPath + "/" + model.getFileName())) {
+                                            if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileName())) {
 
 
                                                 if(model.getSelectionBunch().size() > 1){
@@ -14077,7 +14078,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     File customFolder = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Images");
                                     String exactPath = customFolder.getAbsolutePath();
 
-                                    if (doesFileExist(exactPath + "/" + model.getFileName())) {
+                                    if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileName())) {
                                         String imageSource = exactPath + "/" + model.getFileName();
                                         ImageView targetImageView = imgreply;
                                         ViewGroup parentLayout = (ViewGroup) targetImageView.getParent();
@@ -14113,7 +14114,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             customFolder2 = new File(mContext.getExternalFilesDir(null), "Enclosure/Media/Images");
                                             exactPath2 = customFolder2.getAbsolutePath();
                                         }
-                                        if (doesFileExist(exactPath2 + "/" + model.getFileName())) {
+                                        if (otherFunctions.doesFileExist(exactPath2 + "/" + model.getFileName())) {
                                             Log.d("TAG", "statusxascac: " + "existingimage " + exactPath2 + "/" + model.getFileName());
                                             Log.d("loadImageIntoViewTT", "getImageWidth: " + model.getImageWidth());
                                             Log.d("loadImageIntoViewTT", "getImageHeight: " + model.getImageHeight());
@@ -14170,7 +14171,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 + ", selectionCount=" + model.getSelectionCount()
                                                 + ", bunchSize=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
 
-                                        bindSelectionBunchImagesSenderLong( model, requestOptions, position, true,img1,img2,img3,img4,img4Lyt,videoicon,overlayTextImg);
+                                        otherFunctions.bindSelectionBunchImagesSenderLong( model, requestOptions, position, true,img1,img2,img3,img4,img4Lyt,videoicon,overlayTextImg, mContext);
 
 
                                         // ================= For selectionCount=2: Both images 125dp x 251.5dp =================
@@ -14355,7 +14356,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 + ", selectionCount=" + model.getSelectionCount()
                                                 + ", bunchSize=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
 
-                                        bindSelectionBunchImagesSenderLong( model, requestOptions, position, true,img1,img2,img3,img4,img4Lyt,videoicon,overlayTextImg);
+                                        otherFunctions.bindSelectionBunchImagesSenderLong( model, requestOptions, position, true,img1,img2,img3,img4,img4Lyt,videoicon,overlayTextImg, mContext);
 
                                     } else
                                     if (model.getSelectionCount().equals("4")) {
@@ -14486,7 +14487,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 + ", selectionCount=" + model.getSelectionCount()
                                                 + ", bunchSize=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
 
-                                        bindSelectionBunchImagesSenderLong( model, requestOptions, position, true,img1,img2,img3,img4,img4Lyt,videoicon,overlayTextImg);
+                                        otherFunctions.bindSelectionBunchImagesSenderLong( model, requestOptions, position, true,img1,img2,img3,img4,img4Lyt,videoicon,overlayTextImg, mContext);
 
                                     } else {
 
@@ -14622,7 +14623,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 + ", selectionCount=" + model.getSelectionCount()
                                                 + ", bunchSize=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
 
-                                        bindSelectionBunchImagesSenderLong( model, requestOptions, position, true,img1,img2,img3,img4,img4Lyt,videoicon,overlayTextImg);
+                                        otherFunctions.bindSelectionBunchImagesSenderLong( model, requestOptions, position, true,img1,img2,img3,img4,img4Lyt,videoicon,overlayTextImg, mContext);
                                     }
                                 } else {
                                     receiverImgLyt.setVisibility(View.VISIBLE);
@@ -14646,12 +14647,12 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 File customFolder = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Images");
                                 String exactPath = customFolder.getAbsolutePath();
 
-                                if (doesFileExist(exactPath + "/" + model.getFileName())) {
+                                if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileName())) {
                                     String imageSource = exactPath + "/" + model.getFileName();
                                     ImageView targetImageView = recImg;
                                     ViewGroup parentLayout = (ViewGroup) targetImageView.getParent();
                                     BlurImageOptimizer.loadImageWithSafeBlur(mContext, imageSource, requestOptions, targetImageView, parentLayout, position, model, videoicon);
-                                    setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight());
+                                    otherFunctions.setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight(), mContext);
                                     downlaod.setVisibility(View.GONE);
                                     progressBarImageview.setVisibility(View.GONE);
                                     blur.setVisibility(View.GONE);
@@ -14662,14 +14663,14 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     ImageView targetImageView = recImg;
                                     ViewGroup parentLayout = (ViewGroup) targetImageView.getParent();
                                     BlurImageOptimizer.loadImageWithSafeBlur(mContext, imageSource, requestOptions, targetImageView, parentLayout, position, model, videoicon);
-                                    setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight());
+                                    otherFunctions.setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight(), mContext);
                                 }
                             }
 
 
                             LinearLayout deleteLyt = BlurHelper.dialogLayoutColor.findViewById(R.id.deletelyt);
 
-                            if (position == 0 && isMobileNumber(TextViewname.getText().toString())) {
+                            if (position == 0 && otherFunctions.isMobileNumber(TextViewname.getText().toString())) {
                                 deleteLyt.setVisibility(View.GONE);
                             } else {
                                 deleteLyt.setVisibility(View.VISIBLE);
@@ -14820,7 +14821,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     } catch (Exception ignored) {
                                     }
-                                    if (isInternetConnected()) {
+                                    if (otherFunctions.isInternetConnected(mContext)) {
                                         //TODO ONLINE
                                         networkLoader.setVisibility(View.GONE);
 
@@ -14834,7 +14835,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             if (get_user_active_contact_forward_list.size() > 0) {
                                                 // Toast.makeText(mContext, "not empty", Toast.LENGTH_SHORT).show();
-                                                setAdapter(get_user_active_contact_forward_list);
+                                                otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                 recyclerview.setVisibility(View.VISIBLE);
                                             } else {
@@ -14855,7 +14856,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             get_user_active_contact_forward_list.clear();
                                             DatabaseHelper dbHelper = new DatabaseHelper(mContext);
                                             get_user_active_contact_forward_list = dbHelper.getAllData();
-                                            setAdapter(get_user_active_contact_forward_list);
+                                            otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                             recyclerview.setVisibility(View.VISIBLE);
 
@@ -15156,7 +15157,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             String exactPath = customFolder.getAbsolutePath();
 
 
-                            if (doesFileExist(exactPath + "/" + model.getFileNameThumbnail())) {
+                            if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileNameThumbnail())) {
 
                                 Log.d("TAG", "getFileNameThumbnail: " + model.getFileNameThumbnail());
 
@@ -15190,7 +15191,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     Constant.loadImageIntoViewReplyImg(mContext, imageSource, requestOptions, targetImageView, parentLayout, position, true, model);
 
                                     // Set image dimensions to maintain aspect ratio
-                                    //   setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight());
+                                    //   otherFunctions.setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight(), mContext);
 
                                 } catch (Exception ignored) {
                                     // Hide ImageView if an exception occurs
@@ -15239,7 +15240,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         String exactPathVideo = customFolderVideo.getAbsolutePath();
 
 
-                        if (doesFileExist(exactPath + "/" + model.getFileNameThumbnail())) {
+                        if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileNameThumbnail())) {
 
                             Log.d("TAG", "getFileNameThumbnail: " + model.getFileNameThumbnail());
 
@@ -15255,7 +15256,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 ViewGroup parentLayout = (ViewGroup) targetImageView.getParent();
                                 // ✅ Use new blur optimization to prevent black images and pixelation
                                 BlurImageOptimizer.loadImageWithSafeBlur(mContext, imageSource, requestOptions, targetImageView, parentLayout, position, model, ((receiverViewHolder) holder).videoicon);
-                                setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight());
+                                otherFunctions.setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight(), mContext);
 
 
                             } catch (Exception ignored) {
@@ -15265,7 +15266,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             }
 
                             // for checking file is in folder or not
-                            if (doesFileExist(exactPathVideo + "/" + model.getFileName())) {
+                            if (otherFunctions.doesFileExist(exactPathVideo + "/" + model.getFileName())) {
 
                                 ((receiverViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
                             } else {
@@ -15290,7 +15291,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 ViewGroup parentLayout = (ViewGroup) targetImageView.getParent();
                                 // ✅ Use new blur optimization to prevent black images and pixelation
                                 BlurImageOptimizer.loadImageWithSafeBlur(mContext, imageSource, requestOptions, targetImageView, parentLayout, position, model, ((receiverViewHolder) holder).videoicon);
-                                setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight());
+                                otherFunctions.setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight(), mContext);
 
 
                             } catch (Exception ignored) {
@@ -15351,7 +15352,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -15382,7 +15383,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -15423,7 +15424,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         }
 
-                                        if (doesFileExist(exactPath + "/" + model.getFileName())) {
+                                        if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileName())) {
 
                                             Intent intent = new Intent(mContext, show_video_playerScreen.class);
                                             intent.putExtra("videoUri", model.getFileName());
@@ -15477,7 +15478,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -15516,7 +15517,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         }
 
-                                        if (doesFileExist(exactPath + "/" + model.getFileName())) {
+                                        if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileName())) {
 
                                             Intent intent = new Intent(mContext, show_video_playerScreen.class);
                                             intent.putExtra("videoUri", model.getFileName());
@@ -15614,7 +15615,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 }
 
                                 String imageSource;
-                                if (doesFileExist(exactPath + "/" + model.getFileNameThumbnail())) {
+                                if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileNameThumbnail())) {
                                     imageSource = exactPath + "/" + model.getFileNameThumbnail();
                                 } else {
                                     imageSource = model.getThumbnail();
@@ -15853,7 +15854,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     File customFolder = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Enclosure/Media/Thumbnail");
                                     String exactPath = customFolder.getAbsolutePath();
 
-                                    if (doesFileExist(exactPath + "/" + model.getFileNameThumbnail())) {
+                                    if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileNameThumbnail())) {
                                         downlaodVideo.setVisibility(View.GONE);
                                         progressBarVideo.setVisibility(View.GONE);
                                         blurVideo.setVisibility(View.GONE);
@@ -15904,7 +15905,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 String exactPath = customFolder.getAbsolutePath();
                                 String exactPathVideo = customFolderVideo.getAbsolutePath();
 
-                                if (doesFileExist(exactPath + "/" + model.getFileNameThumbnail())) {
+                                if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileNameThumbnail())) {
                                     downlaodVideo.setVisibility(View.GONE);
                                     progressBarVideo.setVisibility(View.GONE);
                                     blurVideo.setVisibility(View.GONE);
@@ -15913,13 +15914,13 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     ViewGroup parentLayout = (ViewGroup) targetImageView.getParent();
                                     try {
                                         BlurImageOptimizer.loadImageWithSafeBlur(mContext, imageSource, requestOptions, targetImageView, parentLayout, position, model, videoicon);
-                                        setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight());
+                                        otherFunctions.setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight(), mContext);
                                     } catch (Exception ignored) {
                                         recVideo.setVisibility(View.GONE);
                                         Log.d("VideoThumbnailLoad", "Exception during thumbnail load: " + ignored.getMessage());
                                     }
 
-                                    if (doesFileExist(exactPathVideo + "/" + model.getFileName())) {
+                                    if (otherFunctions.doesFileExist(exactPathVideo + "/" + model.getFileName())) {
                                         downlaodVideo.setVisibility(View.GONE);
                                     } else {
                                         downlaodVideo.setVisibility(View.GONE);
@@ -15937,7 +15938,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         ImageView targetImageView = recVideo;
                                         ViewGroup parentLayout = (ViewGroup) targetImageView.getParent();
                                         BlurImageOptimizer.loadImageWithSafeBlur(mContext, imageSource, requestOptions, targetImageView, parentLayout, position, model, videoicon);
-                                        setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight());
+                                        otherFunctions.setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight(), mContext);
                                     } catch (Exception ignored) {
                                         recVideo.setVisibility(View.GONE);
                                         Log.d("VideoThumbnailLoad", "Exception during thumbnail load: " + ignored.getMessage());
@@ -15948,7 +15949,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
                             LinearLayout deleteLyt = BlurHelper.dialogLayoutColor.findViewById(R.id.deletelyt);
-                            if (position == 0 && isMobileNumber(TextViewname.getText().toString())) {
+                            if (position == 0 && otherFunctions.isMobileNumber(TextViewname.getText().toString())) {
                                 deleteLyt.setVisibility(View.GONE);
                             } else {
                                 deleteLyt.setVisibility(View.VISIBLE);
@@ -16100,7 +16101,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     } catch (Exception ignored) {
                                     }
-                                    if (isInternetConnected()) {
+                                    if (otherFunctions.isInternetConnected(mContext)) {
                                         //TODO ONLINE
                                         networkLoader.setVisibility(View.GONE);
 
@@ -16114,7 +16115,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             if (get_user_active_contact_forward_list.size() > 0) {
                                                 // Toast.makeText(mContext, "not empty", Toast.LENGTH_SHORT).show();
-                                                setAdapter(get_user_active_contact_forward_list);
+                                                otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                 recyclerview.setVisibility(View.VISIBLE);
                                             } else {
@@ -16135,7 +16136,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             get_user_active_contact_forward_list.clear();
                                             DatabaseHelper dbHelper = new DatabaseHelper(mContext);
                                             get_user_active_contact_forward_list = dbHelper.getAllData();
-                                            setAdapter(get_user_active_contact_forward_list);
+                                            otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                             recyclerview.setVisibility(View.VISIBLE);
 
@@ -16528,7 +16529,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     File customFolder = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Enclosure/Media/Thumbnail");
                                     String exactPath = customFolder.getAbsolutePath();
 
-                                    if (doesFileExist(exactPath + "/" + model.getFileNameThumbnail())) {
+                                    if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileNameThumbnail())) {
                                         downlaodVideo.setVisibility(View.GONE);
                                         progressBarVideo.setVisibility(View.GONE);
                                         blurVideo.setVisibility(View.GONE);
@@ -16579,7 +16580,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 String exactPath = customFolder.getAbsolutePath();
                                 String exactPathVideo = customFolderVideo.getAbsolutePath();
 
-                                if (doesFileExist(exactPath + "/" + model.getFileNameThumbnail())) {
+                                if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileNameThumbnail())) {
                                     downlaodVideo.setVisibility(View.GONE);
                                     progressBarVideo.setVisibility(View.GONE);
                                     blurVideo.setVisibility(View.GONE);
@@ -16588,13 +16589,13 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     ViewGroup parentLayout = (ViewGroup) targetImageView.getParent();
                                     try {
                                         BlurImageOptimizer.loadImageWithSafeBlur(mContext, imageSource, requestOptions, targetImageView, parentLayout, position, model, videoicon);
-                                        setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight());
+                                        otherFunctions.setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight(), mContext);
                                     } catch (Exception ignored) {
                                         recVideo.setVisibility(View.GONE);
                                         Log.d("VideoThumbnailLoad", "Exception during thumbnail load: " + ignored.getMessage());
                                     }
 
-                                    if (doesFileExist(exactPathVideo + "/" + model.getFileName())) {
+                                    if (otherFunctions.doesFileExist(exactPathVideo + "/" + model.getFileName())) {
                                         downlaodVideo.setVisibility(View.GONE);
                                     } else {
                                         downlaodVideo.setVisibility(View.GONE);
@@ -16612,7 +16613,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                         ImageView targetImageView = recVideo;
                                         ViewGroup parentLayout = (ViewGroup) targetImageView.getParent();
                                         BlurImageOptimizer.loadImageWithSafeBlur(mContext, imageSource, requestOptions, targetImageView, parentLayout, position, model, videoicon);
-                                        setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight());
+                                        otherFunctions.setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight(), mContext);
                                     } catch (Exception ignored) {
                                         recVideo.setVisibility(View.GONE);
                                         Log.d("VideoThumbnailLoad", "Exception during thumbnail load: " + ignored.getMessage());
@@ -16623,7 +16624,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
                             LinearLayout deleteLyt = BlurHelper.dialogLayoutColor.findViewById(R.id.deletelyt);
-                            if (position == 0 && isMobileNumber(TextViewname.getText().toString())) {
+                            if (position == 0 && otherFunctions.isMobileNumber(TextViewname.getText().toString())) {
                                 deleteLyt.setVisibility(View.GONE);
                             } else {
                                 deleteLyt.setVisibility(View.VISIBLE);
@@ -16775,7 +16776,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     } catch (Exception ignored) {
                                     }
-                                    if (isInternetConnected()) {
+                                    if (otherFunctions.isInternetConnected(mContext)) {
                                         //TODO ONLINE
                                         networkLoader.setVisibility(View.GONE);
 
@@ -16789,7 +16790,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             if (get_user_active_contact_forward_list.size() > 0) {
                                                 // Toast.makeText(mContext, "not empty", Toast.LENGTH_SHORT).show();
-                                                setAdapter(get_user_active_contact_forward_list);
+                                                otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                 recyclerview.setVisibility(View.VISIBLE);
                                             } else {
@@ -16810,7 +16811,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             get_user_active_contact_forward_list.clear();
                                             DatabaseHelper dbHelper = new DatabaseHelper(mContext);
                                             get_user_active_contact_forward_list = dbHelper.getAllData();
-                                            setAdapter(get_user_active_contact_forward_list);
+                                            otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                             recyclerview.setVisibility(View.VISIBLE);
 
@@ -17213,7 +17214,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     // todo here need to store data to sqllite
 
 
-                                    if (isInternetConnected()) {
+                                    if (otherFunctions.isInternetConnected(mContext)) {
                                         try {
                                             new DatabaseHelper(mContext).insert_linkPreviewTable(mContext, model.getModelId(), metaData.getUrl(), metaData.getTitle(), metaData.getDescription(), metaData.getFavicon(), metaData.getImageurl());
 
@@ -17393,7 +17394,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             ((receiverViewHolder) holder).miceContainer.setVisibility(View.GONE);
                             ((receiverViewHolder) holder).replydatalyt.setVisibility(View.VISIBLE);
 
-                            String truncatedText = truncateTextToWords(model.getReplyOldData(), 15);
+                            String truncatedText = otherFunctions.truncateTextToWords(model.getReplyOldData(), 15);
                             ((receiverViewHolder) holder).msgreplyText.setText(truncatedText);
 
 
@@ -17566,7 +17567,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -17597,7 +17598,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -17828,7 +17829,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 } catch (Exception e) {
                                 }
 
-                                if (isInternetConnected()) {
+                                if (otherFunctions.isInternetConnected(mContext)) {
                                     RichPreview richPreview = new RichPreview(new ResponseListener() {
                                         @Override
                                         public void onData(MetaData metaData) {
@@ -17961,7 +17962,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     contactContainer.setVisibility(View.GONE);
                                     miceContainer.setVisibility(View.GONE);
                                     replydatalyt.setVisibility(View.VISIBLE);
-                                    String truncatedText = truncateTextToWords(model.getReplyOldData(), 15);
+                                    String truncatedText = otherFunctions.truncateTextToWords(model.getReplyOldData(), 15);
                                     msgreplyText.setText(truncatedText);
                                     repliedData.setText(model.getReplytextData());
                                     repliedData.setMaxWidth((int) TypedValue.applyDimension(
@@ -18025,7 +18026,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
                             LinearLayout deleteLyt = BlurHelper.dialogLayoutColor.findViewById(R.id.deletelyt);
-                            if (position == 0 && isMobileNumber(TextViewname.getText().toString())) {
+                            if (position == 0 && otherFunctions.isMobileNumber(TextViewname.getText().toString())) {
                                 deleteLyt.setVisibility(View.GONE);
                             } else {
                                 deleteLyt.setVisibility(View.VISIBLE);
@@ -18176,7 +18177,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     } catch (Exception ignored) {
                                     }
-                                    if (isInternetConnected()) {
+                                    if (otherFunctions.isInternetConnected(mContext)) {
                                         //TODO ONLINE
                                         networkLoader.setVisibility(View.GONE);
 
@@ -18190,7 +18191,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             if (get_user_active_contact_forward_list.size() > 0) {
                                                 // Toast.makeText(mContext, "not empty", Toast.LENGTH_SHORT).show();
-                                                setAdapter(get_user_active_contact_forward_list);
+                                                otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                 recyclerview.setVisibility(View.VISIBLE);
                                             } else {
@@ -18211,7 +18212,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             get_user_active_contact_forward_list.clear();
                                             DatabaseHelper dbHelper = new DatabaseHelper(mContext);
                                             get_user_active_contact_forward_list = dbHelper.getAllData();
-                                            setAdapter(get_user_active_contact_forward_list);
+                                            otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                             recyclerview.setVisibility(View.VISIBLE);
 
@@ -18584,7 +18585,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -18615,7 +18616,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -18963,7 +18964,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
                             LinearLayout deleteLyt = BlurHelper.dialogLayoutColor.findViewById(R.id.deletelyt);
-                            if (position == 0 && isMobileNumber(TextViewname.getText().toString())) {
+                            if (position == 0 && otherFunctions.isMobileNumber(TextViewname.getText().toString())) {
                                 deleteLyt.setVisibility(View.GONE);
                             } else {
                                 deleteLyt.setVisibility(View.VISIBLE);
@@ -19115,7 +19116,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     } catch (Exception ignored) {
                                     }
-                                    if (isInternetConnected()) {
+                                    if (otherFunctions.isInternetConnected(mContext)) {
                                         //TODO ONLINE
                                         networkLoader.setVisibility(View.GONE);
 
@@ -19129,7 +19130,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             if (get_user_active_contact_forward_list.size() > 0) {
                                                 // Toast.makeText(mContext, "not empty", Toast.LENGTH_SHORT).show();
-                                                setAdapter(get_user_active_contact_forward_list);
+                                                otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                 recyclerview.setVisibility(View.VISIBLE);
                                             } else {
@@ -19150,7 +19151,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             get_user_active_contact_forward_list.clear();
                                             DatabaseHelper dbHelper = new DatabaseHelper(mContext);
                                             get_user_active_contact_forward_list = dbHelper.getAllData();
-                                            setAdapter(get_user_active_contact_forward_list);
+                                            otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                             recyclerview.setVisibility(View.VISIBLE);
 
@@ -19493,7 +19494,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                 if (audiosDir != null) {
                                     String altPath = new File(audiosDir, model.getFileName()).getAbsolutePath();
-                                    if (doesFileExist(altPath)) {
+                                    if (otherFunctions.doesFileExist(altPath)) {
                                         localFilePath = altPath;
                                         audioUrl = altPath;
                                         Log.e("3456yhjkldxwaxa", "onClick: " + audioUrl);
@@ -19555,7 +19556,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -19586,7 +19587,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -19612,7 +19613,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                 if (audiosDir != null) {
                                     String altPath = new File(audiosDir, model.getFileName()).getAbsolutePath();
-                                    if (doesFileExist(altPath)) {
+                                    if (otherFunctions.doesFileExist(altPath)) {
                                         localFilePath = altPath;
                                         audioUrl = altPath;
                                         Log.e("3456yhjkldxwaxa", "onClick: " + audioUrl);
@@ -19851,7 +19852,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
                             LinearLayout deleteLyt = BlurHelper.dialogLayoutColor.findViewById(R.id.deletelyt);
-                            if (position == 0 && isMobileNumber(TextViewname.getText().toString())) {
+                            if (position == 0 && otherFunctions.isMobileNumber(TextViewname.getText().toString())) {
                                 deleteLyt.setVisibility(View.GONE);
                             } else {
                                 deleteLyt.setVisibility(View.VISIBLE);
@@ -20003,7 +20004,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     } catch (Exception ignored) {
                                     }
-                                    if (isInternetConnected()) {
+                                    if (otherFunctions.isInternetConnected(mContext)) {
                                         //TODO ONLINE
                                         networkLoader.setVisibility(View.GONE);
 
@@ -20017,7 +20018,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                             if (get_user_active_contact_forward_list.size() > 0) {
                                                 // Toast.makeText(mContext, "not empty", Toast.LENGTH_SHORT).show();
-                                                setAdapter(get_user_active_contact_forward_list);
+                                                otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                 recyclerview.setVisibility(View.VISIBLE);
                                             } else {
@@ -20038,7 +20039,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             get_user_active_contact_forward_list.clear();
                                             DatabaseHelper dbHelper = new DatabaseHelper(mContext);
                                             get_user_active_contact_forward_list = dbHelper.getAllData();
-                                            setAdapter(get_user_active_contact_forward_list);
+                                            otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                             recyclerview.setVisibility(View.VISIBLE);
 
@@ -20413,7 +20414,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     if (audiosDir != null) {
                                         String altPath = new File(audiosDir, model.getFileName()).getAbsolutePath();
-                                        if (doesFileExist(altPath)) {
+                                        if (otherFunctions.doesFileExist(altPath)) {
                                             localFilePath = altPath;
                                             audioUrl = altPath;
                                             Log.e("3456yhjkldxwaxa", "onClick: " + audioUrl);
@@ -20470,7 +20471,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
                                                 }
@@ -20501,7 +20502,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
@@ -20527,7 +20528,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     if (audiosDir != null) {
                                         String altPath = new File(audiosDir, model.getFileName()).getAbsolutePath();
-                                        if (doesFileExist(altPath)) {
+                                        if (otherFunctions.doesFileExist(altPath)) {
                                             localFilePath = altPath;
                                             audioUrl = altPath;
                                             Log.e("3456yhjkldxwaxa", "onClick: " + audioUrl);
@@ -20764,7 +20765,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
                                 LinearLayout deleteLyt = BlurHelper.dialogLayoutColor.findViewById(R.id.deletelyt);
-                                if (position == 0 && isMobileNumber(TextViewname.getText().toString())) {
+                                if (position == 0 && otherFunctions.isMobileNumber(TextViewname.getText().toString())) {
                                     deleteLyt.setVisibility(View.GONE);
                                 } else {
                                     deleteLyt.setVisibility(View.VISIBLE);
@@ -20916,7 +20917,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         } catch (Exception ignored) {
                                         }
-                                        if (isInternetConnected()) {
+                                        if (otherFunctions.isInternetConnected(mContext)) {
                                             //TODO ONLINE
                                             networkLoader.setVisibility(View.GONE);
 
@@ -20930,7 +20931,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                                 if (get_user_active_contact_forward_list.size() > 0) {
                                                     // Toast.makeText(mContext, "not empty", Toast.LENGTH_SHORT).show();
-                                                    setAdapter(get_user_active_contact_forward_list);
+                                                    otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                     recyclerview.setVisibility(View.VISIBLE);
                                                 } else {
@@ -20951,7 +20952,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 get_user_active_contact_forward_list.clear();
                                                 DatabaseHelper dbHelper = new DatabaseHelper(mContext);
                                                 get_user_active_contact_forward_list = dbHelper.getAllData();
-                                                setAdapter(get_user_active_contact_forward_list);
+                                                otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                 recyclerview.setVisibility(View.VISIBLE);
 
@@ -21232,14 +21233,14 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             ((receiverViewHolder) holder).pdfPreview.setVisibility(View.VISIBLE);
                             ((receiverViewHolder) holder).pdfcard.setVisibility(View.VISIBLE);
 
-                            String localPreviewImagePath = getLocalPdfPreviewImagePath(model);
+                            String localPreviewImagePath = otherFunctions.getLocalPdfPreviewImagePath(model, mContext);
                             // Get the remote URL of the actual PDF document
-                            String remotePdfUrl = getRemotePdfUrl(model);
+                            String remotePdfUrl = otherFunctions.getRemotePdfUrl(model);
 
                             // Load the PDF preview, handling caching logic internally
                             ImageView targetImageView = ((receiverViewHolder) holder).pdfPreview;
                             ViewGroup parentLayout = (ViewGroup) targetImageView.getParent();
-                            loadPdfPreview(localPreviewImagePath, remotePdfUrl, ((receiverViewHolder) holder).pdfPreview, parentLayout, position, model);
+                            otherFunctions.loadPdfPreview(localPreviewImagePath, remotePdfUrl, ((receiverViewHolder) holder).pdfPreview, parentLayout, position, model, mContext);
 
                             ((receiverViewHolder) holder).docFileIcon.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
 
@@ -21248,7 +21249,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             if (model.getExtension().equalsIgnoreCase("xls")) {
                             ((receiverViewHolder) holder).pdfPreview.setVisibility(View.GONE);
                             ((receiverViewHolder) holder).pdfcard.setVisibility(View.GONE);
-                            String filePath = getFilePath(model);
+                            String filePath = otherFunctions.getFilePath(model, mContext);
 
 
                             //     ((receiverViewHolder) holder).docFileIcon.setBackgroundTintList(ColorStateList.valueOf(R.color.TextColor));
@@ -21370,7 +21371,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
                                                 }
@@ -21401,7 +21402,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
@@ -21432,7 +21433,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     }
 
-                                    if (doesFileExist(exactPath + "/" + model.getFileName())) {
+                                    if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileName())) {
 
                                         Intent intent = new Intent(mContext, show_document_screen.class);
                                         intent.putExtra("documentKey", model.getFileName());
@@ -21485,7 +21486,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen);
+                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
                                                 }
@@ -21516,7 +21517,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    scrollToTargetModelId(senderRoom, targetModelId, chattingScreen);
+                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
 
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
@@ -21547,7 +21548,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                     }
 
-                                    if (doesFileExist(exactPath + "/" + model.getFileName())) {
+                                    if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileName())) {
 
                                         Intent intent = new Intent(mContext, show_document_screen.class);
                                         intent.putExtra("documentKey", model.getFileName());
@@ -21722,18 +21723,18 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     pdfPreview.setVisibility(View.VISIBLE);
                                     pdfcard.setVisibility(View.VISIBLE);
 
-                                    String localPreviewImagePath = getLocalPdfPreviewImagePath(model);
-                                    String remotePdfUrl = getRemotePdfUrl(model);
+                                    String localPreviewImagePath = otherFunctions.getLocalPdfPreviewImagePath(model, mContext);
+                                    String remotePdfUrl = otherFunctions.getRemotePdfUrl(model);
 
                                     ImageView targetImageView = pdfPreview;
                                     ViewGroup parentLayout = (ViewGroup) targetImageView.getParent();
-                                    loadPdfPreview(localPreviewImagePath, remotePdfUrl, pdfPreview, parentLayout, position, model);
+                                    otherFunctions.loadPdfPreview(localPreviewImagePath, remotePdfUrl, pdfPreview, parentLayout, position, model, mContext);
 
                                     docFileIcon.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
                                 } else if (model.getExtension().equalsIgnoreCase("xls")) {
                                     pdfPreview.setVisibility(View.GONE);
                                     pdfcard.setVisibility(View.GONE);
-                                    String filePath = getFilePath(model);
+                                    String filePath = otherFunctions.getFilePath(model, mContext);
                                 } else {
                                     pdfPreview.setVisibility(View.GONE);
                                     pdfcard.setVisibility(View.GONE);
@@ -21812,7 +21813,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
                                 LinearLayout deleteLyt = BlurHelper.dialogLayoutColor.findViewById(R.id.deletelyt);
-                                if (position == 0 && isMobileNumber(TextViewname.getText().toString())) {
+                                if (position == 0 && otherFunctions.isMobileNumber(TextViewname.getText().toString())) {
                                     deleteLyt.setVisibility(View.GONE);
                                 } else {
                                     deleteLyt.setVisibility(View.VISIBLE);
@@ -21964,7 +21965,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                         } catch (Exception ignored) {
                                         }
-                                        if (isInternetConnected()) {
+                                        if (otherFunctions.isInternetConnected(mContext)) {
                                             //TODO ONLINE
                                             networkLoader.setVisibility(View.GONE);
 
@@ -21978,7 +21979,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                                                 if (get_user_active_contact_forward_list.size() > 0) {
                                                     // Toast.makeText(mContext, "not empty", Toast.LENGTH_SHORT).show();
-                                                    setAdapter(get_user_active_contact_forward_list);
+                                                    otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                     recyclerview.setVisibility(View.VISIBLE);
                                                 } else {
@@ -21999,7 +22000,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 get_user_active_contact_forward_list.clear();
                                                 DatabaseHelper dbHelper = new DatabaseHelper(mContext);
                                                 get_user_active_contact_forward_list = dbHelper.getAllData();
-                                                setAdapter(get_user_active_contact_forward_list);
+                                                otherFunctions.setAdapter(get_user_active_contact_forward_list, recyclerview, mContext, forwardAdapter, dx, chatAdapter.this, richBoxForward);
 
                                                 recyclerview.setVisibility(View.VISIBLE);
 
@@ -22263,7 +22264,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     }
 
 
-
     /**
      * Helper to download file from network
      */
@@ -22295,14 +22295,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     }
 
 
-    /**
-     * Adapter-safe Toast (works without runOnUiThread)
-     */
-    private void showToastSafe(String message) {
-//        new Handler(Looper.getMainLooper()).post(() ->
-//                Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
-//        );
-    }
 
     /**
      * Check if RecyclerView is currently scrolling
@@ -22314,53 +22306,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     /**
      * Set scroll state (for external control)
      */
-    public void setScrolling(boolean scrolling) {
-        this.isScrolling = scrolling;
-    }
 
-    /**
-     * Smoothly scroll to the last position with proper timing
-     */
-    public void smoothScrollToLast() {
-        if (messageRecView != null && getItemCount() > 0) {
-            messageRecView.post(() -> {
-                // First instant scroll to prevent flickering
-                messageRecView.scrollToPosition(getItemCount() - 1);
 
-//                // Then smooth scroll for better visual effect
-//                new Handler(Looper.getMainLooper()).postDelayed(() -> {
-//                    messageRecView.smoothScrollToPosition(getItemCount() - 1);
-//                }, 50);
-            });
-        }
-    }
-
-    /**
-     * Force scroll to last position with multiple attempts to ensure visibility
-     */
-    public void forceScrollToLast() {
-        if (messageRecView != null && getItemCount() > 0) {
-            messageRecView.post(() -> {
-                int lastPosition = getItemCount() - 1;
-
-                // First attempt: instant scroll
-                messageRecView.scrollToPosition(lastPosition);
-
-                // Second attempt: ensure with layout manager
-                new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                    LinearLayoutManager layoutManager = (LinearLayoutManager) messageRecView.getLayoutManager();
-                    if (layoutManager != null) {
-                        layoutManager.scrollToPositionWithOffset(lastPosition, 0);
-                    }
-                }, 100);
-
-//                // Third attempt: smooth scroll for final positioning
-//                new Handler(Looper.getMainLooper()).postDelayed(() -> {
-//                    messageRecView.smoothScrollToPosition(lastPosition);
-//                }, 200);
-            });
-        }
-    }
 
 
 
@@ -22411,25 +22358,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     }
 
 
-    private void loadPagesUntilModelFound(String receiverRoom, String targetModelId, chattingScreen screenInstance, Runnable onComplete) {
-
-        List<messageModel> messageList = screenInstance.getMessageList();
-        boolean modelFound = false;
-        for (messageModel model : messageList) {
-            if (model.getModelId().equals(targetModelId)) {
-                modelFound = true;
-                break;
-            }
-        }
-        if (modelFound) {
-            onComplete.run();
-            return;
-        }
-        screenInstance.loadMoreRedirection(receiverRoom, receiverUid);
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            loadPagesUntilModelFound(receiverRoom, targetModelId, screenInstance, onComplete);
-        }, 500);
-    }
 
 
     public static void filteredList(String newText) {
@@ -22470,37 +22398,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         notifyItemChanged(position);
     }
 
-    public void searchFilteredData(ArrayList<messageModel> filteredList) {
-        this.messageList = filteredList;
-        notifyDataSetChanged();
-    }
 
-    public void setAdapter(ArrayList<get_user_active_contact_list_Model> get_user_active_contact_forward_list) {
-        // Filter out blocked users
-        ArrayList<get_user_active_contact_list_Model> filteredList = new ArrayList<>();
-        for (get_user_active_contact_list_Model model : get_user_active_contact_forward_list) {
-            if (!model.isBlock()) { // ✅ Only include if not blocked
-                filteredList.add(model);
-            }
-        }
 
-        // Set the filtered list to your adapter
-        this.get_user_active_contact_forward_list = filteredList;
-
-        forwardAdapter = new forwardAdapter(mContext, filteredList, dx, chatAdapter.this, richBoxForward);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-        recyclerview.setLayoutManager(layoutManager);
-        recyclerview.setAdapter(forwardAdapter);
-        forwardAdapter.notifyDataSetChanged();
-    }
-
-    public void setforwardNameAdapter(ArrayList<forwardnameModel> forwardNameList) {
-        this.forwardNameList = forwardNameList;
-        forwardnameAdapter = new forwardnameAdapter(mContext, forwardNameList, namerecyclerview);
-        namerecyclerview.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-        namerecyclerview.setAdapter(forwardnameAdapter);
-        // forwardAdapter.notifyDataSetChanged();
-    }
 
     public static class receiverViewHolder extends RecyclerView.ViewHolder {
         public TextView downloadPercentageImage;
@@ -22523,7 +22422,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
         RelativeLayout receiverImgLyt;
         public FloatingActionButton downlaod;
-        ProgressBar progressBarImageview;
+        public ProgressBar progressBarImageview;
         View blur;
 
         public FloatingActionButton downlaodVideo;
@@ -22581,7 +22480,10 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         ImageView imgreply;
 
         RelativeLayout recImgBunchLyt;
-        ShapeableImageView img1, img3, img2, img4;
+        public ShapeableImageView img1;
+        public ShapeableImageView img3;
+        public ShapeableImageView img2;
+        public ShapeableImageView img4;
         FrameLayout img4Lyt;
         TextView overlayTextImg;
         public FloatingActionButton downlaodImgBunch;
@@ -22782,7 +22684,10 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         // Multi-selection checkbox
         ImageView selectionCheckbox;
         RelativeLayout senderImgBunchLyt;
-        ShapeableImageView img1, img3, img2, img4;
+        public ShapeableImageView img1;
+        public ShapeableImageView img3;
+        public ShapeableImageView img2;
+        public ShapeableImageView img4;
         FrameLayout img4Lyt;
         TextView overlayTextImg;
         public FloatingActionButton downlaodImgBunch;
@@ -22907,19 +22812,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         }
     }
 
-    public void clear() {
 
-        notifyDataSetChanged();
-    }
-
-    private String truncateTextToWords(String text, int maxWords) {
-        String[] words = text.split("\\s+");
-        if (words.length <= maxWords) {
-            return text;
-        } else {
-            return TextUtils.join(" ", Arrays.copyOfRange(words, 0, maxWords)) + " ...";
-        }
-    }
 
 
 
@@ -22927,1572 +22820,17 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         void onStopMediaPlayer();
     }
 
-    public void setMediaPlayerCallback(MediaPlayerCallback callback) {
-        mediaPlayerCallback = callback;
-    }
 
-    private void loadSelectionImageIntoViewForBunch(Context context,
-                                                    selectionBunchModel bunch,
-                                                    messageModel model,
-                                                    RequestOptions requestOptions,
-                                                    ImageView targetImageView,
-                                                    ViewGroup parentLayout,
-                                                    int position,
-                                                    boolean loadHighQuality,
-                                                    View videoIcon)
-    {
 
-        if (bunch == null || targetImageView == null) {
-            Log.w("SelectionBunch", "loadSelectionImageIntoViewForBunch skipped (bunch or targetImageView null)");
-            return;
-        }
-
-        String imageSource = null;
-        String fileName = bunch.getFileName();
-
-        if (!TextUtils.isEmpty(fileName)) {
-            File customFolder2;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                customFolder2 = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Images");
-            } else {
-                customFolder2 = new File(context.getExternalFilesDir(null), "Enclosure/Media/Images");
-            }
-
-            // Decode URL-encoded characters in filename
-            String decodedFileName = fileName;
-            try {
-                decodedFileName = java.net.URLDecoder.decode(fileName, "UTF-8");
-                Log.d("bunch###", "Decoded filename: " + fileName + " -> " + decodedFileName);
-            } catch (Exception e) {
-                Log.w("bunch###", "Failed to decode filename: " + fileName, e);
-            }
-
-            // Remove any subdirectory prefixes like "chats/" from the filename
-            String cleanFileName = decodedFileName;
-            if (cleanFileName.contains("/")) {
-                cleanFileName = cleanFileName.substring(cleanFileName.lastIndexOf("/") + 1);
-                Log.d("bunch###", "Removed subdirectory prefix: " + decodedFileName + " -> " + cleanFileName);
-            }
-
-            String localPath = customFolder2.getAbsolutePath() + "/" + cleanFileName;
-            Log.d("SelectionBunch", "Checking local path for bunch image: " + localPath);
-            Log.d("bunch###", "Checking local path for bunch image: " + localPath);
-            if (doesFileExist(localPath)) {
-                // Check file size to verify it's a different file
-                File localFile = new File(localPath);
-                if (localFile.exists()) {
-                    long fileSize = localFile.length();
-                    Log.d("SelectionBunch", "Local file size: " + fileSize + " bytes for " + cleanFileName);
-
-                    // Check if this is a duplicate file (same size as other images in the bunch)
-                    boolean isDuplicateFile = false;
-                    if (model.getSelectionBunch() != null && model.getSelectionBunch().size() > 1) {
-                        for (selectionBunchModel otherBunch : model.getSelectionBunch()) {
-                            if (otherBunch != null && !otherBunch.equals(bunch) && !TextUtils.isEmpty(otherBunch.getFileName())) {
-                                String otherFileName = otherBunch.getFileName();
-                                try {
-                                    otherFileName = java.net.URLDecoder.decode(otherFileName, "UTF-8");
-                                } catch (Exception e) {
-                                    // Ignore decode errors
-                                }
-                                if (otherFileName.contains("/")) {
-                                    otherFileName = otherFileName.substring(otherFileName.lastIndexOf("/") + 1);
-                                }
-
-                                String otherLocalPath = customFolder2.getAbsolutePath() + "/" + otherFileName;
-                                File otherFile = new File(otherLocalPath);
-                                if (otherFile.exists() && otherFile.length() == fileSize) {
-                                    isDuplicateFile = true;
-                                    Log.d("SelectionBunch", "Detected duplicate file size: " + fileSize + " bytes for " + cleanFileName);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-                    if (isDuplicateFile) {
-                        // For duplicate files, still use local file but we'll handle uniqueness in Glide signature
-                        imageSource = localPath;
-                        Log.d("SelectionBunch", "Using local file for duplicate case: " + imageSource);
-                    } else {
-                        imageSource = localPath;
-                        Log.d("SelectionBunch", "Found local bunch image: " + imageSource);
-                        Log.d("bunch###", "Found local bunch image: " + imageSource);
-                    }
-                }
-            } else {
-                Log.w("bunch###", "Local bunch image not found at: " + localPath);
-            }
-        }
-
-        if (TextUtils.isEmpty(imageSource)) {
-            if (!TextUtils.isEmpty(bunch.getImgUrl())) {
-                String baseUrl = bunch.getImgUrl();
-                String bunchFileName = bunch.getFileName();
-
-                // Check if this is a duplicate URL issue by comparing with other images in the bunch
-                boolean isDuplicateUrl = false;
-                if (model.getSelectionBunch() != null && model.getSelectionBunch().size() > 1) {
-                    for (selectionBunchModel otherBunch : model.getSelectionBunch()) {
-                        if (otherBunch != null && !otherBunch.equals(bunch) &&
-                                !TextUtils.isEmpty(otherBunch.getImgUrl()) &&
-                                otherBunch.getImgUrl().equals(baseUrl)) {
-                            isDuplicateUrl = true;
-                            Log.d("SelectionBunch", "Detected duplicate URL for different files");
-                            break;
-                        }
-                    }
-                }
-
-                if (isDuplicateUrl && !TextUtils.isEmpty(bunchFileName)) {
-                    // For duplicate URLs, use the original URL but we'll handle uniqueness in Glide signature
-                    // This ensures we don't try to load non-existent URLs
-                    imageSource = baseUrl;
-                    Log.d("SelectionBunch", "Using original URL for duplicate case: " + imageSource);
-                } else {
-                    imageSource = baseUrl;
-                }
-                Log.d("SelectionBunch", "Using Firebase URL for bunch image: " + imageSource);
-            } else if (!TextUtils.isEmpty(model.getDocument())) {
-                imageSource = model.getDocument();
-                Log.d("SelectionBunch", "Falling back to message document for bunch image: " + imageSource);
-            }
-        }
-
-        if (TextUtils.isEmpty(imageSource)) {
-            Log.w("SelectionBunch", "No image source resolved for bunch; clearing image view");
-            targetImageView.setImageDrawable(null);
-            return;
-        }
-
-        Log.d("SelectionBunch", "Loading bunch image from: " + imageSource);
-        Log.d("ImageFlicker", "📸 Loading selectionBunch: " + imageSource + " | Quality: " + (true ? "HIGH" : "LOW") + " | Position: " + position);
-
-        // Only use the custom network loader for remote URLs.
-        // If the file exists locally, load it directly via Glide and avoid the network pipeline.
-        if (imageSource.startsWith("http")) {
-            // Remote - use custom loader to respect dimensions
-            loadSelectionBunchImageWithCustomDimensions(context, imageSource, requestOptions, targetImageView, position, true, videoIcon, bunch.getFileName());
-        } else {
-            // Local - load directly without custom remote pipeline
-            Log.d("SelectionBunch", "Loading LOCAL bunch image from: " + imageSource);
-            if (videoIcon != null) {
-                videoIcon.setVisibility(true ? View.VISIBLE : View.VISIBLE);
-            }
-            // Clear any existing image to prevent flashes
-            targetImageView.setImageDrawable(null);
-            Glide.with(context)
-                    .load(new File(imageSource))
-                    .apply(requestOptions
-                            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                            .skipMemoryCache(false)
-                            .format(DecodeFormat.PREFER_ARGB_8888)
-                            .dontAnimate()
-                            .timeout(10000))
-                    .into(targetImageView);
-        }
-    }
 
     /**
      * Custom image loading method for selectionBunch that respects our custom dimensions
      * This bypasses both BlurImageOptimizer and Constant.loadImageIntoView() which override dimensions
      */
-    private void loadSelectionBunchImageWithCustomDimensions(Context context, String imageSource, RequestOptions requestOptions,
-                                                             ImageView targetImageView, int position, boolean loadHighQuality, View videoIcon, String filename)
-    {
 
-        Log.d("SelectionBunch", "loadSelectionBunchImageWithCustomDimensions called for: " + imageSource);
-        Log.d("SelectionBunch", "Image source hash: " + imageSource.hashCode());
-        Log.d("SelectionBunch", "Position: " + position);
-        Log.d("SelectionBunch", "Filename: " + filename);
 
-        // Set video icon visibility based on quality
-        if (videoIcon != null) {
-            videoIcon.setVisibility(true ? View.VISIBLE : View.VISIBLE);
-        }
 
-        // Use simple Glide loading that respects our custom dimensions
-        // Create unique signature to prevent caching issues between different images
-        // Use the actual filename to ensure uniqueness even with same local file
-        String uniqueSignature = position + "_selectionBunch_" + (filename != null ? filename.hashCode() : imageSource.hashCode()) + "_" + System.currentTimeMillis();
-        Log.d("SelectionBunch", "Using unique signature: " + uniqueSignature + " for filename: " + filename);
 
-        // Clear any existing image in the target view to prevent showing wrong image
-        targetImageView.setImageDrawable(null);
-
-        // Apply quality settings based on true flag
-        RequestOptions qualityOptions = requestOptions;
-        // Single quality setting for all images - 75% quality
-        qualityOptions = qualityOptions
-                .format(DecodeFormat.PREFER_ARGB_8888) // High quality format
-                .encodeQuality(75); // Single 75% quality for all images
-
-        Glide.with(context)
-                .load(imageSource)
-                .apply(qualityOptions
-                        .signature(new ObjectKey(uniqueSignature))
-                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC) // Enable disk cache for better performance
-                        .skipMemoryCache(false) // Enable memory cache for smoother scrolling
-                        .dontAnimate()
-                        .timeout(10000))
-                .listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        Log.e("SelectionBunch", "Failed to load selectionBunch image: " + imageSource, e);
-                        Log.e("bunch###", "Failed to load bunch image: " + imageSource);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        Log.d("SelectionBunch", "Successfully loaded selectionBunch image: " + imageSource);
-                        Log.d("bunch###", "Successfully loaded bunch image: " + imageSource);
-                        return false;
-                    }
-                })
-                .into(targetImageView);
-    }
-
-    private void bindSelectionBunchImagesReceiver(receiverViewHolder holder,
-                                                  messageModel model,
-                                                  RequestOptions requestOptions,
-                                                  int position,
-                                                  boolean loadHighQuality) {
-
-        Log.d("SelectionBunch", "bindSelectionBunchImages called for messageId=" + model.getModelId() +
-                ", selectionCount=" + model.getSelectionCount() +
-                ", selectionBunch=" + (model.getSelectionBunch() != null ? "not null" : "null") +
-                ", selectionBunch size=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
-
-        if (model.getSelectionBunch() == null) {
-            Log.w("SelectionBunch", "selectionBunch is null for messageId=" + model.getModelId());
-            return;
-        }
-
-        if (model.getSelectionBunch().size() < 2) {
-            Log.w("SelectionBunch", "selectionBunch size=" + model.getSelectionBunch().size() + " (need >=2) for messageId=" + model.getModelId());
-            return;
-        }
-
-        // Check if any images in selectionBunch are missing locally
-        boolean anyImagesMissing = checkAnySelectionBunchImagesMissingForRegularChat(model.getSelectionBunch());
-        boolean hasValidImageUrls = checkIfSelectionBunchHasValidUrls(model.getSelectionBunch());
-        boolean isFromLocalStorage = checkIfSelectionBunchFromLocalStorage(model.getSelectionBunch());
-
-        // Enhanced logging for better debugging
-        Log.d("SelectionBunch", "=== DOWNLOAD ICON DECISION (RECEIVER) ===");
-        Log.d("SelectionBunch", "MessageId: " + model.getModelId());
-        Log.d("SelectionBunch", "SelectionBunch size: " + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
-        Log.d("SelectionBunch", "anyImagesMissing: " + anyImagesMissing);
-        Log.d("SelectionBunch", "hasValidImageUrls: " + hasValidImageUrls);
-        Log.d("SelectionBunch", "isFromLocalStorage: " + isFromLocalStorage);
-
-        // Log details about each image in the bunch
-        if (model.getSelectionBunch() != null) {
-            for (int i = 0; i < model.getSelectionBunch().size(); i++) {
-                selectionBunchModel bunch = model.getSelectionBunch().get(i);
-                if (bunch != null) {
-                    Log.d("SelectionBunch", "Image " + i + " - FileName: " + bunch.getFileName() +
-                            ", ImgUrl: " + (TextUtils.isEmpty(bunch.getImgUrl()) ? "EMPTY" : "HAS_URL"));
-                }
-            }
-        }
-
-        if (anyImagesMissing && hasValidImageUrls) {
-            // Show download button when images are missing but have valid URLs (regardless of local storage status)
-            holder.downlaodImgBunch.setVisibility(View.VISIBLE);
-            holder.downloadPercentageImageSenderBunch.setVisibility(View.GONE); // Hide progress text initially
-
-            // Set click listener for download button
-            holder.downlaodImgBunch.setOnClickListener(v -> {
-                Log.d("SelectionBunch", "=== DOWNLOAD BUTTON CLICKED (RECEIVER) ===");
-                Log.d("SelectionBunch", "MessageId: " + model.getModelId());
-                Log.d("SelectionBunch", "Starting download process for " +
-                        (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0) + " images...");
-                senderReceiverDownload.downloadAllSelectionBunchImagesReceiver(holder, model, position, mContext);
-            });
-
-            Log.d("SelectionBunch", "✅ SHOWING download icon (receiver) - some images missing locally");
-            Log.d("bunch###", "✅ SHOWING download icon (receiver) - some images missing locally");
-        } else {
-            // Hide download views when all images exist locally or when images don't have valid URLs
-            holder.downlaodImgBunch.setVisibility(View.GONE);
-            holder.downloadPercentageImageSenderBunch.setVisibility(View.GONE);
-
-            String reason = "";
-            if (!anyImagesMissing) reason += "all images exist locally; ";
-            if (!hasValidImageUrls) reason += "no valid URLs; ";
-            if (isFromLocalStorage) reason += "from local storage; ";
-
-            Log.d("SelectionBunch", "❌ HIDING download icon (receiver) - " + reason + " for messageId=" + model.getModelId());
-            Log.d("bunch###", "❌ HIDING download icon (receiver) - " + reason);
-        }
-
-        // Set width to 125dp for all selectionBunch images (only if changed to avoid layout thrash)
-        float widthInDp = 125f;
-        int widthInPx = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                widthInDp,
-                holder.img1.getResources().getDisplayMetrics()
-        );
-
-        // Set standard width for all images first
-        ViewGroup.LayoutParams params1 = holder.img1.getLayoutParams();
-        if (params1 != null) {
-            params1.width = widthInPx;
-            holder.img1.setLayoutParams(params1);
-        }
-
-        ViewGroup.LayoutParams params2 = holder.img2.getLayoutParams();
-        if (params2 != null) {
-            params2.width = widthInPx;
-            holder.img2.setLayoutParams(params2);
-        }
-
-        ViewGroup.LayoutParams params3 = holder.img3.getLayoutParams();
-        if (params3 != null) {
-            params3.width = widthInPx;
-            holder.img3.setLayoutParams(params3);
-        }
-
-        ViewGroup.LayoutParams params4 = holder.img4.getLayoutParams();
-        if (params4 != null) {
-            params4.width = widthInPx;
-            holder.img4.setLayoutParams(params4);
-        }
-
-        ViewGroup img1Parent = (ViewGroup) holder.img1.getParent();
-        ViewGroup img3Parent = (ViewGroup) holder.img3.getParent();
-        ViewGroup img4Parent = (ViewGroup) holder.img4.getParent();
-
-        // Load first image into img1
-        loadSelectionImageIntoViewForBunch(
-                mContext,
-                model.getSelectionBunch().get(0),
-                model,
-                requestOptions,
-                holder.img1,
-                img1Parent,
-                position,
-                true,
-                holder.videoicon
-        );
-
-        // Load second image into img3
-        loadSelectionImageIntoViewForBunch(
-                mContext,
-                model.getSelectionBunch().get(1),
-                model,
-                requestOptions,
-                holder.img3,
-                img3Parent,
-                position,
-                true,
-                holder.videoicon
-        );
-
-        // Load third image into img4 if selectionCount is "3" or "4"
-        if (model.getSelectionCount().equals("3") || model.getSelectionCount().equals("4")) {
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(2),
-                    model,
-                    requestOptions,
-                    holder.img4,
-                    img4Parent,
-                    position,
-                    true,
-                    holder.videoicon
-            );
-        }
-
-        // FORCE set dimensions AFTER images are loaded for selectionCount=3
-        if (model.getSelectionCount().equals("3")) {
-            float img1HeightInDp = 251.5f;
-            float otherHeightInDp = 125f;
-
-            int img1HeightInPx = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    img1HeightInDp,
-                    holder.img1.getResources().getDisplayMetrics()
-            );
-
-            int otherHeightInPx = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    otherHeightInDp,
-                    holder.img1.getResources().getDisplayMetrics()
-            );
-
-            // Force set img1 dimensions
-            ViewGroup.LayoutParams finalParams1 = holder.img1.getLayoutParams();
-            if (finalParams1 != null) {
-                finalParams1.width = widthInPx;
-                finalParams1.height = img1HeightInPx;
-                holder.img1.setLayoutParams(finalParams1);
-                Log.d("SelectionBunch", "FORCE Set img1 to " + widthInPx + "x" + img1HeightInPx + "px");
-            }
-
-            // Force set img3 dimensions
-            ViewGroup.LayoutParams finalParams3 = holder.img3.getLayoutParams();
-            if (finalParams3 != null) {
-                finalParams3.width = widthInPx;
-                finalParams3.height = otherHeightInPx;
-                holder.img3.setLayoutParams(finalParams3);
-                Log.d("SelectionBunch", "FORCE Set img3 to " + widthInPx + "x" + otherHeightInPx + "px");
-            }
-
-            // Force set img4 dimensions
-            ViewGroup.LayoutParams finalParams4 = holder.img4.getLayoutParams();
-            if (finalParams4 != null) {
-                finalParams4.width = widthInPx;
-                finalParams4.height = otherHeightInPx;
-                holder.img4.setLayoutParams(finalParams4);
-                Log.d("SelectionBunch", "FORCE Set img4 to " + widthInPx + "x" + otherHeightInPx + "px");
-            }
-
-            // Set corner radius for img4 (bottom-right only)
-            float cornerRadius = TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    20,
-                    holder.img4.getResources().getDisplayMetrics()
-            );
-
-            ShapeAppearanceModel shapeModel4 = holder.img4.getShapeAppearanceModel()
-                    .toBuilder()
-                    .setTopLeftCorner(CornerFamily.ROUNDED, 0f)
-                    .setBottomLeftCorner(CornerFamily.ROUNDED, 0f)
-                    .setTopRightCorner(CornerFamily.ROUNDED, 0f)
-                    .setBottomRightCorner(CornerFamily.ROUNDED, cornerRadius)
-                    .build();
-
-            holder.img4.setShapeAppearanceModel(shapeModel4);
-            Log.d("SelectionBunch", "Set img4 corner radius: bottom-right 20dp");
-        }
-
-        // FORCE set dimensions AFTER images are loaded for selectionCount=2
-        if (model.getSelectionCount().equals("2")) {
-            float allHeightInDp = 251.5f;
-            int allHeightInPx = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    allHeightInDp,
-                    holder.img1.getResources().getDisplayMetrics()
-            );
-
-            // Force set img1 and img3 to 125dp x 125dp
-            ViewGroup.LayoutParams finalParams1 = holder.img1.getLayoutParams();
-            if (finalParams1 != null) {
-                finalParams1.width = widthInPx;
-                finalParams1.height = allHeightInPx;
-                holder.img1.setLayoutParams(finalParams1);
-            }
-
-            ViewGroup.LayoutParams finalParams3 = holder.img3.getLayoutParams();
-            if (finalParams3 != null) {
-                finalParams3.width = widthInPx;
-                finalParams3.height = allHeightInPx;
-                holder.img3.setLayoutParams(finalParams3);
-            }
-
-            Log.d("SelectionBunch", "FORCE Set img1 and img3 for selectionCount=2 to " + widthInPx + "x" + allHeightInPx + "px");
-        }
-
-        // FORCE set dimensions AFTER images are loaded for selectionCount=4
-        if (model.getSelectionCount().equals("4")) {
-            float allHeightInDp = 125.5f;
-            int allHeightInPx = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    allHeightInDp,
-                    holder.img1.getResources().getDisplayMetrics()
-            );
-
-            // Force set all images to 125dp x 125dp
-            ViewGroup.LayoutParams finalParams1 = holder.img1.getLayoutParams();
-            if (finalParams1 != null) {
-                finalParams1.width = widthInPx;
-                finalParams1.height = allHeightInPx;
-                holder.img1.setLayoutParams(finalParams1);
-                Log.d("SelectionBunch", "FORCE Set img1 for selectionCount=4 to " + widthInPx + "x" + allHeightInPx + "px");
-            }
-
-            Log.d("SelectionBunch", "=== FORCE IMG2 DIMENSIONS START for selectionCount=4 ===");
-            Log.d("SelectionBunch", "img2 before force - visibility: " + holder.img2.getVisibility() +
-                    ", width: " + holder.img2.getWidth() +
-                    ", height: " + holder.img2.getHeight());
-
-            ViewGroup.LayoutParams finalParams2 = holder.img2.getLayoutParams();
-            if (finalParams2 != null) {
-                Log.d("SelectionBunch", "img2 force layoutParams before: " + finalParams2.width + "x" + finalParams2.height);
-                finalParams2.width = widthInPx;
-                finalParams2.height = allHeightInPx;
-                holder.img2.setLayoutParams(finalParams2);
-
-                // Force layout pass to apply the new dimensions
-                holder.img2.requestLayout();
-                holder.img2.invalidate();
-
-                Log.d("SelectionBunch", "FORCE Set img2 for selectionCount=4 to " + widthInPx + "x" + allHeightInPx + "px");
-                Log.d("SelectionBunch", "img2 after force - width: " + holder.img2.getWidth() +
-                        ", height: " + holder.img2.getHeight());
-            } else {
-                Log.e("SelectionBunch", "img2 force layoutParams is NULL!");
-            }
-
-            ViewGroup.LayoutParams finalParams3 = holder.img3.getLayoutParams();
-            if (finalParams3 != null) {
-                finalParams3.width = widthInPx;
-                finalParams3.height = allHeightInPx;
-                holder.img3.setLayoutParams(finalParams3);
-                Log.d("SelectionBunch", "FORCE Set img3 for selectionCount=4 to " + widthInPx + "x" + allHeightInPx + "px");
-            }
-
-            ViewGroup.LayoutParams finalParams4 = holder.img4.getLayoutParams();
-            if (finalParams4 != null) {
-                finalParams4.width = widthInPx;
-                finalParams4.height = allHeightInPx;
-                holder.img4.setLayoutParams(finalParams4);
-                Log.d("SelectionBunch", "FORCE Set img4 for selectionCount=4 to " + widthInPx + "x" + allHeightInPx + "px");
-            }
-
-            Log.d("SelectionBunch", "FORCE Set all images for selectionCount=4 to " + widthInPx + "x" + allHeightInPx + "px");
-
-            holder.img2.setVisibility(View.VISIBLE);
-
-
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(3),
-                    model,
-                    requestOptions,
-                    holder.img2,
-                    img4Parent,
-                    position,
-                    true,
-                    holder.videoicon
-            );
-        }
-
-        // Load fourth image into img2 if selectionCount is "4"
-        Log.d("SelectionBunch", "=== IMG2 LOADING CHECK START ===");
-        Log.d("SelectionBunch", "selectionCount: " + model.getSelectionCount() +
-                ", bunchSize: " + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
-
-        if (model.getSelectionBunch().size() > 4) {
-            Log.d("SelectionBunch", "=== LOADING IMG2 for selectionCount=4 ===");
-            Log.d("SelectionBunch", "IMG2 URL: " + model.getSelectionBunch().get(3).getImgUrl());
-            Log.d("SelectionBunch", "IMG2 FILE: " + model.getSelectionBunch().get(3).getFileName());
-            Log.d("SelectionBunch", "IMG2 DEBUG START");
-            Log.d("SelectionBunch", "IMG2 TEST 1");
-            System.out.println("IMG2 TEST 1 - System.out.println");
-
-            ViewGroup img2Parent = (ViewGroup) holder.img2.getParent();
-            Log.d("SelectionBunch", "img2 parent: " + (img2Parent != null ? img2Parent.getClass().getSimpleName() : "NULL"));
-
-            // Check img2 state before loading
-            Log.d("SelectionBunch", "img2 before loading - visibility: " + holder.img2.getVisibility() +
-                    ", width: " + holder.img2.getWidth() +
-                    ", height: " + holder.img2.getHeight() +
-                    ", alpha: " + holder.img2.getAlpha() +
-                    ", scaleX: " + holder.img2.getScaleX() +
-                    ", scaleY: " + holder.img2.getScaleY());
-
-            Log.d("SelectionBunch", "Calling loadSelectionImageIntoViewForBunch for img2...");
-            Log.d("SelectionBunch", "IMG2 TEST 2");
-            System.out.println("IMG2 TEST 2 - System.out.println");
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(0),
-                    model,
-                    requestOptions,
-                    holder.img1,
-                    img2Parent,
-                    position,
-                    true,
-                    holder.videoicon
-            );
-
-
-
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(1),
-                    model,
-                    requestOptions,
-                    holder.img2,
-                    img2Parent,
-                    position,
-                    true,
-                    holder.videoicon
-            );
-
-
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(2),
-                    model,
-                    requestOptions,
-                    holder.img3,
-                    img2Parent,
-                    position,
-                    true,
-                    holder.videoicon
-            );
-
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(3),
-                    model,
-                    requestOptions,
-                    holder.img4,
-                    img2Parent,
-                    position,
-                    true,
-                    holder.videoicon
-            );
-
-            holder.overlayTextImg.setVisibility(View.VISIBLE);
-
-
-            Log.d("SelectionBunch", "Completed loading img2 for selectionCount=4");
-            Log.d("SelectionBunch", "IMG2 TEST 3");
-            System.out.println("IMG2 TEST 3 - System.out.println");
-
-            // Additional debugging for img2 state
-            Log.d("SelectionBunch", "img2 after loading - visibility: " + holder.img2.getVisibility() +
-                    ", width: " + holder.img2.getWidth() +
-                    ", height: " + holder.img2.getHeight() +
-                    ", alpha: " + holder.img2.getAlpha() +
-                    ", scaleX: " + holder.img2.getScaleX() +
-                    ", scaleY: " + holder.img2.getScaleY() +
-                    ", layoutParams: " + holder.img2.getLayoutParams());
-            Log.d("SelectionBunch", "img2 drawable: " + (holder.img2.getDrawable() != null ? "NOT NULL" : "NULL"));
-
-            // Final comprehensive check
-            Log.d("SelectionBunch", "IMG2 FINAL: V=" + holder.img2.getVisibility() + " W=" + holder.img2.getWidth() + " H=" + holder.img2.getHeight());
-            Log.d("SelectionBunch", "IMG2 FINAL: Alpha=" + holder.img2.getAlpha() + " Scale=" + holder.img2.getScaleX() + " Drawable=" + (holder.img2.getDrawable() != null));
-            Log.d("SelectionBunch", "IMG2 FINAL: Shown=" + holder.img2.isShown());
-        }
-
-        // Set visibility based on selection count
-        Log.d("SelectionBunch", "=== VISIBILITY SETTING START ===");
-        Log.d("SelectionBunch", "Setting visibility for selectionCount: " + model.getSelectionCount());
-
-        if (model.getSelectionCount().equals("2")) {
-            Log.d("SelectionBunch", "Setting img2 to GONE for selectionCount=2");
-            holder.img2.setVisibility(View.GONE);
-            holder.img4.setVisibility(View.GONE);
-            holder.img4Lyt.setVisibility(View.GONE);
-
-            ViewGroup img1ParentXX = (ViewGroup) holder.img1.getParent();
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(0),
-                    model,
-                    requestOptions,
-                    holder.img1,
-                    img1ParentXX,
-                    position,
-                    true,
-                    holder.videoicon
-            );
-            ViewGroup img3ParentXX = (ViewGroup) holder.img3.getParent();
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(1),
-                    model,
-                    requestOptions,
-                    holder.img3,
-                    img3ParentXX,
-                    position,
-                    true,
-                    holder.videoicon
-            );
-
-
-        } else if (model.getSelectionCount().equals("3")) {
-            Log.d("SelectionBunch", "Setting img2 to GONE for selectionCount=3");
-            holder.img2.setVisibility(View.GONE);
-            holder.img4.setVisibility(View.VISIBLE);
-            holder.img4Lyt.setVisibility(View.VISIBLE);
-        } else
-        if (model.getSelectionCount().equals("4")) {
-            Log.d("SelectionBunch", "Setting img2 to VISIBLE for selectionCount=4");
-            Log.d("SelectionBunch", "img2 before visibility set - visibility: " + holder.img2.getVisibility());
-            holder.img2.setVisibility(View.VISIBLE);
-            Log.d("SelectionBunch", "img2 after visibility set - visibility: " + holder.img2.getVisibility());
-            holder.img4.setVisibility(View.VISIBLE);
-            holder.img4Lyt.setVisibility(View.VISIBLE);
-        }
-
-        Log.d("SelectionBunch", "Final img2 state - visibility: " + holder.img2.getVisibility() +
-                ", width: " + holder.img2.getWidth() +
-                ", height: " + holder.img2.getHeight());
-
-    }
-
-
-    private void bindSelectionBunchImages(senderViewHolder holder,
-                                          messageModel model,
-                                          RequestOptions requestOptions,
-                                          int position,
-                                          boolean loadHighQuality)
-    {
-
-        Log.d("SelectionBunch", "bindSelectionBunchImages called for messageId=" + model.getModelId() +
-                ", selectionCount=" + model.getSelectionCount() +
-                ", selectionBunch=" + (model.getSelectionBunch() != null ? "not null" : "null") +
-                ", selectionBunch size=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
-
-        if (model.getSelectionBunch() == null) {
-            Log.w("SelectionBunch", "selectionBunch is null for messageId=" + model.getModelId());
-            return;
-        }
-
-        if (model.getSelectionBunch().size() < 2) {
-            Log.w("SelectionBunch", "selectionBunch size=" + model.getSelectionBunch().size() + " (need >=2) for messageId=" + model.getModelId());
-            return;
-        }
-
-        // Check if any images in selectionBunch are missing locally
-        boolean anyImagesMissing = checkAnySelectionBunchImagesMissingForRegularChat(model.getSelectionBunch());
-        boolean hasValidImageUrls = checkIfSelectionBunchHasValidUrls(model.getSelectionBunch());
-        boolean isFromLocalStorage = checkIfSelectionBunchFromLocalStorage(model.getSelectionBunch());
-
-        // Enhanced logging for better debugging
-        Log.d("SelectionBunch", "=== DOWNLOAD ICON DECISION (SENDER) ===");
-        Log.d("SelectionBunch", "MessageId: " + model.getModelId());
-        Log.d("SelectionBunch", "SelectionBunch size: " + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
-        Log.d("SelectionBunch", "anyImagesMissing: " + anyImagesMissing);
-        Log.d("SelectionBunch", "hasValidImageUrls: " + hasValidImageUrls);
-        Log.d("SelectionBunch", "isFromLocalStorage: " + isFromLocalStorage);
-
-        // Log details about each image in the bunch
-        if (model.getSelectionBunch() != null) {
-            for (int i = 0; i < model.getSelectionBunch().size(); i++) {
-                selectionBunchModel bunch = model.getSelectionBunch().get(i);
-                if (bunch != null) {
-                    Log.d("SelectionBunch", "Image " + i + " - FileName: " + bunch.getFileName() +
-                            ", ImgUrl: " + (TextUtils.isEmpty(bunch.getImgUrl()) ? "EMPTY" : "HAS_URL"));
-                }
-            }
-        }
-
-        if (anyImagesMissing && hasValidImageUrls) {
-            // Show download button when images are missing but have valid URLs (regardless of local storage status)
-            holder.downlaodImgBunch.setVisibility(View.VISIBLE);
-            holder.downloadPercentageImageSenderBunch.setVisibility(View.GONE); // Hide progress text initially
-
-            // Set click listener for download button
-            holder.downlaodImgBunch.setOnClickListener(v -> {
-                Log.d("SelectionBunch", "=== DOWNLOAD BUTTON CLICKED (SENDER) ===");
-                Log.d("SelectionBunch", "MessageId: " + model.getModelId());
-                Log.d("SelectionBunch", "Starting download process for " +
-                        (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0) + " images...");
-                senderReceiverDownload.downloadAllSelectionBunchImages(holder, model, position, mContext);
-            });
-
-            Log.d("SelectionBunch", "✅ SHOWING download icon (sender) - some images missing locally");
-            Log.d("bunch###", "✅ SHOWING download icon (sender) - some images missing locally");
-        } else {
-            // Hide download views when all images exist locally or when images don't have valid URLs
-            holder.downlaodImgBunch.setVisibility(View.GONE);
-            holder.downloadPercentageImageSenderBunch.setVisibility(View.GONE);
-
-            String reason = "";
-            if (!anyImagesMissing) reason += "all images exist locally; ";
-            if (!hasValidImageUrls) reason += "no valid URLs; ";
-            if (isFromLocalStorage) reason += "from local storage; ";
-
-            Log.d("SelectionBunch", "❌ HIDING download icon (sender) - " + reason + " for messageId=" + model.getModelId());
-            Log.d("bunch###", "❌ HIDING download icon (sender) - " + reason);
-        }
-
-        // Set width to 125dp for all selectionBunch images (only if changed to avoid layout thrash)
-        float widthInDp = 125f;
-        int widthInPx = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                widthInDp,
-                holder.img1.getResources().getDisplayMetrics()
-        );
-
-        // Set standard width for all images first
-        ViewGroup.LayoutParams params1 = holder.img1.getLayoutParams();
-        if (params1 != null) {
-            params1.width = widthInPx;
-            holder.img1.setLayoutParams(params1);
-        }
-
-        ViewGroup.LayoutParams params2 = holder.img2.getLayoutParams();
-        if (params2 != null) {
-            params2.width = widthInPx;
-            holder.img2.setLayoutParams(params2);
-        }
-
-        ViewGroup.LayoutParams params3 = holder.img3.getLayoutParams();
-        if (params3 != null) {
-            params3.width = widthInPx;
-            holder.img3.setLayoutParams(params3);
-        }
-
-        ViewGroup.LayoutParams params4 = holder.img4.getLayoutParams();
-        if (params4 != null) {
-            params4.width = widthInPx;
-            holder.img4.setLayoutParams(params4);
-        }
-
-        ViewGroup img1Parent = (ViewGroup) holder.img1.getParent();
-        ViewGroup img3Parent = (ViewGroup) holder.img3.getParent();
-        ViewGroup img4Parent = (ViewGroup) holder.img4.getParent();
-
-        // Load first image into img1
-        loadSelectionImageIntoViewForBunch(
-                mContext,
-                model.getSelectionBunch().get(0),
-                model,
-                requestOptions,
-                holder.img1,
-                img1Parent,
-                position,
-                true,
-                holder.videoicon
-        );
-
-        // Load second image into img3
-        loadSelectionImageIntoViewForBunch(
-                mContext,
-                model.getSelectionBunch().get(1),
-                model,
-                requestOptions,
-                holder.img3,
-                img3Parent,
-                position,
-                true,
-                holder.videoicon
-        );
-
-        // Load third image into img4 if selectionCount is "3" or "4"
-        if (model.getSelectionCount().equals("3") || model.getSelectionCount().equals("4")) {
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(2),
-                    model,
-                    requestOptions,
-                    holder.img4,
-                    img4Parent,
-                    position,
-                    true,
-                    holder.videoicon
-            );
-        }
-
-        // FORCE set dimensions AFTER images are loaded for selectionCount=3
-        if (model.getSelectionCount().equals("3")) {
-            float img1HeightInDp = 251.5f;
-            float otherHeightInDp = 125f;
-
-            int img1HeightInPx = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    img1HeightInDp,
-                    holder.img1.getResources().getDisplayMetrics()
-            );
-
-            int otherHeightInPx = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    otherHeightInDp,
-                    holder.img1.getResources().getDisplayMetrics()
-            );
-
-            // Force set img1 dimensions
-            ViewGroup.LayoutParams finalParams1 = holder.img1.getLayoutParams();
-            if (finalParams1 != null) {
-                finalParams1.width = widthInPx;
-                finalParams1.height = img1HeightInPx;
-                holder.img1.setLayoutParams(finalParams1);
-                Log.d("SelectionBunch", "FORCE Set img1 to " + widthInPx + "x" + img1HeightInPx + "px");
-            }
-
-            // Force set img3 dimensions
-            ViewGroup.LayoutParams finalParams3 = holder.img3.getLayoutParams();
-            if (finalParams3 != null) {
-                finalParams3.width = widthInPx;
-                finalParams3.height = otherHeightInPx;
-                holder.img3.setLayoutParams(finalParams3);
-                Log.d("SelectionBunch", "FORCE Set img3 to " + widthInPx + "x" + otherHeightInPx + "px");
-            }
-
-            // Force set img4 dimensions
-            ViewGroup.LayoutParams finalParams4 = holder.img4.getLayoutParams();
-            if (finalParams4 != null) {
-                finalParams4.width = widthInPx;
-                finalParams4.height = otherHeightInPx;
-                holder.img4.setLayoutParams(finalParams4);
-                Log.d("SelectionBunch", "FORCE Set img4 to " + widthInPx + "x" + otherHeightInPx + "px");
-            }
-
-            // Set corner radius for img4 (bottom-right only)
-            float cornerRadius = TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    20,
-                    holder.img4.getResources().getDisplayMetrics()
-            );
-
-            ShapeAppearanceModel shapeModel4 = holder.img4.getShapeAppearanceModel()
-                    .toBuilder()
-                    .setTopLeftCorner(CornerFamily.ROUNDED, 0f)
-                    .setBottomLeftCorner(CornerFamily.ROUNDED, 0f)
-                    .setTopRightCorner(CornerFamily.ROUNDED, 0f)
-                    .setBottomRightCorner(CornerFamily.ROUNDED, cornerRadius)
-                    .build();
-
-            holder.img4.setShapeAppearanceModel(shapeModel4);
-            Log.d("SelectionBunch", "Set img4 corner radius: bottom-right 20dp");
-        }
-
-        // FORCE set dimensions AFTER images are loaded for selectionCount=2
-        if (model.getSelectionCount().equals("2")) {
-            float allHeightInDp = 251.5f;
-            int allHeightInPx = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    allHeightInDp,
-                    holder.img1.getResources().getDisplayMetrics()
-            );
-
-            // Force set img1 and img3 to 125dp x 125dp
-            ViewGroup.LayoutParams finalParams1 = holder.img1.getLayoutParams();
-            if (finalParams1 != null) {
-                finalParams1.width = widthInPx;
-                finalParams1.height = allHeightInPx;
-                holder.img1.setLayoutParams(finalParams1);
-            }
-
-            ViewGroup.LayoutParams finalParams3 = holder.img3.getLayoutParams();
-            if (finalParams3 != null) {
-                finalParams3.width = widthInPx;
-                finalParams3.height = allHeightInPx;
-                holder.img3.setLayoutParams(finalParams3);
-            }
-
-            Log.d("SelectionBunch", "FORCE Set img1 and img3 for selectionCount=2 to " + widthInPx + "x" + allHeightInPx + "px");
-        }
-
-        // FORCE set dimensions AFTER images are loaded for selectionCount=4
-        if (model.getSelectionCount().equals("4")) {
-            float allHeightInDp = 125.5f;
-            int allHeightInPx = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    allHeightInDp,
-                    holder.img1.getResources().getDisplayMetrics()
-            );
-
-            // Force set all images to 125dp x 125dp
-            ViewGroup.LayoutParams finalParams1 = holder.img1.getLayoutParams();
-            if (finalParams1 != null) {
-                finalParams1.width = widthInPx;
-                finalParams1.height = allHeightInPx;
-                holder.img1.setLayoutParams(finalParams1);
-                Log.d("SelectionBunch", "FORCE Set img1 for selectionCount=4 to " + widthInPx + "x" + allHeightInPx + "px");
-            }
-
-            Log.d("SelectionBunch", "=== FORCE IMG2 DIMENSIONS START for selectionCount=4 ===");
-            Log.d("SelectionBunch", "img2 before force - visibility: " + holder.img2.getVisibility() +
-                    ", width: " + holder.img2.getWidth() +
-                    ", height: " + holder.img2.getHeight());
-
-            ViewGroup.LayoutParams finalParams2 = holder.img2.getLayoutParams();
-            if (finalParams2 != null) {
-                Log.d("SelectionBunch", "img2 force layoutParams before: " + finalParams2.width + "x" + finalParams2.height);
-                finalParams2.width = widthInPx;
-                finalParams2.height = allHeightInPx;
-                holder.img2.setLayoutParams(finalParams2);
-
-                // Force layout pass to apply the new dimensions
-                holder.img2.requestLayout();
-                holder.img2.invalidate();
-
-                Log.d("SelectionBunch", "FORCE Set img2 for selectionCount=4 to " + widthInPx + "x" + allHeightInPx + "px");
-                Log.d("SelectionBunch", "img2 after force - width: " + holder.img2.getWidth() +
-                        ", height: " + holder.img2.getHeight());
-            } else {
-                Log.e("SelectionBunch", "img2 force layoutParams is NULL!");
-            }
-
-            ViewGroup.LayoutParams finalParams3 = holder.img3.getLayoutParams();
-            if (finalParams3 != null) {
-                finalParams3.width = widthInPx;
-                finalParams3.height = allHeightInPx;
-                holder.img3.setLayoutParams(finalParams3);
-                Log.d("SelectionBunch", "FORCE Set img3 for selectionCount=4 to " + widthInPx + "x" + allHeightInPx + "px");
-            }
-
-            ViewGroup.LayoutParams finalParams4 = holder.img4.getLayoutParams();
-            if (finalParams4 != null) {
-                finalParams4.width = widthInPx;
-                finalParams4.height = allHeightInPx;
-                holder.img4.setLayoutParams(finalParams4);
-                Log.d("SelectionBunch", "FORCE Set img4 for selectionCount=4 to " + widthInPx + "x" + allHeightInPx + "px");
-            }
-
-            Log.d("SelectionBunch", "FORCE Set all images for selectionCount=4 to " + widthInPx + "x" + allHeightInPx + "px");
-
-            holder.img2.setVisibility(View.VISIBLE);
-
-
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(3),
-                    model,
-                    requestOptions,
-                    holder.img2,
-                    img4Parent,
-                    position,
-                    true,
-                    holder.videoicon
-            );
-        }
-
-        // Load fourth image into img2 if selectionCount is "4"
-        Log.d("SelectionBunch", "=== IMG2 LOADING CHECK START ===");
-        Log.d("SelectionBunch", "selectionCount: " + model.getSelectionCount() +
-                ", bunchSize: " + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
-
-        if (model.getSelectionBunch().size() > 4) {
-            Log.d("SelectionBunch", "=== LOADING IMG2 for selectionCount=4 ===");
-            Log.d("SelectionBunch", "IMG2 URL: " + model.getSelectionBunch().get(3).getImgUrl());
-            Log.d("SelectionBunch", "IMG2 FILE: " + model.getSelectionBunch().get(3).getFileName());
-            Log.d("SelectionBunch", "IMG2 DEBUG START");
-            Log.d("SelectionBunch", "IMG2 TEST 1");
-            System.out.println("IMG2 TEST 1 - System.out.println");
-
-            ViewGroup img2Parent = (ViewGroup) holder.img2.getParent();
-            Log.d("SelectionBunch", "img2 parent: " + (img2Parent != null ? img2Parent.getClass().getSimpleName() : "NULL"));
-
-            // Check img2 state before loading
-            Log.d("SelectionBunch", "img2 before loading - visibility: " + holder.img2.getVisibility() +
-                    ", width: " + holder.img2.getWidth() +
-                    ", height: " + holder.img2.getHeight() +
-                    ", alpha: " + holder.img2.getAlpha() +
-                    ", scaleX: " + holder.img2.getScaleX() +
-                    ", scaleY: " + holder.img2.getScaleY());
-
-            Log.d("SelectionBunch", "Calling loadSelectionImageIntoViewForBunch for img2...");
-            Log.d("SelectionBunch", "IMG2 TEST 2");
-            System.out.println("IMG2 TEST 2 - System.out.println");
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(0),
-                    model,
-                    requestOptions,
-                    holder.img1,
-                    img2Parent,
-                    position,
-                    true,
-                    holder.videoicon
-            );
-
-
-
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(1),
-                    model,
-                    requestOptions,
-                    holder.img2,
-                    img2Parent,
-                    position,
-                    true,
-                    holder.videoicon
-            );
-
-
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(2),
-                    model,
-                    requestOptions,
-                    holder.img3,
-                    img2Parent,
-                    position,
-                    true,
-                    holder.videoicon
-            );
-
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(3),
-                    model,
-                    requestOptions,
-                    holder.img4,
-                    img2Parent,
-                    position,
-                    true,
-                    holder.videoicon
-            );
-
-            holder.overlayTextImg.setVisibility(View.VISIBLE);
-
-
-            Log.d("SelectionBunch", "Completed loading img2 for selectionCount=4");
-            Log.d("SelectionBunch", "IMG2 TEST 3");
-            System.out.println("IMG2 TEST 3 - System.out.println");
-
-            // Additional debugging for img2 state
-            Log.d("SelectionBunch", "img2 after loading - visibility: " + holder.img2.getVisibility() +
-                    ", width: " + holder.img2.getWidth() +
-                    ", height: " + holder.img2.getHeight() +
-                    ", alpha: " + holder.img2.getAlpha() +
-                    ", scaleX: " + holder.img2.getScaleX() +
-                    ", scaleY: " + holder.img2.getScaleY() +
-                    ", layoutParams: " + holder.img2.getLayoutParams());
-            Log.d("SelectionBunch", "img2 drawable: " + (holder.img2.getDrawable() != null ? "NOT NULL" : "NULL"));
-
-            // Final comprehensive check
-            Log.d("SelectionBunch", "IMG2 FINAL: V=" + holder.img2.getVisibility() + " W=" + holder.img2.getWidth() + " H=" + holder.img2.getHeight());
-            Log.d("SelectionBunch", "IMG2 FINAL: Alpha=" + holder.img2.getAlpha() + " Scale=" + holder.img2.getScaleX() + " Drawable=" + (holder.img2.getDrawable() != null));
-            Log.d("SelectionBunch", "IMG2 FINAL: Shown=" + holder.img2.isShown());
-        }
-
-        // Set visibility based on selection count
-        Log.d("SelectionBunch", "=== VISIBILITY SETTING START ===");
-        Log.d("SelectionBunch", "Setting visibility for selectionCount: " + model.getSelectionCount());
-
-        if (model.getSelectionCount().equals("2")) {
-            Log.d("SelectionBunch", "Setting img2 to GONE for selectionCount=2");
-            holder.img2.setVisibility(View.GONE);
-            holder.img4.setVisibility(View.GONE);
-            holder.img4Lyt.setVisibility(View.GONE);
-        } else if (model.getSelectionCount().equals("3")) {
-            Log.d("SelectionBunch", "Setting img2 to GONE for selectionCount=3");
-            holder.img2.setVisibility(View.GONE);
-            holder.img4.setVisibility(View.VISIBLE);
-            holder.img4Lyt.setVisibility(View.VISIBLE);
-        } else
-        if (model.getSelectionCount().equals("4")) {
-            Log.d("SelectionBunch", "Setting img2 to VISIBLE for selectionCount=4");
-            Log.d("SelectionBunch", "img2 before visibility set - visibility: " + holder.img2.getVisibility());
-            holder.img2.setVisibility(View.VISIBLE);
-            Log.d("SelectionBunch", "img2 after visibility set - visibility: " + holder.img2.getVisibility());
-            holder.img4.setVisibility(View.VISIBLE);
-            holder.img4Lyt.setVisibility(View.VISIBLE);
-        }
-
-        Log.d("SelectionBunch", "Final img2 state - visibility: " + holder.img2.getVisibility() +
-                ", width: " + holder.img2.getWidth() +
-                ", height: " + holder.img2.getHeight());
-
-    }
-
-    private void bindSelectionBunchImagesSenderLong(
-            messageModel model,
-            RequestOptions requestOptions,
-            int position,
-            boolean loadHighQuality, ShapeableImageView img1,ShapeableImageView img2,ShapeableImageView img3,ShapeableImageView img4,FrameLayout img4Lyt,ImageView videoicon,TextView overlayTextImg) {
-
-        Log.d("SelectionBunch", "bindSelectionBunchImages called for messageId=" + model.getModelId() +
-                ", selectionCount=" + model.getSelectionCount() +
-                ", selectionBunch=" + (model.getSelectionBunch() != null ? "not null" : "null") +
-                ", selectionBunch size=" + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
-
-        if (model.getSelectionBunch() == null) {
-            Log.w("SelectionBunch", "selectionBunch is null for messageId=" + model.getModelId());
-            return;
-        }
-
-        if (model.getSelectionBunch().size() < 2) {
-            Log.w("SelectionBunch", "selectionBunch size=" + model.getSelectionBunch().size() + " (need >=2) for messageId=" + model.getModelId());
-            return;
-        }
-
-        // Check if any images in selectionBunch are missing locally
-        boolean anyImagesMissing = checkAnySelectionBunchImagesMissingForRegularChat(model.getSelectionBunch());
-
-        if (anyImagesMissing) {
-
-
-            Log.d("SelectionBunch", "Some images missing locally, showing download views for messageId=" + model.getModelId());
-        } else {
-            // Hide download views when all images exist
-
-
-            Log.d("SelectionBunch", "All images exist locally, hiding download views for messageId=" + model.getModelId());
-        }
-
-        // Set width to 125dp for all selectionBunch images (only if changed to avoid layout thrash)
-        float widthInDp = 125f;
-        int widthInPx = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                widthInDp,
-                img1.getResources().getDisplayMetrics()
-        );
-
-        // Set standard width for all images first
-        ViewGroup.LayoutParams params1 = img1.getLayoutParams();
-        if (params1 != null) {
-            params1.width = widthInPx;
-            img1.setLayoutParams(params1);
-        }
-
-        ViewGroup.LayoutParams params2 = img2.getLayoutParams();
-        if (params2 != null) {
-            params2.width = widthInPx;
-            img2.setLayoutParams(params2);
-        }
-
-        ViewGroup.LayoutParams params3 = img3.getLayoutParams();
-        if (params3 != null) {
-            params3.width = widthInPx;
-            img3.setLayoutParams(params3);
-        }
-
-        ViewGroup.LayoutParams params4 = img4.getLayoutParams();
-        if (params4 != null) {
-            params4.width = widthInPx;
-            img4.setLayoutParams(params4);
-        }
-
-        ViewGroup img1Parent = (ViewGroup) img1.getParent();
-        ViewGroup img3Parent = (ViewGroup) img3.getParent();
-        ViewGroup img4Parent = (ViewGroup) img4.getParent();
-
-        // Load first image into img1
-        loadSelectionImageIntoViewForBunch(
-                mContext,
-                model.getSelectionBunch().get(0),
-                model,
-                requestOptions,
-                img1,
-                img1Parent,
-                position,
-                true,
-                videoicon
-        );
-
-        // Load second image into img3
-        loadSelectionImageIntoViewForBunch(
-                mContext,
-                model.getSelectionBunch().get(1),
-                model,
-                requestOptions,
-                img3,
-                img3Parent,
-                position,
-                true,
-                videoicon
-        );
-
-        // Load third image into img4 if selectionCount is "3" or "4"
-        if (model.getSelectionCount().equals("3") || model.getSelectionCount().equals("4")) {
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(2),
-                    model,
-                    requestOptions,
-                    img4,
-                    img4Parent,
-                    position,
-                    true,
-                    videoicon
-            );
-        }
-
-        // FORCE set dimensions AFTER images are loaded for selectionCount=3
-        if (model.getSelectionCount().equals("3")) {
-            float img1HeightInDp = 251.5f;
-            float otherHeightInDp = 125f;
-
-            int img1HeightInPx = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    img1HeightInDp,
-                    img1.getResources().getDisplayMetrics()
-            );
-
-            int otherHeightInPx = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    otherHeightInDp,
-                    img1.getResources().getDisplayMetrics()
-            );
-
-            // Force set img1 dimensions
-            ViewGroup.LayoutParams finalParams1 = img1.getLayoutParams();
-            if (finalParams1 != null) {
-                finalParams1.width = widthInPx;
-                finalParams1.height = img1HeightInPx;
-                img1.setLayoutParams(finalParams1);
-                Log.d("SelectionBunch", "FORCE Set img1 to " + widthInPx + "x" + img1HeightInPx + "px");
-            }
-
-            // Force set img3 dimensions
-            ViewGroup.LayoutParams finalParams3 = img3.getLayoutParams();
-            if (finalParams3 != null) {
-                finalParams3.width = widthInPx;
-                finalParams3.height = otherHeightInPx;
-                img3.setLayoutParams(finalParams3);
-                Log.d("SelectionBunch", "FORCE Set img3 to " + widthInPx + "x" + otherHeightInPx + "px");
-            }
-
-            // Force set img4 dimensions
-            ViewGroup.LayoutParams finalParams4 = img4.getLayoutParams();
-            if (finalParams4 != null) {
-                finalParams4.width = widthInPx;
-                finalParams4.height = otherHeightInPx;
-                img4.setLayoutParams(finalParams4);
-                Log.d("SelectionBunch", "FORCE Set img4 to " + widthInPx + "x" + otherHeightInPx + "px");
-            }
-
-            // Set corner radius for img4 (bottom-right only)
-            float cornerRadius = TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    20,
-                    img4.getResources().getDisplayMetrics()
-            );
-
-            ShapeAppearanceModel shapeModel4 = img4.getShapeAppearanceModel()
-                    .toBuilder()
-                    .setTopLeftCorner(CornerFamily.ROUNDED, 0f)
-                    .setBottomLeftCorner(CornerFamily.ROUNDED, 0f)
-                    .setTopRightCorner(CornerFamily.ROUNDED, 0f)
-                    .setBottomRightCorner(CornerFamily.ROUNDED, cornerRadius)
-                    .build();
-
-            img4.setShapeAppearanceModel(shapeModel4);
-            Log.d("SelectionBunch", "Set img4 corner radius: bottom-right 20dp");
-        }
-
-        // FORCE set dimensions AFTER images are loaded for selectionCount=2
-        if (model.getSelectionCount().equals("2")) {
-            float allHeightInDp = 251.5f;
-            int allHeightInPx = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    allHeightInDp,
-                    img1.getResources().getDisplayMetrics()
-            );
-
-            // Force set img1 and img3 to 125dp x 125dp
-            ViewGroup.LayoutParams finalParams1 = img1.getLayoutParams();
-            if (finalParams1 != null) {
-                finalParams1.width = widthInPx;
-                finalParams1.height = allHeightInPx;
-                img1.setLayoutParams(finalParams1);
-            }
-
-            ViewGroup.LayoutParams finalParams3 = img3.getLayoutParams();
-            if (finalParams3 != null) {
-                finalParams3.width = widthInPx;
-                finalParams3.height = allHeightInPx;
-                img3.setLayoutParams(finalParams3);
-            }
-
-            Log.d("SelectionBunch", "FORCE Set img1 and img3 for selectionCount=2 to " + widthInPx + "x" + allHeightInPx + "px");
-        }
-
-        // FORCE set dimensions AFTER images are loaded for selectionCount=4
-        if (model.getSelectionCount().equals("4")) {
-            float allHeightInDp = 125.5f;
-            int allHeightInPx = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP,
-                    allHeightInDp,
-                    img1.getResources().getDisplayMetrics()
-            );
-
-            // Force set all images to 125dp x 125dp
-            ViewGroup.LayoutParams finalParams1 = img1.getLayoutParams();
-            if (finalParams1 != null) {
-                finalParams1.width = widthInPx;
-                finalParams1.height = allHeightInPx;
-                img1.setLayoutParams(finalParams1);
-                Log.d("SelectionBunch", "FORCE Set img1 for selectionCount=4 to " + widthInPx + "x" + allHeightInPx + "px");
-            }
-
-            Log.d("SelectionBunch", "=== FORCE IMG2 DIMENSIONS START for selectionCount=4 ===");
-            Log.d("SelectionBunch", "img2 before force - visibility: " + img2.getVisibility() +
-                    ", width: " + img2.getWidth() +
-                    ", height: " + img2.getHeight());
-
-            ViewGroup.LayoutParams finalParams2 = img2.getLayoutParams();
-            if (finalParams2 != null) {
-                Log.d("SelectionBunch", "img2 force layoutParams before: " + finalParams2.width + "x" + finalParams2.height);
-                finalParams2.width = widthInPx;
-                finalParams2.height = allHeightInPx;
-                img2.setLayoutParams(finalParams2);
-
-                // Force layout pass to apply the new dimensions
-                img2.requestLayout();
-                img2.invalidate();
-
-                Log.d("SelectionBunch", "FORCE Set img2 for selectionCount=4 to " + widthInPx + "x" + allHeightInPx + "px");
-                Log.d("SelectionBunch", "img2 after force - width: " + img2.getWidth() +
-                        ", height: " + img2.getHeight());
-            } else {
-                Log.e("SelectionBunch", "img2 force layoutParams is NULL!");
-            }
-
-            ViewGroup.LayoutParams finalParams3 = img3.getLayoutParams();
-            if (finalParams3 != null) {
-                finalParams3.width = widthInPx;
-                finalParams3.height = allHeightInPx;
-                img3.setLayoutParams(finalParams3);
-                Log.d("SelectionBunch", "FORCE Set img3 for selectionCount=4 to " + widthInPx + "x" + allHeightInPx + "px");
-            }
-
-            ViewGroup.LayoutParams finalParams4 = img4.getLayoutParams();
-            if (finalParams4 != null) {
-                finalParams4.width = widthInPx;
-                finalParams4.height = allHeightInPx;
-                img4.setLayoutParams(finalParams4);
-                Log.d("SelectionBunch", "FORCE Set img4 for selectionCount=4 to " + widthInPx + "x" + allHeightInPx + "px");
-            }
-
-            Log.d("SelectionBunch", "FORCE Set all images for selectionCount=4 to " + widthInPx + "x" + allHeightInPx + "px");
-
-            img2.setVisibility(View.VISIBLE);
-
-
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(3),
-                    model,
-                    requestOptions,
-                    img2,
-                    img4Parent,
-                    position,
-                    true,
-                    videoicon
-            );
-        }
-
-        // Load fourth image into img2 if selectionCount is "4"
-        Log.d("SelectionBunch", "=== IMG2 LOADING CHECK START ===");
-        Log.d("SelectionBunch", "selectionCount: " + model.getSelectionCount() +
-                ", bunchSize: " + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
-
-        if (model.getSelectionBunch().size() > 4) {
-            Log.d("SelectionBunch", "=== LOADING IMG2 for selectionCount=4 ===");
-            Log.d("SelectionBunch", "IMG2 URL: " + model.getSelectionBunch().get(3).getImgUrl());
-            Log.d("SelectionBunch", "IMG2 FILE: " + model.getSelectionBunch().get(3).getFileName());
-            Log.d("SelectionBunch", "IMG2 DEBUG START");
-            Log.d("SelectionBunch", "IMG2 TEST 1");
-            System.out.println("IMG2 TEST 1 - System.out.println");
-
-            ViewGroup img2Parent = (ViewGroup) img2.getParent();
-            Log.d("SelectionBunch", "img2 parent: " + (img2Parent != null ? img2Parent.getClass().getSimpleName() : "NULL"));
-
-            // Check img2 state before loading
-            Log.d("SelectionBunch", "img2 before loading - visibility: " + img2.getVisibility() +
-                    ", width: " + img2.getWidth() +
-                    ", height: " + img2.getHeight() +
-                    ", alpha: " + img2.getAlpha() +
-                    ", scaleX: " + img2.getScaleX() +
-                    ", scaleY: " + img2.getScaleY());
-
-            Log.d("SelectionBunch", "Calling loadSelectionImageIntoViewForBunch for img2...");
-            Log.d("SelectionBunch", "IMG2 TEST 2");
-            System.out.println("IMG2 TEST 2 - System.out.println");
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(0),
-                    model,
-                    requestOptions,
-                    img1,
-                    img2Parent,
-                    position,
-                    true,
-                    videoicon
-            );
-
-
-
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(1),
-                    model,
-                    requestOptions,
-                    img2,
-                    img2Parent,
-                    position,
-                    true,
-                    videoicon
-            );
-
-
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(2),
-                    model,
-                    requestOptions,
-                    img3,
-                    img2Parent,
-                    position,
-                    true,
-                    videoicon
-            );
-
-            loadSelectionImageIntoViewForBunch(
-                    mContext,
-                    model.getSelectionBunch().get(3),
-                    model,
-                    requestOptions,
-                    img4,
-                    img2Parent,
-                    position,
-                    true,
-                    videoicon
-            );
-
-            overlayTextImg.setVisibility(View.VISIBLE);
-
-
-            Log.d("SelectionBunch", "Completed loading img2 for selectionCount=4");
-            Log.d("SelectionBunch", "IMG2 TEST 3");
-            System.out.println("IMG2 TEST 3 - System.out.println");
-
-            // Additional debugging for img2 state
-            Log.d("SelectionBunch", "img2 after loading - visibility: " + img2.getVisibility() +
-                    ", width: " + img2.getWidth() +
-                    ", height: " + img2.getHeight() +
-                    ", alpha: " + img2.getAlpha() +
-                    ", scaleX: " + img2.getScaleX() +
-                    ", scaleY: " + img2.getScaleY() +
-                    ", layoutParams: " + img2.getLayoutParams());
-            Log.d("SelectionBunch", "img2 drawable: " + (img2.getDrawable() != null ? "NOT NULL" : "NULL"));
-
-            // Final comprehensive check
-            Log.d("SelectionBunch", "IMG2 FINAL: V=" + img2.getVisibility() + " W=" + img2.getWidth() + " H=" + img2.getHeight());
-            Log.d("SelectionBunch", "IMG2 FINAL: Alpha=" + img2.getAlpha() + " Scale=" + img2.getScaleX() + " Drawable=" + (img2.getDrawable() != null));
-            Log.d("SelectionBunch", "IMG2 FINAL: Shown=" + img2.isShown());
-        }
-
-        // Set visibility based on selection count
-        Log.d("SelectionBunch", "=== VISIBILITY SETTING START ===");
-        Log.d("SelectionBunch", "Setting visibility for selectionCount: " + model.getSelectionCount());
-
-        if (model.getSelectionCount().equals("2")) {
-            Log.d("SelectionBunch", "Setting img2 to GONE for selectionCount=2");
-            img2.setVisibility(View.GONE);
-            img4.setVisibility(View.GONE);
-            img4Lyt.setVisibility(View.GONE);
-        } else if (model.getSelectionCount().equals("3")) {
-            Log.d("SelectionBunch", "Setting img2 to GONE for selectionCount=3");
-            img2.setVisibility(View.GONE);
-            img4.setVisibility(View.VISIBLE);
-            img4Lyt.setVisibility(View.VISIBLE);
-        } else
-        if (model.getSelectionCount().equals("4")) {
-            Log.d("SelectionBunch", "Setting img2 to VISIBLE for selectionCount=4");
-            Log.d("SelectionBunch", "img2 before visibility set - visibility: " + img2.getVisibility());
-            img2.setVisibility(View.VISIBLE);
-            Log.d("SelectionBunch", "img2 after visibility set - visibility: " + img2.getVisibility());
-            img4.setVisibility(View.VISIBLE);
-            img4Lyt.setVisibility(View.VISIBLE);
-        }
-
-        Log.d("SelectionBunch", "Final img2 state - visibility: " + img2.getVisibility() +
-                ", width: " + img2.getWidth() +
-                ", height: " + img2.getHeight());
-
-    }
-
-    public boolean doesFileExist(String filePath) {
-        File file = new File(filePath);
-        return file.exists();
-    }
 
     public class DownloadReceiver extends BroadcastReceiver {
 
@@ -24543,40 +22881,11 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
 
-    private boolean isInternetConnected() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
-        return networkInfo != null && networkInfo.isConnected();
-    }
 
 
 
-    private void loadPdfPreview(String localPreviewImagePath, String remotePdfUrl, ImageView imageView, ViewGroup parentLayout, int position, messageModel model) {
-        File localPreviewFile = new File(localPreviewImagePath);
 
-        if (localPreviewFile.exists()) {
-            Log.d("TAG", "Loading PDF preview from local cache: " + localPreviewImagePath);
-
-            // Use file:// prefix for local files
-            String imageSource = "file://" + localPreviewImagePath;
-
-
-            RequestOptions requestOptions = new RequestOptions().centerCrop();
-
-
-            // Load low-quality preview from cache
-            Constant.loadImageIntoViewPdf(mContext, imageSource, requestOptions, imageView, parentLayout, position, true, // 👈 Load low-quality
-                    model);
-        } else {
-            Log.d("TAG", "Local PDF preview not found. Downloading PDF from: " + remotePdfUrl);
-
-            // Fallback to generate and download preview
-            new DownloadAndGeneratePdfPreviewTask(mContext, localPreviewImagePath, imageView, parentLayout, position, true).execute(remotePdfUrl);
-        }
-    }
-
-    private static class DownloadAndGeneratePdfPreviewTask extends AsyncTask<String, Void, Bitmap> {
+    public static class DownloadAndGeneratePdfPreviewTask extends AsyncTask<String, Void, Bitmap> {
         private final Context context;
         private final String localPreviewImagePath;
         private final ImageView imageView;
@@ -24731,205 +23040,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         }
     }
 
-    private String getFilePath(messageModel model) {
-        File customFolder;
-        String exactPath;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            customFolder = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Documents");
-            exactPath = customFolder.getAbsolutePath();
-        } else {
-            customFolder = new File(mContext.getExternalFilesDir(null), "Enclosure/Media/Documents");
-            exactPath = customFolder.getAbsolutePath();
-        }
-        String filePath = exactPath + "/" + model.getFileName();
-        return doesFileExist(filePath) ? filePath : model.getDocument(); // Fallback to remote URL if local file doesn't exist
-    }
-
-    private String getLocalPdfPreviewImagePath(messageModel model) {
-        File customFolder;
-        String exactPath;
-
-        // Use getExternalFilesDir() for app-private storage.
-        // Environment.DIRECTORY_DOCUMENTS is a standard directory within app-private storage.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            customFolder = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Documents/Previews");
-        } else {
-            // For older Android versions, use the root of getExternalFilesDir()
-            customFolder = new File(mContext.getExternalFilesDir(null), "Enclosure/Media/Documents/Previews");
-        }
-
-        // Ensure the directory exists. If it doesn't, create it.
-        if (!customFolder.exists()) {
-            boolean created = customFolder.mkdirs(); // Creates the directory and any necessary parent directories
-            if (!created) {
-                Log.e("TAG", "Failed to create directory: " + customFolder.getAbsolutePath());
-                // Handle this error appropriately, perhaps by falling back to no preview
-            }
-        }
-
-        exactPath = customFolder.getAbsolutePath();
-        // Construct the full path for the preview image, using the original file name + ".png"
-        return exactPath + "/" + model.getFileName() + ".png";
-    }
-
-    private String getRemotePdfUrl(messageModel model) {
-        // Assuming model.getDocument() returns the remote URL of the PDF
-        return model.getDocument();
-    }
-
-    public void updateMessageList(List<messageModel> newMessageList) {
-        // Debug logging for selectionBunch
-        Log.d("SelectionBunch", "updateMessageList: Updating adapter with " + newMessageList.size() + " messages");
-        for (int i = 0; i < Math.min(newMessageList.size(), 3); i++) {
-            messageModel model = newMessageList.get(i);
-            Log.d("SelectionBunch", "updateMessageList: Message " + i + " - ID: " + model.getModelId() +
-                    ", selectionCount: " + model.getSelectionCount() +
-                    ", selectionBunch size: " + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
-        }
-
-        // Calculate the diff between the old and new list
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MessageDiffCallback(this.messageList, newMessageList));
-
-        // Clear the old list and add all new items
-        this.messageList.clear();
-        this.messageList.addAll(newMessageList);
-
-        // Dispatch the updates to the adapter
-        diffResult.dispatchUpdatesTo(this);
-    }
-
-    public static class MessageDiffCallback extends DiffUtil.Callback {
-
-        private final List<messageModel> mOldList;
-        private final List<messageModel> mNewList;
-
-        public MessageDiffCallback(List<messageModel> oldList, List<messageModel> newList) {
-            this.mOldList = oldList;
-            this.mNewList = newList;
-        }
-
-        @Override
-        public int getOldListSize() {
-            return mOldList.size();
-        }
-
-        @Override
-        public int getNewListSize() {
-            return mNewList.size();
-        }
-
-        // Called to check whether two objects represent the same item.
-        // For messages, a unique ID (like modelId) is usually the best way to determine this.
-        @Override
-        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-            String oldId = mOldList.get(oldItemPosition).getModelId();
-            String newId = mNewList.get(newItemPosition).getModelId();
-            if (oldId == null || oldId.isEmpty() || newId == null || newId.isEmpty()) {
-                // If we don't have stable ids yet, treat as different items to avoid replacing UI cells
-                return false;
-            }
-            return Objects.equals(oldId, newId);
-        }
-
-        // Called to check whether the contents of two items are the same.
-        // You've already overridden equals() in your messageModel, which is perfect for this.
-        @Override
-        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-            return mOldList.get(oldItemPosition).equals(mNewList.get(newItemPosition));
-        }
-
-        // Optional: If you want to provide payload for partial updates (e.g., only emoji count changed)
-        // @Nullable
-        // @Override
-        // public Object getChangePayload(int oldItemPosition, int newItemPosition) {
-        //     // Implement this if you want to do partial updates
-        //     // For example, if only the emoji count changes, you can return a bundle
-        //     // indicating that, and onBindViewHolder will receive this payload.
-        //     return super.getChangePayload(oldItemPosition, newItemPosition);
-        // }
-    }
-
-    public boolean isMobileNumber(String text) {
-
-        // Remove spaces or dashes
-        text = text.replaceAll("[\\s\\-()]", "");
-
-        // Basic mobile number pattern: starts with + or digit, 10 to 15 digits total
-        return text.matches("^(\\+\\d{1,3})?\\d{10,14}$");
-    }
 
 
-
-
-    private void copyFile2(File source, File dest) throws IOException {
-        try (InputStream in = new FileInputStream(source);
-             OutputStream out = new FileOutputStream(dest)) {
-            byte[] buffer = new byte[8192];
-            int bytesRead;
-            while ((bytesRead = in.read(buffer)) != -1) {
-                out.write(buffer, 0, bytesRead);
-            }
-            out.flush();
-        }
-    }
-
-
-
-
-
-    private void trackDownloadProgress(long downloadId, TextView percentageView, RecyclerView.ViewHolder holder) {
-        Handler handler = new Handler();
-        Runnable progressRunnable = new Runnable() {
-            @Override
-            public void run() {
-                DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-                DownloadManager.Query query = new DownloadManager.Query();
-                query.setFilterById(downloadId);
-
-                Cursor cursor = downloadManager.query(query);
-                if (cursor.moveToFirst()) {
-                    int bytesDownloadedIndex = cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
-                    int bytesTotalIndex = cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
-                    int statusIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
-
-                    if (bytesDownloadedIndex != -1 && bytesTotalIndex != -1 && statusIndex != -1) {
-                        int bytesDownloaded = cursor.getInt(bytesDownloadedIndex);
-                        int bytesTotal = cursor.getInt(bytesTotalIndex);
-
-                        if (bytesTotal > 0) {
-                            int progress = (int) ((bytesDownloaded * 100L) / bytesTotal);
-                            percentageView.setText(progress + "%");
-
-                            if (progress >= 100) {
-                                percentageView.setVisibility(View.GONE);
-                                ((receiverViewHolder) holder).progressBarImageview.setVisibility(View.GONE);
-                                cursor.close();
-                                percentageView.setText(0 + "%");
-                                return;
-                            }
-                        }
-
-                        int status = cursor.getInt(statusIndex);
-                        if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
-                            percentageView.setVisibility(View.GONE);
-                            ((receiverViewHolder) holder).progressBarImageview.setVisibility(View.GONE);
-                            cursor.close();
-                            return;
-                        }
-                    }
-                }
-                cursor.close();
-
-                handler.postDelayed(this, 1000);
-            }
-        };
-
-        handler.post(progressRunnable);
-    }
-
-
-
-    // --- Copy private video to public Movies/Enclosure ---
 
 
 
@@ -24944,61 +23056,9 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
 
-    /**
-     * Copies a file from private app storage to public Pictures/Enclosure folder
-     */
-    private void copyPrivateImageToPublic(File privateFile, String fileName) {
-        new Thread(() -> {
-            try {
-                Bitmap bitmap = BitmapFactory.decodeFile(privateFile.getAbsolutePath());
-                if (bitmap == null) {
-                    showToastSafe("Failed to read image for public copy");
-                    return;
-                }
+    // --- Copy private video to public Movies/Enclosure ---
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    ContentResolver resolver = mContext.getContentResolver();
-                    ContentValues values = new ContentValues();
-                    values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-                    values.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
-                    values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/Enclosure");
-                    values.put(MediaStore.MediaColumns.IS_PENDING, 1);
 
-                    Uri uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                    if (uri != null) {
-                        try (OutputStream out = resolver.openOutputStream(uri)) {
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-                        }
-                        values.clear();
-                        values.put(MediaStore.MediaColumns.IS_PENDING, 0);
-                        resolver.update(uri, values, null, null);
-                        showToastSafe("Image copied to public gallery");
-                    } else {
-                        showToastSafe("Failed to save image to gallery");
-                    }
-
-                } else {
-                    File picturesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                    File enclosureDir = new File(picturesDir, "Enclosure");
-                    if (!enclosureDir.exists()) enclosureDir.mkdirs();
-
-                    File publicFile = new File(enclosureDir, fileName);
-                    try (FileOutputStream out = new FileOutputStream(publicFile)) {
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-                    }
-
-                    Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                    scanIntent.setData(Uri.fromFile(publicFile));
-                    mContext.sendBroadcast(scanIntent);
-
-                    showToastSafe("Image copied to public gallery");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                showToastSafe("Error copying image to gallery");
-            }
-        }).start();
-    }
 
     /**
      * Toast helper (adapter-safe)
@@ -25018,500 +23078,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
 
-
-
-
-    
-
-
-
-
-
-    // --- Copy private document to public Documents/Enclosure ---
-    private void copyDocToPublicDoc(File privateFile, String fileName) {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                ContentValues values = new ContentValues();
-                values.put(MediaStore.Files.FileColumns.DISPLAY_NAME, fileName);
-                values.put(MediaStore.Files.FileColumns.MIME_TYPE, "application/octet-stream");
-                values.put(MediaStore.Files.FileColumns.RELATIVE_PATH, Environment.DIRECTORY_DOCUMENTS + "/Enclosure");
-                values.put(MediaStore.Files.FileColumns.IS_PENDING, 1);
-
-                Uri uri = mContext.getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
-                if (uri != null) {
-                    try (InputStream in = new FileInputStream(privateFile);
-                         OutputStream out = mContext.getContentResolver().openOutputStream(uri)) {
-                        byte[] buffer = new byte[8192];
-                        int read;
-                        while ((read = in.read(buffer)) != -1) out.write(buffer, 0, read);
-                        out.flush();
-                    }
-                    values.clear();
-                    values.put(MediaStore.Files.FileColumns.IS_PENDING, 0);
-                    mContext.getContentResolver().update(uri, values, null, null);
-                    Log.d("DOWNLOAD_DEBUG", "Document saved publicly via MediaStore: " + fileName);
-                }
-            } else {
-                File publicDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "Enclosure");
-                if (!publicDir.exists()) publicDir.mkdirs();
-                File publicFile = new File(publicDir, fileName);
-
-                copyFile2(privateFile, publicFile);
-
-                MediaScannerConnection.scanFile(
-                        mContext,
-                        new String[]{publicFile.getAbsolutePath()},
-                        null,
-                        (path, uri) -> Log.d("DOWNLOAD_DEBUG", "Document scanned: " + uri)
-                );
-                Log.d("DOWNLOAD_DEBUG", "Document copied publicly: " + publicFile.getAbsolutePath());
-            }
-        } catch (IOException e) {
-            Log.e("DOWNLOAD_DEBUG", "Error copying document to public folder", e);
-        }
-    }
-
-
-
-    private void trackSenderDocDownloadProgress(long downloadId, ProgressBar progressBar, TextView percentageView, View downloadFab) {
-        Handler handler = new Handler();
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    DownloadManager dm = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-                    DownloadManager.Query q = new DownloadManager.Query().setFilterById(downloadId);
-                    Cursor c = dm.query(q);
-                    if (c != null && c.moveToFirst()) {
-                        int statusIdx = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
-                        int bytesIdx = c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
-                        int totalIdx = c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
-
-                        int status = statusIdx >= 0 ? c.getInt(statusIdx) : -1;
-                        long soFar = (bytesIdx >= 0) ? c.getLong(bytesIdx) : 0L;
-                        long total = (totalIdx >= 0) ? c.getLong(totalIdx) : 0L;
-
-                        if (total > 0) {
-                            progressBar.setIndeterminate(false);
-                            progressBar.setMax(100);
-                            int prog = (int) ((soFar * 100L) / total);
-                            progressBar.setProgress(prog);
-                            percentageView.setText(prog + "%");
-                        }
-
-                        if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                            progressBar.setVisibility(View.GONE);
-                            percentageView.setVisibility(View.GONE);
-                            downloadFab.setVisibility(View.GONE);
-                            c.close();
-                            return;
-                        } else if (status == DownloadManager.STATUS_FAILED) {
-                            progressBar.setVisibility(View.GONE);
-                            percentageView.setVisibility(View.GONE);
-                            downloadFab.setVisibility(View.VISIBLE);
-                            c.close();
-                            return;
-                        }
-                        c.close();
-                        handler.postDelayed(this, 300);
-                    } else {
-                        if (c != null) c.close();
-                        handler.postDelayed(this, 300);
-                    }
-                } catch (Exception ignored) {
-                    progressBar.setVisibility(View.GONE);
-                    percentageView.setVisibility(View.GONE);
-                    downloadFab.setVisibility(View.VISIBLE);
-                }
-            }
-        };
-        handler.post(r);
-    }
-
-
-
-
-    private void trackSenderAudioDownloadProgress(long downloadId, ProgressBar progressBar, TextView percentageView, View downloadFab) {
-        Handler handler = new Handler();
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    DownloadManager dm = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-                    DownloadManager.Query q = new DownloadManager.Query().setFilterById(downloadId);
-                    Cursor c = dm.query(q);
-                    if (c != null && c.moveToFirst()) {
-                        int statusIdx = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
-                        int bytesIdx = c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
-                        int totalIdx = c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
-
-                        int status = c.getInt(statusIdx);
-                        long bytesDownloaded = c.getLong(bytesIdx);
-                        long totalBytes = c.getLong(totalIdx);
-
-                        if (totalBytes > 0) {
-                            int pct = (int) ((bytesDownloaded * 100L) / totalBytes);
-                            percentageView.setText(pct + "%");
-                        } else {
-                            percentageView.setText("0%");
-                        }
-
-                        if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
-                            progressBar.setVisibility(View.GONE);
-                            percentageView.setVisibility(View.GONE);
-                            downloadFab.setVisibility(View.GONE); // file exists now, so keep hidden
-                            c.close();
-                            return;
-                        }
-                        c.close();
-                        handler.postDelayed(this, 300);
-                    } else {
-                        if (c != null) c.close();
-                        handler.postDelayed(this, 300);
-                    }
-                } catch (Exception ignored) {
-                    progressBar.setVisibility(View.GONE);
-                    percentageView.setVisibility(View.GONE);
-                    downloadFab.setVisibility(View.VISIBLE);
-                }
-            }
-        };
-        handler.post(r);
-    }
-
-
-
-
-
-    private void trackReceiverAudioDownloadProgress(long downloadId, ProgressBar progressBar, TextView percentageView, View downloadFab, messageModel model) {
-        Handler handler = new Handler();
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    DownloadManager dm = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-                    DownloadManager.Query q = new DownloadManager.Query().setFilterById(downloadId);
-                    Cursor c = dm.query(q);
-                    if (c != null && c.moveToFirst()) {
-                        int statusIdx = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
-                        int bytesIdx = c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
-                        int totalIdx = c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
-
-                        int status = c.getInt(statusIdx);
-                        long bytesDownloaded = c.getLong(bytesIdx);
-                        long totalBytes = c.getLong(totalIdx);
-
-                        if (totalBytes > 0) {
-                            int pct = (int) ((bytesDownloaded * 100L) / totalBytes);
-                            percentageView.setText(pct + "%");
-                        } else {
-                            percentageView.setText("0%");
-                        }
-
-                        if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
-                            progressBar.setVisibility(View.GONE);
-                            percentageView.setVisibility(View.GONE);
-                            // On success, keep the FAB hidden; on failure, show it again
-                            if (status == DownloadManager.STATUS_FAILED) {
-                                downloadFab.setVisibility(View.VISIBLE);
-                            } else {
-                                downloadFab.setVisibility(View.GONE);
-                            }
-                            c.close();
-                            return;
-                        }
-                        c.close();
-                        handler.postDelayed(this, 300);
-                    } else {
-                        if (c != null) c.close();
-                        handler.postDelayed(this, 300);
-                    }
-                } catch (Exception ignored) {
-                    progressBar.setVisibility(View.GONE);
-                    percentageView.setVisibility(View.GONE);
-                    downloadFab.setVisibility(View.VISIBLE);
-                }
-            }
-        };
-        handler.post(r);
-    }
-
-    /**
-     * Wrapper method to load image and set dimensions
-     */
-
-    /**
-     * Ensure all ImageViews in the adapter have consistent scaling and dimensions
-     * This method should be called after any image loading to maintain consistency
-     */
-    private void ensureConsistentImageScaling(ImageView imageView, messageModel model) {
-        if (imageView != null && model != null) {
-            // Set consistent scale type for all images
-            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-            // Set dimensions if available
-            setImageViewDimensions(imageView, model.getImageWidth(), model.getImageHeight());
-        }
-    }
-
-    /**
-     * Handle video thumbnail loading with consistent scaling and dimensions
-     */
-
-    /**
-     * Set ImageView dimensions and scale type using the same logic as loadImageIntoViewGroup
-     *
-     * @param imageView The ImageView to set dimensions for
-     * @param widthStr  Width as string (e.g., "1170.29")
-     * @param heightStr Height as string (e.g., "1554.29")
-     */
-    private void setImageViewDimensions(ImageView imageView, String widthStr, String heightStr) {
-        try {
-            // Set consistent scale type for all images
-            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-            if (widthStr != null && heightStr != null && !widthStr.isEmpty() && !heightStr.isEmpty()) {
-                // Get device density and orientation
-                float density = mContext.getResources().getDisplayMetrics().density;
-                int orientation = mContext.getResources().getConfiguration().orientation;
-
-                Log.d("setImageViewDimensions", "getImageWidth: " + widthStr);
-                Log.d("setImageViewDimensions", "getImageHeight: " + heightStr);
-                Log.d("setImageViewDimensions", "Orientation: " + (orientation == Configuration.ORIENTATION_PORTRAIT ? "Portrait" : "Landscape"));
-
-                float imageWidthPx, imageHeightPx, aspectRatio;
-                try {
-                    imageWidthPx = Float.parseFloat(widthStr);
-                    imageHeightPx = Float.parseFloat(heightStr);
-                    aspectRatio = imageWidthPx / imageHeightPx;
-
-                    if (aspectRatio <= 0) {
-                        aspectRatio = 1.0f;
-                    }
-                } catch (NumberFormatException e) {
-                    Log.e("setImageViewDimensions", "Invalid dimensions, using defaults", e);
-                    imageWidthPx = 210f;
-                    imageHeightPx = 250f;
-                    aspectRatio = 1.0f;
-                }
-
-                // Use the same max dimensions as loadImageIntoViewGroup
-                final float MAX_WIDTH_DP = 210f;
-                final float MAX_HEIGHT_DP = 250f;
-
-                int maxWidthPx = (int) (MAX_WIDTH_DP * density);
-                int maxHeightPx = (int) (MAX_HEIGHT_DP * density);
-
-                int finalWidthPx, finalHeightPx;
-                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    finalWidthPx = maxWidthPx;
-                    finalHeightPx = (int) (maxWidthPx / aspectRatio);
-                    if (finalHeightPx > maxHeightPx) {
-                        finalHeightPx = maxHeightPx;
-                        finalWidthPx = (int) (maxHeightPx * aspectRatio);
-                    }
-                } else {
-                    finalHeightPx = maxHeightPx;
-                    finalWidthPx = (int) (finalHeightPx * aspectRatio);
-                    if (finalWidthPx > maxWidthPx) {
-                        finalWidthPx = maxWidthPx;
-                        finalHeightPx = (int) (maxWidthPx / aspectRatio);
-                    }
-                }
-
-                finalWidthPx = Math.min(finalWidthPx, maxWidthPx);
-                finalHeightPx = Math.min(finalHeightPx, maxHeightPx);
-
-                // Set layout parameters
-                ViewGroup.LayoutParams params = imageView.getLayoutParams();
-                if (params == null) {
-                    params = new ViewGroup.LayoutParams(finalWidthPx, finalHeightPx);
-                } else {
-                    params.width = finalWidthPx;
-                    params.height = finalHeightPx;
-                }
-                imageView.setLayoutParams(params);
-                // Also set parent layout to wrap content if available
-                ViewGroup parentLayout = (ViewGroup) imageView.getParent();
-                if (parentLayout != null) {
-                    ViewGroup.LayoutParams parentParams = parentLayout.getLayoutParams();
-                    if (parentParams != null) {
-                        parentParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-                        parentParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                        parentLayout.setLayoutParams(parentParams);
-                    }
-                }
-
-                Log.d("setImageViewDimensions", "Set dimensions using density-based logic - Width: " + finalWidthPx + "px, Height: " + finalHeightPx + "px (Original: " + imageWidthPx + "x" + imageHeightPx + ", Aspect Ratio: " + aspectRatio + ", Density: " + density + ")");
-            }
-        } catch (Exception e) {
-            Log.e("setImageViewDimensions", "Error setting image dimensions: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Check if any images in selectionBunch are missing locally
-     */
-
-
-    /**
-     * Check if selection bunch has valid image URLs
-     */
-    private boolean checkIfSelectionBunchHasValidUrls(List<selectionBunchModel> selectionBunch) {
-        if (selectionBunch == null || selectionBunch.isEmpty()) {
-            return false; // No images, so no valid URLs
-        }
-
-        for (selectionBunchModel bunch : selectionBunch) {
-            if (bunch == null) {
-                continue; // Skip if no bunch
-            }
-
-            // Check if Firebase URL is available and not empty
-            if (!TextUtils.isEmpty(bunch.getImgUrl())) {
-                return true; // Found at least one valid URL
-            }
-        }
-        return false; // No valid URLs found
-    }
-
-    /**
-     * Check if selectionBunch images are from local storage (Environment.DIRECTORY_DOCUMENTS/Enclosure/Media/Images)
-     */
-    private boolean checkIfSelectionBunchFromLocalStorage(List<selectionBunchModel> selectionBunch) {
-        if (selectionBunch == null || selectionBunch.isEmpty()) {
-            return false; // If no images, not from local storage
-        }
-
-        for (selectionBunchModel bunch : selectionBunch) {
-            if (bunch == null || TextUtils.isEmpty(bunch.getFileName())) {
-                continue; // Skip if no filename
-            }
-
-            // Check if the image URL or filename indicates it's from local storage
-            String fileName = bunch.getFileName();
-            String imgUrl = bunch.getImgUrl();
-
-            // If imgUrl has a Firebase URL, it's NOT from local storage anymore
-            if (!TextUtils.isEmpty(imgUrl) && (imgUrl.contains("firebase") || imgUrl.contains("googleapis") || imgUrl.startsWith("https://"))) {
-                Log.d("bunch###", "Image uploaded to Firebase (not local storage): " + imgUrl);
-                return false; // This image is uploaded, not local
-            }
-
-            // If imgUrl is null or empty, it's likely from local storage
-            if (TextUtils.isEmpty(imgUrl)) {
-                Log.d("bunch###", "Image from local storage (no URL): " + fileName);
-                return true;
-            }
-
-            // Check if the URL is a local file path
-            if (imgUrl.startsWith("file://") || imgUrl.startsWith("/")) {
-                Log.d("bunch###", "Image from local storage (file path): " + imgUrl);
-                return true;
-            }
-
-            // Check if the filename suggests it's from local storage directory AND no Firebase URL
-            if ((fileName.contains("Enclosure/Media/Images") || fileName.contains("Enclosure%2FMedia%2FImages")) && TextUtils.isEmpty(imgUrl)) {
-                Log.d("bunch###", "Image from local storage (filename contains path, no URL): " + fileName);
-                return true;
-            }
-        }
-
-        return false; // Not from local storage
-    }
-
-    /**
-     * Check if any images in selectionBunch are missing for regular chat (check Firebase URLs and local files)
-     */
-    private boolean checkAnySelectionBunchImagesMissingForRegularChat(List<selectionBunchModel> selectionBunch) {
-        Log.d("SelectionBunch", "=== CHECKING MISSING IMAGES FOR REGULAR CHAT ===");
-
-        if (selectionBunch == null || selectionBunch.isEmpty()) {
-            Log.d("SelectionBunch", "SelectionBunch is null or empty - considering all images missing");
-            return true; // If no images, consider them missing
-        }
-
-        Log.d("SelectionBunch", "Checking " + selectionBunch.size() + " images in selectionBunch");
-        int missingCount = 0;
-        int totalCount = selectionBunch.size();
-
-        for (int i = 0; i < selectionBunch.size(); i++) {
-            selectionBunchModel bunch = selectionBunch.get(i);
-            if (bunch == null) {
-                Log.d("SelectionBunch", "Image " + i + " - bunch is null, skipping");
-                missingCount++;
-                continue; // Skip if no bunch
-            }
-
-            Log.d("SelectionBunch", "Image " + i + " - FileName: " + bunch.getFileName() +
-                    ", ImgUrl: " + (TextUtils.isEmpty(bunch.getImgUrl()) ? "EMPTY" : "HAS_URL"));
-
-            // For regular chat, check if Firebase URL is available
-            if (TextUtils.isEmpty(bunch.getImgUrl())) {
-                Log.d("SelectionBunch", "Image " + i + " - Missing Firebase URL: " + bunch.getFileName());
-                missingCount++;
-                return true; // Found at least one missing image URL
-            }
-
-            // Also check if the image exists locally
-            if (!TextUtils.isEmpty(bunch.getImgUrl())) {
-                String fileName = bunch.getFileName();
-                if (!TextUtils.isEmpty(fileName)) {
-                    // Try both original filename and cleaned filename to match the stored format
-                    String originalFileName = fileName;
-                    String cleanFileName = fileName.replaceAll("[^a-zA-Z0-9._-]", "_");
-
-                    // Check in the same folder where images are actually downloaded
-                    File customFolder;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        customFolder = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Images");
-                    } else {
-                        customFolder = new File(mContext.getExternalFilesDir(null), "Enclosure/Media/Images");
-                    }
-
-                    // Try original filename first
-                    String localPath = customFolder.getAbsolutePath() + "/" + originalFileName;
-                    boolean fileExists = doesFileExist(localPath);
-
-                    // If not found with original name, try cleaned name
-                    if (!fileExists && !originalFileName.equals(cleanFileName)) {
-                        localPath = customFolder.getAbsolutePath() + "/" + cleanFileName;
-                        fileExists = doesFileExist(localPath);
-                        Log.d("SelectionBunch", "Image " + i + " - Trying cleaned filename: " + cleanFileName);
-                    }
-
-                    Log.d("SelectionBunch", "Image " + i + " - Checking local path: " + localPath);
-                    Log.d("SelectionBunch", "Image " + i + " - File exists: " + fileExists);
-
-                    if (!fileExists) {
-                        Log.d("SelectionBunch", "Image " + i + " - NOT FOUND locally: " + localPath);
-                        missingCount++;
-                        return true; // Found at least one missing local image
-                    } else {
-                        Log.d("SelectionBunch", "Image " + i + " - Found locally: " + localPath);
-                    }
-                } else {
-                    Log.d("SelectionBunch", "Image " + i + " - Empty filename, considering missing");
-                    missingCount++;
-                    return true;
-                }
-            }
-        }
-
-        Log.d("SelectionBunch", "=== MISSING IMAGES CHECK COMPLETE ===");
-        Log.d("SelectionBunch", "Total images: " + totalCount + ", Missing: " + missingCount);
-        Log.d("SelectionBunch", "All images have Firebase URLs and exist locally for regular chat");
-        return false; // All images have URLs and exist locally
-    }
-
-    /**
-     * Download missing images in selectionBunch
-     */
-
-
-    /**
-     * Download a single selectionBunch image
-     */
 
 
 

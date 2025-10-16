@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.Appzia.enclosure.Adapter.chatAdapter;
 import com.Appzia.enclosure.Model.messageModel;
 import com.Appzia.enclosure.Model.selectionBunchModel;
+import com.Appzia.enclosure.Utils.ChatadapterFiles.otherFunctions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -159,7 +160,7 @@ public class senderReceiverDownload {
         Log.d("DOWNLOAD_DEBUG", "Document Download ID: " + docDownloadId);
 
         // --- Track progress ---
-        trackDocDownloadProgress(
+        otherFunctions.trackDocDownloadProgress(
                 docDownloadId,
                 ((chatAdapter.senderViewHolder) holder).progressBarDoc,
                 ((chatAdapter.senderViewHolder) holder).downloadPercentageDocSender,
@@ -472,49 +473,6 @@ public class senderReceiverDownload {
     /**
      * Tracks document download progress
      */
-    private static void trackDocDownloadProgress(long downloadId, ProgressBar progressBar, TextView percentageView, View downloadFab, Context context) {
-        Handler handler = new Handler();
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    DownloadManager dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-                    DownloadManager.Query q = new DownloadManager.Query().setFilterById(downloadId);
-                    Cursor c = dm.query(q);
-                    if (c != null && c.moveToFirst()) {
-                        int statusIdx = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
-                        int bytesIdx = c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
-                        int totalIdx = c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
-
-                        int status = statusIdx >= 0 ? c.getInt(statusIdx) : -1;
-                        long soFar = (bytesIdx >= 0) ? c.getLong(bytesIdx) : 0L;
-                        long total = (totalIdx >= 0) ? c.getLong(totalIdx) : 0L;
-
-                        if (total > 0) {
-                            progressBar.setIndeterminate(false);
-                            progressBar.setMax(100);
-                            int prog = (int) ((soFar * 100L) / total);
-                            progressBar.setProgress(prog);
-                            percentageView.setText(prog + "%");
-                        }
-
-                        if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                            progressBar.setVisibility(View.GONE);
-                            percentageView.setVisibility(View.GONE);
-                            downloadFab.setVisibility(View.GONE);
-                            c.close();
-                            return;
-                        }
-                    }
-                    if (c != null) c.close();
-                } catch (Exception e) {
-                    Log.e("DOWNLOAD_DEBUG", "Error tracking download progress", e);
-                }
-                handler.postDelayed(this, 100);
-            }
-        };
-        handler.post(r);
-    }
 
     /**
      * Starts sender audio download with progress tracking
@@ -561,7 +519,7 @@ public class senderReceiverDownload {
         Log.d("DOWNLOAD_DEBUG", "Audio Download ID: " + audioDownloadId);
 
         // --- Track progress ---
-        trackSenderAudioDownloadProgress(
+        otherFunctions.trackSenderAudioDownloadProgress(
                 audioDownloadId,
                 ((chatAdapter.senderViewHolder) holder).progressBarAudio,
                 ((chatAdapter.senderViewHolder) holder).downloadPercentageAudioSender,
@@ -588,53 +546,6 @@ public class senderReceiverDownload {
     /**
      * Tracks sender audio download progress
      */
-    private static void trackSenderAudioDownloadProgress(long downloadId, ProgressBar progressBar, TextView percentageView, View downloadFab, Context context) {
-        Handler handler = new Handler();
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    DownloadManager dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-                    DownloadManager.Query q = new DownloadManager.Query().setFilterById(downloadId);
-                    Cursor c = dm.query(q);
-                    if (c != null && c.moveToFirst()) {
-                        int statusIdx = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
-                        int bytesIdx = c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
-                        int totalIdx = c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
-
-                        int status = c.getInt(statusIdx);
-                        long bytesDownloaded = c.getLong(bytesIdx);
-                        long totalBytes = c.getLong(totalIdx);
-
-                        if (totalBytes > 0) {
-                            int pct = (int) ((bytesDownloaded * 100L) / totalBytes);
-                            percentageView.setText(pct + "%");
-                        } else {
-                            percentageView.setText("0%");
-                        }
-
-                        if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
-                            progressBar.setVisibility(View.GONE);
-                            percentageView.setVisibility(View.GONE);
-                            downloadFab.setVisibility(View.GONE); // file exists now, so keep hidden
-                            c.close();
-                            return;
-                        }
-                        c.close();
-                        handler.postDelayed(this, 300);
-                    } else {
-                        if (c != null) c.close();
-                        handler.postDelayed(this, 300);
-                    }
-                } catch (Exception ignored) {
-                    progressBar.setVisibility(View.GONE);
-                    percentageView.setVisibility(View.GONE);
-                    downloadFab.setVisibility(View.VISIBLE);
-                }
-            }
-        };
-        handler.post(r);
-    }
 
     /**
      * Starts receiver video download with progress tracking
@@ -917,7 +828,7 @@ public class senderReceiverDownload {
         Log.d("DOWNLOAD_DEBUG", "Document Download ID: " + docDownloadId);
 
         // --- Track progress ---
-        trackDocDownloadProgress(
+        otherFunctions.trackDocDownloadProgress(
                 docDownloadId,
                 ((chatAdapter.receiverViewHolder) holder).progressBarDocReceiver,
                 ((chatAdapter.receiverViewHolder) holder).downloadPercentageDocReceiver,
@@ -986,7 +897,7 @@ public class senderReceiverDownload {
         Log.d("DOWNLOAD_DEBUG", "Audio Download ID: " + audioDownloadId);
 
         // --- Track progress ---
-        trackReceiverAudioDownloadProgress(
+        otherFunctions.trackReceiverAudioDownloadProgress(
                 audioDownloadId,
                 ((chatAdapter.receiverViewHolder) holder).progressBarAudioReceiver,
                 ((chatAdapter.receiverViewHolder) holder).downloadPercentageAudioReceiver,
@@ -1014,58 +925,6 @@ public class senderReceiverDownload {
     /**
      * Tracks receiver audio download progress
      */
-    private static void trackReceiverAudioDownloadProgress(long downloadId, ProgressBar progressBar, TextView percentageView, View downloadFab, messageModel model, Context context) {
-        Handler handler = new Handler();
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    DownloadManager dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-                    DownloadManager.Query q = new DownloadManager.Query().setFilterById(downloadId);
-                    Cursor c = dm.query(q);
-                    if (c != null && c.moveToFirst()) {
-                        int statusIdx = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
-                        int bytesIdx = c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
-                        int totalIdx = c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
-
-                        int status = c.getInt(statusIdx);
-                        long bytesDownloaded = c.getLong(bytesIdx);
-                        long totalBytes = c.getLong(totalIdx);
-
-                        if (totalBytes > 0) {
-                            int pct = (int) ((bytesDownloaded * 100L) / totalBytes);
-                            percentageView.setText(pct + "%");
-                        } else {
-                            percentageView.setText("0%");
-                        }
-
-                        if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
-                            progressBar.setVisibility(View.GONE);
-                            percentageView.setVisibility(View.GONE);
-                            // On success, keep the FAB hidden; on failure, show it again
-                            if (status == DownloadManager.STATUS_FAILED) {
-                                downloadFab.setVisibility(View.VISIBLE);
-                            } else {
-                                downloadFab.setVisibility(View.GONE);
-                            }
-                            c.close();
-                            return;
-                        }
-                        c.close();
-                        handler.postDelayed(this, 300);
-                    } else {
-                        if (c != null) c.close();
-                        handler.postDelayed(this, 300);
-                    }
-                } catch (Exception ignored) {
-                    progressBar.setVisibility(View.GONE);
-                    percentageView.setVisibility(View.GONE);
-                    downloadFab.setVisibility(View.VISIBLE);
-                }
-            }
-        };
-        handler.post(r);
-    }
 
     /**
      * Toast helper (adapter-safe)
@@ -1098,7 +957,7 @@ public class senderReceiverDownload {
                     .setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOCUMENTS, "Enclosure/Media/Documents/" + model.getFileName());
 
             long audioDownloadId = dm.enqueue(req);
-            trackSenderAudioDownloadProgress(audioDownloadId, 
+            otherFunctions.trackSenderAudioDownloadProgress(audioDownloadId, 
                     ((chatAdapter.senderViewHolder) holder).progressBarAudio, 
                     ((chatAdapter.senderViewHolder) holder).downloadPercentageAudioSender, 
                     ((chatAdapter.senderViewHolder) holder).downlaodAudio, 
@@ -1134,7 +993,7 @@ public class senderReceiverDownload {
                     .setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOCUMENTS, "Enclosure/Media/Documents/" + model.getFileName());
 
             long audioDownloadId = dm.enqueue(req);
-            trackReceiverAudioDownloadProgress(audioDownloadId, 
+            otherFunctions.trackReceiverAudioDownloadProgress(audioDownloadId, 
                     ((chatAdapter.receiverViewHolder) holder).progressBarAudioReceiver, 
                     ((chatAdapter.receiverViewHolder) holder).downloadPercentageAudioReceiver, 
                     ((chatAdapter.receiverViewHolder) holder).downlaodAudioReceiver, 
@@ -1725,5 +1584,211 @@ public class senderReceiverDownload {
         if (sourceFile != null && sourceFile.exists()) {
             saveFileToPublicDirectory(sourceFile, fileName, extension, context);
         }
+    }
+
+    public static void trackDownloadProgress(long downloadId, TextView percentageView, RecyclerView.ViewHolder holder, Context context) {
+        Handler handler = new Handler();
+        Runnable progressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+                DownloadManager.Query query = new DownloadManager.Query();
+                query.setFilterById(downloadId);
+
+                Cursor cursor = downloadManager.query(query);
+                if (cursor.moveToFirst()) {
+                    int bytesDownloadedIndex = cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
+                    int bytesTotalIndex = cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
+                    int statusIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
+
+                    if (bytesDownloadedIndex != -1 && bytesTotalIndex != -1 && statusIndex != -1) {
+                        int bytesDownloaded = cursor.getInt(bytesDownloadedIndex);
+                        int bytesTotal = cursor.getInt(bytesTotalIndex);
+
+                        if (bytesTotal > 0) {
+                            int progress = (int) ((bytesDownloaded * 100L) / bytesTotal);
+                            percentageView.setText(progress + "%");
+
+                            if (progress >= 100) {
+                                percentageView.setVisibility(View.GONE);
+                                ((chatAdapter.receiverViewHolder) holder).progressBarImageview.setVisibility(View.GONE);
+                                cursor.close();
+                                percentageView.setText(0 + "%");
+                                return;
+                            }
+                        }
+
+                        int status = cursor.getInt(statusIndex);
+                        if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
+                            percentageView.setVisibility(View.GONE);
+                            ((chatAdapter.receiverViewHolder) holder).progressBarImageview.setVisibility(View.GONE);
+                            cursor.close();
+                            return;
+                        }
+                    }
+                }
+                cursor.close();
+
+                handler.postDelayed(this, 1000);
+            }
+        };
+
+        handler.post(progressRunnable);
+    }
+
+    public static void trackSenderDocDownloadProgress(long downloadId, ProgressBar progressBar, TextView percentageView, View downloadFab, Context context) {
+        Handler handler = new Handler();
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    DownloadManager dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+                    DownloadManager.Query q = new DownloadManager.Query().setFilterById(downloadId);
+                    Cursor c = dm.query(q);
+                    if (c != null && c.moveToFirst()) {
+                        int statusIdx = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
+                        int bytesIdx = c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
+                        int totalIdx = c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
+
+                        int status = statusIdx >= 0 ? c.getInt(statusIdx) : -1;
+                        long soFar = (bytesIdx >= 0) ? c.getLong(bytesIdx) : 0L;
+                        long total = (totalIdx >= 0) ? c.getLong(totalIdx) : 0L;
+
+                        if (total > 0) {
+                            progressBar.setIndeterminate(false);
+                            progressBar.setMax(100);
+                            int prog = (int) ((soFar * 100L) / total);
+                            progressBar.setProgress(prog);
+                            percentageView.setText(prog + "%");
+                        }
+
+                        if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                            progressBar.setVisibility(View.GONE);
+                            percentageView.setVisibility(View.GONE);
+                            downloadFab.setVisibility(View.GONE);
+                            c.close();
+                            return;
+                        } else if (status == DownloadManager.STATUS_FAILED) {
+                            progressBar.setVisibility(View.GONE);
+                            percentageView.setVisibility(View.GONE);
+                            downloadFab.setVisibility(View.VISIBLE);
+                            c.close();
+                            return;
+                        }
+                        c.close();
+                        handler.postDelayed(this, 300);
+                    } else {
+                        if (c != null) c.close();
+                        handler.postDelayed(this, 300);
+                    }
+                } catch (Exception ignored) {
+                    progressBar.setVisibility(View.GONE);
+                    percentageView.setVisibility(View.GONE);
+                    downloadFab.setVisibility(View.VISIBLE);
+                }
+            }
+        };
+        handler.post(r);
+    }
+
+    public static void trackSenderAudioDownloadProgress(long downloadId, ProgressBar progressBar, TextView percentageView, View downloadFab, Context context) {
+        Handler handler = new Handler();
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    DownloadManager dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+                    DownloadManager.Query q = new DownloadManager.Query().setFilterById(downloadId);
+                    Cursor c = dm.query(q);
+                    if (c != null && c.moveToFirst()) {
+                        int statusIdx = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
+                        int bytesIdx = c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
+                        int totalIdx = c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
+
+                        int status = c.getInt(statusIdx);
+                        long bytesDownloaded = c.getLong(bytesIdx);
+                        long totalBytes = c.getLong(totalIdx);
+
+                        if (totalBytes > 0) {
+                            int pct = (int) ((bytesDownloaded * 100L) / totalBytes);
+                            percentageView.setText(pct + "%");
+                        } else {
+                            percentageView.setText("0%");
+                        }
+
+                        if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
+                            progressBar.setVisibility(View.GONE);
+                            percentageView.setVisibility(View.GONE);
+                            downloadFab.setVisibility(View.GONE); // file exists now, so keep hidden
+                            c.close();
+                            return;
+                        }
+                        c.close();
+                        handler.postDelayed(this, 300);
+                    } else {
+                        if (c != null) c.close();
+                        handler.postDelayed(this, 300);
+                    }
+                } catch (Exception ignored) {
+                    progressBar.setVisibility(View.GONE);
+                    percentageView.setVisibility(View.GONE);
+                    downloadFab.setVisibility(View.VISIBLE);
+                }
+            }
+        };
+        handler.post(r);
+    }
+
+    public static void trackReceiverAudioDownloadProgress(long downloadId, ProgressBar progressBar, TextView percentageView, View downloadFab, messageModel model, Context context) {
+        Handler handler = new Handler();
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    DownloadManager dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+                    DownloadManager.Query q = new DownloadManager.Query().setFilterById(downloadId);
+                    Cursor c = dm.query(q);
+                    if (c != null && c.moveToFirst()) {
+                        int statusIdx = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
+                        int bytesIdx = c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
+                        int totalIdx = c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
+
+                        int status = c.getInt(statusIdx);
+                        long bytesDownloaded = c.getLong(bytesIdx);
+                        long totalBytes = c.getLong(totalIdx);
+
+                        if (totalBytes > 0) {
+                            int pct = (int) ((bytesDownloaded * 100L) / totalBytes);
+                            percentageView.setText(pct + "%");
+                        } else {
+                            percentageView.setText("0%");
+                        }
+
+                        if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
+                            progressBar.setVisibility(View.GONE);
+                            percentageView.setVisibility(View.GONE);
+                            // On success, keep the FAB hidden; on failure, show it again
+                            if (status == DownloadManager.STATUS_FAILED) {
+                                downloadFab.setVisibility(View.VISIBLE);
+                            } else {
+                                downloadFab.setVisibility(View.GONE);
+                            }
+                            c.close();
+                            return;
+                        }
+                        c.close();
+                        handler.postDelayed(this, 300);
+                    } else {
+                        if (c != null) c.close();
+                        handler.postDelayed(this, 300);
+                    }
+                } catch (Exception ignored) {
+                    progressBar.setVisibility(View.GONE);
+                    percentageView.setVisibility(View.GONE);
+                    downloadFab.setVisibility(View.VISIBLE);
+                }
+            }
+        };
+        handler.post(r);
     }
 }
