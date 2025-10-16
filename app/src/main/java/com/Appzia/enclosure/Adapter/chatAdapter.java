@@ -826,6 +826,9 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                 // ==================== STEP 3: DATA PROCESSING ====================
                 setupSenderTimeAndDate((senderViewHolder) holder, model);
                 setupForwardedMessage(holder, model);
+                
+                // ==================== STEP 5: THEME & STYLING ====================
+                setupSenderThemeAndStyling((senderViewHolder) holder, model);
 
                 if (model.getDataType().equals(Constant.img)) {
 
@@ -12525,6 +12528,9 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                 // ==================== STEP 3: DATA PROCESSING ====================
                 setupReceiverTimeAndDate((receiverViewHolder) holder, model);
+                
+                // ==================== STEP 5: THEME & STYLING ====================
+                setupReceiverThemeAndStyling((receiverViewHolder) holder, model);
 
                 if (model.getForwaredKey().equals(Constant.forwordKey)) {
                     ((receiverViewHolder) holder).forwarded.setVisibility(View.VISIBLE);
@@ -22199,6 +22205,989 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                 // Handle animation errors gracefully
             }
         }
+    }
+
+    // ==================== MESSAGE TYPE LOGIC HELPER METHODS ====================
+    
+    /**
+     * Setup emoji display for sender messages
+     */
+    private void setupSenderEmoji(senderViewHolder holder, messageModel model, int position) {
+        if (model.getEmojiCount() != null && !model.getEmojiCount().equals("")) {
+            ArrayList<emojiModel> decryptedemoji = model.getEmojiModel();
+            
+            // Remove duplicates using HashSet
+            HashSet<emojiModel> uniqueEmojis = new HashSet<>(decryptedemoji);
+            ArrayList<emojiModel> uniqueEmojiList = new ArrayList<>(uniqueEmojis);
+            
+            StringBuilder emojiText = new StringBuilder();
+            
+            // Build emoji text
+            for (int i = 0; i < uniqueEmojiList.size(); i++) {
+                emojiText.append(uniqueEmojiList.get(i).getEmoji()).append(" ");
+            }
+            
+            // Handle emoji count display
+            if (model.getEmojiCount().equals("2")) {
+                String fullText = emojiText.toString().trim() + " 2 ";
+                SpannableString spannableString = new SpannableString(fullText);
+                
+                // Make the "2" text smaller
+                int start = fullText.length() - 1;
+                int end = fullText.length();
+                spannableString.setSpan(new RelativeSizeSpan(0.9f), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                
+                holder.emojiText.setText(spannableString);
+            } else {
+                holder.emojiText.setText(emojiText.toString().trim());
+            }
+            
+            holder.emojiTextCard.setVisibility(View.VISIBLE);
+        } else {
+            holder.emojiTextCard.setVisibility(View.GONE);
+        }
+        
+        // Setup emoji click listener
+        setupEmojiClickListener(holder.emojiTextCard, model, position);
+    }
+    
+    /**
+     * Setup emoji display for receiver messages
+     */
+    private void setupReceiverEmoji(receiverViewHolder holder, messageModel model, int position) {
+        if (model.getEmojiCount() != null && !model.getEmojiCount().equals("")) {
+            ArrayList<emojiModel> decryptedemoji = model.getEmojiModel();
+            
+            // Remove duplicates using HashSet
+            HashSet<emojiModel> uniqueEmojis = new HashSet<>(decryptedemoji);
+            ArrayList<emojiModel> uniqueEmojiList = new ArrayList<>(uniqueEmojis);
+            
+            StringBuilder emojiText = new StringBuilder();
+            
+            // Build emoji text
+            for (int i = 0; i < uniqueEmojiList.size(); i++) {
+                emojiText.append(uniqueEmojiList.get(i).getEmoji()).append(" ");
+            }
+            
+            // Handle emoji count display
+            if (model.getEmojiCount().equals("2")) {
+                String fullText = emojiText.toString().trim() + " 2 ";
+                SpannableString spannableString = new SpannableString(fullText);
+                
+                // Make the "2" text smaller
+                int start = fullText.length() - 1;
+                int end = fullText.length();
+                spannableString.setSpan(new RelativeSizeSpan(0.9f), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                
+                holder.emojiText.setText(spannableString);
+            } else {
+                holder.emojiText.setText(emojiText.toString().trim());
+            }
+            
+            holder.emojiTextCard.setVisibility(View.VISIBLE);
+        } else {
+            holder.emojiTextCard.setVisibility(View.GONE);
+        }
+        
+        // Setup emoji click listener
+        setupEmojiClickListener(holder.emojiTextCard, model, position);
+    }
+    
+    /**
+     * Setup emoji click listener with bottom sheet
+     */
+    private void setupEmojiClickListener(View emojiCard, messageModel model, int position) {
+        emojiCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle multi-selection mode first
+                if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+                    senderReceiverDownload.toggleSelection(position, selectedPositions, multiSelectListener, chatAdapter.this);
+                    return;
+                }
+                
+                Constant.Vibrator(mContext);
+                Constant.bottomsheetEmoji(mContext, R.layout.bottom_emoji_lyt);
+                Constant.bottomSheetDialog.show();
+                
+                setupEmojiBottomSheet(model);
+            }
+        });
+    }
+    
+    /**
+     * Setup emoji bottom sheet with database listener
+     */
+    private void setupEmojiBottomSheet(messageModel model) {
+        RecyclerView recyclerView = Constant.bottomSheetDialog.findViewById(R.id.recyclerview);
+        ProgressBar progressBar = Constant.bottomSheetDialog.findViewById(R.id.progressBar);
+        
+        Constant.getSfFuncion(mContext);
+        String receiverRoom = model.getUid() + model.getReceiverUid();
+        
+        ArrayList<emojiModel> emojiList = new ArrayList<>();
+        emojiPeopleAdapter emojiPeopleAdapter = new emojiPeopleAdapter(mContext, emojiList, receiverUid);
+        
+        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        recyclerView.setAdapter(emojiPeopleAdapter);
+        
+        DatabaseReference emojiRef = database.getReference().child(Constant.CHAT).child(receiverRoom).child(model.getModelId()).child("emojiModel");
+        
+        emojiRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                emojiList.clear();
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    emojiModel emoji = data.getValue(emojiModel.class);
+                    if (emoji != null) {
+                        emojiList.add(emoji);
+                    }
+                }
+                progressBar.setVisibility(View.GONE);
+                emojiPeopleAdapter.notifyDataSetChanged();
+            }
+            
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle database error
+            }
+        });
+    }
+    
+    /**
+     * Detect message type and return appropriate type
+     */
+    private String detectMessageType(messageModel model) {
+        if (model.getDataType() == null) {
+            return "text";
+        }
+        
+        String dataType = model.getDataType();
+        if (dataType.equals(Constant.img)) {
+            return "image";
+        } else if (dataType.equals(Constant.video)) {
+            return "video";
+        } else if (dataType.equals(Constant.doc)) {
+            return "document";
+        } else if (dataType.equals(Constant.voiceAudio)) {
+            return "voice";
+        } else if (dataType.equals(Constant.contact)) {
+            return "contact";
+        } else {
+            return "text";
+        }
+    }
+    
+    /**
+     * Setup message content based on type
+     */
+    private void setupMessageContent(RecyclerView.ViewHolder holder, messageModel model, String messageType) {
+        switch (messageType) {
+            case "text":
+                setupTextMessage(holder, model);
+                break;
+            case "image":
+                setupImageMessage(holder, model);
+                break;
+            case "video":
+                setupVideoMessage(holder, model);
+                break;
+            case "document":
+                setupDocumentMessage(holder, model);
+                break;
+            case "voice":
+                setupVoiceMessage(holder, model);
+                break;
+            case "contact":
+                setupContactMessage(holder, model);
+                break;
+            default:
+                setupTextMessage(holder, model);
+                break;
+        }
+    }
+    
+    /**
+     * Setup text message content
+     */
+    private void setupTextMessage(RecyclerView.ViewHolder holder, messageModel model) {
+        if (holder instanceof senderViewHolder) {
+            senderViewHolder senderHolder = (senderViewHolder) holder;
+            formatMessageText(senderHolder.sendMessage, model.getMessage());
+        } else if (holder instanceof receiverViewHolder) {
+            receiverViewHolder receiverHolder = (receiverViewHolder) holder;
+            formatMessageText(receiverHolder.recMessage, model.getMessage());
+        }
+    }
+    
+    /**
+     * Setup image message content
+     */
+    private void setupImageMessage(RecyclerView.ViewHolder holder, messageModel model) {
+        if (holder instanceof senderViewHolder) {
+            senderViewHolder senderHolder = (senderViewHolder) holder;
+            
+            // Hide other message types
+            senderHolder.readMore.setVisibility(View.GONE);
+            senderHolder.replylyoutGlobal.setVisibility(View.GONE);
+            senderHolder.richLinkViewLyt.setVisibility(View.GONE);
+            senderHolder.sendMessage.setVisibility(View.GONE);
+            senderHolder.senderVideo.setVisibility(View.GONE);
+            senderHolder.sendervideoLyt.setVisibility(View.GONE);
+            senderHolder.docLyt.setVisibility(View.GONE);
+            senderHolder.contactContainer.setVisibility(View.GONE);
+            senderHolder.miceContainer.setVisibility(View.GONE);
+            
+            // Show image container
+            senderHolder.senderImgLyt.setVisibility(View.VISIBLE);
+            senderHolder.viewnew.setVisibility(View.VISIBLE);
+            
+            // Handle reply logic
+            if (model.getReplyKey().equals(Constant.ReplyKey)) {
+                setupImageReply(senderHolder, model);
+            } else {
+                setupImageContent(senderHolder, model);
+            }
+            
+        } else if (holder instanceof receiverViewHolder) {
+            receiverViewHolder receiverHolder = (receiverViewHolder) holder;
+            
+            // Hide other message types
+            receiverHolder.readMore.setVisibility(View.GONE);
+            receiverHolder.replylyoutGlobal.setVisibility(View.GONE);
+            receiverHolder.richLinkViewLyt.setVisibility(View.GONE);
+            receiverHolder.recMessage.setVisibility(View.GONE);
+            receiverHolder.recVideo.setVisibility(View.GONE);
+            receiverHolder.receivervideoLyt.setVisibility(View.GONE);
+            receiverHolder.docLyt.setVisibility(View.GONE);
+            receiverHolder.contactContainer.setVisibility(View.GONE);
+            receiverHolder.miceContainer.setVisibility(View.GONE);
+            
+            // Show image container
+            receiverHolder.receiverImgLyt.setVisibility(View.VISIBLE);
+            receiverHolder.viewnew.setVisibility(View.VISIBLE);
+            
+            // Handle reply logic
+            if (model.getReplyKey().equals(Constant.ReplyKey)) {
+                setupImageReply(receiverHolder, model);
+            } else {
+                setupImageContent(receiverHolder, model);
+            }
+        }
+    }
+    
+    /**
+     * Setup video message content
+     */
+    private void setupVideoMessage(RecyclerView.ViewHolder holder, messageModel model) {
+        if (holder instanceof senderViewHolder) {
+            senderViewHolder senderHolder = (senderViewHolder) holder;
+            
+            // Hide other message types
+            senderHolder.senderImgBunchLyt.setVisibility(View.GONE);
+            senderHolder.replylyoutGlobal.setVisibility(View.GONE);
+            senderHolder.readMore.setVisibility(View.GONE);
+            senderHolder.richLinkViewLyt.setVisibility(View.GONE);
+            senderHolder.sendMessage.setVisibility(View.GONE);
+            senderHolder.senderImgLyt.setVisibility(View.GONE);
+            senderHolder.docLyt.setVisibility(View.GONE);
+            senderHolder.contactContainer.setVisibility(View.GONE);
+            senderHolder.miceContainer.setVisibility(View.GONE);
+            
+            // Show video container
+            senderHolder.sendervideoLyt.setVisibility(View.VISIBLE);
+            senderHolder.senderVideo.setVisibility(View.VISIBLE);
+            senderHolder.viewnew.setVisibility(View.VISIBLE);
+            
+            // Handle caption
+            if (!model.getCaption().equals("")) {
+                senderHolder.captionText.setVisibility(View.VISIBLE);
+                senderHolder.captionText.setText(model.getCaption());
+            } else {
+                senderHolder.captionText.setVisibility(View.GONE);
+            }
+            
+        } else if (holder instanceof receiverViewHolder) {
+            receiverViewHolder receiverHolder = (receiverViewHolder) holder;
+            
+            // Hide other message types
+            receiverHolder.replylyoutGlobal.setVisibility(View.GONE);
+            receiverHolder.readMore.setVisibility(View.GONE);
+            receiverHolder.richLinkViewLyt.setVisibility(View.GONE);
+            receiverHolder.recMessage.setVisibility(View.GONE);
+            receiverHolder.receiverImgLyt.setVisibility(View.GONE);
+            receiverHolder.docLyt.setVisibility(View.GONE);
+            receiverHolder.contactContainer.setVisibility(View.GONE);
+            receiverHolder.miceContainer.setVisibility(View.GONE);
+            
+            // Show video container
+            receiverHolder.receivervideoLyt.setVisibility(View.VISIBLE);
+            receiverHolder.recVideo.setVisibility(View.VISIBLE);
+            receiverHolder.viewnew.setVisibility(View.VISIBLE);
+            
+            // Handle caption
+            if (!model.getCaption().equals("")) {
+                receiverHolder.captionText.setVisibility(View.VISIBLE);
+                receiverHolder.captionText.setText(model.getCaption());
+            } else {
+                receiverHolder.captionText.setVisibility(View.GONE);
+            }
+        }
+    }
+    
+    /**
+     * Setup document message content
+     */
+    private void setupDocumentMessage(RecyclerView.ViewHolder holder, messageModel model) {
+        if (holder instanceof senderViewHolder) {
+            senderViewHolder senderHolder = (senderViewHolder) holder;
+            
+            // Hide other message types
+            senderHolder.readMore.setVisibility(View.GONE);
+            senderHolder.replylyoutGlobal.setVisibility(View.GONE);
+            senderHolder.richLinkViewLyt.setVisibility(View.GONE);
+            senderHolder.sendMessage.setVisibility(View.GONE);
+            senderHolder.senderImgLyt.setVisibility(View.GONE);
+            senderHolder.sendervideoLyt.setVisibility(View.GONE);
+            senderHolder.contactContainer.setVisibility(View.GONE);
+            senderHolder.miceContainer.setVisibility(View.GONE);
+            
+            // Show document container
+            senderHolder.docLyt.setVisibility(View.VISIBLE);
+            senderHolder.viewnew.setVisibility(View.VISIBLE);
+            
+            // Setup document info
+            if (model.getFileName() != null && !model.getFileName().equals("")) {
+                senderHolder.docName.setText(model.getFileName());
+            }
+            
+            // Setup file extension
+            if (model.getExtension() != null && !model.getExtension().equals("")) {
+                senderHolder.extension.setText(model.getExtension());
+            }
+            
+            // Setup file size - using available method
+            if (model.getDocument() != null && !model.getDocument().equals("")) {
+                senderHolder.docSize.setText(model.getDocument());
+            }
+            
+        } else if (holder instanceof receiverViewHolder) {
+            receiverViewHolder receiverHolder = (receiverViewHolder) holder;
+            
+            // Hide other message types
+            receiverHolder.readMore.setVisibility(View.GONE);
+            receiverHolder.replylyoutGlobal.setVisibility(View.GONE);
+            receiverHolder.richLinkViewLyt.setVisibility(View.GONE);
+            receiverHolder.recMessage.setVisibility(View.GONE);
+            receiverHolder.receiverImgLyt.setVisibility(View.GONE);
+            receiverHolder.receivervideoLyt.setVisibility(View.GONE);
+            receiverHolder.contactContainer.setVisibility(View.GONE);
+            receiverHolder.miceContainer.setVisibility(View.GONE);
+            
+            // Show document container
+            receiverHolder.docLyt.setVisibility(View.VISIBLE);
+            receiverHolder.viewnew.setVisibility(View.VISIBLE);
+            
+            // Setup document info
+            if (model.getFileName() != null && !model.getFileName().equals("")) {
+                receiverHolder.docName.setText(model.getFileName());
+            }
+            
+            // Setup file extension
+            if (model.getExtension() != null && !model.getExtension().equals("")) {
+                receiverHolder.extension.setText(model.getExtension());
+            }
+            
+            // Setup file size - using available method
+            if (model.getDocument() != null && !model.getDocument().equals("")) {
+                receiverHolder.docSize.setText(model.getDocument());
+            }
+        }
+    }
+    
+    /**
+     * Setup voice message content
+     */
+    private void setupVoiceMessage(RecyclerView.ViewHolder holder, messageModel model) {
+        if (holder instanceof senderViewHolder) {
+            senderViewHolder senderHolder = (senderViewHolder) holder;
+            
+            // Hide other message types
+            senderHolder.readMore.setVisibility(View.GONE);
+            senderHolder.replylyoutGlobal.setVisibility(View.GONE);
+            senderHolder.richLinkViewLyt.setVisibility(View.GONE);
+            senderHolder.sendMessage.setVisibility(View.GONE);
+            senderHolder.senderImgLyt.setVisibility(View.GONE);
+            senderHolder.sendervideoLyt.setVisibility(View.GONE);
+            senderHolder.docLyt.setVisibility(View.GONE);
+            senderHolder.contactContainer.setVisibility(View.GONE);
+            
+            // Show voice container
+            senderHolder.miceContainer.setVisibility(View.VISIBLE);
+            senderHolder.viewnew.setVisibility(View.VISIBLE);
+            
+            // Setup voice message info
+            if (model.getMiceTiming() != null && !model.getMiceTiming().equals("")) {
+                senderHolder.miceTiming.setText(model.getMiceTiming());
+            }
+            
+            // Setup voice message icon
+            // Icon will be set by the existing logic in onBindViewHolder
+            
+        } else if (holder instanceof receiverViewHolder) {
+            receiverViewHolder receiverHolder = (receiverViewHolder) holder;
+            
+            // Hide other message types
+            receiverHolder.readMore.setVisibility(View.GONE);
+            receiverHolder.replylyoutGlobal.setVisibility(View.GONE);
+            receiverHolder.richLinkViewLyt.setVisibility(View.GONE);
+            receiverHolder.recMessage.setVisibility(View.GONE);
+            receiverHolder.receiverImgLyt.setVisibility(View.GONE);
+            receiverHolder.receivervideoLyt.setVisibility(View.GONE);
+            receiverHolder.docLyt.setVisibility(View.GONE);
+            receiverHolder.contactContainer.setVisibility(View.GONE);
+            
+            // Show voice container
+            receiverHolder.miceContainer.setVisibility(View.VISIBLE);
+            receiverHolder.viewnew.setVisibility(View.VISIBLE);
+            
+            // Setup voice message info
+            if (model.getMiceTiming() != null && !model.getMiceTiming().equals("")) {
+                receiverHolder.miceTiming.setText(model.getMiceTiming());
+            }
+            
+            // Setup voice message icon
+            // Icon will be set by the existing logic in onBindViewHolder
+        }
+    }
+    
+    /**
+     * Setup contact message content
+     */
+    private void setupContactMessage(RecyclerView.ViewHolder holder, messageModel model) {
+        if (holder instanceof senderViewHolder) {
+            senderViewHolder senderHolder = (senderViewHolder) holder;
+            
+            // Hide other message types
+            senderHolder.readMore.setVisibility(View.GONE);
+            senderHolder.replylyoutGlobal.setVisibility(View.GONE);
+            senderHolder.richLinkViewLyt.setVisibility(View.GONE);
+            senderHolder.sendMessage.setVisibility(View.GONE);
+            senderHolder.senderImgLyt.setVisibility(View.GONE);
+            senderHolder.sendervideoLyt.setVisibility(View.GONE);
+            senderHolder.docLyt.setVisibility(View.GONE);
+            senderHolder.miceContainer.setVisibility(View.GONE);
+            
+            // Show contact container
+            senderHolder.contactContainer.setVisibility(View.VISIBLE);
+            senderHolder.viewnew.setVisibility(View.VISIBLE);
+            
+            // Setup contact info
+            if (model.getName() != null && !model.getName().equals("")) {
+                senderHolder.cName.setText(model.getName());
+            }
+            
+            if (model.getPhone() != null && !model.getPhone().equals("")) {
+                senderHolder.cPhone.setText(model.getPhone());
+            }
+            
+        } else if (holder instanceof receiverViewHolder) {
+            receiverViewHolder receiverHolder = (receiverViewHolder) holder;
+            
+            // Hide other message types
+            receiverHolder.readMore.setVisibility(View.GONE);
+            receiverHolder.replylyoutGlobal.setVisibility(View.GONE);
+            receiverHolder.richLinkViewLyt.setVisibility(View.GONE);
+            receiverHolder.recMessage.setVisibility(View.GONE);
+            receiverHolder.receiverImgLyt.setVisibility(View.GONE);
+            receiverHolder.receivervideoLyt.setVisibility(View.GONE);
+            receiverHolder.docLyt.setVisibility(View.GONE);
+            receiverHolder.miceContainer.setVisibility(View.GONE);
+            
+            // Show contact container
+            receiverHolder.contactContainer.setVisibility(View.VISIBLE);
+            receiverHolder.viewnew.setVisibility(View.VISIBLE);
+            
+            // Setup contact info
+            if (model.getName() != null && !model.getName().equals("")) {
+                receiverHolder.cName.setText(model.getName());
+            }
+            
+            if (model.getPhone() != null && !model.getPhone().equals("")) {
+                receiverHolder.cPhone.setText(model.getPhone());
+            }
+        }
+    }
+    
+    // ==================== IMAGE MESSAGE HELPER METHODS ====================
+    
+    /**
+     * Setup image reply content
+     */
+    private void setupImageReply(RecyclerView.ViewHolder holder, messageModel model) {
+        if (holder instanceof senderViewHolder) {
+            senderViewHolder senderHolder = (senderViewHolder) holder;
+            
+            // Show reply layout
+            senderHolder.senderImgBunchLyt.setVisibility(View.GONE);
+            senderHolder.captionText.setVisibility(View.GONE);
+            senderHolder.replylyoutGlobal.setVisibility(View.VISIBLE);
+            senderHolder.sendMessage.setVisibility(View.GONE);
+            senderHolder.contactContainerReply.setVisibility(View.GONE);
+            senderHolder.senderImgLyt.setVisibility(View.GONE);
+            senderHolder.imgcardview.setVisibility(View.VISIBLE);
+            senderHolder.pageLyt.setVisibility(View.GONE);
+            senderHolder.senderImg.setVisibility(View.GONE);
+            senderHolder.musicReply.setVisibility(View.GONE);
+            senderHolder.miceReply.setVisibility(View.GONE);
+            
+            // Apply theme colors
+            String themColor = getThemeColor();
+            ColorStateList tintList = ColorStateList.valueOf(Color.parseColor(themColor));
+            senderHolder.replyTheme.setBackgroundTintList(tintList);
+            senderHolder.replyYou.setTextColor(Color.parseColor(themColor));
+            
+            // Handle caption
+            if (!model.getCaption().equals("")) {
+                senderHolder.captionText.setVisibility(View.VISIBLE);
+                senderHolder.captionText.setText(model.getCaption());
+            } else {
+                senderHolder.captionText.setVisibility(View.GONE);
+            }
+            
+            // Hide dividers
+            senderHolder.replyDevider.setVisibility(View.GONE);
+            senderHolder.viewbarlyt1.setVisibility(View.GONE);
+            
+            // Handle reply type
+            if (model.getReplyType().equals(Constant.Text)) {
+                setupTextReply(senderHolder, model);
+            }
+            
+        } else if (holder instanceof receiverViewHolder) {
+            receiverViewHolder receiverHolder = (receiverViewHolder) holder;
+            
+            // Show reply layout
+            receiverHolder.recImgBunchLyt.setVisibility(View.GONE);
+            receiverHolder.captionText.setVisibility(View.GONE);
+            receiverHolder.replylyoutGlobal.setVisibility(View.VISIBLE);
+            receiverHolder.recMessage.setVisibility(View.GONE);
+            receiverHolder.contactContainerReply.setVisibility(View.GONE);
+            receiverHolder.receiverImgLyt.setVisibility(View.GONE);
+            receiverHolder.imgcardview.setVisibility(View.VISIBLE);
+            receiverHolder.pageLyt.setVisibility(View.GONE);
+            receiverHolder.recImg.setVisibility(View.GONE);
+            receiverHolder.musicReply.setVisibility(View.GONE);
+            receiverHolder.miceReply.setVisibility(View.GONE);
+            
+            // Apply theme colors
+            String themColor = getThemeColor();
+            ColorStateList tintList = ColorStateList.valueOf(Color.parseColor(themColor));
+            receiverHolder.replyTheme.setBackgroundTintList(tintList);
+            receiverHolder.replyYou.setTextColor(Color.parseColor(themColor));
+            
+            // Handle caption
+            if (!model.getCaption().equals("")) {
+                receiverHolder.captionText.setVisibility(View.VISIBLE);
+                receiverHolder.captionText.setText(model.getCaption());
+            } else {
+                receiverHolder.captionText.setVisibility(View.GONE);
+            }
+            
+            // Hide dividers
+            receiverHolder.replyDevider.setVisibility(View.GONE);
+            receiverHolder.viewbarlyt1.setVisibility(View.GONE);
+            
+            // Handle reply type
+            if (model.getReplyType().equals(Constant.Text)) {
+                setupTextReply(receiverHolder, model);
+            }
+        }
+    }
+    
+    /**
+     * Setup image content (non-reply)
+     */
+    private void setupImageContent(RecyclerView.ViewHolder holder, messageModel model) {
+        if (holder instanceof senderViewHolder) {
+            senderViewHolder senderHolder = (senderViewHolder) holder;
+            
+            // Setup image loading logic
+            if (model.getFileName() != null && !model.getFileName().equals("")) {
+                // Check if image exists locally
+                File customFolder;
+                String exactPath;
+                
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    customFolder = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Images");
+                    exactPath = customFolder.getAbsolutePath();
+                } else {
+                    customFolder = new File(mContext.getExternalFilesDir(null), "Enclosure/Media/Images");
+                    exactPath = customFolder.getAbsolutePath();
+                }
+                
+                if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileName())) {
+                    // Image exists locally, hide download button
+                    senderHolder.downlaod.setVisibility(View.GONE);
+                    senderHolder.progressBarImageview.setVisibility(View.GONE);
+                    
+                    // Load image
+                    String imageSource = exactPath + "/" + model.getFileName();
+                    ViewGroup parentLayout = (ViewGroup) senderHolder.senderImg.getParent();
+                    Constant.loadImageIntoView(mContext, imageSource, requestOptions, senderHolder.senderImg, parentLayout, 0, true, model, senderHolder.videoicon);
+                } else {
+                    // Image doesn't exist, show download button
+                    senderHolder.downlaod.setVisibility(View.VISIBLE);
+                    senderHolder.progressBarImageview.setVisibility(View.VISIBLE);
+                }
+            }
+            
+            // Handle caption
+            if (model.getCaption() != null && !model.getCaption().equals("")) {
+                senderHolder.captionText.setVisibility(View.VISIBLE);
+                senderHolder.captionText.setText(model.getCaption());
+            } else {
+                senderHolder.captionText.setVisibility(View.GONE);
+            }
+            
+        } else if (holder instanceof receiverViewHolder) {
+            receiverViewHolder receiverHolder = (receiverViewHolder) holder;
+            
+            // Similar logic for receiver
+            if (model.getFileName() != null && !model.getFileName().equals("")) {
+                // Check if image exists locally
+                File customFolder;
+                String exactPath;
+                
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    customFolder = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Images");
+                    exactPath = customFolder.getAbsolutePath();
+                } else {
+                    customFolder = new File(mContext.getExternalFilesDir(null), "Enclosure/Media/Images");
+                    exactPath = customFolder.getAbsolutePath();
+                }
+                
+                if (otherFunctions.doesFileExist(exactPath + "/" + model.getFileName())) {
+                    // Image exists locally, hide download button
+                    receiverHolder.downlaod.setVisibility(View.GONE);
+                    receiverHolder.progressBarImageview.setVisibility(View.GONE);
+                    
+                    // Load image
+                    String imageSource = exactPath + "/" + model.getFileName();
+                    ViewGroup parentLayout = (ViewGroup) receiverHolder.recImg.getParent();
+                    Constant.loadImageIntoView(mContext, imageSource, requestOptions, receiverHolder.recImg, parentLayout, 0, true, model, receiverHolder.videoicon);
+                } else {
+                    // Image doesn't exist, show download button
+                    receiverHolder.downlaod.setVisibility(View.VISIBLE);
+                    receiverHolder.progressBarImageview.setVisibility(View.VISIBLE);
+                }
+            }
+            
+            // Handle caption
+            if (model.getCaption() != null && !model.getCaption().equals("")) {
+                receiverHolder.captionText.setVisibility(View.VISIBLE);
+                receiverHolder.captionText.setText(model.getCaption());
+            } else {
+                receiverHolder.captionText.setVisibility(View.GONE);
+            }
+        }
+    }
+    
+    /**
+     * Setup text reply content for sender
+     */
+    private void setupTextReply(senderViewHolder senderHolder, messageModel model) {
+        senderHolder.sendMessage.setVisibility(View.GONE);
+        senderHolder.senderImg.setVisibility(View.GONE);
+        senderHolder.senderImgLyt.setVisibility(View.GONE);
+        senderHolder.senderVideo.setVisibility(View.GONE);
+        senderHolder.sendervideoLyt.setVisibility(View.GONE);
+        senderHolder.docLyt.setVisibility(View.GONE);
+        senderHolder.contactContainer.setVisibility(View.GONE);
+        senderHolder.miceContainer.setVisibility(View.GONE);
+        senderHolder.replydatalyt.setVisibility(View.VISIBLE);
+        senderHolder.repliedData.setText(model.getReplytextData());
+        
+        // Set max width for reply data
+        senderHolder.repliedData.setMaxWidth((int) TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 128, 
+            senderHolder.itemView.getContext().getResources().getDisplayMetrics()
+        ));
+        
+        // Setup reply text with icon
+        senderHolder.msgreplyText.setText("Photo");
+        Drawable drawable = mContext.getResources().getDrawable(R.drawable.gallery);
+        int size = (int) TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 16, 
+            mContext.getResources().getDisplayMetrics()
+        );
+        
+        drawable.setBounds(0, 0, size, size);
+        drawable.setTint(Color.parseColor("#78787A"));
+        senderHolder.msgreplyText.setCompoundDrawables(drawable, null, null, null);
+        senderHolder.msgreplyText.setCompoundDrawablePadding((int) TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 5, 
+            mContext.getResources().getDisplayMetrics()
+        ));
+    }
+    
+    /**
+     * Setup text reply content for receiver
+     */
+    private void setupTextReply(receiverViewHolder receiverHolder, messageModel model) {
+        receiverHolder.recMessage.setVisibility(View.GONE);
+        receiverHolder.recImg.setVisibility(View.GONE);
+        receiverHolder.receiverImgLyt.setVisibility(View.GONE);
+        receiverHolder.recVideo.setVisibility(View.GONE);
+        receiverHolder.receivervideoLyt.setVisibility(View.GONE);
+        receiverHolder.docLyt.setVisibility(View.GONE);
+        receiverHolder.contactContainer.setVisibility(View.GONE);
+        receiverHolder.miceContainer.setVisibility(View.GONE);
+        receiverHolder.replydatalyt.setVisibility(View.VISIBLE);
+        receiverHolder.repliedData.setText(model.getReplytextData());
+        
+        // Set max width for reply data
+        receiverHolder.repliedData.setMaxWidth((int) TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 128, 
+            receiverHolder.itemView.getContext().getResources().getDisplayMetrics()
+        ));
+        
+        // Setup reply text with icon
+        receiverHolder.msgreplyText.setText("Photo");
+        Drawable drawable = mContext.getResources().getDrawable(R.drawable.gallery);
+        int size = (int) TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 16, 
+            mContext.getResources().getDisplayMetrics()
+        );
+        
+        drawable.setBounds(0, 0, size, size);
+        drawable.setTint(Color.parseColor("#78787A"));
+        receiverHolder.msgreplyText.setCompoundDrawables(drawable, null, null, null);
+        receiverHolder.msgreplyText.setCompoundDrawablePadding((int) TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 5, 
+            mContext.getResources().getDisplayMetrics()
+        ));
+    }
+    
+    // ==================== THEME & STYLING HELPER METHODS ====================
+    
+    /**
+     * Apply dark mode theme to sender message
+     */
+    private void applyDarkModeThemeSender(senderViewHolder holder) {
+        Constant.getSfFuncion(mContext);
+        String themColor = Constant.getSF.getString(Constant.ThemeColorKey, "#00A3E9");
+        ColorStateList tintList = getDarkModeTintList(themColor);
+        
+        try {
+            holder.MainSenderBox.setBackgroundTintList(tintList);
+            holder.richBox.setBackgroundTintList(tintList);
+        } catch (Exception e) {
+            // Fallback to default dark theme
+            ColorStateList defaultTint = ColorStateList.valueOf(Color.parseColor("#01253B"));
+            holder.MainSenderBox.setBackgroundTintList(defaultTint);
+            holder.richBox.setBackgroundTintList(defaultTint);
+        }
+    }
+    
+    /**
+     * Apply dark mode theme to receiver message
+     */
+    private void applyDarkModeThemeReceiver(receiverViewHolder holder) {
+        Constant.getSfFuncion(mContext);
+        String themColor = Constant.getSF.getString(Constant.ThemeColorKey, "#00A3E9");
+        ColorStateList tintList = getDarkModeTintList(themColor);
+        
+        try {
+            holder.MainReceiverBox.setBackgroundTintList(tintList);
+        } catch (Exception e) {
+            // Fallback to default dark theme
+            ColorStateList defaultTint = ColorStateList.valueOf(Color.parseColor("#01253B"));
+            holder.MainReceiverBox.setBackgroundTintList(defaultTint);
+        }
+    }
+    
+    /**
+     * Get dark mode tint list based on theme color
+     */
+    private ColorStateList getDarkModeTintList(String themColor) {
+        String darkColor;
+        
+        switch (themColor) {
+            case "#ff0080":
+                darkColor = "#4D0026";
+                break;
+            case "#00A3E9":
+                darkColor = "#01253B";
+                break;
+            case "#7adf2a":
+                darkColor = "#25430D";
+                break;
+            case "#ec0001":
+                darkColor = "#470000";
+                break;
+            case "#16f3ff":
+                darkColor = "#05495D";
+                break;
+            case "#FF8A00":
+                darkColor = "#663700";
+                break;
+            case "#7F7F7F":
+                darkColor = "#2B3137";
+                break;
+            case "#D9B845":
+                darkColor = "#413815";
+                break;
+            case "#346667":
+                darkColor = "#1F3D3E";
+                break;
+            case "#9846D9":
+                darkColor = "#2d1541";
+                break;
+            case "#A81010":
+                darkColor = "#430706";
+                break;
+            default:
+                darkColor = "#01253B";
+                break;
+        }
+        
+        return ColorStateList.valueOf(Color.parseColor(darkColor));
+    }
+    
+    /**
+     * Apply light mode theme to sender message
+     */
+    private void applyLightModeThemeSender(senderViewHolder holder) {
+        ColorStateList tintList = ColorStateList.valueOf(Color.parseColor("#011224"));
+        holder.MainSenderBox.setBackgroundTintList(tintList);
+    }
+    
+    /**
+     * Apply light mode theme to receiver message
+     */
+    private void applyLightModeThemeReceiver(receiverViewHolder holder) {
+        ColorStateList tintList = ColorStateList.valueOf(Color.parseColor("#011224"));
+        holder.MainReceiverBox.setBackgroundTintList(tintList);
+    }
+    
+    /**
+     * Apply comprehensive theme to sender message
+     */
+    private void applyComprehensiveThemeSender(senderViewHolder holder) {
+        String themColor = getThemeColor();
+        ColorStateList tintList = ColorStateList.valueOf(Color.parseColor(themColor));
+        
+        // Apply theme to progress indicators
+        if (holder.viewnew != null) {
+            holder.viewnew.setTrackColor(Color.parseColor(themColor));
+        }
+        
+        if (holder.readMore != null) {
+            holder.readMore.setTextColor(Color.parseColor(themColor));
+        }
+        
+        if (holder.progressBarImageview != null) {
+            holder.progressBarImageview.setIndeterminateTintList(tintList);
+        }
+        
+        if (holder.progressBarVideo != null) {
+            holder.progressBarVideo.setIndeterminateTintList(tintList);
+        }
+    }
+    
+    /**
+     * Apply comprehensive theme to receiver message
+     */
+    private void applyComprehensiveThemeReceiver(receiverViewHolder holder) {
+        String themColor = getThemeColor();
+        ColorStateList tintList = ColorStateList.valueOf(Color.parseColor(themColor));
+        
+        // Apply theme to progress indicators
+        if (holder.viewnew != null) {
+            holder.viewnew.setTrackColor(Color.parseColor(themColor));
+        }
+        
+        if (holder.readMore != null) {
+            holder.readMore.setTextColor(Color.parseColor(themColor));
+        }
+        
+        if (holder.progressBarImageview != null) {
+            holder.progressBarImageview.setIndeterminateTintList(tintList);
+        }
+        
+        if (holder.progressBarVideo != null) {
+            holder.progressBarVideo.setIndeterminateTintList(tintList);
+        }
+    }
+    
+    /**
+     * Setup message spacing based on timestamp
+     */
+    private void setupMessageSpacing(RecyclerView.ViewHolder holder, int position) {
+        boolean hasSameTimestamp = senderReceiverDownload.hasSameTimestampAsNext(position, messageList);
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+        
+        if (layoutParams != null) {
+            if (hasSameTimestamp) {
+                // Reduce bottom margin for messages with same timestamp
+                layoutParams.bottomMargin = 2; // Reduced spacing
+            } else {
+                // Normal spacing for different timestamps
+                layoutParams.bottomMargin = 8; // Normal spacing
+            }
+            holder.itemView.setLayoutParams(layoutParams);
+        }
+    }
+    
+    /**
+     * Setup sender theme and styling
+     */
+    private void setupSenderThemeAndStyling(senderViewHolder holder, messageModel model) {
+        // Check UI mode
+        int nightModeFlags = mContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            // Dark mode is active
+            applyDarkModeThemeSender(holder);
+        } else {
+            // Light mode is active
+            applyLightModeThemeSender(holder);
+        }
+        
+        // Apply comprehensive theme (progress indicators, etc.)
+        applyComprehensiveThemeSender(holder);
+        
+        // Setup message spacing
+        setupMessageSpacing(holder, 0); // Position will be passed from onBindViewHolder
+        
+        // Set transparent background
+        holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+    }
+    
+    /**
+     * Setup receiver theme and styling
+     */
+    private void setupReceiverThemeAndStyling(receiverViewHolder holder, messageModel model) {
+        // Check UI mode
+        int nightModeFlags = mContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            // Dark mode is active
+            applyDarkModeThemeReceiver(holder);
+        } else {
+            // Light mode is active
+            applyLightModeThemeReceiver(holder);
+        }
+        
+        // Apply comprehensive theme (progress indicators, etc.)
+        applyComprehensiveThemeReceiver(holder);
+        
+        // Setup message spacing
+        setupMessageSpacing(holder, 0); // Position will be passed from onBindViewHolder
+        
+        // Set transparent background
+        holder.itemView.setBackgroundColor(Color.TRANSPARENT);
     }
     
     /**
