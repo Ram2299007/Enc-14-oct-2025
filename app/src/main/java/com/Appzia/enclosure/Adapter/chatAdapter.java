@@ -349,110 +349,14 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         final messageModel model = messageList.get(position);
         final chatAdapter adapter = this; // Reference to the adapter instance
 
-        // 🚀 ULTRA-FAST SCROLLING OPTIMIZATIONS - WATER-LIKE PERFORMANCE
-        holder.itemView.setLayerType(View.LAYER_TYPE_HARDWARE, null); // Hardware acceleration
-        holder.itemView.setDrawingCacheEnabled(true); // Enable drawing cache
-        holder.itemView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH); // High quality cache
-
-        // 🚀 ADDITIONAL PERFORMANCE BOOSTS
-        holder.itemView.setWillNotCacheDrawing(false); // Allow caching
-        holder.itemView.setWillNotDraw(false); // Allow drawing
+        // ==================== STEP 1: VIEW BINDING OPTIMIZATIONS ====================
+        setupPerformanceOptimizations(holder);
 
         // Define width for selectionBunch images (125dp)
         float widthInDp = 125f;
 
-        // Handle multi-selection mode for all messages
-                            if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
-            // Apply highlight to ALL message types (sender, receiver, and any future types)
-            if (senderReceiverDownload.isSelected(position, selectedPositions)) {
-                // Add full width highlight background for selected messages
-                // Apply to the root container to cover full width including margins
-                holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.highlightcolor));
-
-                // Also apply to the inner container to ensure full coverage
-                ViewGroup rootView = (ViewGroup) holder.itemView;
-                if (rootView.getChildCount() > 0) {
-                    View innerContainer = rootView.getChildAt(0);
-                    if (innerContainer instanceof ViewGroup) {
-                        ((ViewGroup) innerContainer).setBackgroundColor(ContextCompat.getColor(mContext, R.color.highlightcolor));
-                    }
-                }
-            } else {
-                // Remove highlight background
-                holder.itemView.setBackgroundColor(Color.TRANSPARENT);
-
-                // Also remove from inner container
-                ViewGroup rootView = (ViewGroup) holder.itemView;
-                if (rootView.getChildCount() > 0) {
-                    View innerContainer = rootView.getChildAt(0);
-                    if (innerContainer instanceof ViewGroup) {
-                        ((ViewGroup) innerContainer).setBackgroundColor(Color.TRANSPARENT);
-                    }
-                }
-            }
-
-            // Show/hide checkbox for both sender and receiver messages
-            if (holder instanceof senderViewHolder) {
-                senderViewHolder senderHolder = (senderViewHolder) holder;
-                senderHolder.selectionCheckbox.setVisibility(View.VISIBLE);
-
-                // Get theme color from SharedPreferences
-                Constant.getSfFuncion(mContext);
-                String themColor = Constant.getSF.getString(Constant.ThemeColorKey, "#00A3E9");
-
-                // Set checkbox state based on selection
-                if (senderReceiverDownload.isSelected(position, selectedPositions)) {
-                    senderHolder.selectionCheckbox.setImageResource(R.drawable.multitick);
-                    senderHolder.selectionCheckbox.setColorFilter(Color.parseColor(themColor));
-                } else {
-                    senderHolder.selectionCheckbox.setImageResource(R.drawable.multitick);
-                    senderHolder.selectionCheckbox.setColorFilter(ContextCompat.getColor(mContext, R.color.gray3));
-                }
-            } else if (holder instanceof receiverViewHolder) {
-                receiverViewHolder receiverHolder = (receiverViewHolder) holder;
-                receiverHolder.selectionCheckbox.setVisibility(View.VISIBLE);
-
-                // Get theme color from SharedPreferences
-                Constant.getSfFuncion(mContext);
-                String themColor = Constant.getSF.getString(Constant.ThemeColorKey, "#00A3E9");
-
-                // Set checkbox state based on selection
-                if (senderReceiverDownload.isSelected(position, selectedPositions)) {
-                    receiverHolder.selectionCheckbox.setImageResource(R.drawable.multitick);
-                    receiverHolder.selectionCheckbox.setColorFilter(Color.parseColor(themColor));
-                } else {
-                    receiverHolder.selectionCheckbox.setImageResource(R.drawable.multitick);
-                    receiverHolder.selectionCheckbox.setColorFilter(ContextCompat.getColor(mContext, R.color.gray3));
-                }
-            }
-
-            // Multi-selection click handling is now integrated into individual click listeners
-        }
-        else {
-            // Normal mode - hide checkboxes and remove click listeners
-            if (holder instanceof senderViewHolder) {
-                senderViewHolder senderHolder = (senderViewHolder) holder;
-                senderHolder.selectionCheckbox.setVisibility(View.GONE);
-            } else if (holder instanceof receiverViewHolder) {
-                receiverViewHolder receiverHolder = (receiverViewHolder) holder;
-                receiverHolder.selectionCheckbox.setVisibility(View.GONE);
-            }
-
-            // Reset background to transparent for ALL message types
-            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
-
-            // Also reset inner container background
-            ViewGroup rootView = (ViewGroup) holder.itemView;
-            if (rootView.getChildCount() > 0) {
-                View innerContainer = rootView.getChildAt(0);
-                if (innerContainer instanceof ViewGroup) {
-                    ((ViewGroup) innerContainer).setBackgroundColor(Color.TRANSPARENT);
-                }
-            }
-
-            // Remove click listener for normal mode
-            holder.itemView.setOnClickListener(null);
-        }
+        // ==================== STEP 2: MULTI-SELECTION MODE SETUP ====================
+        setupMultiSelectionMode(holder, position);
 
         database = FirebaseDatabase.getInstance();
         if (messageList.size() == 0) {
@@ -21983,6 +21887,125 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     @Override
     public int getItemCount() {
         return messageList.size();
+    }
+
+    // ==================== VIEW BINDING HELPER METHODS ====================
+
+    private void setupPerformanceOptimizations(RecyclerView.ViewHolder holder) {
+        // 🚀 ULTRA-FAST SCROLLING OPTIMIZATIONS - WATER-LIKE PERFORMANCE
+        holder.itemView.setLayerType(View.LAYER_TYPE_HARDWARE, null); // Hardware acceleration
+        holder.itemView.setDrawingCacheEnabled(true); // Enable drawing cache
+        holder.itemView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH); // High quality cache
+        
+        // 🚀 ADDITIONAL PERFORMANCE BOOSTS
+        holder.itemView.setWillNotCacheDrawing(false); // Allow caching
+        holder.itemView.setWillNotDraw(false); // Allow drawing
+    }
+    
+    /**
+     * Setup multi-selection mode UI
+     */
+    private void setupMultiSelectionMode(RecyclerView.ViewHolder holder, int position) {
+        if (senderReceiverDownload.isMultiSelectMode(isMultiSelectMode)) {
+            // Apply highlight to ALL message types (sender, receiver, and any future types)
+            if (senderReceiverDownload.isSelected(position, selectedPositions)) {
+                // Add full width highlight background for selected messages
+                holder.itemView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.highlightcolor));
+                
+                // Also apply to the inner container to ensure full coverage
+                ViewGroup rootView = (ViewGroup) holder.itemView;
+                if (rootView.getChildCount() > 0) {
+                    View innerContainer = rootView.getChildAt(0);
+                    if (innerContainer instanceof ViewGroup) {
+                        ((ViewGroup) innerContainer).setBackgroundColor(ContextCompat.getColor(mContext, R.color.highlightcolor));
+                    }
+                }
+            } else {
+                // Remove highlight background
+                holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+                
+                // Also remove from inner container
+                ViewGroup rootView = (ViewGroup) holder.itemView;
+                if (rootView.getChildCount() > 0) {
+                    View innerContainer = rootView.getChildAt(0);
+                    if (innerContainer instanceof ViewGroup) {
+                        ((ViewGroup) innerContainer).setBackgroundColor(Color.TRANSPARENT);
+                    }
+                }
+            }
+            
+            // Show/hide checkbox for both sender and receiver messages
+            setupSelectionCheckboxes(holder, position);
+        } else {
+            // Normal mode - hide checkboxes and remove click listeners
+            hideSelectionCheckboxes(holder);
+            resetBackgrounds(holder);
+        }
+    }
+    
+    /**
+     * Setup selection checkboxes for both sender and receiver
+     */
+    private void setupSelectionCheckboxes(RecyclerView.ViewHolder holder, int position) {
+        // Get theme color from SharedPreferences
+        Constant.getSfFuncion(mContext);
+        String themColor = Constant.getSF.getString(Constant.ThemeColorKey, "#00A3E9");
+        
+        if (holder instanceof senderViewHolder) {
+            senderViewHolder senderHolder = (senderViewHolder) holder;
+            senderHolder.selectionCheckbox.setVisibility(View.VISIBLE);
+            
+            // Set checkbox state based on selection
+            if (senderReceiverDownload.isSelected(position, selectedPositions)) {
+                senderHolder.selectionCheckbox.setImageResource(R.drawable.multitick);
+                senderHolder.selectionCheckbox.setColorFilter(Color.parseColor(themColor));
+            } else {
+                senderHolder.selectionCheckbox.setImageResource(R.drawable.multitick);
+                senderHolder.selectionCheckbox.setColorFilter(ContextCompat.getColor(mContext, R.color.gray3));
+            }
+        } else if (holder instanceof receiverViewHolder) {
+            receiverViewHolder receiverHolder = (receiverViewHolder) holder;
+            receiverHolder.selectionCheckbox.setVisibility(View.VISIBLE);
+            
+            // Set checkbox state based on selection
+            if (senderReceiverDownload.isSelected(position, selectedPositions)) {
+                receiverHolder.selectionCheckbox.setImageResource(R.drawable.multitick);
+                receiverHolder.selectionCheckbox.setColorFilter(Color.parseColor(themColor));
+            } else {
+                receiverHolder.selectionCheckbox.setImageResource(R.drawable.multitick);
+                receiverHolder.selectionCheckbox.setColorFilter(ContextCompat.getColor(mContext, R.color.gray3));
+            }
+        }
+    }
+    
+    /**
+     * Hide selection checkboxes
+     */
+    private void hideSelectionCheckboxes(RecyclerView.ViewHolder holder) {
+        if (holder instanceof senderViewHolder) {
+            senderViewHolder senderHolder = (senderViewHolder) holder;
+            senderHolder.selectionCheckbox.setVisibility(View.GONE);
+        } else if (holder instanceof receiverViewHolder) {
+            receiverViewHolder receiverHolder = (receiverViewHolder) holder;
+            receiverHolder.selectionCheckbox.setVisibility(View.GONE);
+        }
+    }
+    
+    /**
+     * Reset backgrounds to transparent
+     */
+    private void resetBackgrounds(RecyclerView.ViewHolder holder) {
+        // Reset background to transparent for ALL message types
+        holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+        
+        // Also reset inner container background
+        ViewGroup rootView = (ViewGroup) holder.itemView;
+        if (rootView.getChildCount() > 0) {
+            View innerContainer = rootView.getChildAt(0);
+            if (innerContainer instanceof ViewGroup) {
+                ((ViewGroup) innerContainer).setBackgroundColor(Color.TRANSPARENT);
+            }
+        }
     }
 
     @Override
