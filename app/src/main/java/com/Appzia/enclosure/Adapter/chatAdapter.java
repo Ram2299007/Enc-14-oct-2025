@@ -22066,6 +22066,140 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
             messageView.setVisibility(View.GONE);
         }
     }
+
+    // ==================== IMAGE LOADING & THEME HELPER METHODS ====================
+    
+    /**
+     * Apply theme colors to sender message views
+     */
+    private void applySenderTheme(senderViewHolder holder, String themColor) {
+        try {
+            ColorStateList tintList = ColorStateList.valueOf(Color.parseColor(themColor));
+            
+            // Apply theme to progress indicators
+            if (holder.viewnew != null) {
+                holder.viewnew.setTrackColor(Color.parseColor(themColor));
+            }
+            
+            if (holder.readMore != null) {
+                holder.readMore.setTextColor(Color.parseColor(themColor));
+            }
+            
+            if (holder.progressBarImageview != null) {
+                holder.progressBarImageview.setIndeterminateTintList(tintList);
+            }
+            
+            // Apply theme to main sender box
+            if (holder.MainSenderBox != null) {
+                holder.MainSenderBox.setBackgroundTintList(tintList);
+            }
+            
+            if (holder.richBox != null) {
+                holder.richBox.setBackgroundTintList(tintList);
+            }
+        } catch (Exception e) {
+            // Handle theme color parsing errors gracefully
+        }
+    }
+    
+    /**
+     * Apply theme colors to receiver message views
+     */
+    private void applyReceiverTheme(receiverViewHolder holder, String themColor) {
+        try {
+            ColorStateList tintList = ColorStateList.valueOf(Color.parseColor(themColor));
+            
+            // Apply theme to progress indicators
+            if (holder.viewnew != null) {
+                holder.viewnew.setTrackColor(Color.parseColor(themColor));
+            }
+            
+            if (holder.readMore != null) {
+                holder.readMore.setTextColor(Color.parseColor(themColor));
+            }
+            
+            if (holder.progressBarImageview != null) {
+                holder.progressBarImageview.setIndeterminateTintList(tintList);
+            }
+            
+            // Apply theme to main receiver box
+            if (holder.MainReceiverBox != null) {
+                holder.MainReceiverBox.setBackgroundTintList(tintList);
+            }
+        } catch (Exception e) {
+            // Handle theme color parsing errors gracefully
+        }
+    }
+    
+    /**
+     * Setup image placeholder and loading state
+     */
+    private void setupImagePlaceholder(ImageView imageView, View blurView, ProgressBar progressBar) {
+        if (imageView != null) {
+            imageView.setVisibility(View.VISIBLE);
+        }
+        if (blurView != null) {
+            blurView.setVisibility(View.VISIBLE);
+        }
+        if (progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+    
+    /**
+     * Hide image loading state after image is loaded
+     */
+    private void hideImageLoadingState(View blurView, ProgressBar progressBar, FloatingActionButton downloadButton) {
+        if (blurView != null) {
+            blurView.setVisibility(View.GONE);
+        }
+        if (progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
+        if (downloadButton != null) {
+            downloadButton.setVisibility(View.GONE);
+        }
+    }
+    
+    /**
+     * Setup link preview image
+     */
+    private void setupLinkPreviewImage(ImageView linkImg, String imageUrl) {
+        if (linkImg != null && imageUrl != null && !imageUrl.isEmpty()) {
+            linkImg.setVisibility(View.VISIBLE);
+            // Image loading logic can be added here
+        } else {
+            if (linkImg != null) {
+                linkImg.setVisibility(View.GONE);
+            }
+        }
+    }
+    
+    /**
+     * Get theme color from SharedPreferences
+     */
+    private String getThemeColor() {
+        try {
+            Constant.getSfFuncion(mContext);
+            return Constant.getSF.getString(Constant.ThemeColorKey, "#00A3E9");
+        } catch (Exception e) {
+            return "#00A3E9"; // Default theme color
+        }
+    }
+    
+    /**
+     * Apply animation to view
+     */
+    private void applyViewAnimation(View view, int animationResId) {
+        if (view != null) {
+            try {
+                Animation animation = AnimationUtils.loadAnimation(mContext, animationResId);
+                view.startAnimation(animation);
+            } catch (Exception e) {
+                // Handle animation errors gracefully
+            }
+        }
+    }
     
     /**
      * Setup group message name display
