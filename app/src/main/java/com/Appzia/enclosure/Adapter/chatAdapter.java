@@ -1,13 +1,8 @@
 package com.Appzia.enclosure.Adapter;
 
 import android.Manifest;
-import android.animation.ObjectAnimator;
-import android.animation.TimeInterpolator;
 import android.media.MediaScannerConnection;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DownloadManager;
@@ -16,10 +11,8 @@ import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ContentProviderOperation;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.OperationApplicationException;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
@@ -58,7 +51,6 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.RelativeSizeSpan;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -117,7 +109,6 @@ import com.Appzia.enclosure.Model.selectionBunchModel;
 import com.Appzia.enclosure.R;
 import com.Appzia.enclosure.Screens.MainActivityOld;
 import com.Appzia.enclosure.Screens.chattingScreen;
-import com.Appzia.enclosure.Screens.multiple_show_image_screen;
 import com.Appzia.enclosure.Utils.MultipleImageDialogHelper;
 import com.Appzia.enclosure.Screens.show_document_screen;
 import com.Appzia.enclosure.Screens.show_image_Screen;
@@ -128,6 +119,7 @@ import com.Appzia.enclosure.Utils.Bottomshit.MusicPlayerBottomSheet;
 import com.Appzia.enclosure.Utils.BroadcastReiciver.AudioPlaybackService;
 import com.Appzia.enclosure.Utils.BroadcastReiciver.UploadChatHelperForward;
 import com.Appzia.enclosure.Utils.Constant;
+import com.Appzia.enclosure.Utils.ChatadapterFiles.senderReceiverDownload;
 
 import com.Appzia.enclosure.Utils.ItemTouchHelperAdapter;
 import com.Appzia.enclosure.Utils.OfflineDatabase.DatabaseHelper;
@@ -158,9 +150,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 
 import org.apache.commons.logging.LogFactory;
@@ -168,14 +157,11 @@ import org.apache.commons.logging.LogFactory;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -380,9 +366,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         return selectedPositions.contains(position);
     }
 
-    public int getSelectedCount() {
-        return selectedPositions.size();
-    }
+
 
     public ArrayList<messageModel> getSelectedMessages() {
         ArrayList<messageModel> selectedMessages = new ArrayList<>();
@@ -395,14 +379,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     }
 
 
-    public void setLastReceiverMessagePosition(int pos) {
-        lastReceiverPosition = pos;
-    }
-
-    public boolean isLastReceiverMessage(int position, String currentUid, messageModel model) {
-        // फक्त receiver चे message आणि last position
-        return model.getUid() != null && !model.getUid().equals(currentUid) && position == lastReceiverPosition;
-    }
 
     public void onForwardSelected() {
         if (multiSelectListener != null) {
@@ -481,21 +457,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
     }
 
-    private long convertStringToLong(String uid) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] messageDigest = md.digest(uid.getBytes());
-            // Convert byte array to long (assuming little-endian byte order)
-            long id = 0;
-            for (int i = 0; i < 8; i++) {
-                id += (long) (messageDigest[i] & 0xFF) << (8 * i);
-            }
-            return id;
-        } catch (NoSuchAlgorithmException e) {
-            // Handle exception (e.g., log error)
-            return RecyclerView.NO_ID;
-        }
-    }
 
     @NonNull
     @Override
@@ -562,20 +523,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         }
     }
 
-    public void setAllPendingMessagesVisible(boolean isVisible) {
-        this.isLastItemVisible = isVisible;
-        try {
-            // Notify all items to refresh their progress indicators
-            notifyDataSetChanged();
-            Log.d("PendingMessages", "Set all pending messages visible: " + isVisible);
-        } catch (Exception e) {
-            Log.e("PendingMessages", "Error setting all pending messages visible: " + e.getMessage());
-        }
-    }
 
-    public void setLastItemVisible2(boolean isVisible) {
-        this.isLastItemVisible = isVisible;
-    }
 
 
     public void stopProgressIndicator(String modelId) {
@@ -3334,7 +3282,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                     ((senderViewHolder) holder).downlaod.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startSenderImageDownloadWithProgress(holder, model);
+                            senderReceiverDownload.startSenderImageDownloadWithProgress(holder, model, mContext);
 
 
                          //   saveImageToGallery(model);
@@ -4598,7 +4546,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 return;
                             }
 
-                            startSenderVideoDownloadWithProgress(holder, model);
+                            senderReceiverDownload.startSenderVideoDownloadWithProgress(holder, model, mContext);
 
 
                         //    saveVideoToGallery(model);
@@ -8823,7 +8771,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             toggleSelection(position);
                             return;
                         }
-                        startSenderAudioDownloadWithProgress(holder, model);
+                        senderReceiverDownload.startSenderAudioDownloadWithProgress(holder, model, mContext);
                     });
 
 
@@ -9544,7 +9492,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                     downloadPercentageAudioSender.setVisibility(View.GONE);
                                     pauseButtonAudioSender.setVisibility(View.GONE);
                                     downlaodAudio.setOnClickListener(v5 -> {
-                                        startSenderAudioDownloadWithProgress(holder, model);
+                                        senderReceiverDownload.startSenderAudioDownloadWithProgress(holder, model, mContext);
                                     });
                                 }
 
@@ -10102,7 +10050,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 ((senderViewHolder) holder).downloadPercentageAudioSender.setVisibility(View.GONE);
                                 ((senderViewHolder) holder).pauseButtonAudioSender.setVisibility(View.GONE);
                                 ((senderViewHolder) holder).downlaodAudio.setOnClickListener(v -> {
-                                    startSenderAudioDownloadWithProgressXDocument(holder, model);
+                                    senderReceiverDownload.startSenderAudioDownloadWithProgressXDocument(holder, model, mContext);
                                 });
                             }
 
@@ -11194,7 +11142,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 toggleSelection(position);
                                 return;
                             }
-                            startSenderDocDownloadWithProgress(holder, model);
+                            senderReceiverDownload.startSenderDocDownloadWithProgress(holder, model, mContext);
                         });
 
                     } else {
@@ -11233,7 +11181,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 toggleSelection(position);
                                 return;
                             }
-                            startSenderDocDownloadWithProgress(holder, model);
+                            senderReceiverDownload.startSenderDocDownloadWithProgress(holder, model, mContext);
                         });
 
 
@@ -12517,34 +12465,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                 }
             } else {
 
-                if (position == messageList.size() - 1) {
-                    Log.d("LastMessage", "LastMessage: " + model.getMessage());
-
-                    if (model.getReceiverLoader() == 0) {
-
-                        // Make sure progress is visible and animated
-                        ((receiverViewHolder) holder).viewnew.setVisibility(View.VISIBLE);
-
-                        // Slight delay ensures view is attached to window before animating
-                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                            ((receiverViewHolder) holder).viewnew.setIndeterminate(true);
-
-                            // Stop animation after 1 second
-                            new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                                ((receiverViewHolder) holder).viewnew.setIndeterminate(false);
-                                 // optional
-                            }, 1000);
-
-                        }, 50);
-
-                    } else {
-                        ((receiverViewHolder) holder).viewnew.setIndeterminate(false);
-
-                    }
-                } else {
-                    ((receiverViewHolder) holder).viewnew.setIndeterminate(false);
-
-                }
+             
 
 
 
@@ -13965,7 +13886,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                         @Override
                         public void onClick(View v) {
 
-                            startReceiverImageDownloadWithProgressFirebase(holder, model);
+                            senderReceiverDownload.startReceiverImageDownloadWithProgressFirebase(holder, model, mContext);
 
 
                         }
@@ -15393,7 +15314,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 return;
                             }
 
-                            startVideoDownloadWithProgress(holder, model);
+                            senderReceiverDownload.startVideoDownloadWithProgress(holder, model, mContext);
 
 
                         }
@@ -20343,7 +20264,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                             toggleSelection(position);
                             return;
                         }
-                        startReceiverAudioDownloadWithProgress(holder, model);
+                        senderReceiverDownload.startReceiverAudioDownloadWithProgress(holder, model, mContext);
                     });
 
 
@@ -20473,7 +20394,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 ((receiverViewHolder) holder).pauseButtonAudioReceiver.setVisibility(View.GONE);
 
                                 ((receiverViewHolder) holder).downlaodAudioReceiver.setOnClickListener(v -> {
-                                    startReceiverAudioDownloadWithProgressXDocuments(holder, model);
+                                    senderReceiverDownload.startReceiverAudioDownloadWithProgressXDocuments(holder, model, mContext);
                                 });
                             }
 
@@ -21259,7 +21180,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 toggleSelection(position);
                                 return;
                             }
-                            startReceiverDocDownloadWithProgress(holder, model);
+                            senderReceiverDownload.startReceiverDocDownloadWithProgress(holder, model, mContext);
                         });
 
                     } else {
@@ -21303,7 +21224,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                 toggleSelection(position);
                                 return;
                             }
-                            startReceiverDocDownloadWithProgress(holder, model);
+                            senderReceiverDownload.startReceiverDocDownloadWithProgress(holder, model, mContext);
                         });
 
 
@@ -22300,6 +22221,37 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                 }
 
 
+
+
+//                if (position == messageList.size() - 1) {
+//                    Log.d("LastMessage", "LastMessage: " + model.getMessage());
+//
+//                    if (model.getReceiverLoader() == 0) {
+//
+//                        // Make sure progress is visible and animated
+//                        ((receiverViewHolder) holder).viewnew.setVisibility(View.VISIBLE);
+//
+//                        // Slight delay ensures view is attached to window before animating
+//                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+//                            ((receiverViewHolder) holder).viewnew.setIndeterminate(true);
+//
+//                            // Stop animation after 1 second
+//                            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+//                                ((receiverViewHolder) holder).viewnew.setIndeterminate(false);
+//                                // optional
+//                            }, 1000);
+//
+//                        }, 50);
+//
+//                    } else {
+//                        ((receiverViewHolder) holder).viewnew.setIndeterminate(false);
+//
+//                    }
+//                } else {
+//                    ((receiverViewHolder) holder).viewnew.setIndeterminate(false);
+//
+//                }
+
             }
         } catch (Exception ignored) {
 
@@ -22311,95 +22263,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     }
 
 
-
-
-    private void saveVideoToGallery(messageModel model) {
-        new Thread(() -> {
-            try {
-                String videoUrl = model.getDocument(); // network or local URL
-                String fileName = model.getFileName();
-
-                // Choose folder name
-                String folderName = "Enclosure";
-
-                // For Android 10+ (Scoped Storage)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    ContentResolver resolver = mContext.getContentResolver();
-                    ContentValues values = new ContentValues();
-                    values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-                    values.put(MediaStore.MediaColumns.MIME_TYPE, "video/mp4");
-                    values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_MOVIES + "/" + folderName);
-                    values.put(MediaStore.MediaColumns.IS_PENDING, 1);
-
-                    Uri videoUri = resolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values);
-
-                    if (videoUri != null) {
-                        try (OutputStream out = resolver.openOutputStream(videoUri)) {
-                            // If it's a network URL, download it
-                            if (videoUrl.startsWith("http://") || videoUrl.startsWith("https://")) {
-                                downloadFileFromUrl(videoUrl, out);
-                            } else {
-                                // Local file
-                                File localFile = new File(videoUrl);
-                                if (localFile.exists()) {
-                                    try (InputStream in = new FileInputStream(localFile)) {
-                                        copyStream(in, out);
-                                    }
-                                } else {
-                                    showToastSafe("Video file not found");
-                                    return;
-                                }
-                            }
-                        }
-
-                        // Mark as complete
-                        values.clear();
-                        values.put(MediaStore.MediaColumns.IS_PENDING, 0);
-                        resolver.update(videoUri, values, null, null);
-
-                        showToastSafe("Video saved to Gallery");
-                    } else {
-                        showToastSafe("Failed to create video file");
-                    }
-
-                } else {
-                    // For Android 9 and below
-                    File moviesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
-                    File enclosureDir = new File(moviesDir, folderName);
-                    if (!enclosureDir.exists()) enclosureDir.mkdirs();
-
-                    File videoFile = new File(enclosureDir, fileName);
-
-                    try (OutputStream out = new FileOutputStream(videoFile)) {
-                        if (videoUrl.startsWith("http://") || videoUrl.startsWith("https://")) {
-                            downloadFileFromUrl(videoUrl, out);
-                        } else {
-                            File localFile = new File(videoUrl);
-                            if (localFile.exists()) {
-                                try (InputStream in = new FileInputStream(localFile)) {
-                                    copyStream(in, out);
-                                }
-                            } else {
-                                showToastSafe("Video file not found");
-                                return;
-                            }
-                        }
-                    }
-
-                    // Notify gallery
-                    Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                    scanIntent.setData(Uri.fromFile(videoFile));
-                    mContext.sendBroadcast(scanIntent);
-
-                    showToastSafe("Video saved to Gallery");
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                showToastSafe("Failed to save video");
-            }
-        }).start();
-    }
 
     /**
      * Helper to download file from network
@@ -22586,15 +22449,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         }
     }
 
-    private int pixelsToDp(int px) {
-        DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
-        return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-    }
-
-    private int dpToPixels(int dp) {
-        DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
-        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-    }
 
 
     @Override
@@ -22649,7 +22503,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     }
 
     public static class receiverViewHolder extends RecyclerView.ViewHolder {
-        TextView downloadPercentageImage;
+        public TextView downloadPercentageImage;
         TextView recMessage, recTime, docName, extension, cName, cPhone, firstText, grpMsgName, readMore;
         AppCompatImageView recImg;
         BlurView blurView;
@@ -22668,13 +22522,13 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         ImageView recVideo, videoicon;
 
         RelativeLayout receiverImgLyt;
-        FloatingActionButton downlaod;
+        public FloatingActionButton downlaod;
         ProgressBar progressBarImageview;
         View blur;
 
-        FloatingActionButton downlaodVideo;
-        ProgressBar progressBarVideo;
-        View blurVideo;
+        public FloatingActionButton downlaodVideo;
+        public ProgressBar progressBarVideo;
+        public View blurVideo;
         TextView captionText;
         RelativeLayout richLinkViewLyt;
 
@@ -22701,15 +22555,15 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         public ImageButton pauseButtonVideo;
         // Receiver doc download controls (left-side)
         RelativeLayout docDownloadControlsReceiver;
-        FloatingActionButton downlaodDocReceiver;
-        ProgressBar progressBarDocReceiver;
-        TextView downloadPercentageDocReceiver;
+        public FloatingActionButton downlaodDocReceiver;
+        public ProgressBar progressBarDocReceiver;
+        public TextView downloadPercentageDocReceiver;
         ImageButton pauseButtonDocReceiver;
         // Receiver voice-audio download controls (left)
         RelativeLayout audioDownloadControlsReceiver;
-        FloatingActionButton downlaodAudioReceiver;
-        ProgressBar progressBarAudioReceiver;
-        TextView downloadPercentageAudioReceiver;
+        public FloatingActionButton downlaodAudioReceiver;
+        public ProgressBar progressBarAudioReceiver;
+        public TextView downloadPercentageAudioReceiver;
         ImageButton pauseButtonAudioReceiver;
 
 
@@ -22730,8 +22584,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         ShapeableImageView img1, img3, img2, img4;
         FrameLayout img4Lyt;
         TextView overlayTextImg;
-        FloatingActionButton downlaodImgBunch;
-        TextView downloadPercentageImageSenderBunch;
+        public FloatingActionButton downlaodImgBunch;
+        public TextView downloadPercentageImageSenderBunch;
 
         public receiverViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -22851,9 +22705,9 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     }
 
     public static class senderViewHolder extends RecyclerView.ViewHolder {
-        FloatingActionButton downlaodDoc;
-        ProgressBar progressBarDoc;
-        TextView downloadPercentageDocSender;
+        public FloatingActionButton downlaodDoc;
+        public ProgressBar progressBarDoc;
+        public TextView downloadPercentageDocSender;
         ImageButton pauseButtonDocSender;
         RelativeLayout docDownloadControls;
         TextView sendMessage, sendTime, docName, extension, cName, cPhone, firstText, forwarded, grpMsgName, readMore;
@@ -22873,13 +22727,13 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         ConstraintLayout menu2;
         ImageView senderVideo;
         RelativeLayout senderImgLyt;
-        FloatingActionButton downlaod;
+        public FloatingActionButton downlaod;
         ProgressBar progressBarImageview;
         View blur;
         RelativeLayout sendervideoLyt;
-        FloatingActionButton downlaodVideo;
-        ProgressBar progressBarVideo;
-        View blurVideo;
+        public FloatingActionButton downlaodVideo;
+        public ProgressBar progressBarVideo;
+        public View blurVideo;
         TextView captionText;
         RelativeLayout richLinkViewLyt;
         ImageView linkImg, linkImg2, videoicon;
@@ -22893,7 +22747,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         TextView docSize;
         CardView emojiTextCard;
         WaveformView waveformView;
-        ProgressBar progressBar;
+        public ProgressBar progressBar;
 
         public FrameLayout frame;
         public CircularProgressIndicator circularProgressBar;
@@ -22909,9 +22763,9 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         public ImageButton pauseButtonVideoSender;
 
         RelativeLayout audioDownloadControls;
-        FloatingActionButton downlaodAudio;
-        ProgressBar progressBarAudio;
-        TextView downloadPercentageAudioSender;
+        public FloatingActionButton downlaodAudio;
+        public ProgressBar progressBarAudio;
+        public TextView downloadPercentageAudioSender;
         ImageButton pauseButtonAudioSender;
         LinearLayout replylyoutGlobal;
         LinearLayout pageLyt;
@@ -22931,8 +22785,8 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         ShapeableImageView img1, img3, img2, img4;
         FrameLayout img4Lyt;
         TextView overlayTextImg;
-        FloatingActionButton downlaodImgBunch;
-        TextView downloadPercentageImageSenderBunch;
+        public FloatingActionButton downlaodImgBunch;
+        public TextView downloadPercentageImageSenderBunch;
 
 
 
@@ -23067,11 +22921,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         }
     }
 
-    private String formatTime(int milliseconds) {
-        int seconds = (milliseconds / 1000) % 60;
-        int minutes = (milliseconds / (1000 * 60)) % 60;
-        return String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
-    }
+
 
     public interface MediaPlayerCallback {
         void onStopMediaPlayer();
@@ -23359,7 +23209,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                 Log.d("SelectionBunch", "MessageId: " + model.getModelId());
                 Log.d("SelectionBunch", "Starting download process for " +
                         (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0) + " images...");
-                downloadAllSelectionBunchImagesReceiver(holder, model, position);
+                senderReceiverDownload.downloadAllSelectionBunchImagesReceiver(holder, model, position, mContext);
             });
 
             Log.d("SelectionBunch", "✅ SHOWING download icon (receiver) - some images missing locally");
@@ -23837,7 +23687,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                 Log.d("SelectionBunch", "MessageId: " + model.getModelId());
                 Log.d("SelectionBunch", "Starting download process for " +
                         (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0) + " images...");
-                downloadAllSelectionBunchImages(holder, model, position);
+                senderReceiverDownload.downloadAllSelectionBunchImages(holder, model, position, mContext);
             });
 
             Log.d("SelectionBunch", "✅ SHOWING download icon (sender) - some images missing locally");
@@ -24676,267 +24526,22 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
                     // Save to public directory if model is available
                     if (model != null) {
-                        saveDownloadedFileToPublicDirectory(model);
+                        senderReceiverDownload.saveDownloadedFileToPublicDirectory(model, mContext);
                     }
                 }
             }
         }
     }
 
-    /**
-     * Saves an image file to the gallery
-     */
-    private void saveImageToGallery(File sourceFile, String fileName) {
-        try {
-            Bitmap bitmap = BitmapFactory.decodeFile(sourceFile.getAbsolutePath());
-            if (bitmap == null) {
-                //   showToast("Failed to load image");
-                return;
-            }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                ContentResolver resolver = mContext.getContentResolver();
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-                contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
-                contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/Enclosure");
 
-                Uri imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-                if (imageUri != null) {
-                    OutputStream outputStream = resolver.openOutputStream(imageUri);
-                    if (outputStream != null) {
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-                        outputStream.close();
-                        //  showToast("Image saved to gallery");
-                    } else {
-                        // showToast("Failed to save image");
-                    }
-                } else {
-                    // showToast("Failed to save image");
-                }
-            } else {
-                File picturesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                File enclosureDir = new File(picturesDir, "Enclosure");
-                if (!enclosureDir.exists()) {
-                    enclosureDir.mkdirs();
-                }
 
-                File destFile = new File(enclosureDir, fileName);
-                FileOutputStream outputStream = new FileOutputStream(destFile);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-                outputStream.close();
-
-                // Notify media scanner
-                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                mediaScanIntent.setData(Uri.fromFile(destFile));
-                mContext.sendBroadcast(mediaScanIntent);
-
-                //  showToast("Image saved to gallery");
-            }
-        } catch (IOException e) {
-            Log.e("chatAdapter", "Error saving image: " + e.getMessage());
-            //  showToast("Failed to save image");
-        }
-    }
-
-    /**
-     * Saves a video file to the gallery
-     */
-    private void saveVideoToGallery(File sourceFile, String fileName) {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                ContentResolver resolver = mContext.getContentResolver();
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-                contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "video/mp4");
-                contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_MOVIES + "/Enclosure");
-
-                Uri videoUri = resolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, contentValues);
-                if (videoUri != null) {
-                    OutputStream outputStream = resolver.openOutputStream(videoUri);
-                    if (outputStream != null) {
-                        copyFile(new FileInputStream(sourceFile), outputStream);
-                        outputStream.close();
-                        //    showToast("Video saved to gallery");
-                    } else {
-                        //    showToast("Failed to save video");
-                    }
-                } else {
-                    //  showToast("Failed to save video");
-                }
-            } else {
-                File moviesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
-                File enclosureDir = new File(moviesDir, "Enclosure");
-                if (!enclosureDir.exists()) {
-                    enclosureDir.mkdirs();
-                }
-
-                File destFile = new File(enclosureDir, fileName);
-                copyFile(new FileInputStream(sourceFile), new FileOutputStream(destFile));
-
-                // Notify media scanner
-                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                mediaScanIntent.setData(Uri.fromFile(destFile));
-                mContext.sendBroadcast(mediaScanIntent);
-
-                //  showToast("Video saved to gallery");
-            }
-        } catch (IOException e) {
-            Log.e("chatAdapter", "Error saving video: " + e.getMessage());
-            //   showToast("Failed to save video");
-        }
-    }
-
-    /**
-     * Saves a document file to the Documents folder
-     */
-    private void saveDocumentToFolder(File sourceFile, String fileName) {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                ContentResolver resolver = mContext.getContentResolver();
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-                contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOCUMENTS + "/Enclosure");
-
-                Uri documentUri = resolver.insert(MediaStore.Files.getContentUri("external"), contentValues);
-                if (documentUri != null) {
-                    OutputStream outputStream = resolver.openOutputStream(documentUri);
-                    if (outputStream != null) {
-                        copyFile(new FileInputStream(sourceFile), outputStream);
-                        outputStream.close();
-                        //  showToast("Document saved to file manager");
-                    } else {
-                        //     showToast("Failed to save document");
-                    }
-                } else {
-                    //     showToast("Failed to save document");
-                }
-            } else {
-                File documentsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-                File enclosureDir = new File(documentsDir, "Enclosure");
-                if (!enclosureDir.exists()) {
-                    enclosureDir.mkdirs();
-                }
-
-                File destFile = new File(enclosureDir, fileName);
-                copyFile(new FileInputStream(sourceFile), new FileOutputStream(destFile));
-
-                //   showToast("Document saved to file manager");
-            }
-        } catch (IOException e) {
-            Log.e("chatAdapter", "Error saving document: " + e.getMessage());
-            //  showToast("Failed to save document");
-        }
-    }
-
-    /**
-     * Copies data from input stream to output stream
-     */
-    private void copyFile(InputStream inputStream, OutputStream outputStream) throws IOException {
-        byte[] buffer = new byte[1024];
-        int length;
-        while ((length = inputStream.read(buffer)) > 0) {
-            outputStream.write(buffer, 0, length);
-        }
-        inputStream.close();
-        outputStream.close();
-    }
 
     /**
      * Shows custom toast message
      */
-    private void showToast(String message) {
-        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
-    }
 
-    /**
-     * Determines file type and saves to appropriate public directory
-     */
-    private void saveFileToPublicDirectory(File sourceFile, String fileName, String extension) {
-        if (sourceFile == null || !sourceFile.exists()) {
-            //   showToast("File not found");
-            return;
-        }
 
-        String format = extension != null ? extension.toLowerCase() : "";
-
-        // Check file type and save accordingly
-        if (isImageFormat(format)) {
-            saveImageToGallery(sourceFile, fileName);
-        } else if (isVideoFormat(format)) {
-            saveVideoToGallery(sourceFile, fileName);
-        } else {
-            // Save other documents to Documents folder
-            saveDocumentToFolder(sourceFile, fileName);
-        }
-    }
-
-    /**
-     * Checks if the given format string corresponds to a known image file extension.
-     */
-    private boolean isImageFormat(String format) {
-        return format.equals("jpg") || format.equals("jpeg") || format.equals("png") ||
-                format.equals("webp") || format.equals("gif") || format.equals("tiff") ||
-                format.equals("psd") || format.equals("heif") || format.equals("svg");
-    }
-
-    /**
-     * Checks if the given format string corresponds to a known video file extension.
-     */
-    private boolean isVideoFormat(String format) {
-        return format.equals("mp4") || format.equals("mov") || format.equals("wmv") ||
-                format.equals("flv") || format.equals("mkv") || format.equals("avi") ||
-                format.equals("avchd") || format.equals("webm") || format.equals("hevc");
-    }
-
-    /**
-     * Saves downloaded file to public directory based on file type
-     */
-    private void saveDownloadedFileToPublicDirectory(messageModel model) {
-        if (model == null) return;
-
-        String fileName = model.getFileName();
-        String extension = model.getExtension();
-
-        if (fileName == null) return;
-
-        // Determine the source file path based on file type
-        File sourceFile = null;
-        String format = extension != null ? extension.toLowerCase() : "";
-
-        if (isImageFormat(format)) {
-            File imagesDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Images");
-            sourceFile = new File(imagesDir, fileName);
-        } else if (isVideoFormat(format)) {
-            File videosDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Videos");
-            sourceFile = new File(videosDir, fileName);
-        } else if (isAudioFormat(format)) {
-            File audiosDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Audios");
-            sourceFile = new File(audiosDir, fileName);
-        } else {
-            // For documents
-            File docsDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Documents");
-            sourceFile = new File(docsDir, fileName);
-        }
-
-        if (sourceFile != null && sourceFile.exists()) {
-            saveFileToPublicDirectory(sourceFile, fileName, extension);
-        }
-    }
-
-    /**
-     * Checks if the given format string corresponds to a known audio file extension.
-     */
-    private boolean isAudioFormat(String format) {
-        return format.equals("flac") || format.equals("ape") || format.equals("wv") ||
-                format.equals("tta") || format.equals("alac") || format.equals("m4a") ||
-                format.equals("awb") || format.equals("wma") || format.equals("shn") ||
-                format.equals("mp3") || format.equals("ogg") || format.equals("opus") ||
-                format.equals("mp2") || format.equals("m4b") || format.equals("aac") ||
-                format.equals("amr") || format.equals("atrac3") || format.equals("wavpack") ||
-                format.equals("wav") || format.equals("aiff") || format.equals("au") ||
-                format.equals("raw");
-    }
 
     private boolean isInternetConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -24945,52 +24550,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         return networkInfo != null && networkInfo.isConnected();
     }
 
-    private void expandView(View view, RecyclerView view2, Runnable onEnd, com.Appzia.enclosure.Adapter.emojiAdapterChatAdapter emojiAdapterChatAdapter) {
-        view.post(() -> {
-            int targetWidth = view.getMeasuredWidth();
-            ValueAnimator animator = ValueAnimator.ofInt(0, targetWidth);
-            animator.setDuration(0);
 
-            animator.addUpdateListener(animation -> {
-                int animatedValue = (int) animation.getAnimatedValue();
-                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-                layoutParams.width = animatedValue;
-                view.setLayoutParams(layoutParams);
-                view.setTranslationX(targetWidth - animatedValue);
-            });
-
-            animator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    //   expandViewAfter(view2);
-
-
-                    //  emojiAdapterChatAdapter.notifyDataSetChanged();
-
-                }
-            });
-
-            view.setVisibility(View.VISIBLE);
-            animator.start();
-        });
-    }
-
-    private int getPlayIcon(ImageView playButton, messageModel message) {
-        long messageKey = message.getTimestamp(); // Use a unique ID for each message
-        String playState = Constant.getSF.getString("playKey_" + messageKey, "play");
-        String lastPlayType = Constant.getSF.getString("lastPlayType_" + messageKey, "receiver");
-
-        Constant.getSfFuncion(mContext);
-        String myUid = Constant.getSF.getString(Constant.UID_KEY, "");
-
-        boolean isSender = message.getUid().equals(myUid);
-
-        if ("play".equals(playState)) {
-            return "sender".equals(lastPlayType) ? (isSender ? R.drawable.play_arrow_sender : R.drawable.play_arrow_receiver) : (isSender ? R.drawable.play_arrow_receiver : R.drawable.play_arrow_sender);
-        } else {
-            return "sender".equals(lastPlayType) ? (isSender ? R.drawable.pausesender : R.drawable.pause) : (isSender ? R.drawable.pause : R.drawable.pausesender);
-        }
-    }
 
     private void loadPdfPreview(String localPreviewImagePath, String remotePdfUrl, ImageView imageView, ViewGroup parentLayout, int position, messageModel model) {
         File localPreviewFile = new File(localPreviewImagePath);
@@ -25298,110 +24858,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         return text.matches("^(\\+\\d{1,3})?\\d{10,14}$");
     }
 
-    private void startImageDownloadWithProgress(RecyclerView.ViewHolder holder, messageModel model) {
-        Log.d("DOWNLOAD_DEBUG", "startImageDownloadWithProgress called");
-        Log.d("DOWNLOAD_DEBUG", "Document URL: " + model.getDocument());
-        Log.d("DOWNLOAD_DEBUG", "File Name: " + model.getFileName());
 
-        // --- PRIVATE PATH ---
-        File privateDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Images");
-        if (!privateDir.exists()) privateDir.mkdirs();
-        File privateFile = new File(privateDir, model.getFileName());
-
-        // --- Skip if already downloaded privately ---
-        if (privateFile.exists()) {
-            Log.d("DOWNLOAD_DEBUG", "File already exists privately");
-            ((receiverViewHolder) holder).downlaod.setVisibility(View.GONE);
-            ((receiverViewHolder) holder).progressBarImageview.setVisibility(View.GONE);
-            ((receiverViewHolder) holder).downloadPercentageImage.setText("");
-            ((receiverViewHolder) holder).downloadPercentageImage.setVisibility(View.GONE);
-            return;
-        }
-
-        // --- UI setup ---
-        ((receiverViewHolder) holder).progressBarImageview.setVisibility(View.GONE);
-        ((receiverViewHolder) holder).downlaod.setVisibility(View.GONE);
-        ((receiverViewHolder) holder).downloadPercentageImage.setVisibility(View.VISIBLE);
-
-        // --- Setup DownloadManager ---
-        Log.d("DOWNLOAD_DEBUG", "Setting up DownloadManager...");
-        DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-        DownloadManager.Request request;
-
-        if ("ReplyKey".equals(model.getReplyKey())) {
-            request = new DownloadManager.Request(Uri.parse(model.getReplyOldData()));
-            Log.d("DOWNLOAD_DEBUG", "Using reply data URL");
-        } else {
-            request = new DownloadManager.Request(Uri.parse(model.getDocument()));
-            Log.d("DOWNLOAD_DEBUG", "Using document URL");
-        }
-
-        request.setTitle(model.getFileName());
-        request.setDescription("Downloading");
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        request.setDestinationUri(Uri.fromFile(privateFile));
-
-        // --- Enqueue Download ---
-        long downloadId = downloadManager.enqueue(request);
-        Log.d("DOWNLOAD_DEBUG", "Download ID: " + downloadId);
-
-        // --- Track Progress ---
-        trackDownloadProgress(downloadId, ((receiverViewHolder) holder).downloadPercentageImage, holder);
-
-        // --- Register Receiver for completion ---
-        mContext.registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-                if (id != downloadId) return;
-
-                ((receiverViewHolder) holder).progressBarImageview.setVisibility(View.GONE);
-                ((receiverViewHolder) holder).downloadPercentageImage.setVisibility(View.GONE);
-                ((receiverViewHolder) holder).downloadPercentageImage.setText("");
-
-                try {
-                    // --- PUBLIC PATH: use MediaStore for proper album ---
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        ContentValues values = new ContentValues();
-                        values.put(MediaStore.Images.Media.DISPLAY_NAME, model.getFileName());
-                        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-                        values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/Enclosure");
-
-                        Uri uri = mContext.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                        if (uri != null) {
-                            try (OutputStream out = mContext.getContentResolver().openOutputStream(uri);
-                                 InputStream in = new FileInputStream(privateFile)) {
-                                byte[] buffer = new byte[8192];
-                                int bytesRead;
-                                while ((bytesRead = in.read(buffer)) != -1) {
-                                    out.write(buffer, 0, bytesRead);
-                                }
-                                out.flush();
-                            }
-                            Log.d("DOWNLOAD_DEBUG", "Saved to public Enclosure album: " + model.getFileName());
-                        }
-                    } else {
-                        // For Android < Q, copy physically and scan
-                        File publicDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Enclosure");
-                        if (!publicDir.exists()) publicDir.mkdirs();
-                        File publicFile = new File(publicDir, model.getFileName());
-                        copyFile2(privateFile, publicFile);
-
-                        MediaScannerConnection.scanFile(
-                                mContext,
-                                new String[]{publicFile.getAbsolutePath()},
-                                null,
-                                (path, uri) -> Log.d("DOWNLOAD_DEBUG", "File scanned: " + uri)
-                        );
-                        Log.d("DOWNLOAD_DEBUG", "Copied file to public Enclosure folder: " + publicFile.getAbsolutePath());
-                    }
-
-                } catch (IOException e) {
-                    Log.e("DOWNLOAD_DEBUG", "Error saving to public folder", e);
-                }
-            }
-        }, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), mContext.RECEIVER_EXPORTED);
-    }
 
 
     private void copyFile2(File source, File dest) throws IOException {
@@ -25470,141 +24927,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
         handler.post(progressRunnable);
     }
 
-    private void startVideoDownloadWithProgress(RecyclerView.ViewHolder holder, messageModel model) {
-        Log.d("DOWNLOAD_DEBUG", "startVideoDownloadWithProgress called");
 
-        // --- PRIVATE VIDEO PATH ---
-        File privateVideoDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Videos");
-        if (!privateVideoDir.exists()) privateVideoDir.mkdirs();
-        File privateVideoFile = new File(privateVideoDir, model.getFileName());
-
-        // --- PRIVATE THUMBNAIL PATH ---
-        File privateThumbnailDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Enclosure/Media/Thumbnail");
-        if (!privateThumbnailDir.exists()) privateThumbnailDir.mkdirs();
-        File privateThumbnailFile = new File(privateThumbnailDir, model.getFileNameThumbnail());
-
-        // --- Skip if already downloaded ---
-        if (privateVideoFile.exists() && privateThumbnailFile.exists()) {
-            Log.d("DOWNLOAD_DEBUG", "Video and thumbnail already exist, skipping download");
-            ((receiverViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
-            ((receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-            ((receiverViewHolder) holder).downloadPercentageVideo.setText("Downloaded");
-            ((receiverViewHolder) holder).downloadPercentageVideo.setVisibility(View.VISIBLE);
-            copyVideoToPublic(privateVideoFile, model.getFileName()); // copy to public if missing
-            return;
-        }
-
-        // --- UI setup ---
-        ((receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-        ((receiverViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
-        ((receiverViewHolder) holder).downloadPercentageVideo.setVisibility(View.VISIBLE);
-        ((receiverViewHolder) holder).blurVideo.setVisibility(View.GONE);
-
-        DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-
-        // --- Download Thumbnail (private only) ---
-        if (!privateThumbnailFile.exists() && model.getThumbnail() != null && !model.getThumbnail().isEmpty()) {
-            try {
-                DownloadManager.Request thumbRequest = new DownloadManager.Request(Uri.parse(model.getThumbnail()));
-                thumbRequest.setTitle(model.getFileNameThumbnail());
-                thumbRequest.setDescription("Downloading Video Thumbnail");
-                thumbRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-                thumbRequest.setDestinationUri(Uri.fromFile(privateThumbnailFile));
-                downloadManager.enqueue(thumbRequest);
-                Log.d("DOWNLOAD_DEBUG", "Thumbnail download started: " + model.getFileNameThumbnail());
-            } catch (Exception e) {
-                Log.e("DOWNLOAD_DEBUG", "Error downloading thumbnail: " + e.getMessage());
-            }
-        }
-
-        // --- Download Video ---
-        if (!privateVideoFile.exists()) {
-            DownloadManager.Request videoRequest;
-            if ("ReplyKey".equals(model.getReplyKey())) {
-                videoRequest = new DownloadManager.Request(Uri.parse(model.getReplyOldData()));
-                Log.d("DOWNLOAD_DEBUG", "Using reply data URL for video");
-            } else {
-                videoRequest = new DownloadManager.Request(Uri.parse(model.getDocument()));
-                Log.d("DOWNLOAD_DEBUG", "Using document URL for video");
-            }
-
-            videoRequest.setTitle(model.getFileName());
-            videoRequest.setDescription("Downloading Video");
-            videoRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-
-            if (!privateVideoDir.exists()) privateVideoDir.mkdirs();
-            videoRequest.setDestinationUri(Uri.fromFile(privateVideoFile));
-
-            long videoDownloadId = downloadManager.enqueue(videoRequest);
-            Log.d("DOWNLOAD_DEBUG", "Video Download ID: " + videoDownloadId);
-
-            trackVideoDownloadProgress(videoDownloadId, ((receiverViewHolder) holder).downloadPercentageVideo, holder);
-
-            // --- Copy video to public folder after download completes ---
-            mContext.registerReceiver(new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-                    if (id != videoDownloadId) return;
-
-                    // Hide progress UI
-                    ((receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-                    ((receiverViewHolder) holder).downloadPercentageVideo.setText("");
-
-                    // Copy to public folder
-                    copyVideoToPublic2(privateVideoFile, model.getFileName());
-                }
-            }, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), mContext.RECEIVER_EXPORTED);
-        } else {
-            Log.d("DOWNLOAD_DEBUG", "Video already exists: " + model.getFileName());
-            ((receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-            ((receiverViewHolder) holder).downloadPercentageVideo.setVisibility(View.GONE);
-            ((receiverViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
-        }
-    }
-
-    private void copyVideoToPublic2(File privateFile, String fileName) {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                ContentValues values = new ContentValues();
-                values.put(MediaStore.Video.Media.DISPLAY_NAME, fileName);
-                values.put(MediaStore.Video.Media.MIME_TYPE, "video/mp4");
-                values.put(MediaStore.Video.Media.RELATIVE_PATH, Environment.DIRECTORY_MOVIES + "/Enclosure");
-                values.put(MediaStore.Video.Media.IS_PENDING, 1);
-
-                Uri uri = mContext.getContentResolver().insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values);
-                if (uri != null) {
-                    try (InputStream in = new FileInputStream(privateFile);
-                         OutputStream out = mContext.getContentResolver().openOutputStream(uri)) {
-                        byte[] buffer = new byte[8192];
-                        int read;
-                        while ((read = in.read(buffer)) != -1) out.write(buffer, 0, read);
-                        out.flush();
-                    }
-                    values.clear();
-                    values.put(MediaStore.Video.Media.IS_PENDING, 0);
-                    mContext.getContentResolver().update(uri, values, null, null);
-                    Log.d("DOWNLOAD_DEBUG", "Video saved publicly via MediaStore: " + fileName);
-                }
-            } else {
-                File publicDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES), "Enclosure");
-                if (!publicDir.exists()) publicDir.mkdirs();
-                File publicFile = new File(publicDir, fileName);
-
-                copyFile2(privateFile, publicFile);
-
-                MediaScannerConnection.scanFile(
-                        mContext,
-                        new String[]{publicFile.getAbsolutePath()},
-                        null,
-                        (path, uri) -> Log.d("DOWNLOAD_DEBUG", "Video scanned: " + uri)
-                );
-                Log.d("DOWNLOAD_DEBUG", "Video copied publicly: " + publicFile.getAbsolutePath());
-            }
-        } catch (IOException e) {
-            Log.e("DOWNLOAD_DEBUG", "Error copying video to public folder", e);
-        }
-    }
 
     // --- Copy private video to public Movies/Enclosure ---
 
@@ -25612,167 +24935,11 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
 
-    private void trackVideoDownloadProgress(long downloadId, TextView percentageView, RecyclerView.ViewHolder holder) {
-        Handler handler = new Handler();
-        Runnable progressRunnable = new Runnable() {
-            @Override
-            public void run() {
-                DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-                DownloadManager.Query query = new DownloadManager.Query();
-                query.setFilterById(downloadId);
-
-                Cursor cursor = downloadManager.query(query);
-                if (cursor.moveToFirst()) {
-                    int bytesDownloadedIndex = cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
-                    int bytesTotalIndex = cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
-                    int statusIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
-
-                    if (bytesDownloadedIndex != -1 && bytesTotalIndex != -1 && statusIndex != -1) {
-                        int bytesDownloaded = cursor.getInt(bytesDownloadedIndex);
-                        int bytesTotal = cursor.getInt(bytesTotalIndex);
-
-                        if (bytesTotal > 0) {
-                            int progress = (int) ((bytesDownloaded * 100L) / bytesTotal);
-                            percentageView.setText(progress + "%");
-
-                            if (progress >= 100) {
-                                percentageView.setVisibility(View.GONE);
-                                ((receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-                                cursor.close();
-                                percentageView.setText(0 + "%");
-                                return;
-                            }
-                        }
-
-                        int status = cursor.getInt(statusIndex);
-                        if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
-                            percentageView.setVisibility(View.GONE);
-                            ((receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-                            cursor.close();
-                            return;
-                        }
-                    }
-                }
-                cursor.close();
-                handler.postDelayed(this, 100);
-            }
-        };
-        handler.post(progressRunnable);
-    }
-
-
-    private void startSenderImageDownloadWithProgress(RecyclerView.ViewHolder holder, messageModel model) {
-        Log.d("DOWNLOAD_DEBUG", "startSenderImageDownloadWithProgress called");
-        Log.d("DOWNLOAD_DEBUG", "Document URL: " + model.getDocument());
-        Log.d("DOWNLOAD_DEBUG", "File Name: " + model.getFileName());
-
-        File downloadsDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Images");
-        if (!downloadsDir.exists()) downloadsDir.mkdirs();
-
-        File destinationFile = new File(downloadsDir, model.getFileName());
-
-        if (destinationFile.exists()) {
-            Log.d("DOWNLOAD_DEBUG", "File already exists privately");
-            showToastSafe("Image already downloaded");
-
-            ((senderViewHolder) holder).downlaod.setVisibility(View.GONE);
-            ((senderViewHolder) holder).progressBar.setVisibility(View.GONE);
-            ((senderViewHolder) holder).downloadPercentageImageSender.setText("");
-            ((senderViewHolder) holder).downloadPercentageImageSender.setVisibility(View.GONE);
-
-            // 🔁 Copy existing private file to public folder (if not already there)
-            copyPrivateImageToPublic(destinationFile, model.getFileName());
-            return;
-        }
-
-        // Update UI before download
-        ((senderViewHolder) holder).progressBar.setVisibility(View.GONE);
-        ((senderViewHolder) holder).downlaod.setVisibility(View.GONE);
-        ((senderViewHolder) holder).downloadPercentageImageSender.setVisibility(View.VISIBLE);
-
-        DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-        DownloadManager.Request request;
-
-        if ("ReplyKey".equals(model.getReplyKey())) {
-            request = new DownloadManager.Request(Uri.parse(model.getReplyOldData()));
-            Log.d("DOWNLOAD_DEBUG", "Using reply data URL for sender image");
-        } else {
-            request = new DownloadManager.Request(Uri.parse(model.getDocument()));
-            Log.d("DOWNLOAD_DEBUG", "Using document URL for sender image");
-        }
-
-        request.setTitle(model.getFileName());
-        request.setDescription("Downloading Image");
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        request.setDestinationUri(Uri.fromFile(destinationFile));
-
-        long downloadId = downloadManager.enqueue(request);
-        Log.d("DOWNLOAD_DEBUG", "Download started with ID: " + downloadId);
-
-        // ✅ Track and handle completion
-        mContext.registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-                if (id == downloadId) {
-                    ((senderViewHolder) holder).progressBar.setVisibility(View.GONE);
-                    ((senderViewHolder) holder).downloadPercentageImageSender.setVisibility(View.GONE);
-                    ((senderViewHolder) holder).downloadPercentageImageSender.setText("");
-
-                    if (destinationFile.exists()) {
-                        showToastSafe("Image downloaded");
-                        // ✅ Copy to public gallery
-                        copyPrivateImageToPublic(destinationFile, model.getFileName());
-                    } else {
-                        showToastSafe("Download failed");
-                    }
-                }
-            }
-        }, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), mContext.RECEIVER_EXPORTED);
-    }
 
 
 
-    private void startReceiverImageDownloadWithProgressFirebase(RecyclerView.ViewHolder holder, messageModel model) {
-        receiverViewHolder viewHolder = (receiverViewHolder) holder;
 
-        StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(model.getDocument());
-        File downloadsDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Images");
-        if (!downloadsDir.exists()) downloadsDir.mkdirs();
-        File destinationFile = new File(downloadsDir, model.getFileName());
 
-        if (destinationFile.exists()) {
-         //   showToastSafe("Image already downloaded");
-            viewHolder.downlaod.setVisibility(View.GONE);
-            viewHolder.downloadPercentageImage.setVisibility(View.GONE);
-            copyPrivateImageToPublic(destinationFile, model.getFileName());
-            return;
-        }
-
-        viewHolder.downlaod.setVisibility(View.GONE);
-        viewHolder.downloadPercentageImage.setVisibility(View.VISIBLE);
-        viewHolder.downloadPercentageImage.setText("0%");
-
-        storageRef.getFile(destinationFile)
-                .addOnProgressListener(snapshot -> {
-                    long totalBytes = snapshot.getTotalByteCount();
-                    long downloadedBytes = snapshot.getBytesTransferred();
-                    if (totalBytes > 0) {
-                        int progress = (int) ((downloadedBytes * 100) / totalBytes);
-                        viewHolder.downloadPercentageImage.setText(progress + "%");
-                    }
-                })
-                .addOnSuccessListener(taskSnapshot -> {
-                    viewHolder.downloadPercentageImage.setVisibility(View.GONE);
-                    viewHolder.downloadPercentageImage.setText("");
-                   // showToastSafe("Image downloaded");
-                    copyPrivateImageToPublic(destinationFile, model.getFileName());
-                })
-                .addOnFailureListener(e -> {
-                    viewHolder.downloadPercentageImage.setText("❌");
-                    showToastSafe("Download failed: " + e.getMessage());
-                });
-    }
 
 
 
@@ -25839,483 +25006,26 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
 
-    private void trackSenderImageDownloadProgress(long downloadId, TextView percentageView, RecyclerView.ViewHolder holder) {
-        Handler handler = new Handler();
-        Runnable progressRunnable = new Runnable() {
-            @Override
-            public void run() {
-                DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-                DownloadManager.Query query = new DownloadManager.Query();
-                query.setFilterById(downloadId);
-
-                Cursor cursor = downloadManager.query(query);
-                if (cursor.moveToFirst()) {
-                    int bytesDownloadedIndex = cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
-                    int bytesTotalIndex = cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
-                    int statusIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
-
-                    if (bytesDownloadedIndex != -1 && bytesTotalIndex != -1 && statusIndex != -1) {
-                        int bytesDownloaded = cursor.getInt(bytesDownloadedIndex);
-                        int bytesTotal = cursor.getInt(bytesTotalIndex);
-
-                        if (bytesTotal > 0) {
-                            int progress = (int) ((bytesDownloaded * 100L) / bytesTotal);
-                            percentageView.setText(progress + "%");
-
-                            if (progress >= 100) {
-                                percentageView.setVisibility(View.GONE);
-                                ((senderViewHolder) holder).progressBar.setVisibility(View.GONE);
-                                cursor.close();
-                                percentageView.setText(0 + "%");
-                                return;
-                            }
-                        }
-
-                        int status = cursor.getInt(statusIndex);
-                        if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
-                            percentageView.setVisibility(View.GONE);
-                            ((senderViewHolder) holder).progressBar.setVisibility(View.GONE);
-                            cursor.close();
-                            return;
-                        }
-                    }
-                }
-                cursor.close();
-                handler.postDelayed(this, 100);
-            }
-        };
-        handler.post(progressRunnable);
-    }
-
-
-    private void startSenderVideoDownloadWithProgress(RecyclerView.ViewHolder holder, messageModel model) {
-        Log.d("DOWNLOAD_DEBUG", "startSenderVideoDownloadWithProgress called");
-
-        // --- PRIVATE VIDEO PATH ---
-        File privateVideoDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Videos");
-        if (!privateVideoDir.exists()) privateVideoDir.mkdirs();
-        File privateVideoFile = new File(privateVideoDir, model.getFileName());
-
-        // --- Skip if already downloaded privately ---
-        if (privateVideoFile.exists()) {
-            Log.d("DOWNLOAD_DEBUG", "Video file already exists privately: " + privateVideoFile.getAbsolutePath());
-            ((senderViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
-            ((senderViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-            ((senderViewHolder) holder).downloadPercentageVideoSender.setText("");
-            ((senderViewHolder) holder).downloadPercentageVideoSender.setVisibility(View.VISIBLE);
-            copyVideoToPublic(privateVideoFile, model.getFileName()); // try public copy if missing
-            return;
-        }
-
-        // --- Show progress UI ---
-        ((senderViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-        ((senderViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
-        ((senderViewHolder) holder).downloadPercentageVideoSender.setVisibility(View.VISIBLE);
-
-        DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(model.getDocument()));
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-        request.setAllowedOverRoaming(false);
-        request.setTitle(model.getFileName());
-        request.setDescription("Downloading video...");
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        request.setDestinationUri(Uri.fromFile(privateVideoFile));
-
-        long downloadId = downloadManager.enqueue(request);
-        Log.d("DOWNLOAD_DEBUG", "Sender Video Download ID: " + downloadId);
-
-        trackSenderVideoDownloadProgress(downloadId, ((senderViewHolder) holder).downloadPercentageVideoSender, holder);
-
-        // --- Use BroadcastReceiver to copy after DownloadManager completes ---
-        mContext.registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-                if (id != downloadId) return;
-
-                // Hide progress UI
-                ((senderViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-                ((senderViewHolder) holder).downloadPercentageVideoSender.setText("");
-
-                // --- Copy video to public folder ---
-                copyVideoToPublic(privateVideoFile, model.getFileName());
-            }
-        }, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), mContext.RECEIVER_EXPORTED);
-
-        // --- Download thumbnail privately only ---
-        if (model.getThumbnail() != null && !model.getThumbnail().isEmpty()) {
-            File thumbnailDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Enclosure/Media/Thumbnail");
-            if (!thumbnailDir.exists()) thumbnailDir.mkdirs();
-
-            String thumbnailFileName = model.getFileNameThumbnail();
-            File thumbnailFile = new File(thumbnailDir, thumbnailFileName);
-
-            DownloadManager.Request thumbRequest = new DownloadManager.Request(Uri.parse(model.getThumbnail()));
-            thumbRequest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-            thumbRequest.setAllowedOverRoaming(false);
-            thumbRequest.setTitle("Downloading thumbnail");
-            thumbRequest.setDescription("Thumbnail download in progress...");
-            thumbRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-            thumbRequest.setDestinationUri(Uri.fromFile(thumbnailFile));
-
-            downloadManager.enqueue(thumbRequest);
-        }
-    }
-
-    private void copyVideoToPublic(File privateFile, String fileName) {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                ContentValues values = new ContentValues();
-                values.put(MediaStore.Video.Media.DISPLAY_NAME, fileName);
-                values.put(MediaStore.Video.Media.MIME_TYPE, "video/mp4");
-                values.put(MediaStore.Video.Media.RELATIVE_PATH, Environment.DIRECTORY_MOVIES + "/Enclosure");
-                values.put(MediaStore.Video.Media.IS_PENDING, 1);
-
-                Uri uri = mContext.getContentResolver().insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values);
-                if (uri != null) {
-                    try (InputStream in = new FileInputStream(privateFile);
-                         OutputStream out = mContext.getContentResolver().openOutputStream(uri)) {
-                        byte[] buffer = new byte[8192];
-                        int read;
-                        while ((read = in.read(buffer)) != -1) {
-                            out.write(buffer, 0, read);
-                        }
-                        out.flush();
-                    }
-                    values.clear();
-                    values.put(MediaStore.Video.Media.IS_PENDING, 0);
-                    mContext.getContentResolver().update(uri, values, null, null);
-                    Log.d("DOWNLOAD_DEBUG", "Video saved publicly via MediaStore: " + fileName);
-                }
-            } else {
-                File publicDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES), "Enclosure");
-                if (!publicDir.exists()) publicDir.mkdirs();
-                File publicFile = new File(publicDir, fileName);
-
-                copyFile2(privateFile, publicFile);
-
-                MediaScannerConnection.scanFile(
-                        mContext,
-                        new String[]{publicFile.getAbsolutePath()},
-                        null,
-                        (path, uri) -> Log.d("DOWNLOAD_DEBUG", "Video scanned: " + uri)
-                );
-                Log.d("DOWNLOAD_DEBUG", "Video copied publicly: " + publicFile.getAbsolutePath());
-            }
-        } catch (IOException e) {
-            Log.e("DOWNLOAD_DEBUG", "Error copying video to public folder", e);
-        }
-    }
-
-
-
-
-
-
-
-    private void trackSenderVideoDownloadProgress(long downloadId, TextView percentageView, RecyclerView.ViewHolder holder) {
-        Handler handler = new Handler();
-        Runnable progressRunnable = new Runnable() {
-            @Override
-            public void run() {
-                DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-                DownloadManager.Query query = new DownloadManager.Query();
-                query.setFilterById(downloadId);
-
-                Cursor cursor = downloadManager.query(query);
-                if (cursor.moveToFirst()) {
-                    int bytesDownloadedIndex = cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
-                    int bytesTotalIndex = cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
-                    int statusIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
-
-                    if (bytesDownloadedIndex != -1 && bytesTotalIndex != -1 && statusIndex != -1) {
-                        long bytesDownloaded = cursor.getLong(bytesDownloadedIndex);
-                        long bytesTotal = cursor.getLong(bytesTotalIndex);
-
-                        if (bytesTotal > 0) {
-                            int progress = (int) ((bytesDownloaded * 100L) / bytesTotal);
-                            percentageView.setText(progress + "%");
-                        }
-
-                        int status = cursor.getInt(statusIndex);
-                        if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
-                            percentageView.setVisibility(View.GONE);
-                            ((senderViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-                            ((senderViewHolder) holder).blurVideo.setVisibility(View.GONE);
-                            cursor.close();
-                            return;
-                        }
-                    }
-                }
-                cursor.close();
-                handler.postDelayed(this, 100);
-            }
-        };
-        handler.post(progressRunnable);
-    }
-
-
-    private void startReceiverDocDownloadWithProgress(RecyclerView.ViewHolder holder, messageModel model) {
-        Log.d("DOWNLOAD_DEBUG", "startSenderDocDownloadWithProgress called");
-        Log.d("DOWNLOAD_DEBUG", "Document URL: " + model.getDocument());
-        Log.d("DOWNLOAD_DEBUG", "File Name: " + model.getFileName());
-
-        // Prepare UI
-        ((receiverViewHolder) holder).downlaodDocReceiver.setVisibility(View.GONE);
-        ((receiverViewHolder) holder).progressBarDocReceiver.setVisibility(View.GONE);
-        ((receiverViewHolder) holder).downloadPercentageDocReceiver.setVisibility(View.VISIBLE);
-        ((receiverViewHolder) holder).downloadPercentageDocReceiver.setText("0%");
-
-        // --- PRIVATE DOCUMENT DIRECTORY ---
-        File privateDocsDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Documents");
-        if (!privateDocsDir.exists()) privateDocsDir.mkdirs();
-        File privateDocFile = new File(privateDocsDir, model.getFileName());
-
-        // --- If already exists ---
-        if (privateDocFile.exists()) {
-            Log.d("DOWNLOAD_DEBUG", "Document already exists, skipping download");
-            ((receiverViewHolder) holder).progressBarDocReceiver.setVisibility(View.GONE);
-            ((receiverViewHolder) holder).downloadPercentageDocReceiver.setVisibility(View.GONE);
-            ((receiverViewHolder) holder).downloadPercentageDocReceiver.setText("");
-
-            copyDocToPublicDoc(privateDocFile, model.getFileName()); // Copy to public if missing
-            return;
-        }
-
-        // --- Setup DownloadManager ---
-        DownloadManager dm = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-        DownloadManager.Request req = new DownloadManager.Request(Uri.parse(model.getDocument()));
-        req.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-        req.setAllowedOverRoaming(false);
-        req.setTitle(model.getFileName());
-        req.setDescription("Downloading document");
-        req.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        req.setDestinationUri(Uri.fromFile(privateDocFile));
-
-        long docDownloadId = dm.enqueue(req);
-        Log.d("DOWNLOAD_DEBUG", "Document Download ID: " + docDownloadId);
-
-        // --- Track progress ---
-        trackSenderDocDownloadProgress(
-                docDownloadId,
-                ((receiverViewHolder) holder).progressBarDocReceiver,
-                ((receiverViewHolder) holder).downloadPercentageDocReceiver,
-                ((receiverViewHolder) holder).downlaodDocReceiver
-        );
-
-        // --- Copy to public after download completes ---
-        mContext.registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-                if (id != docDownloadId) return;
-
-                ((receiverViewHolder) holder).progressBarDocReceiver.setVisibility(View.GONE);
-                ((receiverViewHolder) holder).downloadPercentageDocReceiver.setText("");
-
-                // Copy document to public folder
-                copyDocToPublicDoc(privateDocFile, model.getFileName());
-            }
-        }, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), mContext.RECEIVER_EXPORTED);
-    }
-
-
-
-    private void startSenderDocDownloadWithProgress(RecyclerView.ViewHolder holder, messageModel model) {
-        Log.d("DOWNLOAD_DEBUG", "startSenderDocDownloadWithProgress called");
-        Log.d("DOWNLOAD_DEBUG", "Document URL: " + model.getDocument());
-        Log.d("DOWNLOAD_DEBUG", "File Name: " + model.getFileName());
-
-        // Prepare UI
-        ((senderViewHolder) holder).downlaodDoc.setVisibility(View.GONE);
-        ((senderViewHolder) holder).progressBarDoc.setVisibility(View.GONE);
-        ((senderViewHolder) holder).downloadPercentageDocSender.setVisibility(View.VISIBLE);
-        ((senderViewHolder) holder).downloadPercentageDocSender.setText("0%");
-
-        // --- PRIVATE DOCUMENT DIRECTORY ---
-        File privateDocsDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Documents");
-        if (!privateDocsDir.exists()) privateDocsDir.mkdirs();
-        File privateDocFile = new File(privateDocsDir, model.getFileName());
-
-        // --- If already exists ---
-        if (privateDocFile.exists()) {
-            Log.d("DOWNLOAD_DEBUG", "Document already exists, skipping download");
-            ((senderViewHolder) holder).progressBarDoc.setVisibility(View.GONE);
-            ((senderViewHolder) holder).downloadPercentageDocSender.setVisibility(View.GONE);
-            ((senderViewHolder) holder).downloadPercentageDocSender.setText("");
-
-            copyDocToPublicDoc(privateDocFile, model.getFileName()); // Copy to public if missing
-            return;
-        }
-
-        // --- Setup DownloadManager ---
-        DownloadManager dm = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-        DownloadManager.Request req = new DownloadManager.Request(Uri.parse(model.getDocument()));
-        req.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-        req.setAllowedOverRoaming(false);
-        req.setTitle(model.getFileName());
-        req.setDescription("Downloading document");
-        req.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        req.setDestinationUri(Uri.fromFile(privateDocFile));
-
-        long docDownloadId = dm.enqueue(req);
-        Log.d("DOWNLOAD_DEBUG", "Document Download ID: " + docDownloadId);
-
-        // --- Track progress ---
-        trackSenderDocDownloadProgress(
-                docDownloadId,
-                ((senderViewHolder) holder).progressBarDoc,
-                ((senderViewHolder) holder).downloadPercentageDocSender,
-                ((senderViewHolder) holder).downlaodDoc
-        );
-
-        // --- Copy to public after download completes ---
-        mContext.registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-                if (id != docDownloadId) return;
-
-                ((senderViewHolder) holder).progressBarDoc.setVisibility(View.GONE);
-                ((senderViewHolder) holder).downloadPercentageDocSender.setText("");
-
-                // Copy document to public folder
-                copyDocToPublicDoc(privateDocFile, model.getFileName());
-            }
-        }, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), mContext.RECEIVER_EXPORTED);
-    }
-
-
-    private void startSenderAudioDownloadWithProgress(RecyclerView.ViewHolder holder, messageModel model) {
-        Log.d("DOWNLOAD_DEBUG", "startSenderDocDownloadWithProgress called");
-        Log.d("DOWNLOAD_DEBUG", "Document URL: " + model.getDocument());
-        Log.d("DOWNLOAD_DEBUG", "File Name: " + model.getFileName());
-
-        // Prepare UI
-        ((senderViewHolder) holder).downlaodAudio.setVisibility(View.GONE);
-        ((senderViewHolder) holder).progressBarAudio.setIndeterminate(true);
-        ((senderViewHolder) holder).progressBarAudio.setVisibility(View.GONE);
-        ((senderViewHolder) holder).downloadPercentageAudioSender.setText("0%");
-        ((senderViewHolder) holder).downloadPercentageAudioSender.setVisibility(View.VISIBLE);
-
-        // --- PRIVATE DOCUMENT DIRECTORY ---
-        File privateDocsDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Audios");
-        if (!privateDocsDir.exists()) privateDocsDir.mkdirs();
-        File privateDocFile = new File(privateDocsDir, model.getFileName());
-
-        // --- If already exists ---
-        if (privateDocFile.exists()) {
-            Log.d("DOWNLOAD_DEBUG", "Document already exists, skipping download");
-            ((senderViewHolder) holder).progressBarAudio.setVisibility(View.GONE);
-            ((senderViewHolder) holder).downloadPercentageAudioSender.setVisibility(View.GONE);
-            ((senderViewHolder) holder).downloadPercentageAudioSender.setText("");
-
-            copyDocToPublicDoc(privateDocFile, model.getFileName()); // Copy to public if missing
-            return;
-        }
-
-        // --- Setup DownloadManager ---
-        DownloadManager dm = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-        DownloadManager.Request req = new DownloadManager.Request(Uri.parse(model.getDocument()));
-        req.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-        req.setAllowedOverRoaming(false);
-        req.setTitle(model.getFileName());
-        req.setDescription("Downloading document");
-        req.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        req.setDestinationUri(Uri.fromFile(privateDocFile));
-
-        long docDownloadId = dm.enqueue(req);
-        Log.d("DOWNLOAD_DEBUG", "Document Download ID: " + docDownloadId);
-
-        // --- Track progress ---
-        trackSenderDocDownloadProgress(
-                docDownloadId,
-                ((senderViewHolder) holder).progressBarAudio,
-                ((senderViewHolder) holder).downloadPercentageAudioSender,
-                ((senderViewHolder) holder).downlaodAudio
-        );
-
-        // --- Copy to public after download completes ---
-        mContext.registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-                if (id != docDownloadId) return;
-
-                ((senderViewHolder) holder).progressBarAudio.setVisibility(View.GONE);
-                ((senderViewHolder) holder).downloadPercentageAudioSender.setText("");
-
-                // Copy document to public folder
-                copyDocToPublicDoc(privateDocFile, model.getFileName());
-            }
-        }, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), mContext.RECEIVER_EXPORTED);
-    }
-
-
-    private void startReceiverAudioDownloadWithProgress(RecyclerView.ViewHolder holder, messageModel model) {
-        Log.d("DOWNLOAD_DEBUG", "startSenderDocDownloadWithProgress called");
-        Log.d("DOWNLOAD_DEBUG", "Document URL: " + model.getDocument());
-        Log.d("DOWNLOAD_DEBUG", "File Name: " + model.getFileName());
-
-        // Prepare UI
-        ((receiverViewHolder) holder).downlaodAudioReceiver.setVisibility(View.GONE);
-        ((receiverViewHolder) holder).progressBarAudioReceiver.setIndeterminate(true);
-        ((receiverViewHolder) holder).progressBarAudioReceiver.setVisibility(View.GONE);
-        ((receiverViewHolder) holder).downloadPercentageAudioReceiver.setText("0%");
-        ((receiverViewHolder) holder).downloadPercentageAudioReceiver.setVisibility(View.VISIBLE);
-
-        // --- PRIVATE DOCUMENT DIRECTORY ---
-        File privateDocsDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Audios");
-        if (!privateDocsDir.exists()) privateDocsDir.mkdirs();
-        File privateDocFile = new File(privateDocsDir, model.getFileName());
-
-        // --- If already exists ---
-        if (privateDocFile.exists()) {
-            Log.d("DOWNLOAD_DEBUG", "Document already exists, skipping download");
-            ((receiverViewHolder) holder).progressBarAudioReceiver.setVisibility(View.GONE);
-            ((receiverViewHolder) holder).downloadPercentageAudioReceiver.setVisibility(View.GONE);
-            ((receiverViewHolder) holder).downloadPercentageAudioReceiver.setText("");
-
-            copyDocToPublicDoc(privateDocFile, model.getFileName()); // Copy to public if missing
-            return;
-        }
-
-        // --- Setup DownloadManager ---
-        DownloadManager dm = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-        DownloadManager.Request req = new DownloadManager.Request(Uri.parse(model.getDocument()));
-        req.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-        req.setAllowedOverRoaming(false);
-        req.setTitle(model.getFileName());
-        req.setDescription("Downloading document");
-        req.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        req.setDestinationUri(Uri.fromFile(privateDocFile));
-
-        long docDownloadId = dm.enqueue(req);
-        Log.d("DOWNLOAD_DEBUG", "Document Download ID: " + docDownloadId);
-
-        // --- Track progress ---
-        trackSenderDocDownloadProgress(
-                docDownloadId,
-                ((receiverViewHolder) holder).progressBarAudioReceiver,
-                ((receiverViewHolder) holder).downloadPercentageAudioReceiver,
-                ((receiverViewHolder) holder).downlaodAudioReceiver
-        );
-
-        // --- Copy to public after download completes ---
-        mContext.registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-                if (id != docDownloadId) return;
-
-                ((receiverViewHolder) holder).progressBarAudioReceiver.setVisibility(View.GONE);
-                ((receiverViewHolder) holder).downloadPercentageAudioReceiver.setText("");
-
-                // Copy document to public folder
-                copyDocToPublicDoc(privateDocFile, model.getFileName());
-            }
-        }, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), mContext.RECEIVER_EXPORTED);
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
 
     // --- Copy private document to public Documents/Enclosure ---
     private void copyDocToPublicDoc(File privateFile, String fileName) {
@@ -26421,92 +25131,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
 
-
-    private void trackReceiverDocDownloadProgress(long downloadId, ProgressBar progressBar, TextView percentageView, View downloadFab, messageModel model) {
-        Handler handler = new Handler();
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    DownloadManager dm = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-                    DownloadManager.Query q = new DownloadManager.Query().setFilterById(downloadId);
-                    Cursor c = dm.query(q);
-                    if (c != null && c.moveToFirst()) {
-                        int statusIdx = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
-                        int bytesIdx = c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR);
-                        int totalIdx = c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES);
-
-                        int status = statusIdx >= 0 ? c.getInt(statusIdx) : -1;
-                        long soFar = (bytesIdx >= 0) ? c.getLong(bytesIdx) : 0L;
-                        long total = (totalIdx >= 0) ? c.getLong(totalIdx) : 0L;
-
-                        if (total > 0) {
-                            progressBar.setIndeterminate(false);
-                            progressBar.setMax(100);
-                            int prog = (int) ((soFar * 100L) / total);
-                            progressBar.setProgress(prog);
-                            percentageView.setText(prog + "%");
-                        }
-
-                        if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                            progressBar.setVisibility(View.GONE);
-                            percentageView.setVisibility(View.GONE);
-                            downloadFab.setVisibility(View.GONE);
-                            c.close();
-                            return;
-                        } else if (status == DownloadManager.STATUS_FAILED) {
-                            progressBar.setVisibility(View.GONE);
-                            percentageView.setVisibility(View.GONE);
-                            downloadFab.setVisibility(View.VISIBLE);
-                            c.close();
-                            return;
-                        }
-                        c.close();
-                        handler.postDelayed(this, 300);
-                    } else {
-                        if (c != null) c.close();
-                        handler.postDelayed(this, 300);
-                    }
-                } catch (Exception ignored) {
-                    progressBar.setVisibility(View.GONE);
-                    percentageView.setVisibility(View.GONE);
-                    downloadFab.setVisibility(View.VISIBLE);
-                }
-            }
-        };
-        handler.post(r);
-    }
-
-
-
-
-    private void startSenderAudioDownloadWithProgressXDocument(RecyclerView.ViewHolder holder, messageModel model) {
-        // Prepare UI
-        ((senderViewHolder) holder).downlaodAudio.setVisibility(View.GONE);
-        ((senderViewHolder) holder).progressBarAudio.setIndeterminate(true);
-        ((senderViewHolder) holder).progressBarAudio.setVisibility(View.GONE);
-        ((senderViewHolder) holder).downloadPercentageAudioSender.setText("0%");
-        ((senderViewHolder) holder).downloadPercentageAudioSender.setVisibility(View.VISIBLE);
-
-        // Ensure destination dir exists
-        File audiosDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Documents");
-        if (!audiosDir.exists()) audiosDir.mkdirs();
-
-        try {
-            DownloadManager dm = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-            Uri uri = Uri.parse(model.getDocument());
-            DownloadManager.Request req = new DownloadManager.Request(uri).setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE).setTitle(model.getFileName()).setDescription("Downloading audio").setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE).setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOCUMENTS, "Enclosure/Media/Documents/" + model.getFileName());
-
-            long audioDownloadId = dm.enqueue(req);
-            trackSenderAudioDownloadProgress(audioDownloadId, ((senderViewHolder) holder).progressBarAudio, ((senderViewHolder) holder).downloadPercentageAudioSender, ((senderViewHolder) holder).downlaodAudio);
-        } catch (Exception e) {
-            // Reset UI on error
-            ((senderViewHolder) holder).downloadPercentageAudioSender.setVisibility(View.GONE);
-            ((senderViewHolder) holder).progressBarAudio.setVisibility(View.GONE);
-            ((senderViewHolder) holder).downlaodAudio.setVisibility(View.VISIBLE);
-        }
-    }
-
     private void trackSenderAudioDownloadProgress(long downloadId, ProgressBar progressBar, TextView percentageView, View downloadFab) {
         Handler handler = new Handler();
         Runnable r = new Runnable() {
@@ -26558,32 +25182,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
 
-    private void startReceiverAudioDownloadWithProgressXDocuments(RecyclerView.ViewHolder holder, messageModel model) {
-        // Prepare UI
-        ((receiverViewHolder) holder).downlaodAudioReceiver.setVisibility(View.GONE);
-        ((receiverViewHolder) holder).progressBarAudioReceiver.setIndeterminate(true);
-        ((receiverViewHolder) holder).progressBarAudioReceiver.setVisibility(View.GONE);
-        ((receiverViewHolder) holder).downloadPercentageAudioReceiver.setText("0%");
-        ((receiverViewHolder) holder).downloadPercentageAudioReceiver.setVisibility(View.VISIBLE);
-
-        // Ensure destination dir exists
-        File audiosDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Documents");
-        if (!audiosDir.exists()) audiosDir.mkdirs();
-
-        try {
-            DownloadManager dm = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
-            Uri uri = Uri.parse(model.getDocument());
-            DownloadManager.Request req = new DownloadManager.Request(uri).setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE).setTitle(model.getFileName()).setDescription("Downloading audio").setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE).setDestinationInExternalFilesDir(mContext, Environment.DIRECTORY_DOCUMENTS, "Enclosure/Media/Documents/" + model.getFileName());
-
-            long audioDownloadId = dm.enqueue(req);
-            trackReceiverAudioDownloadProgress(audioDownloadId, ((receiverViewHolder) holder).progressBarAudioReceiver, ((receiverViewHolder) holder).downloadPercentageAudioReceiver, ((receiverViewHolder) holder).downlaodAudioReceiver, model);
-        } catch (Exception e) {
-            // Reset UI on error
-            ((receiverViewHolder) holder).downloadPercentageAudioReceiver.setVisibility(View.GONE);
-            ((receiverViewHolder) holder).progressBarAudioReceiver.setVisibility(View.GONE);
-            ((receiverViewHolder) holder).downlaodAudioReceiver.setVisibility(View.VISIBLE);
-        }
-    }
 
     private void trackReceiverAudioDownloadProgress(long downloadId, ProgressBar progressBar, TextView percentageView, View downloadFab, messageModel model) {
         Handler handler = new Handler();
@@ -26641,12 +25239,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     /**
      * Wrapper method to load image and set dimensions
      */
-    private void loadImageWithDimensions(Context context, String imageSource, RequestOptions requestOptions, ImageView targetImageView, ViewGroup parentLayout, int position, boolean loadHighQuality, messageModel model, ImageView videoIcon) {
-        Constant.loadImageIntoView(context, imageSource, requestOptions, targetImageView, parentLayout, position, true, model, videoIcon);
-
-        // Set image dimensions to maintain aspect ratio
-        setImageViewDimensions(targetImageView, model.getImageWidth(), model.getImageHeight());
-    }
 
     /**
      * Ensure all ImageViews in the adapter have consistent scaling and dimensions
@@ -26665,12 +25257,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     /**
      * Handle video thumbnail loading with consistent scaling and dimensions
      */
-    private void loadVideoThumbnailWithDimensions(String imageSource, ImageView targetImageView, ViewGroup parentLayout, int position, boolean loadHighQuality, messageModel model, ImageView videoIcon) {
-        Constant.loadImageIntoView(mContext, imageSource, requestOptions, targetImageView, parentLayout, position, true, model, videoIcon);
-
-        // Ensure consistent scaling and dimensions for video thumbnails
-        ensureConsistentImageScaling(targetImageView, model);
-    }
 
     /**
      * Set ImageView dimensions and scale type using the same logic as loadImageIntoViewGroup
@@ -26766,50 +25352,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     /**
      * Check if any images in selectionBunch are missing locally
      */
-    private boolean checkAnySelectionBunchImagesMissing(List<selectionBunchModel> selectionBunch) {
-        if (selectionBunch == null || selectionBunch.isEmpty()) {
-            return true; // If no images, consider them missing
-        }
 
-        for (selectionBunchModel bunch : selectionBunch) {
-            if (bunch == null || TextUtils.isEmpty(bunch.getFileName())) {
-                continue; // Skip if no filename
-            }
-
-            File customFolder;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                customFolder = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Images");
-            } else {
-                customFolder = new File(mContext.getExternalFilesDir(null), "Enclosure/Media/Images");
-            }
-
-            // Decode URL-encoded characters in filename
-            String decodedFileName = bunch.getFileName();
-            try {
-                decodedFileName = java.net.URLDecoder.decode(bunch.getFileName(), "UTF-8");
-                Log.d("bunch###", "Decoded filename for missing check: " + bunch.getFileName() + " -> " + decodedFileName);
-            } catch (Exception e) {
-                Log.w("bunch###", "Failed to decode filename for missing check: " + bunch.getFileName(), e);
-            }
-
-            // Remove any subdirectory prefixes like "chats/" from the filename
-            String cleanFileName = decodedFileName;
-            if (cleanFileName.contains("/")) {
-                cleanFileName = cleanFileName.substring(cleanFileName.lastIndexOf("/") + 1);
-                Log.d("bunch###", "Removed subdirectory prefix: " + decodedFileName + " -> " + cleanFileName);
-            }
-
-            String localPath = customFolder.getAbsolutePath() + "/" + cleanFileName;
-
-            if (!doesFileExist(localPath)) {
-                Log.d("SelectionBunch", "Image not found locally: " + localPath);
-                Log.d("bunch###", "Image not found locally: " + localPath);
-                return true; // Found at least one missing image
-            }
-        }
-
-        return false; // All images exist
-    }
 
     /**
      * Check if selection bunch has valid image URLs
@@ -26969,464 +25512,13 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     /**
      * Download a single selectionBunch image
      */
-    private void downloadSelectionBunchImage(selectionBunchModel bunch, DownloadCallback callback) {
-        if (bunch == null || TextUtils.isEmpty(bunch.getImgUrl())) {
-            callback.onError("Invalid image URL");
-            return;
-        }
 
-        // --- Prepare filename ---
-        String fileName = bunch.getFileName();
-        if (TextUtils.isEmpty(fileName)) {
-            fileName = extractFileNameFromFirebaseUrl(bunch.getImgUrl());
-            if (TextUtils.isEmpty(fileName)) {
-                fileName = "selectionBunch_" + System.currentTimeMillis() + ".jpg";
-            }
-        } else {
-            try {
-                fileName = java.net.URLDecoder.decode(fileName, "UTF-8");
-            } catch (Exception ignored) {
-            }
-            if (fileName.contains("/")) {
-                fileName = fileName.substring(fileName.lastIndexOf("/") + 1);
-            }
-        }
 
-        final String safeFileName = fileName; // ✅ make final for lambda
-        final String mimeType = "image/jpeg";
 
-        new Thread(() -> {
-            java.net.HttpURLConnection connection = null;
-            java.io.InputStream input = null;
-            java.io.OutputStream publicOut = null;
-            java.io.OutputStream privateOut = null;
 
-            try {
-                java.net.URL url = new java.net.URL(bunch.getImgUrl());
-                connection = (java.net.HttpURLConnection) url.openConnection();
-                connection.connect();
 
-                int responseCode = connection.getResponseCode();
-                if (responseCode != java.net.HttpURLConnection.HTTP_OK) {
-                    callback.onError("HTTP Error: " + responseCode);
-                    return;
-                }
 
-                input = connection.getInputStream();
-                long contentLength = connection.getContentLength();
 
-                Uri imageUri = null;
 
-                // ✅ PUBLIC GALLERY STORAGE (for Android 10+)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    ContentValues values = new ContentValues();
-                    values.put(MediaStore.Images.Media.DISPLAY_NAME, safeFileName);
-                    values.put(MediaStore.Images.Media.MIME_TYPE, mimeType);
-                    values.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/Enclosure/Media/Enclosure");
-                    values.put(MediaStore.Images.Media.IS_PENDING, 1);
 
-                    ContentResolver resolver = mContext.getContentResolver();
-                    imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                    if (imageUri == null) {
-                        callback.onError("Failed to create MediaStore entry");
-                        return;
-                    }
-
-                    publicOut = resolver.openOutputStream(imageUri);
-                } else {
-                    // ✅ For Android 9 and below (legacy public path)
-                    File picturesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                    File customDir = new File(picturesDir, "Enclosure/Media/Enclosure");
-                    if (!customDir.exists()) customDir.mkdirs();
-
-                    File imageFile = new File(customDir, safeFileName);
-                    publicOut = new FileOutputStream(imageFile);
-                    imageUri = Uri.fromFile(imageFile);
-                }
-
-                // ✅ PRIVATE APP STORAGE
-                File privateDir;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    privateDir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Images");
-                } else {
-                    privateDir = new File(mContext.getExternalFilesDir(null), "Enclosure/Media/Images");
-                }
-                if (!privateDir.exists()) privateDir.mkdirs();
-
-                File privateFile = new File(privateDir, safeFileName);
-                privateOut = new FileOutputStream(privateFile);
-
-                // --- Write to both outputs (Gallery + Private) ---
-                byte[] buffer = new byte[4096];
-                int bytesRead;
-                long total = 0;
-
-                while ((bytesRead = input.read(buffer)) != -1) {
-                    if (publicOut != null) publicOut.write(buffer, 0, bytesRead);
-                    if (privateOut != null) privateOut.write(buffer, 0, bytesRead);
-                    total += bytesRead;
-
-                    if (contentLength > 0) {
-                        int progress = (int) ((total * 100) / contentLength);
-                        callback.onProgress(progress);
-                    }
-                }
-
-                if (publicOut != null) publicOut.flush();
-                if (privateOut != null) privateOut.flush();
-
-                // ✅ Finalize (for Android Q+)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && imageUri != null) {
-                    ContentValues values = new ContentValues();
-                    values.put(MediaStore.Images.Media.IS_PENDING, 0);
-                    mContext.getContentResolver().update(imageUri, values, null, null);
-                }
-
-                // ✅ Refresh gallery (for Android 9 and below)
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q && imageUri != null) {
-                    Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                    mediaScanIntent.setData(imageUri);
-                    mContext.sendBroadcast(mediaScanIntent);
-                }
-
-                Log.d("SelectionBunch", "Saved to gallery: " + imageUri);
-                Log.d("SelectionBunch", "Saved privately: " + privateFile.getAbsolutePath());
-
-                // ✅ Notify success to hide progress and button
-                callback.onSuccess();
-
-            } catch (Exception e) {
-                Log.e("SelectionBunch", "Error downloading image: " + e.getMessage(), e);
-                callback.onError(e.getMessage());
-            } finally {
-                try {
-                    if (input != null) input.close();
-                    if (publicOut != null) publicOut.close();
-                    if (privateOut != null) privateOut.close();
-                    if (connection != null) connection.disconnect();
-                } catch (Exception ignored) {
-                }
-            }
-        }).start();
-    }
-
-
-
-
-
-    private void downloadAllSelectionBunchImages(senderViewHolder holder, messageModel model, int position) {
-        Log.d("SelectionBunch", "=== STARTING DOWNLOAD ALL SELECTION BUNCH IMAGES (SENDER) ===");
-        Log.d("SelectionBunch", "MessageId: " + model.getModelId());
-
-        if (model.getSelectionBunch() == null || model.getSelectionBunch().isEmpty()) {
-            Log.w("SelectionBunch", "No selectionBunch to download");
-            return;
-        }
-
-        Log.d("SelectionBunch", "Total images in selectionBunch: " + model.getSelectionBunch().size());
-
-        // Filter to only missing images
-        List<selectionBunchModel> missingImages = getMissingSelectionBunchImages(model.getSelectionBunch());
-
-        if (missingImages.isEmpty()) {
-            Log.d("SelectionBunch", "No missing images to download - all images already exist locally");
-            holder.downlaodImgBunch.setVisibility(View.GONE);
-            holder.downloadPercentageImageSenderBunch.setVisibility(View.GONE);
-            return;
-        }
-
-        Log.d("SelectionBunch", "Found " + missingImages.size() + " missing images out of " + model.getSelectionBunch().size() + " total");
-        Log.d("SelectionBunch", "Missing images details:");
-        for (int i = 0; i < missingImages.size(); i++) {
-            selectionBunchModel bunch = missingImages.get(i);
-            Log.d("SelectionBunch", "  Missing " + i + ": " + bunch.getFileName() + " (URL: " +
-                    (TextUtils.isEmpty(bunch.getImgUrl()) ? "EMPTY" : "HAS_URL") + ")");
-        }
-
-        // Show progress and hide download button immediately
-        holder.downlaodImgBunch.setVisibility(View.GONE);  // Hide download button immediately
-        holder.downloadPercentageImageSenderBunch.setVisibility(View.VISIBLE);
-        holder.downloadPercentageImageSenderBunch.setText("0%");
-
-        // Create download task for each missing image
-        int totalMissingImages = missingImages.size();
-        final int[] downloadedCount = {0};
-
-        for (selectionBunchModel bunch : missingImages) {
-            if (bunch == null || TextUtils.isEmpty(bunch.getImgUrl())) {
-                continue;
-            }
-
-            // Download each missing image
-            downloadSelectionBunchImage(bunch, new DownloadCallback() {
-                @Override
-                public void onProgress(int progress) {
-                    // Update progress for this specific image
-                    int overallProgress = (downloadedCount[0] * 100 + progress) / totalMissingImages;
-                    // Update UI on main thread
-                    new Handler(Looper.getMainLooper()).post(() -> {
-                        holder.downloadPercentageImageSenderBunch.setText(overallProgress + "%");
-                        Log.d("SelectionBunch", "Updated progress: " + overallProgress + "%");
-                    });
-                }
-
-                @Override
-                public void onSuccess() {
-                    downloadedCount[0]++;
-                    int overallProgress = (downloadedCount[0] * 100) / totalMissingImages;
-                    // Update UI on main thread
-                    new Handler(Looper.getMainLooper()).post(() -> {
-                        holder.downloadPercentageImageSenderBunch.setText(overallProgress + "%");
-
-                        if (downloadedCount[0] >= totalMissingImages) {
-                            // All missing images downloaded
-                            holder.downlaodImgBunch.setVisibility(View.GONE);
-                            holder.downloadPercentageImageSenderBunch.setVisibility(View.GONE);
-                            Log.d("SelectionBunch", "All missing selectionBunch images downloaded successfully");
-
-                            // Refresh the view to show downloaded images
-                            notifyItemChanged(position);
-                        }
-                    });
-                }
-
-                @Override
-                public void onError(String error) {
-                    Log.e("SelectionBunch", "Failed to download image: " + error);
-                    // Continue with other images even if one fails
-                    downloadedCount[0]++;
-                    // Update UI on main thread
-                    new Handler(Looper.getMainLooper()).post(() -> {
-                        Log.d("SelectionBunch", "Image download failed, continuing with others: " + downloadedCount[0] + "/" + totalMissingImages);
-                        if (downloadedCount[0] >= totalMissingImages) {
-                            Log.d("SelectionBunch", "All download attempts completed, hiding download button");
-                            holder.downlaodImgBunch.setVisibility(View.GONE);
-                            holder.downloadPercentageImageSenderBunch.setVisibility(View.GONE);
-                        }
-                    });
-                }
-            });
-        }
-    }
-
-    /**
-     * Download missing images in selectionBunch for receiver view
-     */
-    private void downloadAllSelectionBunchImagesReceiver(receiverViewHolder holder, messageModel model, int position) {
-        Log.d("SelectionBunch", "=== STARTING DOWNLOAD ALL SELECTION BUNCH IMAGES (RECEIVER) ===");
-        Log.d("SelectionBunch", "MessageId: " + model.getModelId());
-        Log.d("SelectionBunch", "SelectionBunch size: " + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
-
-        if (model.getSelectionBunch() == null || model.getSelectionBunch().isEmpty()) {
-            Log.w("SelectionBunch", "No selectionBunch to download");
-            return;
-        }
-
-        Log.d("SelectionBunch", "Total images in selectionBunch: " + model.getSelectionBunch().size());
-
-        // Filter to only missing images
-        List<selectionBunchModel> missingImages = getMissingSelectionBunchImages(model.getSelectionBunch());
-
-        if (missingImages.isEmpty()) {
-            Log.d("SelectionBunch", "No missing images to download - all images already exist locally (receiver)");
-            holder.downlaodImgBunch.setVisibility(View.GONE);
-            holder.downloadPercentageImageSenderBunch.setVisibility(View.GONE);
-            return;
-        }
-
-        Log.d("SelectionBunch", "Found " + missingImages.size() + " missing images out of " + model.getSelectionBunch().size() + " total (receiver)");
-        Log.d("SelectionBunch", "Missing images details:");
-        for (int i = 0; i < missingImages.size(); i++) {
-            selectionBunchModel bunch = missingImages.get(i);
-            Log.d("SelectionBunch", "  Missing " + i + ": " + bunch.getFileName() + " (URL: " +
-                    (TextUtils.isEmpty(bunch.getImgUrl()) ? "EMPTY" : "HAS_URL") + ")");
-        }
-
-        // Show progress and hide download button immediately
-        holder.downlaodImgBunch.setVisibility(View.GONE);  // Hide download button immediately
-        holder.downloadPercentageImageSenderBunch.setVisibility(View.VISIBLE);
-        holder.downloadPercentageImageSenderBunch.setText("0%");
-
-        // Create download task for each missing image
-        int totalMissingImages = missingImages.size();
-        final int[] downloadedCount = {0};
-
-        for (selectionBunchModel bunch : missingImages) {
-            if (bunch == null || TextUtils.isEmpty(bunch.getImgUrl())) {
-                continue;
-            }
-
-            // Download each missing image
-            downloadSelectionBunchImage(bunch, new DownloadCallback() {
-                @Override
-                public void onProgress(int progress) {
-                    // Update progress for this specific image
-                    int overallProgress = (downloadedCount[0] * 100 + progress) / totalMissingImages;
-                    // Update UI on main thread
-                    new Handler(Looper.getMainLooper()).post(() -> {
-                        holder.downloadPercentageImageSenderBunch.setText(overallProgress + "%");
-                        Log.d("SelectionBunch", "Updated progress: " + overallProgress + "%");
-                    });
-                }
-
-                @Override
-                public void onSuccess() {
-                    downloadedCount[0]++;
-                    int overallProgress = (downloadedCount[0] * 100) / totalMissingImages;
-                    // Update UI on main thread
-                    new Handler(Looper.getMainLooper()).post(() -> {
-                        holder.downloadPercentageImageSenderBunch.setText(overallProgress + "%");
-                        Log.d("SelectionBunch", "Image " + downloadedCount[0] + "/" + totalMissingImages + " downloaded successfully");
-
-                        if (downloadedCount[0] >= totalMissingImages) {
-                            // All missing images downloaded
-                            Log.d("SelectionBunch", "All images downloaded, hiding download button");
-                            holder.downlaodImgBunch.setVisibility(View.GONE);
-                            holder.downloadPercentageImageSenderBunch.setVisibility(View.GONE);
-                            Log.d("SelectionBunch", "All missing selectionBunch images downloaded successfully (receiver)");
-
-                            // Refresh the view to show downloaded images
-                            notifyItemChanged(position);
-                        }
-                    });
-                }
-
-                @Override
-                public void onError(String error) {
-                    Log.e("SelectionBunch", "Failed to download image: " + error);
-                    // Continue with other images even if one fails
-                    downloadedCount[0]++;
-                    // Update UI on main thread
-                    new Handler(Looper.getMainLooper()).post(() -> {
-                        Log.d("SelectionBunch", "Image download failed, continuing with others: " + downloadedCount[0] + "/" + totalMissingImages);
-                        if (downloadedCount[0] >= totalMissingImages) {
-                            Log.d("SelectionBunch", "All download attempts completed, hiding download button");
-                            holder.downlaodImgBunch.setVisibility(View.GONE);
-                            holder.downloadPercentageImageSenderBunch.setVisibility(View.GONE);
-                        }
-                    });
-                }
-            });
-        }
-    }
-
-    /**
-     * Get list of missing images from selectionBunch
-     */
-    private List<selectionBunchModel> getMissingSelectionBunchImages(List<selectionBunchModel> selectionBunch) {
-        Log.d("SelectionBunch", "=== GETTING MISSING SELECTION BUNCH IMAGES ===");
-        List<selectionBunchModel> missingImages = new ArrayList<>();
-
-        if (selectionBunch == null || selectionBunch.isEmpty()) {
-            Log.d("SelectionBunch", "SelectionBunch is null or empty, returning empty missing list");
-            return missingImages;
-        }
-
-        Log.d("SelectionBunch", "Checking " + selectionBunch.size() + " images for missing status");
-
-        for (int i = 0; i < selectionBunch.size(); i++) {
-            selectionBunchModel bunch = selectionBunch.get(i);
-            if (bunch == null || TextUtils.isEmpty(bunch.getFileName())) {
-                Log.d("SelectionBunch", "Image " + i + " - null or empty filename, skipping");
-                continue; // Skip if no filename
-            }
-
-            File customFolder;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                customFolder = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Images");
-            } else {
-                customFolder = new File(mContext.getExternalFilesDir(null), "Enclosure/Media/Images");
-            }
-
-            // Decode URL-encoded characters in filename
-            String decodedFileName = bunch.getFileName();
-            try {
-                decodedFileName = java.net.URLDecoder.decode(bunch.getFileName(), "UTF-8");
-                Log.d("SelectionBunch", "Image " + i + " - Decoded filename: " + bunch.getFileName() + " -> " + decodedFileName);
-            } catch (Exception e) {
-                Log.w("SelectionBunch", "Image " + i + " - Failed to decode filename: " + bunch.getFileName(), e);
-            }
-
-            // Remove any subdirectory prefixes like "chats/" from the filename
-            String cleanFileName = decodedFileName;
-            if (cleanFileName.contains("/")) {
-                cleanFileName = cleanFileName.substring(cleanFileName.lastIndexOf("/") + 1);
-                Log.d("SelectionBunch", "Image " + i + " - Removed subdirectory prefix: " + decodedFileName + " -> " + cleanFileName);
-            }
-
-            String localPath = customFolder.getAbsolutePath() + "/" + cleanFileName;
-
-            Log.d("SelectionBunch", "Image " + i + " - Checking at path: " + localPath);
-            boolean fileExists = doesFileExist(localPath);
-            Log.d("SelectionBunch", "Image " + i + " - File exists: " + fileExists);
-
-            if (!fileExists) {
-                Log.d("SelectionBunch", "Image " + i + " - MISSING: " + localPath);
-                missingImages.add(bunch);
-            } else {
-                Log.d("SelectionBunch", "Image " + i + " - EXISTS: " + localPath);
-            }
-        }
-
-        Log.d("SelectionBunch", "=== MISSING IMAGES RESULT ===");
-        Log.d("SelectionBunch", "Total checked: " + selectionBunch.size() + ", Missing: " + missingImages.size());
-        return missingImages;
-    }
-
-    /**
-     * Extract filename from Firebase Storage URL
-     */
-    private String extractFileNameFromFirebaseUrl(String firebaseUrl) {
-        if (TextUtils.isEmpty(firebaseUrl)) {
-            return null;
-        }
-
-        try {
-            // Firebase Storage URLs typically look like:
-            // https://firebasestorage.googleapis.com/v0/b/bucket/o/path%2Ffilename.jpg?alt=media&token=...
-            // We need to extract the filename from the path part
-
-            java.net.URL url = new java.net.URL(firebaseUrl);
-            String path = url.getPath();
-
-            // Remove the leading "/v0/b/bucket/o/" part
-            if (path.startsWith("/v0/b/")) {
-                int startIndex = path.indexOf("/o/");
-                if (startIndex != -1) {
-                    path = path.substring(startIndex + 3); // Remove "/o/"
-                }
-            }
-
-            // URL decode the path
-            path = java.net.URLDecoder.decode(path, "UTF-8");
-
-            // Extract just the filename (after the last slash)
-            if (path.contains("/")) {
-                path = path.substring(path.lastIndexOf("/") + 1);
-            }
-
-            // If we have a valid filename, return it
-            if (!TextUtils.isEmpty(path) && path.contains(".")) {
-                Log.d("SelectionBunch", "Extracted filename from Firebase URL: " + firebaseUrl + " -> " + path);
-                return path;
-            }
-
-        } catch (Exception e) {
-            Log.w("SelectionBunch", "Failed to extract filename from Firebase URL: " + firebaseUrl, e);
-        }
-
-        return null;
-    }
-
-    /**
-     * Callback interface for download progress
-     */
-    private interface DownloadCallback {
-        void onProgress(int progress);
-        void onSuccess();
-        void onError(String error);
-    }
-    private int dpToPx(int dp) {
-        return (int) (dp * mContext.getResources().getDisplayMetrics().density);
-    }
 }
