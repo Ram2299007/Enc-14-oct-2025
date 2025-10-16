@@ -89,6 +89,7 @@ import com.Appzia.enclosure.Adapter.chatAdapter;
 import com.Appzia.enclosure.Model.emojiModel;
 import com.Appzia.enclosure.Model.messageModel;
 import com.Appzia.enclosure.Model.messagemodel2;
+import com.Appzia.enclosure.Utils.ChatadapterFiles.otherFunctions;
 import com.Appzia.enclosure.Model.selectionBunchModel;
 import com.Appzia.enclosure.R;
 import com.Appzia.enclosure.Utils.BroadcastReiciver.UploadChatHelper;
@@ -3699,7 +3700,7 @@ public class CameraGalleryFragment extends Fragment {
 
             // Update UI
             requireActivity().runOnUiThread(() -> {
-                chatAdapter.updateMessageList(new ArrayList<>(messageList));
+                otherFunctions.updateMessageList(new ArrayList<>(messageList), chatAdapter);
                 chatAdapter.setLastItemVisible(isLastItemVisible);
                 messageRecView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
             });
@@ -4028,7 +4029,7 @@ public class CameraGalleryFragment extends Fragment {
             Log.d("PENDING_MESSAGES", "Model: " + (model != null ? "not null" : "null"));
             insertMessageToDatabase(model);
             requireActivity().runOnUiThread(() -> {
-                chatAdapter.updateMessageList(new ArrayList<>(messageList));
+                otherFunctions.updateMessageList(new ArrayList<>(messageList), chatAdapter);
                 chatAdapter.setLastItemVisible(isLastItemVisible);
                 messageRecView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
             });

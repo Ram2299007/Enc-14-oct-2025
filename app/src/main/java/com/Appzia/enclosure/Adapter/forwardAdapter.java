@@ -22,6 +22,7 @@ import com.Appzia.enclosure.Model.forwardnameModel;
 import com.Appzia.enclosure.Model.get_user_active_contact_list_Model;
 import com.Appzia.enclosure.R;
 import com.Appzia.enclosure.Utils.Constant;
+import com.Appzia.enclosure.Utils.ChatadapterFiles.otherFunctions;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -298,7 +299,7 @@ public class forwardAdapter extends RecyclerView.Adapter<forwardAdapter.myViewHo
                         }
                     }
 
-                    chatAdapter.setforwardNameAdapter(forwardNameList);
+                    otherFunctions.setforwardNameAdapter(forwardNameList, chatAdapter);
 
 
                 } else {
@@ -340,7 +341,7 @@ public class forwardAdapter extends RecyclerView.Adapter<forwardAdapter.myViewHo
                             throw new RuntimeException(e);
                         }
                     }
-                    chatAdapter.setforwardNameAdapter(forwardNameList);
+                    otherFunctions.setforwardNameAdapter(forwardNameList, chatAdapter);
 
 
                 }

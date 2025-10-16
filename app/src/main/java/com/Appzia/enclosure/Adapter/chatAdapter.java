@@ -632,6 +632,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         final messageModel model = messageList.get(position);
+        final chatAdapter adapter = this; // Reference to the adapter instance
 
         // 🚀 ULTRA-FAST SCROLLING OPTIMIZATIONS - WATER-LIKE PERFORMANCE
         holder.itemView.setLayerType(View.LAYER_TYPE_HARDWARE, null); // Hardware acceleration
@@ -3322,7 +3323,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -3353,7 +3354,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -4585,7 +4586,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -4614,7 +4615,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -4690,7 +4691,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -4721,7 +4722,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -6280,7 +6281,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot :" + targetModelId);
                                             }
@@ -6311,7 +6312,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -7619,7 +7620,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -7650,7 +7651,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -8802,7 +8803,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -8833,7 +8834,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -8976,7 +8977,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -9007,7 +9008,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -10108,7 +10109,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
                                                 }
@@ -10139,7 +10140,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
@@ -10222,7 +10223,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
                                                 }
@@ -10253,7 +10254,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
@@ -11338,7 +11339,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
                                                 }
@@ -11367,7 +11368,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
                                                 }
@@ -11442,7 +11443,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
                                                 }
@@ -11473,7 +11474,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
@@ -13701,7 +13702,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -13732,7 +13733,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -15352,7 +15353,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -15383,7 +15384,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -15478,7 +15479,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -17567,7 +17568,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -17598,7 +17599,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -18585,7 +18586,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -18616,7 +18617,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -19556,7 +19557,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
                                             }
@@ -19587,7 +19588,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                             }
 
                                             if (modelExists) {
-                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                             } else {
                                                 Log.d("Firebase", "modelId not found in snapshot");
@@ -20471,7 +20472,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
                                                 }
@@ -20502,7 +20503,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
@@ -21371,7 +21372,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
                                                 }
@@ -21402,7 +21403,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
@@ -21486,7 +21487,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, this);
+                                                    otherFunctions.scrollToTargetModelId(receiverRoom, targetModelId, chattingScreen, adapter);
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
                                                 }
@@ -21517,7 +21518,7 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
                                                 }
 
                                                 if (modelExists) {
-                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, this);
+                                                    otherFunctions.scrollToTargetModelId(senderRoom, targetModelId, chattingScreen, adapter);
 
                                                 } else {
                                                     Log.d("Firebase", "modelId not found in snapshot");
@@ -22319,43 +22320,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
 
-    private void scrollToTargetModelId(String receiverRoom, String targetModelId, chattingScreen screenInstance) {
-        loadPagesUntilModelFound(receiverRoom, targetModelId, screenInstance, () -> {
-            List<messageModel> messageList = screenInstance.getMessageList();
-            RecyclerView messageRecView = screenInstance.getMessageRecView();
-            for (int i = 0; i < messageList.size(); i++) {
-                if (messageList.get(i).getModelId().equals(targetModelId)) {
-                    final int foundIndex = i;
-                    //  setNavigatedPosition(foundIndex); // ✅ use setter
-
-                    messageRecView.post(() -> {
-                        // Use instant scroll to prevent flickering, then smooth scroll for better UX
-                        messageRecView.scrollToPosition(foundIndex);
-
-                        // Add a small delay then smooth scroll for better visual effect
-                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                          //  messageRecView.smoothScrollToPosition(foundIndex);
-
-                            // Add another delay to ensure the view is bound and laid out
-                            new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                                RecyclerView.ViewHolder viewHolder = messageRecView.findViewHolderForAdapterPosition(foundIndex);
-                                if (viewHolder != null && viewHolder.itemView != null) {
-                                    // 🔥 Highlight with animation or visual effect
-                                    viewHolder.itemView.setBackgroundColor(mContext.getColor(R.color.highlightcolor)); // Example highlight
-                                    viewHolder.itemView.animate().setDuration(300).withEndAction(() -> {
-                                        new Handler().postDelayed(() -> {
-                                            viewHolder.itemView.setBackgroundColor(Color.TRANSPARENT); // Remove highlight
-                                        }, 1000); // Duration of highlight
-                                    }).start();
-                                }
-                            }, 300); // Delay for smooth scroll to complete
-                        }, 100); // Small delay before smooth scroll
-                    });
-                    break;
-                }
-            }
-        });
-    }
 
 
 

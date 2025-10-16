@@ -469,6 +469,13 @@ public class otherFunctions {
         diffResult.dispatchUpdatesTo(adapter);
     }
 
+    // Simple version for backward compatibility
+    public static void updateMessageList(List<messageModel> newMessageList, chatAdapter adapter) {
+        adapter.messageList.clear();
+        adapter.messageList.addAll(newMessageList);
+        adapter.notifyDataSetChanged();
+    }
+
     public static class MessageDiffCallback extends DiffUtil.Callback {
 
         private final List<messageModel> mOldList;
@@ -1266,6 +1273,13 @@ public class otherFunctions {
         namerecyclerview.setAdapter(forwardnameAdapter);
     }
 
+    // Simple version for backward compatibility
+    public static void setforwardNameAdapter(ArrayList<forwardnameModel> forwardNameList, chatAdapter adapter) {
+        // This is a simplified version for backward compatibility
+        // The original method just set the list, so we'll do the same
+        adapter.forwardNameList = forwardNameList;
+    }
+
     public static void setAdapter(ArrayList<get_user_active_contact_list_Model> get_user_active_contact_forward_list, RecyclerView recyclerview, Context context, forwardAdapter forwardAdapter, LinearLayout dx, chatAdapter chatAdapter, View richBoxForward) {
         // Filter out blocked users
         ArrayList<get_user_active_contact_list_Model> filteredList = new ArrayList<>();
@@ -1281,6 +1295,27 @@ public class otherFunctions {
         recyclerview.setLayoutManager(layoutManager);
         recyclerview.setAdapter(forwardAdapter);
         forwardAdapter.notifyDataSetChanged();
+    }
+
+    // Simple version for Webservice.java compatibility
+    public static void setAdapter(ArrayList<get_user_active_contact_list_Model> get_user_active_contact_forward_list, chatAdapter chatadapters) {
+        // This is a simplified version for backward compatibility
+        // The original method just set the list, so we'll do the same
+        chatadapters.get_user_active_contact_forward_list = get_user_active_contact_forward_list;
+    }
+
+    // Version for shareExternalDataCONTACTScreen compatibility
+    public static void setAdapter(ArrayList<get_user_active_contact_list_Model> get_user_active_contact_forward_list, Object screen) {
+        // This is a simplified version for shareExternalDataCONTACTScreen compatibility
+        // The original method just set the list, so we'll do the same
+        try {
+            // Use reflection to set the field
+            java.lang.reflect.Field field = screen.getClass().getDeclaredField("get_user_active_contact_forward_list");
+            field.setAccessible(true);
+            field.set(screen, get_user_active_contact_forward_list);
+        } catch (Exception e) {
+            Log.e("otherFunctions", "Error setting get_user_active_contact_forward_list", e);
+        }
     }
 
     public static void setMediaPlayerCallback(MediaPlayerCallback callback, chatAdapter adapter) {

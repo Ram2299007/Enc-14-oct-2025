@@ -19,6 +19,7 @@ import com.Appzia.enclosure.Utils.BroadcastReiciver.UploadChatHelperForward;
 import com.Appzia.enclosure.Utils.SmoothNavigationHelper;
 import com.Appzia.enclosure.Utils.SwipeNavigationHelper;
 import com.Appzia.enclosure.Utils.GlobalPermissionPopup;
+import com.Appzia.enclosure.Utils.ChatadapterFiles.otherFunctions;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -772,7 +773,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
                     try {
                         if (chatAdapter != null) {
                             Log.d("ScrollText", "onResume: Updating adapter with message list");
-                            chatAdapter.updateMessageList(new ArrayList<>(messageList));
+                            otherFunctions.updateMessageList(new ArrayList<>(messageList), chatAdapter);
 
                             // Check current scroll position after update
                             LinearLayoutManager layoutManager = (LinearLayoutManager) binding.messageRecView.getLayoutManager();
@@ -3239,7 +3240,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 
         } else {
 
-            chatAdapter.searchFilteredData(filteredList);
+            otherFunctions.searchFilteredData(filteredList, chatAdapter);
 
         }
     }
@@ -5316,7 +5317,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
             // Add message to UI immediately for preview
             messageList.add(model);
             runOnUiThread(() -> {
-                chatAdapter.updateMessageList(new ArrayList<>(messageList));
+                otherFunctions.updateMessageList(new ArrayList<>(messageList), chatAdapter);
                 chatAdapter.setLastItemVisible(true); // Show progress for pending message
                 binding.messageRecView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
 
@@ -10582,7 +10583,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
                 }
                 if (chatAdapter != null) {
                     Log.d("ScrollText", "initializeChatData: Updating adapter with " + messageList.size() + " messages");
-                    chatAdapter.updateMessageList(new ArrayList<>(messageList));
+                    otherFunctions.updateMessageList(new ArrayList<>(messageList), chatAdapter);
                     
                     // Check scroll position before scrolling
                     LinearLayoutManager layoutManager = (LinearLayoutManager) binding.messageRecView.getLayoutManager();
@@ -10732,7 +10733,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
                         }
 
                         Log.d("PendingMessages", "Updating UI with pending messages");
-                        chatAdapter.updateMessageList(new ArrayList<>(messageList));
+                        otherFunctions.updateMessageList(new ArrayList<>(messageList), chatAdapter);
                         chatAdapter.setLastItemVisible(true); // Show progress for last message
                         // Removed scrollToBottomSafely from loadPendingMessages
                         // if (shouldScrollToLast && binding.messageRecView != null && messageList.size() > 0) {
@@ -11196,7 +11197,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
                     messageList.addAll(updatedMessageList);
 
                     // Update the adapter with the new list using DiffUtil
-                    chatAdapter.updateMessageList(updatedMessageList);
+                    otherFunctions.updateMessageList(updatedMessageList, chatAdapter);
 
                     // Check if the new message is from receiver (not current user)
                     String currentUid = Constant.getSF.getString(Constant.UID_KEY, "");
@@ -11683,7 +11684,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
                     );
 
                     // ✅ Update adapter
-                    chatAdapter.updateMessageList(combinedList);
+                    otherFunctions.updateMessageList(combinedList, chatAdapter);
 
                     // ✅ Keep scroll position after prepending
                     layoutManager.scrollToPositionWithOffset(fetchedNewMessages.size(), 0);
@@ -11821,7 +11822,7 @@ public class chattingScreen extends AppCompatActivity implements ConnectivityRec
 
                     // Update the adapter with the new combined list
                     // This will trigger DiffUtil to calculate changes and update the RecyclerView
-                    chatAdapter.updateMessageList(combinedList);
+                    otherFunctions.updateMessageList(combinedList, chatAdapter);
 
                     // IMPORTANT: Update your Activity/Fragment's 'messageList' reference
                     // to point to this new combined list. This is crucial for consistency

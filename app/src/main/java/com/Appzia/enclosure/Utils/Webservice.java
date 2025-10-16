@@ -41,6 +41,7 @@ import com.Appzia.enclosure.Adapter.chatAdapter;
 import com.Appzia.enclosure.Adapter.childCallingLogAdapter;
 import com.Appzia.enclosure.Utils.SwipeNavigationHelper;
 import com.Appzia.enclosure.Adapter.childCallingLogAdapterVoice;
+import com.Appzia.enclosure.Utils.ChatadapterFiles.otherFunctions;
 import com.Appzia.enclosure.Adapter.emojiAdapterChatAdapter;
 import com.Appzia.enclosure.Adapter.emoji_adapter_addbtn;
 import com.Appzia.enclosure.Adapter.get_user_active_chat_list_adapter;
@@ -7457,7 +7458,7 @@ public class Webservice {
                                         Log.d("caption$0", caption);
                                         Constant.get_user_active_contact_forward_list.add(new get_user_active_contact_list_Model(photo, full_name, mobile_no, caption, uid, sent_time, dataType, messages, f_token, 0, msg_limit, device_type, room, original_name, block, iamblocked));
                                     }
-                                    chatadapters.setAdapter(Constant.get_user_active_contact_forward_list);
+                                    otherFunctions.setAdapter(Constant.get_user_active_contact_forward_list, chatadapters);
 
 
                                 }
@@ -7551,7 +7552,7 @@ public class Webservice {
                                         Constant.get_user_active_contact_forward_list.add(new get_user_active_contact_list_Model(photo, full_name, mobile_no, caption, uid, sent_time, dataType, messages, f_token, 0, msg_limit, device_type, room, original_name, block, iamblocked));
 
                                     }
-                                    chatadapters.setAdapter(Constant.get_user_active_contact_forward_list);
+                                    otherFunctions.setAdapter(Constant.get_user_active_contact_forward_list, chatadapters);
 
 
                                 }

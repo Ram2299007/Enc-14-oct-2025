@@ -36,6 +36,7 @@ import com.Appzia.enclosure.Model.emojiModel;
 import com.Appzia.enclosure.Model.messageModel;
 import com.Appzia.enclosure.Model.messagemodel2;
 import com.Appzia.enclosure.R;
+import com.Appzia.enclosure.Utils.ChatadapterFiles.otherFunctions;
 import com.Appzia.enclosure.Utils.BroadcastReiciver.UploadChatHelper;
 import com.Appzia.enclosure.Utils.Constant;
 import com.bumptech.glide.Glide;
@@ -1016,7 +1017,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
             // Update UI
             ((Activity) context).runOnUiThread(() -> {
-                chatAdapter.updateMessageList(new ArrayList<>(messageList));
+                otherFunctions.updateMessageList(new ArrayList<>(messageList), chatAdapter);
                 chatAdapter.setLastItemVisible(true); // Always show progress for pending messages
                 messageRecView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
             });
@@ -1235,7 +1236,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
             // Update UI
             ((Activity) context).runOnUiThread(() -> {
-                chatAdapter.updateMessageList(new ArrayList<>(messageList));
+                otherFunctions.updateMessageList(new ArrayList<>(messageList), chatAdapter);
                 chatAdapter.setLastItemVisible(true); // Always show progress for pending messages
                 messageRecView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
             });
@@ -1854,7 +1855,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
 
                                     ((Activity) context).runOnUiThread(() -> {
-                                        chatAdapter.updateMessageList(new ArrayList<>(messageList));
+                                        otherFunctions.updateMessageList(new ArrayList<>(messageList), chatAdapter);
                                         chatAdapter.setLastItemVisible(true); // Show progress for pending message
                                         // Removed redundant notifyItemInserted since updateMessageList handles it
                                         messageRecView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
