@@ -105,6 +105,8 @@ import com.Appzia.enclosure.Model.get_user_active_contact_list_Model;
 import com.Appzia.enclosure.Model.linkPreviewModel;
 import com.Appzia.enclosure.Model.messageModel;
 import com.Appzia.enclosure.Model.messagemodel2;
+import com.Appzia.enclosure.Utils.ChatadapterFiles.receiverViewHolder;
+import com.Appzia.enclosure.Utils.ChatadapterFiles.senderViewHolder;
 import com.Appzia.enclosure.Model.selectionBunchModel;
 import com.Appzia.enclosure.R;
 import com.Appzia.enclosure.Screens.MainActivityOld;
@@ -243,11 +245,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     LinearLayout messageboxContainer, blockContainer;
 
 
-
-
-
-
-
     public chatAdapter(Context mContext, RecyclerView messageRecView, ArrayList<messageModel> messageList, chattingScreen chattingScreens, Activity mActivity, EditText phone2Contact, Handler handler, CardView valuable, String receiverUid, String userFTokenKey, String name, String captionKey, TextView originalName, TextView TextViewname, TextView blockUser, LinearLayout blockContainer, LinearLayout messageboxContainer) {
         this.mContext = mContext;
         this.messageRecView = messageRecView;
@@ -271,17 +268,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     }
 
     // Multi-selection methods
-
-
-
-
-
-
-
-
-
-
-
 
 
     @Override
@@ -356,16 +342,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
             return RECEIVER_VIEW_TYPE;
         }
     }
-
-
-
-
-
-
-
-
-
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
@@ -22005,36 +21981,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     }
 
 
-    /**
-     * Helper to download file from network
-     */
-
-
-
-
-    /**
-     * Set scroll state (for external control)
-     */
-
-
-
-
-
-
-    /**
-     * Adapter-safe Toast (works without runOnUiThread)
-     */
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public int getItemCount() {
         return messageList.size();
@@ -22055,436 +22001,14 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
     }
 
 
-
-
-    public static class receiverViewHolder extends RecyclerView.ViewHolder {
-        public TextView downloadPercentageImage;
-        TextView recMessage, recTime, docName, extension, cName, cPhone, firstText, grpMsgName, readMore;
-        AppCompatImageView recImg;
-        BlurView blurView;
-        LinearLayout docLyt, contactContainer, viewContact, recLinear;
-        ConstraintLayout menu2;
-        RelativeLayout receivervideoLyt;
-        ImageView selectionCheckbox;
-
-        LinearLayout miceContainer, replydatalyt, llnew, cnamenamelyt, progresslyt, delete;
-        ImageView miceUImage;
-        AppCompatImageButton micePlay;
-        LinearProgressIndicator miceProgressbar;
-        TextView miceTiming, repliedData, forwarded;
-        View replyDevider, viewbarlyt1;
-        LinearProgressIndicator viewnew;
-        ImageView recVideo, videoicon;
-
-        RelativeLayout receiverImgLyt;
-        public FloatingActionButton downlaod;
-        public ProgressBar progressBarImageview;
-        View blur;
-
-        public FloatingActionButton downlaodVideo;
-        public ProgressBar progressBarVideo;
-        public View blurVideo;
-        TextView captionText;
-        RelativeLayout richLinkViewLyt;
-
-
-        ImageView linkImg, linkImg2;
-        TextView linkTitle;
-        TextView linkDesc;
-        TextView link, linkActualUrl;
-        LinearLayout datelyt, MainReceiverBox;
-        TextView dateTxt;
-        TextView emojiText;
-        CardView emojiTextCard, cardview;
-        FrameLayout videoFrame;
-
-        TextView docSizeExtension;
-        TextView docSize, originalNumber, originalName;
-        ImageView pdfPreview;
-        LinearLayout docFileIcon;
-        CardView pdfcard;
-        LinearLayoutCompat originalDelete, originalAdd;
-        ImageView personaddTheme;
-        ImageButton pauseButtonImage;
-        public TextView downloadPercentageVideo;
-        public ImageButton pauseButtonVideo;
-        // Receiver doc download controls (left-side)
-        RelativeLayout docDownloadControlsReceiver;
-        public FloatingActionButton downlaodDocReceiver;
-        public ProgressBar progressBarDocReceiver;
-        public TextView downloadPercentageDocReceiver;
-        ImageButton pauseButtonDocReceiver;
-        // Receiver voice-audio download controls (left)
-        RelativeLayout audioDownloadControlsReceiver;
-        public FloatingActionButton downlaodAudioReceiver;
-        public ProgressBar progressBarAudioReceiver;
-        public TextView downloadPercentageAudioReceiver;
-        ImageButton pauseButtonAudioReceiver;
-
-
-        LinearLayout replylyoutGlobal;
-        LinearLayout pageLyt;
-        TextView msgreplyText;
-        TextView pageText;
-        LinearLayout contactContainerReply;
-        TextView replyYou;
-        TextView firstTextReply;
-        LinearLayout replyTheme;
-        CardView imgcardview;
-        CardView musicReply;
-        CardView miceReply;
-        ImageView imgreply;
-
-        RelativeLayout recImgBunchLyt;
-        public ShapeableImageView img1;
-        public ShapeableImageView img3;
-        public ShapeableImageView img2;
-        public ShapeableImageView img4;
-        FrameLayout img4Lyt;
-        TextView overlayTextImg;
-        public FloatingActionButton downlaodImgBunch;
-        public TextView downloadPercentageImageSenderBunch;
-
-        public receiverViewHolder(@NonNull View itemView) {
-            super(itemView);
-            recMessage = itemView.findViewById(R.id.recMessage);
-            recTime = itemView.findViewById(R.id.recTime);
-            docName = itemView.findViewById(R.id.docName);
-            recImg = itemView.findViewById(R.id.recImg);
-            docLyt = itemView.findViewById(R.id.docLyt);
-            extension = itemView.findViewById(R.id.extension);
-            contactContainer = itemView.findViewById(R.id.contactContainer);
-            cName = itemView.findViewById(R.id.cName);
-            cPhone = itemView.findViewById(R.id.cPhone);
-            viewContact = itemView.findViewById(R.id.viewContact);
-            firstText = itemView.findViewById(R.id.firstText);
-            miceContainer = itemView.findViewById(R.id.miceContainer);
-            miceUImage = itemView.findViewById(R.id.miceUImage);
-            micePlay = itemView.findViewById(R.id.micePlay);
-            miceProgressbar = itemView.findViewById(R.id.miceProgressbar);
-            miceTiming = itemView.findViewById(R.id.miceTiming);
-            replyDevider = itemView.findViewById(R.id.replyDevider);
-            repliedData = itemView.findViewById(R.id.repliedData);
-            replydatalyt = itemView.findViewById(R.id.replydatalyt);
-            viewbarlyt1 = itemView.findViewById(R.id.viewbarlyt1);
-            llnew = itemView.findViewById(R.id.llnew);
-            viewnew = itemView.findViewById(R.id.viewnew);
-            cnamenamelyt = itemView.findViewById(R.id.cnamenamelyt);
-            progresslyt = itemView.findViewById(R.id.progresslyt);
-            menu2 = itemView.findViewById(R.id.menu2);
-            delete = itemView.findViewById(R.id.delete);
-            forwarded = itemView.findViewById(R.id.forwarded);
-            grpMsgName = itemView.findViewById(R.id.grpMsgName);
-            receivervideoLyt = itemView.findViewById(R.id.receivervideoLyt);
-            recVideo = itemView.findViewById(R.id.recVideo);
-            receiverImgLyt = itemView.findViewById(R.id.receiverImgLyt);
-            downlaod = itemView.findViewById(R.id.downlaod);
-            progressBarImageview = itemView.findViewById(R.id.progressBar);
-            blur = itemView.findViewById(R.id.blur);
-            downlaodVideo = itemView.findViewById(R.id.downlaodVideo);
-            progressBarVideo = itemView.findViewById(R.id.progressBarVideo);
-            blurVideo = itemView.findViewById(R.id.blurVideo);
-            captionText = itemView.findViewById(R.id.captionText);
-            readMore = itemView.findViewById(R.id.readMore);
-            richLinkViewLyt = itemView.findViewById(R.id.richLinkViewLyt);
-            linkImg = itemView.findViewById(R.id.linkImg);
-            linkImg2 = itemView.findViewById(R.id.linkImg2);
-            linkTitle = itemView.findViewById(R.id.linkTitle);
-            linkDesc = itemView.findViewById(R.id.linkDesc);
-            link = itemView.findViewById(R.id.link);
-            linkActualUrl = itemView.findViewById(R.id.linkActualUrl);
-            datelyt = itemView.findViewById(R.id.datelyt);
-            dateTxt = itemView.findViewById(R.id.dateTxt);
-            MainReceiverBox = itemView.findViewById(R.id.MainReceiverBox);
-            emojiText = itemView.findViewById(R.id.emojiText);
-            emojiTextCard = itemView.findViewById(R.id.emojiTextCard);
-            videoFrame = itemView.findViewById(R.id.videoFrame);
-            pdfPreview = itemView.findViewById(R.id.pdfPreview);
-            pdfcard = itemView.findViewById(R.id.pdfcard);
-            docFileIcon = itemView.findViewById(R.id.docFileIcon);
-            docSizeExtension = itemView.findViewById(R.id.docSizeExtension);
-            docSize = itemView.findViewById(R.id.docSize);
-            videoicon = itemView.findViewById(R.id.videoicon);
-            cardview = itemView.findViewById(R.id.cardview);
-            originalNumber = itemView.findViewById(R.id.originalNumber);
-            originalName = itemView.findViewById(R.id.originalName);
-            originalDelete = itemView.findViewById(R.id.originalDelete);
-            originalAdd = itemView.findViewById(R.id.originalAdd);
-            personaddTheme = itemView.findViewById(R.id.personaddTheme);
-            downloadPercentageImage = itemView.findViewById(R.id.downloadPercentageImage);
-            pauseButtonImage = itemView.findViewById(R.id.pauseButtonImage);
-            downloadPercentageVideo = itemView.findViewById(R.id.downloadPercentageVideo);
-            pauseButtonVideo = itemView.findViewById(R.id.pauseButtonVideo);
-            docDownloadControlsReceiver = itemView.findViewById(R.id.docDownloadControlsReceiver);
-            downlaodDocReceiver = itemView.findViewById(R.id.downlaodDocReceiver);
-            progressBarDocReceiver = itemView.findViewById(R.id.progressBarDocReceiver);
-            downloadPercentageDocReceiver = itemView.findViewById(R.id.downloadPercentageDocReceiver);
-            pauseButtonDocReceiver = itemView.findViewById(R.id.pauseButtonDocReceiver);
-
-            audioDownloadControlsReceiver = itemView.findViewById(R.id.audioDownloadControlsReceiver);
-            downlaodAudioReceiver = itemView.findViewById(R.id.downlaodAudioReceiver);
-            progressBarAudioReceiver = itemView.findViewById(R.id.progressBarAudioReceiver);
-            downloadPercentageAudioReceiver = itemView.findViewById(R.id.downloadPercentageAudioReceiver);
-            pauseButtonAudioReceiver = itemView.findViewById(R.id.pauseButtonAudioReceiver);
-
-
-            // New reply design
-            replylyoutGlobal = itemView.findViewById(R.id.replylyoutGlobal);
-            replyYou = itemView.findViewById(R.id.replyYou);
-            msgreplyText = itemView.findViewById(R.id.msgreplyText);
-            replyTheme = itemView.findViewById(R.id.replyTheme);
-            imgcardview = itemView.findViewById(R.id.imgcardview);
-            imgreply = itemView.findViewById(R.id.imgreply);
-            contactContainerReply = itemView.findViewById(R.id.contactContainerReply);
-            firstTextReply = itemView.findViewById(R.id.firstTextReply);
-            pageLyt = itemView.findViewById(R.id.pageLyt);
-            pageText = itemView.findViewById(R.id.pageText);
-            musicReply = itemView.findViewById(R.id.muciReply);
-            miceReply = itemView.findViewById(R.id.miceReply);
-
-            // Initialize recLinear for multi-selection
-            recLinear = itemView.findViewById(R.id.recLinear);
-
-            // Initialize selectionCheckbox for multi-selection
-            selectionCheckbox = itemView.findViewById(R.id.selectionCheckbox);
-
-
-            recImgBunchLyt = itemView.findViewById(R.id.recImgBunchLyt);
-            img1 = itemView.findViewById(R.id.img1);
-            img2 = itemView.findViewById(R.id.img2);
-            img3 = itemView.findViewById(R.id.img3);
-            img4 = itemView.findViewById(R.id.img4);
-            img4Lyt = itemView.findViewById(R.id.img4Lyt);
-            overlayTextImg = itemView.findViewById(R.id.overlayTextImg);
-            downlaodImgBunch = itemView.findViewById(R.id.downlaodImgBunch);
-            downloadPercentageImageSenderBunch = itemView.findViewById(R.id.downloadPercentageImageSenderBunch);
-
-        }
-    }
-
-    public static class senderViewHolder extends RecyclerView.ViewHolder {
-        public FloatingActionButton downlaodDoc;
-        public ProgressBar progressBarDoc;
-        public TextView downloadPercentageDocSender;
-        ImageButton pauseButtonDocSender;
-        RelativeLayout docDownloadControls;
-        TextView sendMessage, sendTime, docName, extension, cName, cPhone, firstText, forwarded, grpMsgName, readMore;
-        AppCompatImageView senderImg;
-
-        LinearLayout MainSenderBox, richBox, sendLinear;
-        LinearLayout docLyt, contactContainer, viewContact, llnew;
-
-
-        LinearLayout miceContainer, replydatalyt, cnamenamelyt, progresslyt, delete;
-        ImageView miceUImage;
-        AppCompatImageButton micePlay;
-        LinearProgressIndicator miceProgressbar;
-        TextView miceTiming, repliedData;
-        View replyDevider, viewbarlyt1;
-        LinearProgressIndicator viewnew;
-        ConstraintLayout menu2;
-        ImageView senderVideo;
-        RelativeLayout senderImgLyt;
-        public FloatingActionButton downlaod;
-        ProgressBar progressBarImageview;
-        View blur;
-        RelativeLayout sendervideoLyt;
-        public FloatingActionButton downlaodVideo;
-        public ProgressBar progressBarVideo;
-        public View blurVideo;
-        TextView captionText;
-        RelativeLayout richLinkViewLyt;
-        ImageView linkImg, linkImg2, videoicon;
-        TextView linkTitle;
-        TextView linkDesc;
-        TextView link, linkActualUrl;
-        LinearLayout datelyt;
-        TextView dateTxt;
-        TextView emojiText;
-        TextView docSizeExtension;
-        TextView docSize;
-        CardView emojiTextCard;
-        WaveformView waveformView;
-        public ProgressBar progressBar;
-
-        public FrameLayout frame;
-        public CircularProgressIndicator circularProgressBar;
-        public ImageView imageInsideProgressBar;
-        ImageView pdfPreview;
-        LinearLayout docFileIcon;
-        CardView pdfcard;
-
-        FrameLayout videoFrame;
-        public TextView downloadPercentageImageSender;
-        public ImageButton pauseButtonImageSender;
-        public TextView downloadPercentageVideoSender;
-        public ImageButton pauseButtonVideoSender;
-
-        RelativeLayout audioDownloadControls;
-        public FloatingActionButton downlaodAudio;
-        public ProgressBar progressBarAudio;
-        public TextView downloadPercentageAudioSender;
-        ImageButton pauseButtonAudioSender;
-        LinearLayout replylyoutGlobal;
-        LinearLayout pageLyt;
-        TextView msgreplyText;
-        TextView pageText;
-        LinearLayout contactContainerReply;
-        TextView replyYou;
-        TextView firstTextReply;
-        LinearLayout replyTheme;
-        CardView imgcardview;
-        CardView musicReply;
-        CardView miceReply;
-        ImageView imgreply;
-        // Multi-selection checkbox
-        ImageView selectionCheckbox;
-        RelativeLayout senderImgBunchLyt;
-        public ShapeableImageView img1;
-        public ShapeableImageView img3;
-        public ShapeableImageView img2;
-        public ShapeableImageView img4;
-        FrameLayout img4Lyt;
-        TextView overlayTextImg;
-        public FloatingActionButton downlaodImgBunch;
-        public TextView downloadPercentageImageSenderBunch;
-
-
-
-        public senderViewHolder(@NonNull View itemView) {
-            super(itemView);
-            sendMessage = itemView.findViewById(R.id.sendMessage);
-            sendTime = itemView.findViewById(R.id.sendTime);
-            docName = itemView.findViewById(R.id.docName);
-            senderImg = itemView.findViewById(R.id.senderImg);
-            docLyt = itemView.findViewById(R.id.docLyt);
-            extension = itemView.findViewById(R.id.extension);
-            contactContainer = itemView.findViewById(R.id.contactContainer);
-            cName = itemView.findViewById(R.id.cName);
-            cPhone = itemView.findViewById(R.id.cPhone);
-            viewContact = itemView.findViewById(R.id.viewContact);
-            firstText = itemView.findViewById(R.id.firstText);
-            miceContainer = itemView.findViewById(R.id.miceContainer);
-            miceUImage = itemView.findViewById(R.id.miceUImage);
-            micePlay = itemView.findViewById(R.id.micePlay);
-            miceProgressbar = itemView.findViewById(R.id.miceProgressbar);
-            miceTiming = itemView.findViewById(R.id.miceTiming);
-            replyDevider = itemView.findViewById(R.id.replyDevider);
-            repliedData = itemView.findViewById(R.id.repliedData);
-            replydatalyt = itemView.findViewById(R.id.replydatalyt);
-            viewbarlyt1 = itemView.findViewById(R.id.viewbarlyt1);
-            llnew = itemView.findViewById(R.id.llnew);
-            viewnew = itemView.findViewById(R.id.viewnew);
-            cnamenamelyt = itemView.findViewById(R.id.cnamenamelyt);
-            progresslyt = itemView.findViewById(R.id.progresslyt);
-            menu2 = itemView.findViewById(R.id.menu2);
-            delete = itemView.findViewById(R.id.delete);
-            forwarded = itemView.findViewById(R.id.forwarded);
-            grpMsgName = itemView.findViewById(R.id.grpMsgName);
-            senderVideo = itemView.findViewById(R.id.senderVideo);
-            sendervideoLyt = itemView.findViewById(R.id.sendervideoLyt);
-
-
-            senderImgLyt = itemView.findViewById(R.id.senderImgLyt);
-            downlaod = itemView.findViewById(R.id.downlaod);
-            progressBarImageview = itemView.findViewById(R.id.progressBar);
-            blur = itemView.findViewById(R.id.blur);
-
-
-            downlaodVideo = itemView.findViewById(R.id.downlaodVideo);
-            progressBarVideo = itemView.findViewById(R.id.progressBarVideo);
-            blurVideo = itemView.findViewById(R.id.blurVideo);
-            captionText = itemView.findViewById(R.id.captionText);
-
-
-            richLinkViewLyt = itemView.findViewById(R.id.richLinkViewLyt);
-            linkImg = itemView.findViewById(R.id.linkImg);
-            linkImg2 = itemView.findViewById(R.id.linkImg2);
-            linkTitle = itemView.findViewById(R.id.linkTitle);
-            linkDesc = itemView.findViewById(R.id.linkDesc);
-            link = itemView.findViewById(R.id.link);
-            linkActualUrl = itemView.findViewById(R.id.linkActualUrl);
-            readMore = itemView.findViewById(R.id.readMore);
-
-            datelyt = itemView.findViewById(R.id.datelyt);
-            dateTxt = itemView.findViewById(R.id.dateTxt);
-            MainSenderBox = itemView.findViewById(R.id.MainSenderBox);
-            richBox = itemView.findViewById(R.id.richBox);
-            emojiText = itemView.findViewById(R.id.emojiText);
-            emojiTextCard = itemView.findViewById(R.id.emojiTextCard);
-            videoFrame = itemView.findViewById(R.id.videoFrame);
-            pdfPreview = itemView.findViewById(R.id.pdfPreview);
-            pdfcard = itemView.findViewById(R.id.pdfcard);
-            docFileIcon = itemView.findViewById(R.id.docFileIcon);
-            docSizeExtension = itemView.findViewById(R.id.docSizeExtension);
-            docSize = itemView.findViewById(R.id.docSize);
-            videoicon = itemView.findViewById(R.id.videoicon);
-            progressBar = itemView.findViewById(R.id.progressBar);
-            downloadPercentageImageSender = itemView.findViewById(R.id.downloadPercentageImageSender);
-            pauseButtonImageSender = itemView.findViewById(R.id.pauseButtonImageSender);
-
-            downloadPercentageVideoSender = itemView.findViewById(R.id.downloadPercentageVideoSender);
-            pauseButtonVideoSender = itemView.findViewById(R.id.pauseButtonVideoSender);
-
-            downlaodDoc = itemView.findViewById(R.id.downlaodDoc);
-            progressBarDoc = itemView.findViewById(R.id.progressBarDoc);
-            downloadPercentageDocSender = itemView.findViewById(R.id.downloadPercentageDocSender);
-            pauseButtonDocSender = itemView.findViewById(R.id.pauseButtonDocSender);
-            docDownloadControls = itemView.findViewById(R.id.docDownloadControls);
-
-            audioDownloadControls = itemView.findViewById(R.id.audioDownloadControls);
-            downlaodAudio = itemView.findViewById(R.id.downlaodAudio);
-            progressBarAudio = itemView.findViewById(R.id.progressBarAudio);
-            downloadPercentageAudioSender = itemView.findViewById(R.id.downloadPercentageAudioSender);
-            pauseButtonAudioSender = itemView.findViewById(R.id.pauseButtonAudioSender);
-
-            // New reply design
-            replylyoutGlobal = itemView.findViewById(R.id.replylyoutGlobal);
-            replyYou = itemView.findViewById(R.id.replyYou);
-            msgreplyText = itemView.findViewById(R.id.msgreplyText);
-            replyTheme = itemView.findViewById(R.id.replyTheme);
-            imgcardview = itemView.findViewById(R.id.imgcardview);
-            imgreply = itemView.findViewById(R.id.imgreply);
-            contactContainerReply = itemView.findViewById(R.id.contactContainerReply);
-            firstTextReply = itemView.findViewById(R.id.firstTextReply);
-            pageLyt = itemView.findViewById(R.id.pageLyt);
-            pageText = itemView.findViewById(R.id.pageText);
-            musicReply = itemView.findViewById(R.id.muciReply);
-            miceReply = itemView.findViewById(R.id.miceReply);
-
-            // Initialize multi-selection checkbox
-            selectionCheckbox = itemView.findViewById(R.id.selectionCheckbox);
-            // Initialize sendLinear for multi-selection
-            sendLinear = itemView.findViewById(R.id.sendLinear);
-            senderImgBunchLyt = itemView.findViewById(R.id.senderImgBunchLyt);
-            img1 = itemView.findViewById(R.id.img1);
-            img2 = itemView.findViewById(R.id.img2);
-            img3 = itemView.findViewById(R.id.img3);
-            img4 = itemView.findViewById(R.id.img4);
-            img4Lyt = itemView.findViewById(R.id.img4Lyt);
-            overlayTextImg = itemView.findViewById(R.id.overlayTextImg);
-            downlaodImgBunch = itemView.findViewById(R.id.downlaodImgBunch);
-            downloadPercentageImageSenderBunch = itemView.findViewById(R.id.downloadPercentageImageSenderBunch);
-        }
-    }
-
-
-
-
-
     public interface MediaPlayerCallback {
         void onStopMediaPlayer();
     }
-
-
-
 
     /**
      * Custom image loading method for selectionBunch that respects our custom dimensions
      * This bypasses both BlurImageOptimizer and Constant.loadImageIntoView() which override dimensions
      */
-
-
 
 
 
@@ -22529,16 +22053,9 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
 
 
 
-
-
     /**
      * Shows custom toast message
      */
-
-
-
-
-
 
 
     public static class DownloadAndGeneratePdfPreviewTask extends AsyncTask<String, Void, Bitmap> {
@@ -22695,29 +22212,6 @@ public class chatAdapter extends RecyclerView.Adapter implements ItemTouchHelper
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

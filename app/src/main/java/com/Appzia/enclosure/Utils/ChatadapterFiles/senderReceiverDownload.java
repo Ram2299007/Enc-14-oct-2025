@@ -1,5 +1,8 @@
 package com.Appzia.enclosure.Utils.ChatadapterFiles;
 
+import com.Appzia.enclosure.Utils.ChatadapterFiles.receiverViewHolder;
+import com.Appzia.enclosure.Utils.ChatadapterFiles.senderViewHolder;
+
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -62,10 +65,10 @@ public class senderReceiverDownload {
             Log.d("DOWNLOAD_DEBUG", "File already exists privately");
             showToastSafe(context, "Image already downloaded");
 
-            ((chatAdapter.senderViewHolder) holder).downlaod.setVisibility(View.GONE);
-            ((chatAdapter.senderViewHolder) holder).progressBar.setVisibility(View.GONE);
-            ((chatAdapter.senderViewHolder) holder).downloadPercentageImageSender.setText("");
-            ((chatAdapter.senderViewHolder) holder).downloadPercentageImageSender.setVisibility(View.GONE);
+            ((senderViewHolder) holder).downlaod.setVisibility(View.GONE);
+            ((senderViewHolder) holder).progressBar.setVisibility(View.GONE);
+            ((senderViewHolder) holder).downloadPercentageImageSender.setText("");
+            ((senderViewHolder) holder).downloadPercentageImageSender.setVisibility(View.GONE);
 
             // 🔁 Copy existing private file to public folder (if not already there)
             copyPrivateImageToPublic(destinationFile, model.getFileName(), context);
@@ -73,9 +76,9 @@ public class senderReceiverDownload {
         }
 
         // Update UI before download
-        ((chatAdapter.senderViewHolder) holder).progressBar.setVisibility(View.GONE);
-        ((chatAdapter.senderViewHolder) holder).downlaod.setVisibility(View.GONE);
-        ((chatAdapter.senderViewHolder) holder).downloadPercentageImageSender.setVisibility(View.VISIBLE);
+        ((senderViewHolder) holder).progressBar.setVisibility(View.GONE);
+        ((senderViewHolder) holder).downlaod.setVisibility(View.GONE);
+        ((senderViewHolder) holder).downloadPercentageImageSender.setVisibility(View.VISIBLE);
 
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         DownloadManager.Request request;
@@ -102,9 +105,9 @@ public class senderReceiverDownload {
             public void onReceive(Context context, Intent intent) {
                 long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (id == downloadId) {
-                    ((chatAdapter.senderViewHolder) holder).progressBar.setVisibility(View.GONE);
-                    ((chatAdapter.senderViewHolder) holder).downloadPercentageImageSender.setVisibility(View.GONE);
-                    ((chatAdapter.senderViewHolder) holder).downloadPercentageImageSender.setText("");
+                    ((senderViewHolder) holder).progressBar.setVisibility(View.GONE);
+                    ((senderViewHolder) holder).downloadPercentageImageSender.setVisibility(View.GONE);
+                    ((senderViewHolder) holder).downloadPercentageImageSender.setText("");
 
                     if (destinationFile.exists()) {
                         showToastSafe(context, "Image downloaded");
@@ -127,10 +130,10 @@ public class senderReceiverDownload {
         Log.d("DOWNLOAD_DEBUG", "File Name: " + model.getFileName());
 
         // Prepare UI
-        ((chatAdapter.senderViewHolder) holder).downlaodDoc.setVisibility(View.GONE);
-        ((chatAdapter.senderViewHolder) holder).progressBarDoc.setVisibility(View.GONE);
-        ((chatAdapter.senderViewHolder) holder).downloadPercentageDocSender.setVisibility(View.VISIBLE);
-        ((chatAdapter.senderViewHolder) holder).downloadPercentageDocSender.setText("0%");
+        ((senderViewHolder) holder).downlaodDoc.setVisibility(View.GONE);
+        ((senderViewHolder) holder).progressBarDoc.setVisibility(View.GONE);
+        ((senderViewHolder) holder).downloadPercentageDocSender.setVisibility(View.VISIBLE);
+        ((senderViewHolder) holder).downloadPercentageDocSender.setText("0%");
 
         // --- PRIVATE DOCUMENT DIRECTORY ---
         File privateDocsDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Documents");
@@ -140,9 +143,9 @@ public class senderReceiverDownload {
         // --- If already exists ---
         if (privateDocFile.exists()) {
             Log.d("DOWNLOAD_DEBUG", "Document already exists, skipping download");
-            ((chatAdapter.senderViewHolder) holder).progressBarDoc.setVisibility(View.GONE);
-            ((chatAdapter.senderViewHolder) holder).downloadPercentageDocSender.setVisibility(View.GONE);
-            ((chatAdapter.senderViewHolder) holder).downloadPercentageDocSender.setText("");
+            ((senderViewHolder) holder).progressBarDoc.setVisibility(View.GONE);
+            ((senderViewHolder) holder).downloadPercentageDocSender.setVisibility(View.GONE);
+            ((senderViewHolder) holder).downloadPercentageDocSender.setText("");
 
             copyDocToPublicDoc(privateDocFile, model.getFileName(), context); // Copy to public if missing
             return;
@@ -164,9 +167,9 @@ public class senderReceiverDownload {
         // --- Track progress ---
         otherFunctions.trackDocDownloadProgress(
                 docDownloadId,
-                ((chatAdapter.senderViewHolder) holder).progressBarDoc,
-                ((chatAdapter.senderViewHolder) holder).downloadPercentageDocSender,
-                ((chatAdapter.senderViewHolder) holder).downlaodDoc,
+                ((senderViewHolder) holder).progressBarDoc,
+                ((senderViewHolder) holder).downloadPercentageDocSender,
+                ((senderViewHolder) holder).downlaodDoc,
                 context
         );
 
@@ -177,8 +180,8 @@ public class senderReceiverDownload {
                 long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (id != docDownloadId) return;
 
-                ((chatAdapter.senderViewHolder) holder).progressBarDoc.setVisibility(View.GONE);
-                ((chatAdapter.senderViewHolder) holder).downloadPercentageDocSender.setText("");
+                ((senderViewHolder) holder).progressBarDoc.setVisibility(View.GONE);
+                ((senderViewHolder) holder).downloadPercentageDocSender.setText("");
 
                 // Copy document to public folder
                 copyDocToPublicDoc(privateDocFile, model.getFileName(), context);
@@ -256,18 +259,18 @@ public class senderReceiverDownload {
         // --- Skip if already downloaded privately ---
         if (privateVideoFile.exists()) {
             Log.d("DOWNLOAD_DEBUG", "Video file already exists privately: " + privateVideoFile.getAbsolutePath());
-            ((chatAdapter.senderViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
-            ((chatAdapter.senderViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-            ((chatAdapter.senderViewHolder) holder).downloadPercentageVideoSender.setText("");
-            ((chatAdapter.senderViewHolder) holder).downloadPercentageVideoSender.setVisibility(View.VISIBLE);
+            ((senderViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
+            ((senderViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
+            ((senderViewHolder) holder).downloadPercentageVideoSender.setText("");
+            ((senderViewHolder) holder).downloadPercentageVideoSender.setVisibility(View.VISIBLE);
             copyVideoToPublic(privateVideoFile, model.getFileName(), context); // try public copy if missing
             return;
         }
 
         // --- Show progress UI ---
-        ((chatAdapter.senderViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-        ((chatAdapter.senderViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
-        ((chatAdapter.senderViewHolder) holder).downloadPercentageVideoSender.setVisibility(View.VISIBLE);
+        ((senderViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
+        ((senderViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
+        ((senderViewHolder) holder).downloadPercentageVideoSender.setVisibility(View.VISIBLE);
 
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(model.getDocument()));
@@ -281,7 +284,7 @@ public class senderReceiverDownload {
         long downloadId = downloadManager.enqueue(request);
         Log.d("DOWNLOAD_DEBUG", "Sender Video Download ID: " + downloadId);
 
-        trackSenderVideoDownloadProgress(downloadId, ((chatAdapter.senderViewHolder) holder).downloadPercentageVideoSender, holder, context);
+        trackSenderVideoDownloadProgress(downloadId, ((senderViewHolder) holder).downloadPercentageVideoSender, holder, context);
 
         // --- Use BroadcastReceiver to copy after DownloadManager completes ---
         context.registerReceiver(new BroadcastReceiver() {
@@ -291,8 +294,8 @@ public class senderReceiverDownload {
                 if (id != downloadId) return;
 
                 // Hide progress UI
-                ((chatAdapter.senderViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-                ((chatAdapter.senderViewHolder) holder).downloadPercentageVideoSender.setText("");
+                ((senderViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
+                ((senderViewHolder) holder).downloadPercentageVideoSender.setText("");
 
                 // --- Copy video to public folder ---
                 copyVideoToPublic(privateVideoFile, model.getFileName(), context);
@@ -397,8 +400,8 @@ public class senderReceiverDownload {
                         int status = cursor.getInt(statusIndex);
                         if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
                             percentageView.setVisibility(View.GONE);
-                            ((chatAdapter.senderViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-                            ((chatAdapter.senderViewHolder) holder).blurVideo.setVisibility(View.GONE);
+                            ((senderViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
+                            ((senderViewHolder) holder).blurVideo.setVisibility(View.GONE);
                             cursor.close();
                             return;
                         }
@@ -485,11 +488,11 @@ public class senderReceiverDownload {
         Log.d("DOWNLOAD_DEBUG", "File Name: " + model.getFileName());
 
         // Prepare UI
-        ((chatAdapter.senderViewHolder) holder).downlaodAudio.setVisibility(View.GONE);
-        ((chatAdapter.senderViewHolder) holder).progressBarAudio.setIndeterminate(true);
-        ((chatAdapter.senderViewHolder) holder).progressBarAudio.setVisibility(View.GONE);
-        ((chatAdapter.senderViewHolder) holder).downloadPercentageAudioSender.setText("0%");
-        ((chatAdapter.senderViewHolder) holder).downloadPercentageAudioSender.setVisibility(View.VISIBLE);
+        ((senderViewHolder) holder).downlaodAudio.setVisibility(View.GONE);
+        ((senderViewHolder) holder).progressBarAudio.setIndeterminate(true);
+        ((senderViewHolder) holder).progressBarAudio.setVisibility(View.GONE);
+        ((senderViewHolder) holder).downloadPercentageAudioSender.setText("0%");
+        ((senderViewHolder) holder).downloadPercentageAudioSender.setVisibility(View.VISIBLE);
 
         // --- PRIVATE AUDIO DIRECTORY ---
         File privateAudiosDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Audios");
@@ -499,9 +502,9 @@ public class senderReceiverDownload {
         // --- If already exists ---
         if (privateAudioFile.exists()) {
             Log.d("DOWNLOAD_DEBUG", "Audio already exists, skipping download");
-            ((chatAdapter.senderViewHolder) holder).progressBarAudio.setVisibility(View.GONE);
-            ((chatAdapter.senderViewHolder) holder).downloadPercentageAudioSender.setVisibility(View.GONE);
-            ((chatAdapter.senderViewHolder) holder).downloadPercentageAudioSender.setText("");
+            ((senderViewHolder) holder).progressBarAudio.setVisibility(View.GONE);
+            ((senderViewHolder) holder).downloadPercentageAudioSender.setVisibility(View.GONE);
+            ((senderViewHolder) holder).downloadPercentageAudioSender.setText("");
 
             copyDocToPublicDoc(privateAudioFile, model.getFileName(), context); // Copy to public if missing
             return;
@@ -523,9 +526,9 @@ public class senderReceiverDownload {
         // --- Track progress ---
         otherFunctions.trackSenderAudioDownloadProgress(
                 audioDownloadId,
-                ((chatAdapter.senderViewHolder) holder).progressBarAudio,
-                ((chatAdapter.senderViewHolder) holder).downloadPercentageAudioSender,
-                ((chatAdapter.senderViewHolder) holder).downlaodAudio,
+                ((senderViewHolder) holder).progressBarAudio,
+                ((senderViewHolder) holder).downloadPercentageAudioSender,
+                ((senderViewHolder) holder).downlaodAudio,
                 context
         );
 
@@ -536,8 +539,8 @@ public class senderReceiverDownload {
                 long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (id != audioDownloadId) return;
 
-                ((chatAdapter.senderViewHolder) holder).progressBarAudio.setVisibility(View.GONE);
-                ((chatAdapter.senderViewHolder) holder).downloadPercentageAudioSender.setText("");
+                ((senderViewHolder) holder).progressBarAudio.setVisibility(View.GONE);
+                ((senderViewHolder) holder).downloadPercentageAudioSender.setText("");
 
                 // Copy audio to public folder
                 copyDocToPublicDoc(privateAudioFile, model.getFileName(), context);
@@ -568,19 +571,19 @@ public class senderReceiverDownload {
         // --- Skip if already downloaded ---
         if (privateVideoFile.exists() && privateThumbnailFile.exists()) {
             Log.d("DOWNLOAD_DEBUG", "Video and thumbnail already exist, skipping download");
-            ((chatAdapter.receiverViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
-            ((chatAdapter.receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-            ((chatAdapter.receiverViewHolder) holder).downloadPercentageVideo.setText("Downloaded");
-            ((chatAdapter.receiverViewHolder) holder).downloadPercentageVideo.setVisibility(View.VISIBLE);
+            ((receiverViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
+            ((receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
+            ((receiverViewHolder) holder).downloadPercentageVideo.setText("Downloaded");
+            ((receiverViewHolder) holder).downloadPercentageVideo.setVisibility(View.VISIBLE);
             copyVideoToPublic2(privateVideoFile, model.getFileName(), context); // copy to public if missing
             return;
         }
 
         // --- UI setup ---
-        ((chatAdapter.receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-        ((chatAdapter.receiverViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
-        ((chatAdapter.receiverViewHolder) holder).downloadPercentageVideo.setVisibility(View.VISIBLE);
-        ((chatAdapter.receiverViewHolder) holder).blurVideo.setVisibility(View.GONE);
+        ((receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
+        ((receiverViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
+        ((receiverViewHolder) holder).downloadPercentageVideo.setVisibility(View.VISIBLE);
+        ((receiverViewHolder) holder).blurVideo.setVisibility(View.GONE);
 
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
 
@@ -620,7 +623,7 @@ public class senderReceiverDownload {
             long videoDownloadId = downloadManager.enqueue(videoRequest);
             Log.d("DOWNLOAD_DEBUG", "Video Download ID: " + videoDownloadId);
 
-            trackVideoDownloadProgress(videoDownloadId, ((chatAdapter.receiverViewHolder) holder).downloadPercentageVideo, holder, context);
+            trackVideoDownloadProgress(videoDownloadId, ((receiverViewHolder) holder).downloadPercentageVideo, holder, context);
 
             // --- Copy video to public folder after download completes ---
             context.registerReceiver(new BroadcastReceiver() {
@@ -630,8 +633,8 @@ public class senderReceiverDownload {
                     if (id != videoDownloadId) return;
 
                     // Hide progress UI
-                    ((chatAdapter.receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-                    ((chatAdapter.receiverViewHolder) holder).downloadPercentageVideo.setText("");
+                    ((receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
+                    ((receiverViewHolder) holder).downloadPercentageVideo.setText("");
 
                     // Copy to public folder
                     copyVideoToPublic2(privateVideoFile, model.getFileName(), context);
@@ -639,9 +642,9 @@ public class senderReceiverDownload {
             }, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), context.RECEIVER_EXPORTED);
         } else {
             Log.d("DOWNLOAD_DEBUG", "Video already exists: " + model.getFileName());
-            ((chatAdapter.receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
-            ((chatAdapter.receiverViewHolder) holder).downloadPercentageVideo.setVisibility(View.GONE);
-            ((chatAdapter.receiverViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
+            ((receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
+            ((receiverViewHolder) holder).downloadPercentageVideo.setVisibility(View.GONE);
+            ((receiverViewHolder) holder).downlaodVideo.setVisibility(View.GONE);
         }
     }
 
@@ -719,7 +722,7 @@ public class senderReceiverDownload {
 
                             if (progress >= 100) {
                                 percentageView.setVisibility(View.GONE);
-                                ((chatAdapter.receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
+                                ((receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
                                 cursor.close();
                                 percentageView.setText(0 + "%");
                                 return;
@@ -729,7 +732,7 @@ public class senderReceiverDownload {
                         int status = cursor.getInt(statusIndex);
                         if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
                             percentageView.setVisibility(View.GONE);
-                            ((chatAdapter.receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
+                            ((receiverViewHolder) holder).progressBarVideo.setVisibility(View.GONE);
                             cursor.close();
                             return;
                         }
@@ -746,7 +749,7 @@ public class senderReceiverDownload {
      * Starts receiver image download with progress tracking using Firebase Storage
      */
     public static void startReceiverImageDownloadWithProgressFirebase(RecyclerView.ViewHolder holder, messageModel model, Context context) {
-        chatAdapter.receiverViewHolder viewHolder = (chatAdapter.receiverViewHolder) holder;
+        receiverViewHolder viewHolder = (receiverViewHolder) holder;
 
         StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(model.getDocument());
         File downloadsDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Images");
@@ -795,10 +798,10 @@ public class senderReceiverDownload {
         Log.d("DOWNLOAD_DEBUG", "File Name: " + model.getFileName());
 
         // Prepare UI
-        ((chatAdapter.receiverViewHolder) holder).downlaodDocReceiver.setVisibility(View.GONE);
-        ((chatAdapter.receiverViewHolder) holder).progressBarDocReceiver.setVisibility(View.GONE);
-        ((chatAdapter.receiverViewHolder) holder).downloadPercentageDocReceiver.setVisibility(View.VISIBLE);
-        ((chatAdapter.receiverViewHolder) holder).downloadPercentageDocReceiver.setText("0%");
+        ((receiverViewHolder) holder).downlaodDocReceiver.setVisibility(View.GONE);
+        ((receiverViewHolder) holder).progressBarDocReceiver.setVisibility(View.GONE);
+        ((receiverViewHolder) holder).downloadPercentageDocReceiver.setVisibility(View.VISIBLE);
+        ((receiverViewHolder) holder).downloadPercentageDocReceiver.setText("0%");
 
         // --- PRIVATE DOCUMENT DIRECTORY ---
         File privateDocsDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Documents");
@@ -808,9 +811,9 @@ public class senderReceiverDownload {
         // --- If already exists ---
         if (privateDocFile.exists()) {
             Log.d("DOWNLOAD_DEBUG", "Document already exists, skipping download");
-            ((chatAdapter.receiverViewHolder) holder).progressBarDocReceiver.setVisibility(View.GONE);
-            ((chatAdapter.receiverViewHolder) holder).downloadPercentageDocReceiver.setVisibility(View.GONE);
-            ((chatAdapter.receiverViewHolder) holder).downloadPercentageDocReceiver.setText("");
+            ((receiverViewHolder) holder).progressBarDocReceiver.setVisibility(View.GONE);
+            ((receiverViewHolder) holder).downloadPercentageDocReceiver.setVisibility(View.GONE);
+            ((receiverViewHolder) holder).downloadPercentageDocReceiver.setText("");
 
             copyDocToPublicDoc(privateDocFile, model.getFileName(), context); // Copy to public if missing
             return;
@@ -832,9 +835,9 @@ public class senderReceiverDownload {
         // --- Track progress ---
         otherFunctions.trackDocDownloadProgress(
                 docDownloadId,
-                ((chatAdapter.receiverViewHolder) holder).progressBarDocReceiver,
-                ((chatAdapter.receiverViewHolder) holder).downloadPercentageDocReceiver,
-                ((chatAdapter.receiverViewHolder) holder).downlaodDocReceiver,
+                ((receiverViewHolder) holder).progressBarDocReceiver,
+                ((receiverViewHolder) holder).downloadPercentageDocReceiver,
+                ((receiverViewHolder) holder).downlaodDocReceiver,
                 context
         );
 
@@ -845,8 +848,8 @@ public class senderReceiverDownload {
                 long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (id != docDownloadId) return;
 
-                ((chatAdapter.receiverViewHolder) holder).progressBarDocReceiver.setVisibility(View.GONE);
-                ((chatAdapter.receiverViewHolder) holder).downloadPercentageDocReceiver.setText("");
+                ((receiverViewHolder) holder).progressBarDocReceiver.setVisibility(View.GONE);
+                ((receiverViewHolder) holder).downloadPercentageDocReceiver.setText("");
 
                 // Copy document to public folder
                 copyDocToPublicDoc(privateDocFile, model.getFileName(), context);
@@ -863,11 +866,11 @@ public class senderReceiverDownload {
         Log.d("DOWNLOAD_DEBUG", "File Name: " + model.getFileName());
 
         // Prepare UI
-        ((chatAdapter.receiverViewHolder) holder).downlaodAudioReceiver.setVisibility(View.GONE);
-        ((chatAdapter.receiverViewHolder) holder).progressBarAudioReceiver.setIndeterminate(true);
-        ((chatAdapter.receiverViewHolder) holder).progressBarAudioReceiver.setVisibility(View.GONE);
-        ((chatAdapter.receiverViewHolder) holder).downloadPercentageAudioReceiver.setText("0%");
-        ((chatAdapter.receiverViewHolder) holder).downloadPercentageAudioReceiver.setVisibility(View.VISIBLE);
+        ((receiverViewHolder) holder).downlaodAudioReceiver.setVisibility(View.GONE);
+        ((receiverViewHolder) holder).progressBarAudioReceiver.setIndeterminate(true);
+        ((receiverViewHolder) holder).progressBarAudioReceiver.setVisibility(View.GONE);
+        ((receiverViewHolder) holder).downloadPercentageAudioReceiver.setText("0%");
+        ((receiverViewHolder) holder).downloadPercentageAudioReceiver.setVisibility(View.VISIBLE);
 
         // --- PRIVATE AUDIO DIRECTORY ---
         File privateAudiosDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Audios");
@@ -877,9 +880,9 @@ public class senderReceiverDownload {
         // --- If already exists ---
         if (privateAudioFile.exists()) {
             Log.d("DOWNLOAD_DEBUG", "Audio already exists, skipping download");
-            ((chatAdapter.receiverViewHolder) holder).progressBarAudioReceiver.setVisibility(View.GONE);
-            ((chatAdapter.receiverViewHolder) holder).downloadPercentageAudioReceiver.setVisibility(View.GONE);
-            ((chatAdapter.receiverViewHolder) holder).downloadPercentageAudioReceiver.setText("");
+            ((receiverViewHolder) holder).progressBarAudioReceiver.setVisibility(View.GONE);
+            ((receiverViewHolder) holder).downloadPercentageAudioReceiver.setVisibility(View.GONE);
+            ((receiverViewHolder) holder).downloadPercentageAudioReceiver.setText("");
 
             copyDocToPublicDoc(privateAudioFile, model.getFileName(), context); // Copy to public if missing
             return;
@@ -901,9 +904,9 @@ public class senderReceiverDownload {
         // --- Track progress ---
         otherFunctions.trackReceiverAudioDownloadProgress(
                 audioDownloadId,
-                ((chatAdapter.receiverViewHolder) holder).progressBarAudioReceiver,
-                ((chatAdapter.receiverViewHolder) holder).downloadPercentageAudioReceiver,
-                ((chatAdapter.receiverViewHolder) holder).downlaodAudioReceiver,
+                ((receiverViewHolder) holder).progressBarAudioReceiver,
+                ((receiverViewHolder) holder).downloadPercentageAudioReceiver,
+                ((receiverViewHolder) holder).downlaodAudioReceiver,
                 model,
                 context
         );
@@ -915,8 +918,8 @@ public class senderReceiverDownload {
                 long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (id != audioDownloadId) return;
 
-                ((chatAdapter.receiverViewHolder) holder).progressBarAudioReceiver.setVisibility(View.GONE);
-                ((chatAdapter.receiverViewHolder) holder).downloadPercentageAudioReceiver.setText("");
+                ((receiverViewHolder) holder).progressBarAudioReceiver.setVisibility(View.GONE);
+                ((receiverViewHolder) holder).downloadPercentageAudioReceiver.setText("");
 
                 // Copy audio to public folder
                 copyDocToPublicDoc(privateAudioFile, model.getFileName(), context);
@@ -938,11 +941,11 @@ public class senderReceiverDownload {
 
     public static void startSenderAudioDownloadWithProgressXDocument(RecyclerView.ViewHolder holder, messageModel model, Context context) {
         // Prepare UI
-        ((chatAdapter.senderViewHolder) holder).downlaodAudio.setVisibility(View.GONE);
-        ((chatAdapter.senderViewHolder) holder).progressBarAudio.setIndeterminate(true);
-        ((chatAdapter.senderViewHolder) holder).progressBarAudio.setVisibility(View.GONE);
-        ((chatAdapter.senderViewHolder) holder).downloadPercentageAudioSender.setText("0%");
-        ((chatAdapter.senderViewHolder) holder).downloadPercentageAudioSender.setVisibility(View.VISIBLE);
+        ((senderViewHolder) holder).downlaodAudio.setVisibility(View.GONE);
+        ((senderViewHolder) holder).progressBarAudio.setIndeterminate(true);
+        ((senderViewHolder) holder).progressBarAudio.setVisibility(View.GONE);
+        ((senderViewHolder) holder).downloadPercentageAudioSender.setText("0%");
+        ((senderViewHolder) holder).downloadPercentageAudioSender.setVisibility(View.VISIBLE);
 
         // Ensure destination dir exists
         File audiosDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Documents");
@@ -960,25 +963,25 @@ public class senderReceiverDownload {
 
             long audioDownloadId = dm.enqueue(req);
             otherFunctions.trackSenderAudioDownloadProgress(audioDownloadId, 
-                    ((chatAdapter.senderViewHolder) holder).progressBarAudio, 
-                    ((chatAdapter.senderViewHolder) holder).downloadPercentageAudioSender, 
-                    ((chatAdapter.senderViewHolder) holder).downlaodAudio, 
+                    ((senderViewHolder) holder).progressBarAudio, 
+                    ((senderViewHolder) holder).downloadPercentageAudioSender, 
+                    ((senderViewHolder) holder).downlaodAudio, 
                     context);
         } catch (Exception e) {
             // Reset UI on error
-            ((chatAdapter.senderViewHolder) holder).downloadPercentageAudioSender.setVisibility(View.GONE);
-            ((chatAdapter.senderViewHolder) holder).progressBarAudio.setVisibility(View.GONE);
-            ((chatAdapter.senderViewHolder) holder).downlaodAudio.setVisibility(View.VISIBLE);
+            ((senderViewHolder) holder).downloadPercentageAudioSender.setVisibility(View.GONE);
+            ((senderViewHolder) holder).progressBarAudio.setVisibility(View.GONE);
+            ((senderViewHolder) holder).downlaodAudio.setVisibility(View.VISIBLE);
         }
     }
 
     public static void startReceiverAudioDownloadWithProgressXDocuments(RecyclerView.ViewHolder holder, messageModel model, Context context) {
         // Prepare UI
-        ((chatAdapter.receiverViewHolder) holder).downlaodAudioReceiver.setVisibility(View.GONE);
-        ((chatAdapter.receiverViewHolder) holder).progressBarAudioReceiver.setIndeterminate(true);
-        ((chatAdapter.receiverViewHolder) holder).progressBarAudioReceiver.setVisibility(View.GONE);
-        ((chatAdapter.receiverViewHolder) holder).downloadPercentageAudioReceiver.setText("0%");
-        ((chatAdapter.receiverViewHolder) holder).downloadPercentageAudioReceiver.setVisibility(View.VISIBLE);
+        ((receiverViewHolder) holder).downlaodAudioReceiver.setVisibility(View.GONE);
+        ((receiverViewHolder) holder).progressBarAudioReceiver.setIndeterminate(true);
+        ((receiverViewHolder) holder).progressBarAudioReceiver.setVisibility(View.GONE);
+        ((receiverViewHolder) holder).downloadPercentageAudioReceiver.setText("0%");
+        ((receiverViewHolder) holder).downloadPercentageAudioReceiver.setVisibility(View.VISIBLE);
 
         // Ensure destination dir exists
         File audiosDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Enclosure/Media/Documents");
@@ -996,20 +999,20 @@ public class senderReceiverDownload {
 
             long audioDownloadId = dm.enqueue(req);
             otherFunctions.trackReceiverAudioDownloadProgress(audioDownloadId, 
-                    ((chatAdapter.receiverViewHolder) holder).progressBarAudioReceiver, 
-                    ((chatAdapter.receiverViewHolder) holder).downloadPercentageAudioReceiver, 
-                    ((chatAdapter.receiverViewHolder) holder).downlaodAudioReceiver, 
+                    ((receiverViewHolder) holder).progressBarAudioReceiver, 
+                    ((receiverViewHolder) holder).downloadPercentageAudioReceiver, 
+                    ((receiverViewHolder) holder).downlaodAudioReceiver, 
                     model, 
                     context);
         } catch (Exception e) {
             // Reset UI on error
-            ((chatAdapter.receiverViewHolder) holder).downloadPercentageAudioReceiver.setVisibility(View.GONE);
-            ((chatAdapter.receiverViewHolder) holder).progressBarAudioReceiver.setVisibility(View.GONE);
-            ((chatAdapter.receiverViewHolder) holder).downlaodAudioReceiver.setVisibility(View.VISIBLE);
+            ((receiverViewHolder) holder).downloadPercentageAudioReceiver.setVisibility(View.GONE);
+            ((receiverViewHolder) holder).progressBarAudioReceiver.setVisibility(View.GONE);
+            ((receiverViewHolder) holder).downlaodAudioReceiver.setVisibility(View.VISIBLE);
         }
     }
 
-    public static void downloadAllSelectionBunchImages(chatAdapter.senderViewHolder holder, messageModel model, int position, Context context) {
+    public static void downloadAllSelectionBunchImages(senderViewHolder holder, messageModel model, int position, Context context) {
         Log.d("SelectionBunch", "=== STARTING DOWNLOAD ALL SELECTION BUNCH IMAGES (SENDER) ===");
         Log.d("SelectionBunch", "MessageId: " + model.getModelId());
 
@@ -1101,7 +1104,7 @@ public class senderReceiverDownload {
         }
     }
 
-    public static void downloadAllSelectionBunchImagesReceiver(chatAdapter.receiverViewHolder holder, messageModel model, int position, Context context) {
+    public static void downloadAllSelectionBunchImagesReceiver(receiverViewHolder holder, messageModel model, int position, Context context) {
         Log.d("SelectionBunch", "=== STARTING DOWNLOAD ALL SELECTION BUNCH IMAGES (RECEIVER) ===");
         Log.d("SelectionBunch", "MessageId: " + model.getModelId());
         Log.d("SelectionBunch", "SelectionBunch size: " + (model.getSelectionBunch() != null ? model.getSelectionBunch().size() : 0));
@@ -1613,7 +1616,7 @@ public class senderReceiverDownload {
 
                             if (progress >= 100) {
                                 percentageView.setVisibility(View.GONE);
-                                ((chatAdapter.receiverViewHolder) holder).progressBarImageview.setVisibility(View.GONE);
+                                ((receiverViewHolder) holder).progressBarImageview.setVisibility(View.GONE);
                                 cursor.close();
                                 percentageView.setText(0 + "%");
                                 return;
@@ -1623,7 +1626,7 @@ public class senderReceiverDownload {
                         int status = cursor.getInt(statusIndex);
                         if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
                             percentageView.setVisibility(View.GONE);
-                            ((chatAdapter.receiverViewHolder) holder).progressBarImageview.setVisibility(View.GONE);
+                            ((receiverViewHolder) holder).progressBarImageview.setVisibility(View.GONE);
                             cursor.close();
                             return;
                         }
